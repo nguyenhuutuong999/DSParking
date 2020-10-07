@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import LayoutLogin from './layouts/Login/LayoutLogin'
-import DefaultLayout1 from './layouts/Layout1/LayoutDefault1'
+
+import DefaultLayout2 from './layouts/Layout2/LayoutDefault2'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <LayoutLogin /> */}
-    <DefaultLayout1/>
+    <DefaultLayout2/>
   </React.StrictMode>,
   document.getElementById('root')
 );

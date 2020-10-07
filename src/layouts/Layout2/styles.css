@@ -1,0 +1,187 @@
+.page{
+    width: 100%;
+    height: 100vh;
+    background-image: url("./../../img/background.png");
+    background-color: #cccccc;
+    background-size: cover;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    
+
+  }
+  .container{
+    
+    background: whitesmoke;
+    z-index: 1;
+    width: 80%;
+    height: 90vh;
+    opacity:0.9;
+    border-radius: 30px;
+    margin:0 auto;
+    box-shadow:
+  0 12.1px 2.6px rgba(0, 0, 0, 0.018),
+  0 24.9px 6.9px rgba(0, 0, 0, 0.026),
+  0 40.2px 13.8px rgba(0, 0, 0, 0.032),
+  0 61.7px 25.1px rgba(0, 0, 0, 0.039),
+  0 100.2px 44.6px rgba(0, 0, 0, 0.047),
+  0 249px 80px rgba(0, 0, 0, 0.06)
+;
+
+  }
+  
+  .row{
+    
+    width: 100%;
+  }
+  .box{
+    background: black;
+    width: 50px;
+    height: 50px;
+  }
+  .vl {
+    border-left: 2px solid rgb(247, 224, 224);
+    height: 90vh;  
+  }
+  .navbar{
+    position: fixed;
+    width: 250px;
+    height: 100vh;
+    padding: 20px;
+    transition: 200ms ease;
+  }
+  
+  .navbar-nav{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    height: 100%;
+  }
+  
+  .nav-item{
+    width: 100%;
+  }
+  
+  
+  .nav-link{
+    display: flex;
+    align-items: center;
+    height: 60px;
+    color:rgb(119, 119, 119);
+    text-decoration: none;
+  }
+  .nav-link:hover{
+    color:rgb(71, 71, 71);
+    text-decoration: none;
+  }
+  
+  .link-text{
+    display: inline;
+    margin-left: 10px;
+    font-size: larger;
+    color:rgb(131, 131, 131);
+    text-decoration: none;
+  }
+  .logo-wrapper{
+    margin: 0;
+    padding: 0;
+  }
+  .img-fluid{
+    
+    border-radius: 20% 0% 0% 10%;
+    width: 100%;
+  }
+  .col-xs-2, .col-xs-9{
+    margin: 0;
+    padding: 0;
+  }
+  .col-xs-9{
+    width: 81%;
+  }
+  .col-xs-2{
+    width: 18%;
+  }
+  
+  .col-xs-1{
+    padding: 0;
+    margin: 0;
+    width: 1%;
+  }
+  
+
+
+  
+  .status-line{
+    display: flex;
+    margin: 50px 20px;
+  }
+  .flex-box{
+    position: relative;
+    margin: 1%;
+    width: 20%;
+    height: 110px;
+    background-color: white;
+    border-radius: 5%;
+    padding: 10px;
+  }
+  .name-depart{
+    color: rgb(183, 183, 184);
+    margin:  0 auto;
+  }
+  .value{
+ 
+    font-size: 30px;
+    margin:  0 auto;
+    font-weight: bold;
+    letter-spacing: 3px;
+    padding: 15px;
+  }
+
+  .overview{
+    font-size: 70px;
+    color: #636262;
+  }
+  .greeting{
+    font-size: 16px;
+    color: #858585;
+    margin-left: 10px;
+    
+  }
+  .header-main{
+    position: relative;
+    margin-left: 30px;
+    line-height: 50px;
+    top: 40px;
+    display: flex;
+ 
+  }
+  .title-header{
+    position: relative;
+    display: inline;
+    width: 30%;
+  }
+
+  .header-list{
+    
+    position: relative;
+    width: 70%;
+  
+  }
+
+  .header-items{
+    display: flex;
+    color:#929699;
+    font-size: 25px;
+    padding-right: 15px;
+    float: right;
+  }
+
+  .image{
+    width: 10px;
+    height: 10px;
+  }
