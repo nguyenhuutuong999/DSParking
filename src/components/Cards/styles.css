@@ -13,8 +13,8 @@
 }
 .cards{
   display: flex;
-  width: 250px;
-  height: 90px;
+  width: 230px;
+  height: 80px;
 }
 
 .card-left{

@@ -12,9 +12,8 @@ function Notifications() {
       <Card />
       <div className="table-notification">
         <div className="notification-title">
-          <p><FaBell style={{marginRight:'10px', fontSize:'25px', fill:"wheat"}}/>Thông báo</p>
+          <p><FaBell style={{marginRight:'10px', fontSize:'20px', fill:"#626c75"}}/>Thông báo</p>
         </div>
-        <hr></hr>
         <table>
           <thead>
             <tr>
@@ -45,17 +44,17 @@ function Notifications() {
               <td><FaTrashAlt /> <FaThumbtack /></td>
             </tr>
             <tr>
-              <td>001</td>
-              <td><div className="level" style={{ backgroundColor: '#fa541c' }}></div></td>
-              <td>Số dư trong tài khoản của bạn chỉ còn dưới 5000</td>
+              <td>002</td>
+              <td><div className="level" style={{ backgroundColor: 'yellow' }}></div></td>
+              <td>Chúc mừng sinh nhật Nguyễn T Bích Ni</td>
               <td><Button type="primary">Chi tiết</Button></td>
               <td>05/10/2020</td>
               <td><FaTrashAlt /> <FaThumbtack /></td>
             </tr>
             <tr>
-              <td>001</td>
-              <td><div className="level" style={{ backgroundColor: '#fadb14' }}></div></td>
-              <td>Số dư trong tài khoản của bạn chỉ còn dưới 5000</td>
+              <td>002</td>
+              <td><div className="level" style={{ backgroundColor: 'orange' }}></div></td>
+              <td>Chúc mừng sinh nhật Nguyễn T Bích Ni</td>
               <td><Button type="primary">Chi tiết</Button></td>
               <td>05/10/2020</td>
               <td><FaTrashAlt /> <FaThumbtack /></td>

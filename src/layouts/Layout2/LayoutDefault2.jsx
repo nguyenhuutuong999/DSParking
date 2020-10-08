@@ -1,10 +1,14 @@
 import React from 'react';
 import './styles.css'
-import Avatar from '../../img/avatar.jpg';
-import Sidebar from "./../../components/Sidebar/Sidebar";
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import routes from './../../routes';
 import { FaBell, FaQrcode } from 'react-icons/fa';
+
+import Avatar from '../../img/avatar.jpg';
+
+import Sidebar from "./../../components/Sidebar/Sidebar";
+import Header from '../../components/Header/index'
+import routes from './../../routes';
 
 
 function DefaultLayout2() {
@@ -30,27 +34,13 @@ function DefaultLayout2() {
                 <img src="./../../icon.png" className="img-fluid" alt="logo" />
               </div>
               <Sidebar />
-
             </div>
             <div className="col-xs-1">
               <div className="vl"></div>
             </div>
 
             <div className="col-xs-9">
-              <div className="header-main">
-                <div className="title-header">
-                  <div className="overview">Overview</div>
-                  <div className="greeting">Hi Tuong, Welcome back !!!</div>
-                </div>
-
-                <ul className="header-list">
-
-                  <div className="header-items"><img style={{ width: '30px', height: '30px', borderRadius: '50%' }} src={Avatar} alt="Avatar"></img></div>
-                  <a className="header-items" href="#a"><FaBell /></a>
-                  <a className="header-items" href="#aFaQrcode /></a>
-
-                </ul>
-              </div>
+              <Header />
               <div className="main">
                 <Switch>
                   {showContentMenu(routes)}

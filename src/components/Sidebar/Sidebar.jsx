@@ -1,6 +1,8 @@
 import React, {Component} from "react";
+import './styles.css';
+
 import {Route, NavLink} from 'react-router-dom';
-import {FaUser, FaBell, FaChartArea, FaQuestionCircle, FaPenSquare, FaCog, FaSignOutAlt, FaHome } from 'react-icons/fa';
+import {FaUser, FaBell, FaChartArea, FaQuestionCircle, FaPenSquare, FaCog, FaSignOutAlt, FaHome, FaAddressCard } from 'react-icons/fa';
 
 const menus = [
   {
@@ -21,6 +23,12 @@ const menus = [
     to: "/notifications",
     exact: true,
     icon:  <FaBell className="icons" />
+  },
+  {
+    name: "Tài khoản DSParking",
+    to: "/account",
+    exact: true,
+    icon:  <FaAddressCard className="icons" />
   },
   {
     name: "Thống kê",
