@@ -8,6 +8,7 @@
     display: flex;
     align-items: center;
     
+    
 
   }
   .container{
@@ -16,8 +17,9 @@
     z-index: 1;
     width: 80%;
     height: 90vh;
-    opacity:0.9;
-    border-radius: 30px;
+    opacity: 0.9;
+    filter: blur(0px);
+    border-radius: 10px;
     margin:0 auto;
     box-shadow:
   0 12.1px 2.6px rgba(0, 0, 0, 0.018),
@@ -46,7 +48,7 @@
   .navbar{
     position: fixed;
     width: 250px;
-    height: 100vh;
+    height: 80%;
     padding: 20px;
     transition: 200ms ease;
   }

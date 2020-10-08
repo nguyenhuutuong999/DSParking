@@ -2,7 +2,7 @@ import React from 'react'
 import './styles.css';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import login from '../../img/login.svg'
-import {BrowserRouter} from "react-router-dom";
+
 function LayoutLogin() {
     return (
         

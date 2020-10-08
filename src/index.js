@@ -4,7 +4,6 @@ import './index.css';
 
 
 import LayoutDefault2 from './layouts/Layout2/LayoutDefault2';
-import Login from './layouts/Login/LayoutLogin';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
