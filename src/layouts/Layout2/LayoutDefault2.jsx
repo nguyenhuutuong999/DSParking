@@ -1,11 +1,28 @@
 import React from 'react';
 import './styles.css'
 import Avatar from '../../img/avatar.jpg';
-import VietNam from '../../img/vietnam.webp';
+import Sidebar from "./../../components/Sidebar/Sidebar";
+
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import routes from './../../routes';
 import { FaUser, FaBell, FaCaretDown, FaQrcode, FaChartArea, FaQuestionCircle, FaPenSquare, FaCog, FaSignOutAlt } from 'react-icons/fa';
+
+
 function DefaultLayout2() {
+  var showContentMenu = (routes) =>{
+    var result = null;
+    if(routes.length > 0){
+      result = routes.map((route, index) =>{
+        return (
+          <Route key = {index} path={route.path} exact = {route.exact} component={route.main} />
+        )
+      })
+    }
+    return result;
+  }
   return (
-    <div className="page">
+    <Router>
+          <div className="page">
       <div className="container">
 
         <div class="row">
@@ -13,7 +30,9 @@ function DefaultLayout2() {
             <div className="logo-wrapper">
               <img src="./../../icon.png" className="img-fluid" alt="Responsive image" />
             </div>
-            <div className="navbar">
+            <Sidebar/>
+           {/* 
+           <div className="navbar">
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <a href="#" className="nav-link">
@@ -22,7 +41,7 @@ function DefaultLayout2() {
                   </a>
                 </li>
 
-                <li className="nav-item">
+                 <li className="nav-item">
                   <a href="#" className="nav-link">
                     <FaBell className="icons" />
                     <div className="link-text">Thông báo</div>
@@ -39,14 +58,14 @@ function DefaultLayout2() {
 
                 <li className="nav-item">
                   <a href="#" className="nav-link">
-                    < FaQuestionCircle className="icons" />
+                    <FaQuestionCircle className="icons" />
                     <span className="link-text">Hỗ trợ</span>
                   </a>
                 </li>
 
                 <li className="nav-item">
                   <a href="#" className="nav-link">
-                    < FaPenSquare className="icons" />
+                    <FaPenSquare className="icons" />
                     <span className="link-text">Đánh giá</span>
                   </a>
                 </li>
@@ -63,15 +82,17 @@ function DefaultLayout2() {
                     <FaSignOutAlt className="icons" />
                     <span className="link-text">Đăng xuất</span>
                   </a>
-                </li>
+                </li> 
+              
               </ul>
             </div>
+            */}
           </div>
-          <div class="col-xs-1">
-            <div class="vl"></div>
+          <div className="col-xs-1">
+            <div className="vl"></div>
           </div>
 
-          <div class="col-xs-9">
+          <div className="col-xs-9">
             <div className="header-main">
               <div className="title-header">
                 <div className="overview">Overview</div>
@@ -86,33 +107,18 @@ function DefaultLayout2() {
 
               </ul>
             </div>
-            <div className="status-line">
-              <div className="flex-box">
-                <div className="name-depart" >Hoa Khanh</div>
-                <div className="value" style={{ color: "rgb(173, 87, 87)" }}>200.000 S</div>
+           
+            <Switch>
 
-              </div>
-              <div className="flex-box">
-                <div className="name-depart">Nguyen Van Linh</div>
-                <div className="value" style={{ color: "rgb(128, 209, 223)" }}>200.000 S</div>
-
-              </div>
-              <div className="flex-box">
-                <div className="name-depart">Quang Trung</div>
-                <div className="value" style={{ color: "rgb(173, 87, 87)" }}>200.000 S</div>
-
-              </div>
-              <div className="flex-box">
-                <div className="name-depart">Bach Dang</div>
-                <div className="value" style={{ color: "rgb(128, 209, 223)" }}> 200.000 S</div>
-
-              </div>
-            </div>
+            {showContentMenu(routes)}
+          </Switch>
           </div>
         </div>
 
       </div>
     </div>
+    </Router>
+
   );
 }
 
