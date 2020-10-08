@@ -5,6 +5,7 @@ import './index.css';
 
 import LayoutDefault2 from './layouts/Layout2/LayoutDefault2';
 import * as serviceWorker from './serviceWorker';
+import 'antd/dist/antd.css';
 
 ReactDOM.render(
   <React.StrictMode>
