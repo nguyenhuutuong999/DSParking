@@ -3,8 +3,8 @@ import './styles.css';
 
 function Support() {
   return (
-    <div className="div-header">
-      Support
+    <div className="support">
+      
     </div>
   );
 }

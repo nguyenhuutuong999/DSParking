@@ -1,3 +1,4 @@
+
 .navbar{
   position: fixed;
   width: 250px;
@@ -38,7 +39,7 @@
 .link-text{
   display: inline;
   margin-left: 10px;
-  font-size: larger;
+  font-size: 16px;
   color:rgb(131, 131, 131);
   text-decoration: none;
 }
