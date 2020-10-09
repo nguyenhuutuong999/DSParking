@@ -1,4 +1,40 @@
 .home{
+  margin: 0 20px;
   width: 100%;
   height: 100%;
+  display: flex;
+}
+.home-statistic{
+  display: flex;
+}
+.home-statistic-week{
+  width: 250px;
+  height: 200px;
+  background-color: aqua;
+  margin-right: 30px;
+}
+.home-statistic-month{
+  width: 250px;
+  height: 200px;
+  background-color: aqua;
+  margin-right: 30px;
+}
+.home-history{
+  width: 530px;
+  height: 290px;
+  margin-top: 30px;
+  background-color: blueviolet;
+}
+
+/*Right*/
+.home-user{
+  width: 360px;
+  height: 300px;
+  background-color: antiquewhite;
+}
+.home-qrcode{
+  width: 360px;
+  height: 190px;
+  margin-top: 30px;
+  background-color: aquamarine;
 }

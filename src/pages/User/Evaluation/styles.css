@@ -26,6 +26,13 @@
   border-bottom: 1px solid gray;
 }
 
+.evaluation-header p span{
+  font-size: 2rem;
+  color: #5c0011;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
 .evaluation-header p {
   display: flex;
   padding: 14px 20px;

@@ -7,6 +7,7 @@ import Profile from "./pages/User/Profile/index";
 import Setting from "./pages/User/Setting/index";
 import Statistic from "./pages/User/Statistic/index";
 import Support from "./pages/User/Support/index";
+import Login from "./pages/User/Login/index";
 const routes = [
     {
         path: "/",
@@ -48,7 +49,10 @@ const routes = [
         exact : false,
         main : () => <Support/>
     },
-    
-   
+    {
+        path: "/login",
+        exact : false,
+        main : () => <Login/>
+    },
 ]
 export default routes;

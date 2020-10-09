@@ -16,15 +16,9 @@ function Evaluation() {
 
     return (
         <div className="evaluation">
-            {/* <div className="radio-group">
-                <Radio.Group onChange={onChange} defaultValue="a">
-                    <Radio.Button value="a">Hệ thống</Radio.Button>
-                    <Radio.Button value="b">Nhân viên</Radio.Button>
-                </Radio.Group>
-            </div> */}
             <div className="evaluation-main">
                 <div className="evaluation-header">
-                    <p><FaPenSquare />ĐÁNH GIÁ</p>
+                    <p><FaPenSquare />ĐÁNH GIÁ HỆ THỐNG<span>DSParking</span></p>
                 </div>
                 <div className="evaluation-content">
                     <div className="evaluation-content-details">

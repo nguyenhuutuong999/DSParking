@@ -9,10 +9,10 @@ function Support() {
     console.log(`radio checked:${e.target.value}`);
   }
 
-  const [isShowManual, setIsShowManual] = useState(false);
-  const [isShowReport, setIsShowReport] = useState(false);
+  const [supportType, setSupportType] = useState('manual');
+  
   const renderSupport = () => {
-    if(isShowManual == true) {
+    if(supportType === 'manual') {
       return(
         <>
           <div className="support-manual">
@@ -25,7 +25,7 @@ function Support() {
         </>
       )
     }
-    else if (isShowReport == true) {
+    else {
       return(
         <>
         <div className="support-report">
@@ -54,8 +54,8 @@ function Support() {
     <div className="support">
       <div className="radio-group">
         <Radio.Group onChange={onChange} defaultValue="a">
-          <Radio.Button onClick= {() =>  setIsShowManual(true)} value="a">Hướng dẫn sử dụng</Radio.Button>
-          <Radio.Button onClick= {() =>  setIsShowReport(true)} value="b">Báo cáo sự cố</Radio.Button>
+          <Radio.Button onClick= {() =>  setSupportType('manual')} value="a">Hướng dẫn sử dụng</Radio.Button>
+          <Radio.Button onClick= {() =>  setSupportType('report')} value="b">Báo cáo sự cố</Radio.Button>
         </Radio.Group>
       </div>
       <div className="support-main">
