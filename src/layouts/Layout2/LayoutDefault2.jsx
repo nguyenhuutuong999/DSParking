@@ -1,7 +1,8 @@
 import React from 'react';
+import { Route } from "react-router-dom";
+import { Space } from 'antd';
 import './styles.css'
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { FaBell, FaQrcode } from 'react-icons/fa';
 
 import Avatar from '../../img/avatar.jpg';
@@ -9,52 +10,7 @@ import Avatar from '../../img/avatar.jpg';
 import Sidebar from "./../../components/Sidebar/Sidebar";
 import Header from '../../components/Header/index'
 
-// function DefaultLayout2() {
-//   var showContentMenu = (routes) => {
-//     var result = null;
-//     if (routes.length > 0) {
-//       result = routes.map((route, index) => {
-//         return (
-//           <Route key={index} path={route.path} exact={route.exact} component={route.main} />
-//         )
-//       })
-//     }
-//     return result;
-//   }
-//   return (
-//     <Router>
-//       <div className="page">
-//         <div className="container">
-
-//           <div className="row">
-//             <div className="col-xs-2">
-//               <div className="logo-wrapper">
-//                 <img src="./../../icon.png" className="img-fluid" alt="logo" />
-//               </div>
-//               <Sidebar />
-//             </div>
-//             <div className="col-xs-1">
-//               <div className="vl"></div>
-//             </div>
-
-//             <div className="col-xs-9">
-//               <Header />
-//               <div className="main">
-//                 <Switch>
-//                   {showContentMenu(routes)}
-//                 </Switch>
-//               </div>
-//             </div>
-//           </div>
-
-//         </div>
-//       </div>
-//     </Router>
-//   );
-
-// }
-
-// export default DefaultLayout2;
+import branchImg from '../../assets/images/branch.png';
 
 function DefaultLayout2({ component: Component, ...props }) {
   return (
@@ -62,27 +18,26 @@ function DefaultLayout2({ component: Component, ...props }) {
       {...props}
       render={(routerProps) => (
         <>
-          <div className="page">
-            <div className="container">
-              <div className="row">
-                <div className="col-xs-2">
-                  <div className="logo-wrapper">
-                    <img src="./../../icon.png" className="img-fluid" alt="logo" />
-                  </div>
-                  <Sidebar />
+          <div className="app-background">
+            <div className="app-container">
+              <div className="app-sidebar">
+                <img src={branchImg} className="branch-img" alt="logo" />
+                <Sidebar />
+              </div>
+              <div className="app-main">
+                <div className="app-header">
+                  {/* <Header /> */}
+                  <div className="welcome">Welcome, Ni !!!</div>
+                  <Space className="header-right" align="center" size="middle">
+                    <img style={{ width: '30px', height: '30px', borderRadius: '50%' }} src={Avatar} alt="Avatar"></img>
+                    <FaBell />
+                    <FaQrcode />
+                  </Space>
                 </div>
-                <div className="col-xs-1">
-                  <div className="vl"></div>
-                </div>
-
-                <div className="col-xs-9">
-                  <Header />
-                  <div className="main">
-                    <Component {...routerProps} />
-                  </div>
+                <div className="app-content">
+                  <Component {...routerProps} />
                 </div>
               </div>
-
             </div>
           </div>
         </>

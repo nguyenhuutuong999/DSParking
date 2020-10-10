@@ -1,74 +1,20 @@
 .profile {
   width: 100%;
-  margin-top: 70px;
 }
-
-.welcome-name p {
-  font-size: 40px;
-}
-
-/*
-.div-info{
-  display: flex;
-  justify-content: space-between;
-}
-.info-item{
-  position: relative;
-  display: block;
-  width: 400px;
-  height: 500px;
-  background-color:white;
-  border: 1px solid #00474f94;
-  box-shadow: 0 4px 8px 0 rgba(14, 94, 126, 0.473), 0 6px 20px 0 rgba(201, 134, 134, 0.19);
-}
-.info-details{
-  margin-top: 10px;
-  text-align: center;
-}
-.avatar{
-  position: absolute;
-  top:3%;
-  left: 35%;
-}
-.btn-avatar{
-  position: absolute;
-  top: 85%;
-  left: 70%
-}
-
-
-.title{
-  height: 35px;
-  background-color: #00474f;
-}
-.title p{
-  font-size: 1.3rem;
-  margin-left: 10px;
-  color: wheat;
-}
-.title p svg{
-  font-size: 1.2rem;
-  margin-right: 5px;
-  fill: wheat;
-}
-
-.info-details Form Form.Item{
-  margin-bottom: 3px;
-} */
 /*--------------------*/
 .profile-main {
+  width: calc(100% - 80px);
+  margin: 20px 40px;
   display: flex;
-  margin: 0 0;
 }
 
 /*Image*/
-.div-img {
-  margin-left: 10px;
+.div-img{
+  width: 30%;
 }
-
 .div-img-item {
   position: relative;
-  width: 250px;
+  width: 90%;
   height: 230px;
   margin-bottom: 20px;
   border-radius: 6px;
@@ -77,7 +23,7 @@
 }
 
 .div-img-item img {
-  margin: 10px 43px;
+  margin: 10px 23%;
 }
 
 .div-change-img {
@@ -100,7 +46,7 @@
 
 /*Information*/
 .information {
-  width: 980px;
+  width: 65%;
   height: 480px;
   margin-left: 40px;
   margin-right: 10px;

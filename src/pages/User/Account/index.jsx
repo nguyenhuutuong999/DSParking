@@ -15,7 +15,7 @@ function Account() {
           <p><span><FaAddressCard style={{marginRight:'10px', fontSize:'25px', fill:"#2c2c2c"}}/></span>Tài Khoản Ngân Hàng/DSPay</p>
         </div>
         <div>
-            <Button type="primary" style={{backgroundColor:'#d48806', marginLeft: '760px'}}>Liên kết Ngân Hàng</Button>
+            <Button type="primary" style={{backgroundColor:'#d48806', marginLeft: '82%'}}>Liên kết Ngân Hàng</Button>
             <div className="account-info">
             <Form
               labelCol={{ span: 10 }}

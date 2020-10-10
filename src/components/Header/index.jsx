@@ -10,7 +10,6 @@ function Header() {
     <div className="header-main">
       <div className="title-header">
         <div className="overview">Hi, Ni !!!</div>
-        {/* <div className="greeting">K23CMU - TTT !!!</div> */}
       </div>
 
       <ul className="header-list">

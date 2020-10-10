@@ -1,40 +1,146 @@
-.home{
+.home {
   margin: 0 20px;
   width: 100%;
   height: 100%;
   display: flex;
 }
-.home-statistic{
+
+/*Left*/
+.home-left{
+  width: 65%;
+  height: 100%;
+}
+.home-statistic {
   display: flex;
+  width: 100%;
+  height: 40%;
 }
-.home-statistic-week{
-  width: 250px;
-  height: 200px;
-  background-color: aqua;
-  margin-right: 30px;
+
+.home-statistic-items{
+  position: relative;
+  width: 48%;
+  height: 90%;
+  margin-right: 4%;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
 }
-.home-statistic-month{
-  width: 250px;
-  height: 200px;
-  background-color: aqua;
-  margin-right: 30px;
+
+.home-statistic-info{
+  height:40%
 }
+.home-statistic-chart{
+  height: 60%;
+}
+
 .home-history{
-  width: 530px;
-  height: 290px;
-  margin-top: 30px;
-  background-color: blueviolet;
+  width: 96%;
+  height: 60%; 
+}
+.home-history-detail{
+  width: 100%;
+  height: 80%;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.home-history-detail  .home-history-title {
+  width: 100%;
+  height: 10%;
+  padding: 10px 10px;
+  border-bottom: 0.2px solid rgb(216, 212, 212);
+}
+
+.home-history-table {
+  height: 90%;
+  margin: 5px 0px;
+}
+
+.home-history-table table {
+  width: 95%;
+  margin: 0 auto;
+}
+.home-history-table table tr th,
+td {
+  text-align: center;
+}
+
+.home-history-table table thead {
+  background-color: #e0e6ed;
+}
+
+.home-history-table table thead th {
+  color: #1b55e2;
+  padding: 5px 0px;
+}
+
+.btn-details-history {
+  margin-top: 5%;
+  margin-left: 80%;
 }
 
 /*Right*/
-.home-user{
-  width: 360px;
-  height: 300px;
-  background-color: antiquewhite;
+.home-right{
+  width: 35%;
 }
-.home-qrcode{
-  width: 360px;
-  height: 190px;
+.home-user {
+  width: 90%;
+  height: 300px;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.home-user img {
+  margin-top: 10px;
+  margin-left: 100px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.home-user .btn-details-user {
+  margin-top: 15px;
+  margin-left: 220px;
+}
+
+.home-user-info {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.home-user-info span {
+  display: block;
+  text-align: center;
+}
+
+.home-user-info .name {
+  font-weight: 600;
+}
+
+.home-qrcode {
+  position: relative;
+  width: 90%;
+  height: 205px;
   margin-top: 30px;
-  background-color: aquamarine;
+  background: url('../../../img/cardid1.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 6px;
+  box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.home-qrcode img {
+  margin-top: 23%;
+  margin-left: 26%;
+  width: 95px;
+  height: 95px;
+}
+.home-qrcode .zoom {
+  position: absolute;
+  top: 78%;
+  left: 88%;
 }

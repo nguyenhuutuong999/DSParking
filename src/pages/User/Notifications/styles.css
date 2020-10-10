@@ -29,7 +29,9 @@
   width: 95%;
   height: 320px;
 }
-.table-notification table th, td{
+.table-notification table th, td
+{
+  text-align: center;
   padding: 10px;
 }
 .table-notification table tr{
