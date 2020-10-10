@@ -12,14 +12,48 @@
 .statistic-row1{
   display: flex;
   width: 100%;
-  height: 300px;
-  background-color: aqua;
+  height: 270px;
 }
+.statistic-week{
+  width: 45%;
+  height: 95%;
+  margin-right: 2%;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.statistic-month{
+  width: 30%;
+  height: 95%;
+  background-color: yellow;
+  margin-right: 2%;
+}
+
+.statistic-balance{
+  width: 20%;
+  height: 95%;
+  background-color: yellow;
+  margin-right: 2%;
+}
+
 .statistic-row2{
   display: flex;
   width: 100%;
   height: 300px;
   background-color: teal;
+}
+.statistic-year{
+  width: 76%;
+  height: 95%;
+  background-color: yellow;
+  margin-right: 2%;
+}
+.total-year{
+  width: 20%;
+  height: 95%;
+  background-color: yellow;
+  margin-right: 2%;
 }
 .statistic-row3{
   display: flex;
