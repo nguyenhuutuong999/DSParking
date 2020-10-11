@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useState } from 'react';
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  LineChart, Line,
 } from 'recharts';
 import './styles.css'
 
@@ -14,6 +14,7 @@ import {
 import { ZoomInOutlined } from '@ant-design/icons';
 import { FaMotorcycle } from 'react-icons/fa';
 function Account() {
+  /*-------------Data Chart---------------*/
   const dataweek = [
     {
       name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
@@ -51,7 +52,47 @@ function Account() {
       name: 'Page D', uv: 2780, pv: 2908, amt: 2000,
     }
   ];
+  /*-------------Data History---------------*/
+  const [historyData, setHistoryData] = useState([
+    {
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+    {
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+    {
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+  ])
 
+  const renderHistoryList = () => {
+    return historyData.map((item, itemIndex) => {
+      return (
+        <tr key={itemIndex}>
+          <td>{item.id}</td>
+          <td>{item.date}</td>
+          <td>{item.timeIn}</td>
+          <td>{item.timeOut}</td>
+          <td>{item.licensePlates}</td>
+        </tr>
+      );
+    });
+  }
   return (
     <div className="home">
       <div className="home-left">
@@ -59,13 +100,13 @@ function Account() {
 
           <div className="home-statistic-items">
             <div className="home-statistic-info">
-                <div style={{display:'flex', textAlign:'center', marginTop:'10px', marginLeft:'10px'}}>
+                <div className="icon-title-statistics">
                   <div style={{width: '40px', height:'40px', borderRadius:'50%', backgroundColor:'#d3adf7'}}>
                     < FaMotorcycle style={{fontSize:'25px', fill:'#722ed1', marginTop:'8px'}} />
                   </div>
-                  <h5 style={{marginTop:'17px', marginLeft:'10px' ,fontWeight:'600',color:'#8c8c8c'}}>LƯỢT GỬI / Tuần</h5>
+                  <h5>LƯỢT GỬI / Tuần</h5>
                 </div>
-              <h2 style={{color:'#2c2c2c', fontWeight: '600', margin:'0px 95px'}}>10</h2>
+              <h2>10</h2>
             </div>
             <div className="home-statistic-chart">
               <LineChart width={342} height={100} data={dataweek}>
@@ -76,17 +117,17 @@ function Account() {
 
           <div className="home-statistic-items">
           <div className="home-statistic-info">
-                <div style={{display:'flex', textAlign:'center', marginTop:'10px', marginLeft:'10px'}}>
+                <div className="icon-title-statistics">
                   <div style={{width: '40px', height:'40px', borderRadius:'50%', backgroundColor:'#b7eb8f'}}>
                     < FaMotorcycle style={{fontSize:'25px', fill:'#389e0d', marginTop:'8px'}} />
                   </div>
-                  <h5 style={{marginTop:'17px', marginLeft:'10px' ,fontWeight:'600',color:'#8c8c8c'}}>LƯỢT GỬI / Tháng</h5>
+                  <h5>LƯỢT GỬI / Tháng</h5>
                 </div>
-              <h2 style={{color:'#2c2c2c', fontWeight: '600', margin:'0px 95px'}}>30</h2>
+              <h2>30</h2>
             </div>
             <div className="home-statistic-chart">
               <LineChart width={342} height={100} data={datamonth}>
-                <Line type="monotone" dataKey="pv" stroke="#3f6600" strokeWidth={2} />
+                <Line type="monotone" dataKey="pv" stroke="#3f6600" strokeWidth={2}/>
               </LineChart>
             </div>
           </div>
@@ -109,27 +150,7 @@ function Account() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>MLS101001</td>
-                  <td>10/10/2020</td>
-                  <td>10 : 19</td>
-                  <td>14 : 15</td>
-                  <td>567 56</td>
-                </tr>
-                <tr>
-                  <td>MLS101001</td>
-                  <td>10/10/2020</td>
-                  <td>10 : 19</td>
-                  <td>14 : 15</td>
-                  <td>567 56</td>
-                </tr>
-                <tr>
-                  <td>MLS101001</td>
-                  <td>10/10/2020</td>
-                  <td>10 : 19</td>
-                  <td>14 : 15</td>
-                  <td>567 56</td>
-                </tr>
+                {renderHistoryList()}
               </tbody>
             </table>
             <Button className="btn-details-history" type="primary" ghost shape="round" >Xem chi tiết</Button>

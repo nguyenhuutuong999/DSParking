@@ -23,8 +23,8 @@ function Evaluation() {
                 <div className="evaluation-content">
                     <div className="evaluation-content-details">
                         <div className="evaluation-system-introduce">
-                            <span>Ý KIẾN PHẢN HỒI CỦA NGƯỜI DÙNG VỀ HỆ THỐNG</span>
-                            <p>Nhằm cải thiện chất lượng ngày càng tốt hơn, chúng tôi mong muốn bạn đánh giá về hệ thống, và các ý kiến góp ý nếu có, các bạn vui lòng điền và đánh giá theo biểu mẫu dưới đây:</p>
+                            <span style={{fontWeight:'600'}}>Ý KIẾN PHẢN HỒI CỦA NGƯỜI DÙNG VỀ HỆ THỐNG</span>
+                            <p style={{color:'#d48806'}}>Nhằm cải thiện chất lượng ngày càng tốt hơn, chúng tôi mong muốn bạn đánh giá về hệ thống, và các ý kiến góp ý nếu có, các bạn vui lòng điền và đánh giá theo biểu mẫu dưới đây:</p>
                         </div>
                         <div className="evaluation-system">
                             <div className="evaluation-system-items">
@@ -87,7 +87,7 @@ function Evaluation() {
                                 <Input placeholder="Ý kiến của bạn:" bordered={false} />
                             </div>
                         </div>
-                        <Button style={{ marginLeft: '700px', marginTop:'10px', backgroundColor:'brown', color:'white' }}>Gửi</Button>
+                        <Button>Gửi</Button>
                     </div>
                 </div>
             </div>

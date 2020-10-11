@@ -68,7 +68,7 @@ function Support() {
           </div>
         </div>
         <div className="footer-support">
-          <p>Liên hệ khẩn cấp:  0905264265 - htsung@duytan.edu.vn (T.Sung)        0935009473 - nguyentanphat@duytan.edu.vn (T.Phát)</p>
+          <p>Liên hệ khẩn cấp:  0905264265 - htsung@duytan.edu.vn (T.Sung)   0935009473 - nguyentanphat@duytan.edu.vn (T.Phát)</p>
         </div>
       </div>
     </div >

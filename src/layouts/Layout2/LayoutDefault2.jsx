@@ -1,15 +1,15 @@
 import React from 'react';
-import { Route } from "react-router-dom";
-import { Space } from 'antd';
 import './styles.css'
 
-import { FaBell, FaQrcode } from 'react-icons/fa';
+import { Route } from "react-router-dom";
+import { Space, Badge } from 'antd';
 
-import Avatar from '../../img/avatar.jpg';
+import { FaBell, FaQrcode } from 'react-icons/fa';
 
 import Sidebar from "./../../components/Sidebar/Sidebar";
 import Header from '../../components/Header/index'
 
+import Avatar from '../../img/avatar.jpg';
 import branchImg from '../../assets/images/branch.png';
 
 function DefaultLayout2({ component: Component, ...props }) {
@@ -30,7 +30,9 @@ function DefaultLayout2({ component: Component, ...props }) {
                   <div className="welcome">Welcome, Ni !!!</div>
                   <Space className="header-right" align="center" size="middle">
                     <img style={{ width: '30px', height: '30px', borderRadius: '50%' }} src={Avatar} alt="Avatar"></img>
-                    <FaBell />
+                    <Badge count={5}>
+                      <FaBell />
+                    </Badge>
                     <FaQrcode />
                   </Space>
                 </div>

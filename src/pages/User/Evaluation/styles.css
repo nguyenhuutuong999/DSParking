@@ -10,9 +10,9 @@
 }
 
 .evaluation-main {
-  margin: 20px auto;
-  width: 95%;
-  height: 520px;
+  margin: 20px 60px;
+  width: calc(100% - 120px);
+  height: calc(100% - 100px);
   background-color: white;
   border-radius: 6px;
   border: 0.5px solid #7e6411;
@@ -85,10 +85,19 @@
   border-radius: 6px;
 }
 .evaluation-title{
-  width: 70%;
+  width: 55%;
   padding: 12px 0px;
 }
 
 .evaluation-level{
-  width: 30%;
+  width: 45%;
+  padding: 12px 0px;
+}
+.evaluation-content-details button{
+  margin-left: 750px;
+  margin-top: 10px;
+  background-color: brown;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px 0 #db5f5f, 0 6px 10px 0 #802e2e;
 }

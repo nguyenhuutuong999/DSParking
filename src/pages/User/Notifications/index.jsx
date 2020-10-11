@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './styles.css';
 
 import Card from './../../../components/Cards/index'
@@ -6,13 +6,49 @@ import Card from './../../../components/Cards/index'
 import { FaTrashAlt, FaThumbtack, FaBell } from 'react-icons/fa';
 import { Button } from 'antd';
 
-function Notifications() {
+function Notifications(props) {
+  const [notificationsListData, setNotificationsListData] = useState([
+    {
+      id: '001',
+      level: () => <div className="level" style={{ backgroundColor: '#f5222d' }}></div>,
+      title:'Số dư trong tài khoản của bạn chỉ còn dưới 5000',
+      date:'05/10/2020'
+    },
+    {
+      id: '001',
+      level: () => <div className="level" style={{ backgroundColor: 'green' }}></div>,
+      title:'Số dư trong tài khoản của bạn chỉ còn dưới 5000',
+      date:'05/10/2020'
+    },
+    {
+      id: '001',
+      level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
+      title:'Số dư trong tài khoản của bạn chỉ còn dưới 5000',
+      date:'05/10/2020'
+    },
+  ])
+
+  const renderNotificationsList = () => {
+    return notificationsListData.map((item, itemIndex) => {
+      return (
+        <tr key={itemIndex}>
+          <td>{item.id}</td>
+          <td>{item.level()}</td>
+          <td className="col-content">{item.title}</td>
+          <td><Button type="primary" ghost>Chi tiết</Button></td>
+          <td>{item.date}</td>
+          <td><FaTrashAlt /> <FaThumbtack /></td>
+        </tr>
+      );
+    });
+  }
+
   return (
     <div className="notification">
       <Card />
       <div className="table-notification">
         <div className="notification-title">
-          <p><FaBell style={{marginRight:'10px', fontSize:'20px', fill:"#626c75"}}/>Thông báo</p>
+          <p><FaBell/>Thông báo</p>
         </div>
         <table>
           <thead>
@@ -27,38 +63,7 @@ function Notifications() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>001</td>
-              <td><div className="level" style={{ backgroundColor: 'red' }}></div></td>
-              <td className="col-content">Số dư trong tài khoản của bạn chỉ còn dưới 5000</td>
-              <td><Button type="primary">Chi tiết</Button></td>
-              <td>05/10/2020</td>
-              <td><FaTrashAlt/> <FaThumbtack /></td>
-            </tr>
-            <tr>
-              <td>002</td>
-              <td><div className="level" style={{ backgroundColor: 'green' }}></div></td>
-              <td>Chúc mừng sinh nhật Nguyễn T Bích Ni</td>
-              <td><Button type="primary">Chi tiết</Button></td>
-              <td>05/10/2020</td>
-              <td><FaTrashAlt /> <FaThumbtack /></td>
-            </tr>
-            <tr>
-              <td>002</td>
-              <td><div className="level" style={{ backgroundColor: 'yellow' }}></div></td>
-              <td>Chúc mừng sinh nhật Nguyễn T Bích Ni</td>
-              <td><Button type="primary">Chi tiết</Button></td>
-              <td>05/10/2020</td>
-              <td><FaTrashAlt /> <FaThumbtack /></td>
-            </tr>
-            <tr>
-              <td>002</td>
-              <td><div className="level" style={{ backgroundColor: 'orange' }}></div></td>
-              <td>Chúc mừng sinh nhật Nguyễn T Bích Ni</td>
-              <td><Button type="primary">Chi tiết</Button></td>
-              <td>05/10/2020</td>
-              <td><FaTrashAlt /> <FaThumbtack /></td>
-            </tr>
+            {renderNotificationsList()}
           </tbody>
         </table>
       </div>

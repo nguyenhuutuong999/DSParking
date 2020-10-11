@@ -15,7 +15,7 @@
 .div-img-item {
   position: relative;
   width: 90%;
-  height: 230px;
+  height: 50%;
   margin-bottom: 20px;
   border-radius: 6px;
   box-shadow: 3px 4px 8px #e2d6a3;
@@ -30,7 +30,7 @@
   position: absolute;
   bottom: 0px;
   width: 100%;
-  height: 50px;
+  height: 20%;
   background-color: #ad8b00;
   border-radius: 0px 0px 6px 6px;
   margin-bottom: 0px;
@@ -47,7 +47,7 @@
 /*Information*/
 .information {
   width: 65%;
-  height: 480px;
+  height: 100%;
   margin-left: 40px;
   margin-right: 10px;
   background-color: #ffffffcc;
@@ -129,7 +129,8 @@
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
 .div-btn-edit{
-  width: 32px;
-  height: 32px;
-  margin-left: 560px;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 30px;
+  margin-left: 550px;
 }

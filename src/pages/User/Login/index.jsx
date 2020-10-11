@@ -34,7 +34,7 @@ function Login() {
               </div>
 
               <div className="wrap-input100 validate-input">
-                <input className="input100" type="password" forName="pass" />
+                <input className="input100" type="password" forName="pass" placeholder="Gmail" />
                 <span className="focus-input100"></span>
                 <span className="symbol-input100">
                   <FaLock />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 import './styles.css';
 
 import Card from './../../../components/Cards/index'
@@ -7,15 +7,42 @@ import { FaAddressCard, FaTrashAlt, FaThumbtack, } from 'react-icons/fa';
 import { Button, Form, Input, } from 'antd';
 
 function Account() {
+  const [transactionListData, setTransactionListData] = useState([
+    {
+      no:'001',
+      id:'GD10112020',
+      time:'10/11/2020',
+      money: '2000',
+      title: 'Top Up to DSParking',
+      balance:'4000'
+    }
+  ])
+
+  const renderTransactionList = () => {
+    return transactionListData.map((item, itemIndex) => {
+      return (
+        <tr key={itemIndex}>
+          <td>{item.no}</td>
+          <td>{item.id}</td>
+          <td>{item.time}</td>
+          <td>{item.money}</td>
+          <td>{item.title}</td>
+          <td>{item.balance}</td>
+          <td><FaTrashAlt /> <FaThumbtack /></td>
+        </tr>
+      );
+    });
+  }
+
   return (
     <div className="dsp-account">
       <Card/>
       <div className="content-account">
         <div className="account-title">
-          <p><span><FaAddressCard style={{marginRight:'10px', fontSize:'25px', fill:"#2c2c2c"}}/></span>Tài Khoản Ngân Hàng/DSPay</p>
+          <p><span><FaAddressCard/></span>Tài Khoản Ngân Hàng/DSPay</p>
         </div>
-        <div>
-            <Button type="primary" style={{backgroundColor:'#d48806', marginLeft: '82%'}}>Liên kết Ngân Hàng</Button>
+        <div className="account-form">
+            <Button>Liên kết Ngân Hàng</Button>
             <div className="account-info">
             <Form
               labelCol={{ span: 10 }}
@@ -48,15 +75,7 @@ function Account() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>001</td>
-              <td>GD001003</td>
-              <td>13:30 05/10/2020</td>
-              <td>1000</td>
-              <td>Phí gửi xe</td>
-              <td>4000</td>
-              <td><FaTrashAlt /> <FaThumbtack /></td>
-            </tr>
+            {renderTransactionList()}
           </tbody>
         </table>
       </div>
