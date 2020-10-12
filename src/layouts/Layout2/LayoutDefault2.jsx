@@ -3,8 +3,9 @@ import './styles.css'
 
 import { Route } from "react-router-dom";
 import { Space, Badge } from 'antd';
-
 import { FaBell, FaQrcode } from 'react-icons/fa';
+
+import history from '../../util/history'
 
 import Sidebar from "./../../components/Sidebar/Sidebar";
 import Header from '../../components/Header/index'
@@ -29,11 +30,11 @@ function DefaultLayout2({ component: Component, ...props }) {
                   {/* <Header /> */}
                   <div className="welcome">Welcome, Ni !!!</div>
                   <Space className="header-right" align="center" size="middle">
-                    <img style={{ width: '30px', height: '30px', borderRadius: '50%' }} src={Avatar} alt="Avatar"></img>
+                    <img style={{ width: '30px', height: '30px', borderRadius: '50%' }} src={Avatar} alt="Avatar" onClick={() => history.push('/profile')}></img>
                     <Badge count={5}>
-                      <FaBell />
+                      <FaBell onClick={() => history.push('/notifications')}/>
                     </Badge>
-                    <FaQrcode />
+                    <FaQrcode/>
                   </Space>
                 </div>
                 <div className="app-content">

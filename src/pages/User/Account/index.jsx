@@ -1,25 +1,20 @@
 import React , {useState} from 'react';
 import './styles.css';
+import { connect } from 'react-redux';
 
 import Card from './../../../components/Cards/index'
 
 import { FaAddressCard, FaTrashAlt, FaThumbtack, } from 'react-icons/fa';
 import { Button, Form, Input, } from 'antd';
 
-function Account() {
-  const [transactionListData, setTransactionListData] = useState([
-    {
-      no:'001',
-      id:'GD10112020',
-      time:'10/11/2020',
-      money: '2000',
-      title: 'Top Up to DSParking',
-      balance:'4000'
-    }
-  ])
-
+import {getTransactionsList, deleteTransactions} from '../../../redux/actions/index';
+function Account({
+  transactionsList,
+  getTransactionsList,
+  deleteTransactions
+}) {
   const renderTransactionList = () => {
-    return transactionListData.map((item, itemIndex) => {
+    return transactionsList.map((item, itemIndex) => {
       return (
         <tr key={itemIndex}>
           <td>{item.no}</td>
@@ -82,5 +77,17 @@ function Account() {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  const { transactionsList} = state;
+  return {
+    transactionsList,
+  }
+};
 
-export default Account;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getTransactionsList: (params) => dispatch(getTransactionsList(params)),
+    deleteTransactions: (params) => dispatch(deleteTransactions(params))
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Account);

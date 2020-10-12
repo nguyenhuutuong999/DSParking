@@ -6,7 +6,11 @@ import { Router, Switch } from 'react-router-dom';
 
 import LayoutDefault2 from './layouts/Layout2/LayoutDefault2';
 import LayoutLogin from './layouts/Login/LayoutLogin'
+
+import myReducer from './redux/reducers/index'
 import history from './util/history'
+import { createStore} from 'redux';
+import { Provider } from 'react-redux';
 
 import Login from './pages/User/Login/index'
 import Profile from './pages/User/Profile/index'
@@ -20,9 +24,10 @@ import Setting from './pages/User/Setting/index'
 
 import * as serviceWorker from './serviceWorker';
 import 'antd/dist/antd.css';
-
+const myStore = createStore(myReducer);
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={myStore}>
     <Router history={history}>
         <Switch>
           <LayoutLogin exact path="/login" component={Login}/>
@@ -36,6 +41,7 @@ ReactDOM.render(
           <LayoutDefault2 exact path="/setting" component={Setting} />
         </Switch>
     </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

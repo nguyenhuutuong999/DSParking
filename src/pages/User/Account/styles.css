@@ -44,20 +44,40 @@
   color:white;
   font-weight:400
 }
+/*Table*/
 .content-account table {
   height: calc(100% - 170px);
   width: 95%;
   margin: 0 auto;
   box-shadow: 3px 4px 6px #1111fc12;
 }
-
-.content-account table thead th {
-  color: #5a3ed8;
-  height: 40px;
-  padding: 15px;
-}
-
 .content-account table tr td {
   height: 50px;
   text-align: center;
+}
+/*tHead*/
+.content-account table thead{
+  table-layout: fixed;
+  display: table;
+  width: 100%;
+  background-color: #efdbff;
+}
+.content-account table thead th {
+  text-align: center;
+  color: #5a3ed8;
+  height: 40px;
+  padding: 15px 0px;
+}
+/*tBody*/
+
+.content-account table tbody{
+  display: block;
+  height: 100px;
+  width: 100%;
+}
+.content-account table tbody tr{ 
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  height: 50px;
 }

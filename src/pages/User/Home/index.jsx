@@ -6,6 +6,7 @@ import './styles.css'
 
 import Avatar3 from '../../../img/avatar3.jpg'
 import QrCode from '../../../img/qrcode.png'
+import history from '../../../util/history'
 
 import {
   Button,
@@ -153,7 +154,7 @@ function Account() {
                 {renderHistoryList()}
               </tbody>
             </table>
-            <Button className="btn-details-history" type="primary" ghost shape="round" >Xem chi tiết</Button>
+            <Button className="btn-details-history" type="primary" ghost shape="round" onClick={() => history.push('/statistic')}>Xem chi tiết</Button>
           </div>         
           </div>
         </div>
@@ -167,7 +168,7 @@ function Account() {
             <span>24/01/1999</span>
             <span>K23CMU - TTT</span>
           </div>
-          <Button className="btn-details-user" type="primary" ghost shape="round" >Xem chi tiết</Button>
+          <Button className="btn-details-user" type="primary" ghost shape="round" onClick={() => history.push('/profile')}>Xem chi tiết</Button>
         </div>
         <div className="home-qrcode">
           <img src={QrCode} alt="QrCode" />
