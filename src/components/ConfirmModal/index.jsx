@@ -13,6 +13,7 @@ function ConfirmModal({
       <Modal
         title="Xóa"
         visible={isShowModal} onHide={handleHideModal}
+        footer={false}
       >
         <p>Bạn có chắc chắn muốn xóa thông báo này?</p>
         <Button type="primary" ghost onClick={() => handleHideModal()}>

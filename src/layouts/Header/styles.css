@@ -1,0 +1,20 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  height: 56px;
+}
+.app-header .welcome{
+  font-size: 20px;
+  font-weight: 600;
+  color: gray;
+}
+.header-right svg{
+  font-size: 22px;
+  fill:#76838f;
+}
+.header-right svg:hover{
+  cursor: pointer;
+  fill: #096dd9;
+}

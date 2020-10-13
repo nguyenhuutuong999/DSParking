@@ -1,12 +1,60 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './styles.css'
+
+import withFirebaseAuth from 'react-with-firebase-auth';
 
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 
 import login1 from '../../../img/login1.svg'
 import history from '../../../util/history'
 
-function Login() {
+import {
+  firebaseApp,
+  firebaseAppAuth,
+  firebaseAppProviders,
+} from '../../../configs/firebase'
+
+function Login({
+  user,
+  signOut,
+  signInWithGoogle,
+}) {
+  console.log("Login -> user", user)
+
+  useEffect(() => {
+    if (user) {
+      const {
+        uid,
+        displayName: name,
+        email,
+        photoURL: avatar,
+      } = user;
+      firebaseApp.database().ref(`/users/${uid}`).on('value', (snapshot) => {
+        if (!snapshot.val()) {
+          if (window.confirm('Tai khoan moi ?')) {
+            firebaseApp.database().ref(`/users/${uid}`).set({
+              email,
+            })
+          } else {
+            signOut();
+          }
+        } else {
+          localStorage.setItem('authData', JSON.stringify({
+            uid,
+            name,
+            email,
+            avatar,
+          }));
+          history.push('/');
+        }
+        console.log(snapshot.val());
+      })
+    }
+  }, [user]);
+
+  const handleLogin = () => {
+    signInWithGoogle();
+  }
   return (
     <div>
       <div className="limiter">
@@ -43,7 +91,7 @@ function Login() {
               </div>
 
               <div className="container-login100-form-btn">
-                <button className="login100-form-btn" onClick={() => history.push('/')}>
+                <button className="login100-form-btn" type="button" onClick={() => handleLogin()}>
                   Login
                     </button>
               </div>
@@ -59,57 +107,12 @@ function Login() {
               </div>
             </form>
           </div>
-          {/* <div className="wrap-login100">
-                        <div className="login100-pic js-tilt" data-tilt>
-                        <img src={login} alt="Login"/>
-                        </div>
-
-            <form className="login100-form validate-form">
-                <img className="logo" src={logo5} alt="logo"/>
-
-                <div className="wrap-input100 validate-input">
-                    <input className="input100" type="text" forName="email" placeholder="Tên đăng nhập"/>
-                    <span className="focus-input100"></span>
-                    <span className="symbol-input100">
-                        <FaEnvelope/>
-                    </span>
-                </div>
-
-                <div className="wrap-input100 validate-input">
-                    <input className="input100" type="password" forName="pass" placeholder="Mật khẩu"/>
-                    <span className="focus-input100"></span>
-                    <span className="symbol-input100">
-                        <FaLock/>
-                    </span>
-                </div>
-                
-                <div className="container-login100-form-btn">
-                    <button className="login100-form-btn"  onClick={() => history.push('/user-info')}>
-                        Login
-                    </button>
-                </div>
-                <div className="login-text">
-                    <div>
-                        <span className="txt1">
-                            Quên
-                        </span>
-                        <a className="txt2" href="#">
-                            Tên đăng nhập / Mật khẩu?
-                        </a>
-                    </div>
-
-                    <div>
-                        <a className="txt2" href="#">
-                            Tạo tài khoản
-                            <i className="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </div>
-            </form>
-        </div> */}
         </div>
       </div>
     </div>
   )
 }
-export default Login;
+export default withFirebaseAuth({
+  providers: firebaseAppProviders,
+  firebaseAppAuth,
+})(Login);
