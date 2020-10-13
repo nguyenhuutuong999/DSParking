@@ -1,4 +1,5 @@
 const initialState = {
+  //notice
   noticeListData: [
     {
       id: '001',
@@ -33,6 +34,7 @@ const initialState = {
       date: '05/10/2020'
     },
   ],
+  //Transaction
   transactionsList: [
     {
       no:'001',
@@ -42,7 +44,37 @@ const initialState = {
       title: 'Top Up to DSParking',
       balance:'4000',
     },
-  ]
+  ],
+  //History
+  historyList:[
+    {
+      stt: '001',
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+    {
+      stt: '002',
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+    {
+      stt: '003',
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+  ],
 };
 function myReducer(state = initialState, action) {
   switch (action.style) {
@@ -70,6 +102,14 @@ function myReducer(state = initialState, action) {
       return {
         ...state,
         transactionsList: [
+          ...action.payload,
+        ]
+      };
+    }
+    case 'GET_HISTORY_LIST':{
+      return {
+        ...state,
+        historyList: [
           ...action.payload,
         ]
       };

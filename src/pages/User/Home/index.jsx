@@ -1,4 +1,5 @@
 import React, { PureComponent, useState } from 'react';
+import { connect } from 'react-redux';
 import {
   LineChart, Line,
 } from 'recharts';
@@ -8,13 +9,19 @@ import Avatar3 from '../../../img/avatar3.jpg'
 import QrCode from '../../../img/qrcode.png'
 import history from '../../../util/history'
 
+import {getHistoryList} from '../../../redux/actions/index';
+
 import {
   Button,
   Tooltip as Tip
 } from 'antd';
 import { ZoomInOutlined } from '@ant-design/icons';
 import { FaMotorcycle } from 'react-icons/fa';
-function Account() {
+
+function Account({
+  getHistoryList,
+  historyList
+}) {
   /*-------------Data Chart---------------*/
   const dataweek = [
     {
@@ -53,36 +60,9 @@ function Account() {
       name: 'Page D', uv: 2780, pv: 2908, amt: 2000,
     }
   ];
-  /*-------------Data History---------------*/
-  const [historyData, setHistoryData] = useState([
-    {
-      id:'10112020',
-      date:'10/11/2020',
-      place:'254 Nguyễn Văn Linh',
-      timeIn:'6:45',
-      timeOut:'10:05',
-      licensePlates:'567 56'
-    },
-    {
-      id:'10112020',
-      date:'10/11/2020',
-      place:'254 Nguyễn Văn Linh',
-      timeIn:'6:45',
-      timeOut:'10:05',
-      licensePlates:'567 56'
-    },
-    {
-      id:'10112020',
-      date:'10/11/2020',
-      place:'254 Nguyễn Văn Linh',
-      timeIn:'6:45',
-      timeOut:'10:05',
-      licensePlates:'567 56'
-    },
-  ])
-
+  
   const renderHistoryList = () => {
-    return historyData.map((item, itemIndex) => {
+    return historyList.map((item, itemIndex) => {
       return (
         <tr key={itemIndex}>
           <td>{item.id}</td>
@@ -180,4 +160,16 @@ function Account() {
     </div>
   )
 }
-export default Account;
+const mapStateToProps = (state) => {
+  const { historyList} = state;
+  return {
+    historyList,
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getHistoryList: (params) => dispatch(getHistoryList(params)),
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Account);

@@ -25,3 +25,11 @@ export function deleteTransactions(params){
     payload: params
   }
 }
+
+/*History*/
+export function getHistoryList(params){
+  return{
+    type: 'GET_HISTORY_LIST',
+    payload: params
+  }
+}

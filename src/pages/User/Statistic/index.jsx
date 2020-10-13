@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import './styles.css';
 
 import {
@@ -8,7 +9,12 @@ import {
   PieChart, Pie, Cell,
 } from 'recharts';
 
-function Statistic() {
+import {getHistoryList} from '../../../redux/actions/index';
+
+function Statistic({
+  getHistoryList,
+  historyList
+}) {
 
   const dataDays = [
     {
@@ -94,38 +100,8 @@ function Statistic() {
     { name: 'Group C', value: 300 },
     { name: 'Group D', value: 200 },
   ];
-
-  const [historyData, setHistoryData] = useState([
-    {
-      stt:'001',
-      id:'10112020',
-      date:'10/11/2020',
-      place:'254 Nguyễn Văn Linh',
-      timeIn:'6:45',
-      timeOut:'10:05',
-      licensePlates:'567 56'
-    },
-    {
-      stt:'001',
-      id:'10112020',
-      date:'10/11/2020',
-      place:'254 Nguyễn Văn Linh',
-      timeIn:'6:45',
-      timeOut:'10:05',
-      licensePlates:'567 56'
-    },
-    {
-      stt:'001',
-      id:'10112020',
-      date:'10/11/2020',
-      place:'254 Nguyễn Văn Linh',
-      timeIn:'6:45',
-      timeOut:'10:05',
-      licensePlates:'567 56'
-    },
-  ])
   const renderHistoryList = () => {
-    return historyData.map((item, itemIndex) => {
+    return historyList.map((item, itemIndex) => {
       return (
         <tr key={itemIndex}>
           <td>{item.stt}</td>
@@ -257,5 +233,16 @@ function Statistic() {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  const { historyList} = state;
+  return {
+    historyList,
+  }
+};
 
-export default Statistic;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getHistoryList: (params) => dispatch(getHistoryList(params)),
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Statistic);
