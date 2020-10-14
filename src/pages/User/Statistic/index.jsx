@@ -9,12 +9,36 @@ import {
   PieChart, Pie, Cell,
 } from 'recharts';
 
-import {getHistoryList} from '../../../redux/actions/index';
-
-function Statistic({
-  getHistoryList,
-  historyList
-}) {
+function Statistic() {
+  const [historyList,  setHistoryList] = useState([
+    {
+      stt: '001',
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+    {
+      stt: '002',
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+    {
+      stt: '003',
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+  ])
 
   const dataDays = [
     {
@@ -233,16 +257,5 @@ function Statistic({
     </div>
   );
 }
-const mapStateToProps = (state) => {
-  const { historyList} = state;
-  return {
-    historyList,
-  }
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getHistoryList: (params) => dispatch(getHistoryList(params)),
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Statistic);
+export default Statistic;

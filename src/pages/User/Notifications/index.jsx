@@ -8,16 +8,45 @@ import ConfirmModal from '../../../components/ConfirmModal/index'
 import { FaTrashAlt, FaThumbtack, FaBell } from 'react-icons/fa';
 import { Button } from 'antd';
 
-import {getNotificationsList, deleteNotifications} from '../../../redux/actions/index';
 
-function Notifications({
-  noticeListData,
-  getNotificationsList,
-  deleteNotifications,
-}) {
+function Notifications() {
   const [notificationDetail, setNotificationDetail] = useState([]);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [confirmModalData, setConfirmModalData] = useState({});
+  const [noticeListData, setNoticeListData] = useState([
+    {
+      id: '001',
+      level: () => <div className="level" style={{ backgroundColor: '#f5222d' }}></div>,
+      // level: 'cao',
+      title: 'Tài khoản của bạn chỉ còn dưới 5000',
+      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, quo nemo totam dolore quae commodi. Aliquam quasi placeat rerum aut.',
+      date: '05/10/2020'
+    },
+    {
+      id: '002',
+      level: () => <div className="level" style={{ backgroundColor: 'green' }}></div>,
+      // level: 'cao',
+      title: 'Tài khoản của bạn chỉ còn dưới 5000',
+      description: 'Ahihi',
+      date: '05/10/2020'
+    },
+    {
+      id: '003',
+      level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
+      // level: 'cao',
+      title: 'Tài khoản của bạn chỉ còn dưới 5000',
+      description: 'Ahihi',
+      date: '05/10/2020'
+    },
+    {
+      id: '004',
+      level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
+      // level: 'cao',
+      title: 'Tài khoản của bạn chỉ còn dưới 5000',
+      description: 'Ahihi',
+      date: '05/10/2020'
+    },
+  ])
   //Show Details
   const handleToggleDetails = (id) => {
     const moreNotificationIndex = notificationDetail.findIndex((moreId) => moreId === id);
@@ -45,23 +74,20 @@ function Notifications({
   }
 
   //Delete
-  // const handleDeleteNotifications = (deletedId) => {
-  //   deleteNotifications({
-  //     id: deletedId
-  //   })
-  //   const newNotificationListData = noticeListData;
-  //   const notificationIndex = noticeListData.findIndex((item) => item.id === deletedId);
-  //   newNotificationListData.splice(notificationIndex, 1);
-  //   setNotificationsListData([
-  //     ...newNotificationListData,
-  //   ]);
-  //   setIsShowConfirmModal(null);
-  // }
-
   const handleDeleteNotifications = (deletedId) => {
-    deleteNotifications({id: deletedId})
-    setIsShowConfirmModal(false);
+    const newNotificationListData = noticeListData;
+    const notificationIndex = noticeListData.findIndex((item) => item.id === deletedId);
+    newNotificationListData.splice(notificationIndex, 1);
+    setNoticeListData([
+      ...newNotificationListData,
+    ]);
+    setIsShowConfirmModal(null);
   }
+
+  // const handleDeleteNotifications = (deletedId) => {
+  //   deleteNotifications({id: deletedId})
+  //   setIsShowConfirmModal(false);
+  // }
 
   //Render
   const renderNotificationsList = () => {
@@ -70,7 +96,7 @@ function Notifications({
         <>
           <tr key={itemIndex}>
               <td>{item.id}</td>
-              <td>{item.level}</td>
+              <td>{item.level()}</td>
               <td className="col-content">{item.title}</td>
               <td><Button type="primary" ghost onClick={() => handleToggleDetails(item.id)}>{notificationDetail.findIndex((moreId) => moreId === item.id) === -1 ? 'Chi tiết' : 'Thu gọn'}</Button></td>
               <td>{item.date}</td>
@@ -122,17 +148,4 @@ function Notifications({
     </div>
   );
 }
-const mapStateToProps = (state) => {
-  const { noticeListData} = state;
-  return {
-    noticeListData,
-  }
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getNotificationsList: (params) => dispatch(getNotificationsList(params)),
-    deleteNotifications: (params) => dispatch(deleteNotifications(params))
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
+export default Notifications;

@@ -9,8 +9,6 @@ import Avatar3 from '../../../img/avatar3.jpg'
 import QrCode from '../../../img/qrcode.png'
 import history from '../../../util/history'
 
-import {getHistoryList} from '../../../redux/actions/index';
-
 import {
   Button,
   Tooltip as Tip
@@ -18,11 +16,37 @@ import {
 import { ZoomInOutlined } from '@ant-design/icons';
 import { FaMotorcycle } from 'react-icons/fa';
 
-function Account({
-  getHistoryList,
-  historyList
-}) {
+function Account() {
   /*-------------Data Chart---------------*/
+  const [historyList,  setHistoryList] = useState([
+    {
+      stt: '001',
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+    {
+      stt: '002',
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+    {
+      stt: '003',
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+  ])
   const dataweek = [
     {
       name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
@@ -160,16 +184,5 @@ function Account({
     </div>
   )
 }
-const mapStateToProps = (state) => {
-  const { historyList} = state;
-  return {
-    historyList,
-  }
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getHistoryList: (params) => dispatch(getHistoryList(params)),
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Account);
+export default Account;
