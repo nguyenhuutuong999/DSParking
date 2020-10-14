@@ -13,15 +13,13 @@ function ConfirmModal({
       <Modal
         title="Xóa"
         visible={isShowModal} onHide={handleHideModal}
-        footer={false}
+        // footer={false}
+        onOk={handleDeleteNotifications}
+        onCancel={handleHideModal}
+        okText="Đồng ý"
+        cancelText="Hủy"
       >
         <p>Bạn có chắc chắn muốn xóa thông báo này?</p>
-        <Button type="primary" ghost onClick={() => handleHideModal()}>
-          Hủy
-        </Button>
-        <Button type="submit" type="primary" danger onClick={() => handleDeleteNotifications(modalData.index)} >
-          Xác nhận
-        </Button>
       </Modal>
     </>
   )

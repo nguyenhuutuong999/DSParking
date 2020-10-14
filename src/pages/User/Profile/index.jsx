@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './styles.css';
 
 import {
@@ -20,6 +20,7 @@ import Qrcode from '../../../img/qrcode.png'
 
 const { TabPane } = Tabs;
 function Profile() {
+  const [isEditProfile, setIsEditProfile] = useState(false);
   return (
     <div className="profile">
 
@@ -47,18 +48,60 @@ function Profile() {
                     <p><FaBirthdayCake />Ngày sinh:</p>
                     <p><FaIdCardAlt />Email: </p>
                   </div>
-                  <div className="info-user-content">
-                    <p>Nguyễn T Bích Ni</p>
-                    <p>2320716843</p>
-                    <p>206296503</p>
-                    <p>24/01/1999</p>
-                    <p>nguyentbichni@dtu.edu.vn</p>
-                  </div>
+                  {isEditProfile
+                    ? (
+                      <div className="info-user-content">
+                        <Input placeholder="Nguyễn T Bích Ni" />
+                        <Input placeholder="Nguyễn T Bích Ni" />
+                        <Input placeholder="Nguyễn T Bích Ni" />
+                        <Input placeholder="Nguyễn T Bích Ni" />
+                        <Input placeholder="Nguyễn T Bích Ni" />
+                      </div>
+                    )
+                    : (
+                      <div className="info-user-content">
+                        <p>Nguyễn T Bích Ni</p>
+                        <p>2320716843</p>
+                        <p>206296503</p>
+                        <p>24/01/1999</p>
+                        <p>nguyentbichni@dtu.edu.vn</p>
+                      </div>
+                    )
+                  }
                 </div>
                 <div className="div-btn-edit">
-                  <Tooltip title="edit">
-                    <Button type="primary" shape="circle" icon={<EditOutlined />} />
-                  </Tooltip>
+                  {isEditProfile
+                    ? (
+                      <>
+                        <Tooltip title="save">
+                          <Button
+                            type="primary"
+                            shape="circle"
+                            icon={<EditOutlined />}
+                            onClick={() => setIsEditProfile(false)}
+                          />
+                        </Tooltip>
+                        <Tooltip title="cancel">
+                          <Button
+                            type="primary"
+                            shape="circle"
+                            icon={<EditOutlined />}
+                            onClick={() => setIsEditProfile(false)}
+                          />
+                        </Tooltip>
+                      </>
+                    )
+                    : (
+                      <Tooltip title="edit">
+                        <Button
+                          type="primary"
+                          shape="circle"
+                          icon={<EditOutlined />}
+                          onClick={() => setIsEditProfile(true)}
+                        />
+                      </Tooltip>
+                    )
+                  }
                 </div>
               </TabPane>
               <TabPane tab="Địa chỉ hiện thời" key="2">

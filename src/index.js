@@ -31,7 +31,7 @@ ReactDOM.render(
     <Router history={history}>
         <Switch>
           <LayoutLogin exact path="/login" component={Login}/>
-          <LayoutDefault2 exact path="/profile" component={Profile} />
+          <LayoutDefault2 exact role="user" path="/profile" component={Profile} />
           <LayoutDefault2 exact path="/" component={Home} />
           <LayoutDefault2 exact path="/account" component={Account} />
           <LayoutDefault2 exact path="/evaluation" component={Evaluation} />

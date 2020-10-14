@@ -8,7 +8,7 @@ import Sidebar from "./../../components/Sidebar/Sidebar";
 
 import branchImg from '../../assets/images/branch.png';
 
-function DefaultLayout2({ component: Component, ...props }) {
+function DefaultLayout2({ component: Component, role, ...props }) {
   return (
     <Route
       {...props}

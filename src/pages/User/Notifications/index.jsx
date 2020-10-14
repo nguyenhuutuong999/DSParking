@@ -100,12 +100,11 @@ function Notifications() {
               <td className="col-content">{item.title}</td>
               <td><Button type="primary" ghost onClick={() => handleToggleDetails(item.id)}>{notificationDetail.findIndex((moreId) => moreId === item.id) === -1 ? 'Chi tiết' : 'Thu gọn'}</Button></td>
               <td>{item.date}</td>
-              {/* <td><FaTrashAlt /> <FaThumbtack /></td> */}
-              <td><Button danger type="text" onClick={() => handleShowConfirmModal(item.id)}>Xóa</Button></td>
+              <td><Button danger type="text" onClick={() => handleShowConfirmModal(item.id)}><FaTrashAlt /></Button></td>
           </tr>
             <div>
               {(notificationDetail.findIndex((id) => id === item.id) !== -1) && (
-                <div className="todo-item-description">
+                <div className="notice-item-description">
                   {item.description}
                 </div>
               )}

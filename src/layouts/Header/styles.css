@@ -18,3 +18,9 @@
   cursor: pointer;
   fill: #096dd9;
 }
+.noti-dropdown-title {
+  padding: 16px;
+}
+.noti-dropdown-menu p {
+  white-space: pre-wrap;
+}

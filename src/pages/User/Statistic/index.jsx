@@ -142,6 +142,7 @@ function Statistic() {
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
   return (
     <div className="statistic">
+
       <div className="statistic-row1">
         <div className="statistic-week">
           <div className="div-statistic-head">
@@ -166,6 +167,7 @@ function Statistic() {
             </BarChart>
           </div>
         </div>
+
         <div className="statistic-month">
           <div className="div-statistic-head">
             <h3>Lượt gửi/ Tháng</h3>
@@ -212,6 +214,7 @@ function Statistic() {
             </LineChart>
           </div>
         </div>
+
         <div className="total-year">
           <h4>Tổng lượt gửi / Năm</h4>
           <div style={{ position: 'relative' }}>
@@ -226,9 +229,7 @@ function Statistic() {
                 paddingAngle={5}
                 dataKey="value"
               >
-                {
-                  data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
-                }
+                {data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
               </Pie>
             </PieChart>
               <h1 style={{ position: 'absolute', top:'22%' , left:'37%'}}>340</h1>
