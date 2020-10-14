@@ -3,12 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 import { Router, Switch } from 'react-router-dom';
-
-import LayoutDefault2 from './layouts/Layout2/LayoutDefault2';
+//Router to Home
+import PrivateRoute from './pages/Login/PrivateRoute/PrivateRoute';
+//router to User
 import LayoutLogin from './layouts/Login/LayoutLogin'
-import history from './util/history'
-
-import Login from './pages/User/Login/index'
+import Login from './pages/Login/index'
 import Profile from './pages/User/Profile/index'
 import Home from './pages/User/Home/index'
 import Account from './pages/User/Account/index'
@@ -18,24 +17,36 @@ import Statistic from './pages/User/Statistic/index'
 import Support from './pages/User/Support/index'
 import Setting from './pages/User/Setting/index'
 
+//router to Admin
+
+
+//import Redux library
+import {createStore} from "redux";
+import {Provider} from 'react-redux';
+import myReducer from "./redux/reducers/index";
 import * as serviceWorker from './serviceWorker';
+import history from './util/history'
 import 'antd/dist/antd.css';
+// add REDUX DEVTOOL TO TEST
+const store = createStore(myReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store = {store}>
     <Router history={history}>
         <Switch>
-          <LayoutLogin exact path="/login" component={Login}/>
-          <LayoutDefault2 exact path="/profile" component={Profile} />
-          <LayoutDefault2 exact path="/" component={Home} />
-          <LayoutDefault2 exact path="/account" component={Account} />
-          <LayoutDefault2 exact path="/evaluation" component={Evaluation} />
-          <LayoutDefault2 exact path="/notifications" component={Notifications} />
-          <LayoutDefault2 exact path="/statistic" component={Statistic} />
-          <LayoutDefault2 exact path="/support" component={Support} />
-          <LayoutDefault2 exact path="/setting" component={Setting} />
+          <PrivateRoute exact path="/" component={Home} />
+          <LayoutLogin  path="/login" component={Login}/>
+          <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute path="/account" component={Account} />
+          <PrivateRoute path="/evaluation" component={Evaluation} />
+          <PrivateRoute path="/notifications" component={Notifications} />
+          <PrivateRoute path="/statistic" component={Statistic} />
+          <PrivateRoute path="/support" component={Support} />
+          <PrivateRoute path="/setting" component={Setting} />
         </Switch>
     </Router>
+   </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

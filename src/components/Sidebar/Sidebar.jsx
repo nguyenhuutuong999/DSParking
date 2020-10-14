@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import './styles.css';
 
-import { Route, NavLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { FaUser, FaBell, FaChartArea, FaQuestionCircle, FaPenSquare, FaCog, FaSignOutAlt, FaHome, FaAddressCard } from 'react-icons/fa';
 
 import history from '../../util/history'
@@ -167,7 +167,7 @@ function Sidebar(props) {
     return menus.map((item, index) => {
       return (
         <li className={`nav-item ${history.location.pathname === menus[index].to && 'nav-item-active'}`} key={index} onClick={() => history.push(menus[index].to)}>
-          <a href="#" className="nav-link">
+          <a href="#a" className="nav-link">
             {item.icon()}
             <span className="link-text">{item.name}</span>
           </a>

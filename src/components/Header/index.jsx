@@ -1,9 +1,9 @@
 import React from 'react';
 import './styles.css';
 
-import { FaCaretDown, FaQrcode, FaBell } from 'react-icons/fa';
+import {FaQrcode, FaBell } from 'react-icons/fa';
 import Avatar from '../../img/avatar.jpg'
-import VietNam from '../../img/vietnam.webp'
+
 
 function Header() {
   return (

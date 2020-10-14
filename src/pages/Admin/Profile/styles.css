@@ -1,0 +1,189 @@
+.profile {
+  width: 100%;
+  margin-top: 70px;
+}
+
+.welcome-name p {
+  font-size: 40px;
+}
+
+/*
+.div-info{
+  display: flex;
+  justify-content: space-between;
+}
+.info-item{
+  position: relative;
+  display: block;
+  width: 400px;
+  height: 500px;
+  background-color:white;
+  border: 1px solid #00474f94;
+  box-shadow: 0 4px 8px 0 rgba(14, 94, 126, 0.473), 0 6px 20px 0 rgba(201, 134, 134, 0.19);
+}
+.info-details{
+  margin-top: 10px;
+  text-align: center;
+}
+.avatar{
+  position: absolute;
+  top:3%;
+  left: 35%;
+}
+.btn-avatar{
+  position: absolute;
+  top: 85%;
+  left: 70%
+}
+
+
+.title{
+  height: 35px;
+  background-color: #00474f;
+}
+.title p{
+  font-size: 1.3rem;
+  margin-left: 10px;
+  color: wheat;
+}
+.title p svg{
+  font-size: 1.2rem;
+  margin-right: 5px;
+  fill: wheat;
+}
+
+.info-details Form Form.Item{
+  margin-bottom: 3px;
+} */
+/*--------------------*/
+.profile-main {
+  display: flex;
+  margin: 0 0;
+}
+
+/*Image*/
+.div-img {
+  margin-left: 10px;
+}
+
+.div-img-item {
+  position: relative;
+  width: 250px;
+  height: 230px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  box-shadow: 3px 4px 8px #e2d6a3;
+  background-color: #ffffffb3;
+}
+
+.div-img-item img {
+  margin: 10px 43px;
+}
+
+.div-change-img {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 50px;
+  background-color: #ad8b00;
+  border-radius: 0px 0px 6px 6px;
+  margin-bottom: 0px;
+}
+
+.div-change-img p {
+  display: flex;
+  margin-top: 9px;
+  justify-content: center;
+  color: #efeaea;
+  font-size: 20px;
+}
+
+/*Information*/
+.information {
+  width: 980px;
+  height: 480px;
+  margin-left: 40px;
+  margin-right: 10px;
+  background-color: #ffffffcc;
+  box-shadow: 3px 4px 8px #f0e5ba;
+  border-radius: 5px;
+}
+
+.information-head {
+  width: 100%;
+  display: flex;
+  height: 62px;
+  border-radius: 5px 5px 0 0;
+  background-color: #00474f;
+  box-shadow: 0px 2px 3px #08727e;
+  border-bottom: 0.5px solid gray;
+}
+
+.information-head a {
+  height: 100%;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+/*Form*/
+.information-content {
+  width: 100%;
+  height: calc(100% - 62px);
+}
+
+.info-left {
+  margin-top: 50px;
+}
+
+.info-user {
+  width: 520px;
+  padding: 10px;
+  height: 250px;
+  margin: 58px auto;
+  display: flex;
+  justify-content: center;
+}
+
+.info-user-title {
+  width: 40%;
+  height: 100%;
+}
+
+.info-user-title p {
+  font-size: 18px;
+  font-weight: 1000;
+}
+
+.info-user-title svg {
+  margin: 0px 10px;
+}
+
+.info-user-content {
+  width: 60%;
+  height: 100%;
+  padding: 0px 20px;
+}
+
+.info-user-content p {
+  font-size: 18px;
+}
+
+/*Tab*/
+.div-btn-edit button .ant-btn-primary {
+  color: #fff;
+  background: #b69217;
+  border-color: #595e0f;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+.div-btn-edit{
+  width: 32px;
+  height: 32px;
+  margin-left: 560px;
+}
