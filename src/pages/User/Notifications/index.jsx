@@ -6,63 +6,70 @@ import Card from './../../../components/Cards/index'
 import ConfirmModal from '../../../components/ConfirmModal/index'
 
 import { FaTrashAlt, FaThumbtack, FaBell } from 'react-icons/fa';
-import { Button } from 'antd';
+import { Button, Table } from 'antd';
 
+import { getNotificationsList } from '../../../redux/actions';
 
-function Notifications() {
+function Notifications({
+  noticeListData,
+  getNotificationsList,
+}) {
   const [notificationDetail, setNotificationDetail] = useState([]);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [confirmModalData, setConfirmModalData] = useState({});
-  const [noticeListData, setNoticeListData] = useState([
+  // const [noticeListData, setNoticeListData] = useState([
+  //   {
+  //     id: '001',
+  //     level: () => <div className="level" style={{ backgroundColor: '#f5222d' }}></div>,
+  //     // level: 'cao',
+  //     title: 'Tài khoản của bạn chỉ còn dưới 5000',
+  //     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, quo nemo totam dolore quae commodi. Aliquam quasi placeat rerum aut.',
+  //     date: '05/10/2020'
+  //   },
+  //   {
+  //     id: '002',
+  //     level: () => <div className="level" style={{ backgroundColor: 'green' }}></div>,
+  //     // level: 'cao',
+  //     title: 'Tài khoản của bạn chỉ còn dưới 5000',
+  //     description: 'Ahihi',
+  //     date: '05/10/2020'
+  //   },
+  //   {
+  //     id: '003',
+  //     level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
+  //     // level: 'cao',
+  //     title: 'Tài khoản của bạn chỉ còn dưới 5000',
+  //     description: 'Ahihi',
+  //     date: '05/10/2020'
+  //   },
+  //   {
+  //     id: '004',
+  //     level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
+  //     // level: 'cao',
+  //     title: 'Tài khoản của bạn chỉ còn dưới 5000',
+  //     description: 'Ahihi',
+  //     date: '05/10/2020'
+  //   },
+  // ])
+  const columns = [
     {
-      id: '001',
-      level: () => <div className="level" style={{ backgroundColor: '#f5222d' }}></div>,
-      // level: 'cao',
-      title: 'Tài khoản của bạn chỉ còn dưới 5000',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, quo nemo totam dolore quae commodi. Aliquam quasi placeat rerum aut.',
-      date: '05/10/2020'
+      title: 'ID', dataIndex: 'id', key: 'id',
     },
     {
-      id: '002',
-      level: () => <div className="level" style={{ backgroundColor: 'green' }}></div>,
-      // level: 'cao',
-      title: 'Tài khoản của bạn chỉ còn dưới 5000',
-      description: 'Ahihi',
-      date: '05/10/2020'
+      title: 'Mức độ', dataIndex: 'level', key: 'level',
     },
     {
-      id: '003',
-      level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
-      // level: 'cao',
-      title: 'Tài khoản của bạn chỉ còn dưới 5000',
-      description: 'Ahihi',
-      date: '05/10/2020'
+      title: 'Tiêu đề', dataIndex: 'title', key: 'title',
     },
     {
-      id: '004',
-      level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
-      // level: 'cao',
-      title: 'Tài khoản của bạn chỉ còn dưới 5000',
-      description: 'Ahihi',
-      date: '05/10/2020'
+      title: 'Ngày', dataIndex: 'date', key: 'date',
     },
-  ])
-  //Show Details
-  const handleToggleDetails = (id) => {
-    const moreNotificationIndex = notificationDetail.findIndex((moreId) => moreId === id);
-    if (moreNotificationIndex === -1) {
-      setNotificationDetail([
-        ...notificationDetail,
-        id,
-      ]);
-    } else {
-      const newDetailList = notificationDetail;
-      newDetailList.splice(moreNotificationIndex, 1);
-      setNotificationDetail([
-        ...newDetailList,
-      ]);
-    }
-  }
+    {
+      title: 'Hành động', dataIndex: '', key: 'x',
+      render: () => <Button danger type="text"><FaTrashAlt /></Button>,
+    },
+  ];
+
   //Hide / Show Modal
   const handleShowConfirmModal = (index) => {
     setIsShowConfirmModal(true);
@@ -73,16 +80,33 @@ function Notifications() {
     setConfirmModalData({});
   }
 
+  // //Show Details
+  // const handleToggleDetails = (id) => {
+  //   const moreNotificationIndex = notificationDetail.findIndex((moreId) => moreId === id);
+  //   if (moreNotificationIndex === -1) {
+  //     setNotificationDetail([
+  //       ...notificationDetail,
+  //       id,
+  //     ]);
+  //   } else {
+  //     const newDetailList = notificationDetail;
+  //     newDetailList.splice(moreNotificationIndex, 1);
+  //     setNotificationDetail([
+  //       ...newDetailList,
+  //     ]);
+  //   }
+  // }
+
   //Delete
-  const handleDeleteNotifications = (deletedId) => {
-    const newNotificationListData = noticeListData;
-    const notificationIndex = noticeListData.findIndex((item) => item.id === deletedId);
-    newNotificationListData.splice(notificationIndex, 1);
-    setNoticeListData([
-      ...newNotificationListData,
-    ]);
-    setIsShowConfirmModal(null);
-  }
+  // const handleDeleteNotifications = (deletedId) => {
+  //   const newNotificationListData = noticeListData;
+  //   const notificationIndex = noticeListData.findIndex((item) => item.id === deletedId);
+  //   newNotificationListData.splice(notificationIndex, 1);
+  //   setNoticeListData([
+  //     ...newNotificationListData,
+  //   ]);
+  //   setIsShowConfirmModal(null);
+  // }
 
   // const handleDeleteNotifications = (deletedId) => {
   //   deleteNotifications({id: deletedId})
@@ -90,30 +114,29 @@ function Notifications() {
   // }
 
   //Render
-  const renderNotificationsList = () => {
-    return noticeListData.map((item, itemIndex) => {
-      return (
-        <>
-          <tr key={itemIndex}>
-              <td>{item.id}</td>
-              <td>{item.level()}</td>
-              <td className="col-content">{item.title}</td>
-              <td><Button type="primary" ghost onClick={() => handleToggleDetails(item.id)}>{notificationDetail.findIndex((moreId) => moreId === item.id) === -1 ? 'Chi tiết' : 'Thu gọn'}</Button></td>
-              <td>{item.date}</td>
-              <td><Button danger type="text" onClick={() => handleShowConfirmModal(item.id)}><FaTrashAlt /></Button></td>
-          </tr>
-            <div>
-              {(notificationDetail.findIndex((id) => id === item.id) !== -1) && (
-                <div className="notice-item-description">
-                  {item.description}
-                </div>
-              )}
-            </div>
-        </>
-      );
-    });
-
-  }
+  // const renderNotificationsList = () => {
+  //   return noticeListData.map((item, itemIndex) => {
+  //     return (
+  //       <>
+  //         <tr key={itemIndex}>
+  //             <td>{item.id}</td>
+  //             <td>{item.level()}</td>
+  //             <td className="col-content">{item.title}</td>
+  //             <td><Button type="primary" ghost onClick={() => handleToggleDetails(item.id)}>{notificationDetail.findIndex((moreId) => moreId === item.id) === -1 ? 'Chi tiết' : 'Thu gọn'}</Button></td>
+  //             <td>{item.date}</td>
+  //             <td><Button danger type="text" onClick={() => handleShowConfirmModal(item.id)}><FaTrashAlt /></Button></td>
+  //         </tr>
+  //           <div>
+  //             {(notificationDetail.findIndex((id) => id === item.id) !== -1) && (
+  //               <div className="notice-item-description">
+  //                 {item.description}
+  //               </div>
+  //             )}
+  //           </div>
+  //       </>
+  //     );
+  //   });
+  // }
 
   return (
     <div className="notification">
@@ -122,7 +145,7 @@ function Notifications() {
         <div className="notification-title">
           <p><FaBell />Thông báo</p>
         </div>
-        <table>
+        {/* <table>
           <thead>
             <tr>
               <th>STT</th>
@@ -136,15 +159,35 @@ function Notifications() {
           <tbody>
             {renderNotificationsList()}
           </tbody>
-        </table>
+        </table> */}
+        <Table
+          columns={columns}
+          expandable={{
+            expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
+          }}
+          dataSource={noticeListData}
+        />
       </div>
       <ConfirmModal
         isShowModal={isShowConfirmModal}
         handleHideModal={handleHideConfirmModal}
-        handleDeleteNotifications={handleDeleteNotifications}
+        // handleDeleteNotifications={handleDeleteNotifications}
         modalData={confirmModalData}
       />
     </div>
   );
 }
-export default Notifications;
+const mapStateToProps = (state) => {
+  console.log('Log: mapStateToProps -> state', state);
+  const { noticeListData } = state;
+  return {
+    noticeListData
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getNotificationsList: (params) => dispatch(getNotificationsList(params)),
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

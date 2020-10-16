@@ -17,83 +17,29 @@ import {
 import { ZoomInOutlined } from '@ant-design/icons';
 import { FaMotorcycle } from 'react-icons/fa';
 
-function Account() {
-  /*-------------Data Chart---------------*/
+import { getHistoryList } from '../../../redux/actions/index';
+
+function Home({
+  getHistoryList,
+  historyList,
+  dataWeek,
+  dataMonth
+}) {
   const columnsHistory = [
     {
-      title: 'Mã',
-      dataIndex: 'id',
-      key: 'id',
+      title: 'Mã', dataIndex: 'id', key: 'id',
     },
     {
-      title: 'Ngày',
-      dataIndex: 'date',
-      key: 'date',
+      title: 'Ngày', dataIndex: 'date', key: 'date',
     },
     {
-      title: 'Giờ vào',
-      dataIndex: 'timeIn',
-      key: 'timeIn',
+      title: 'Giờ vào', dataIndex: 'timeIn', key: 'timeIn',
     },
     {
-      title: 'Giờ ra',
-      dataIndex: 'timeOut',
-      key: 'timeOut',
+      title: 'Giờ ra', dataIndex: 'timeOut', key: 'timeOut',
     },
     {
-      title: 'Biển số',
-      dataIndex: 'licensePlates',
-      key: 'licensePlates',
-    },
-  ];
-  const historyList = [
-    {
-      key: '1',
-      id: '10112020',
-      date: '10/11/2020',
-      timeIn: '6:45',
-      timeOut: '10:05',
-      licensePlates: '567 56'
-    },
-    {
-      key: '2',
-      id: '10112020',
-      date: '10/11/2020',
-      timeIn: '6:45',
-      timeOut: '10:05',
-      licensePlates: '567 56'
-    },
-    {
-      key: '3',
-      id: '10112020',
-      date: '10/11/2020',
-      timeIn: '6:45',
-      timeOut: '10:05',
-      licensePlates: '567 56'
-    },
-    {
-      key: '4',
-      id: '10112020',
-      date: '10/11/2020',
-      timeIn: '6:45',
-      timeOut: '10:05',
-      licensePlates: '567 56'
-    },
-    {
-      key: '5',
-      id: '10112020',
-      date: '9/11/2020',
-      timeIn: '6:45',
-      timeOut: '10:05',
-      licensePlates: '567 56'
-    },
-    {
-      key: '6',
-      id: '10112020',
-      date: '10/1/2020',
-      timeIn: '6:45',
-      timeOut: '10:05',
-      licensePlates: '567 56'
+      title: 'Biển số', dataIndex: 'licensePlates', key: 'licensePlates',
     },
   ];
   // const [historyList,  setHistoryList] = useState([
@@ -125,57 +71,58 @@ function Account() {
   //     licensePlates:'567 56'
   //   },
   // ])
-  const dataweek = [
-    {
-      name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
-    },
-    {
-      name: 'Page B', uv: 3000, pv: 1398, amt: 2210,
-    },
-    {
-      name: 'Page C', uv: 2000, pv: 15000, amt: 2290,
-    },
-    {
-      name: 'Page D', uv: 2780, pv: 3908, amt: 2000,
-    },
-    {
-      name: 'Page E', uv: 1890, pv: 4800, amt: 2181,
-    },
-    {
-      name: 'Page F', uv: 2390, pv: 3800, amt: 2500,
-    },
-    {
-      name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
-    },
-  ];
-  const datamonth = [
-    {
-      name: 'Page A', uv: 5000, pv: 5000, amt: 2400,
-    },
-    {
-      name: 'Page B', uv: 3000, pv: 2098, amt: 2210,
-    },
-    {
-      name: 'Page C', uv: 2000, pv: 6000, amt: 2290,
-    },
-    {
-      name: 'Page D', uv: 2780, pv: 2908, amt: 2000,
-    }
-  ];
+  /*-------------Data Chart---------------*/
+  // const dataWeek = [
+  //   {
+  //     name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
+  //   },
+  //   {
+  //     name: 'Page B', uv: 3000, pv: 1398, amt: 2210,
+  //   },
+  //   {
+  //     name: 'Page C', uv: 2000, pv: 15000, amt: 2290,
+  //   },
+  //   {
+  //     name: 'Page D', uv: 2780, pv: 3908, amt: 2000,
+  //   },
+  //   {
+  //     name: 'Page E', uv: 1890, pv: 4800, amt: 2181,
+  //   },
+  //   {
+  //     name: 'Page F', uv: 2390, pv: 3800, amt: 2500,
+  //   },
+  //   {
+  //     name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
+  //   },
+  // ];
+  // const dataMonth = [
+  //   {
+  //     name: 'Page A', uv: 5000, pv: 5000, amt: 2400,
+  //   },
+  //   {
+  //     name: 'Page B', uv: 3000, pv: 2098, amt: 2210,
+  //   },
+  //   {
+  //     name: 'Page C', uv: 2000, pv: 6000, amt: 2290,
+  //   },
+  //   {
+  //     name: 'Page D', uv: 2780, pv: 2908, amt: 2000,
+  //   }
+  // ];
 
-  const renderHistoryList = () => {
-    return historyList.map((item, itemIndex) => {
-      return (
-        <tr key={itemIndex}>
-          <td>{item.id}</td>
-          <td>{item.date}</td>
-          <td>{item.timeIn}</td>
-          <td>{item.timeOut}</td>
-          <td>{item.licensePlates}</td>
-        </tr>
-      );
-    });
-  }
+  // const renderHistoryList = () => {
+  //   return historyList.map((item, itemIndex) => {
+  //     return (
+  //       <tr key={itemIndex}>
+  //         <td>{item.id}</td>
+  //         <td>{item.date}</td>
+  //         <td>{item.timeIn}</td>
+  //         <td>{item.timeOut}</td>
+  //         <td>{item.licensePlates}</td>
+  //       </tr>
+  //     );
+  //   });
+  // }
   return (
     <div className="home">
       <div className="home-left">
@@ -192,8 +139,8 @@ function Account() {
               <h2>10</h2>
             </div>
             <div className="home-statistic-chart">
-              <LineChart width={342} height={100} data={dataweek}>
-                <Line type="monotone" dataKey="pv" stroke="#8884d8" strokeWidth={2} />
+              <LineChart width={342} height={100} data={dataWeek}>
+                <Line type="monotone" dataKey="CP" stroke="#8884d8" strokeWidth={2} />
               </LineChart>
             </div>
           </div>
@@ -209,8 +156,8 @@ function Account() {
               <h2>30</h2>
             </div>
             <div className="home-statistic-chart">
-              <LineChart width={342} height={100} data={datamonth}>
-                <Line type="monotone" dataKey="pv" stroke="#3f6600" strokeWidth={2} />
+              <LineChart width={342} height={100} data={dataMonth}>
+                <Line type="monotone" dataKey="CP" stroke="#3f6600" strokeWidth={2} />
               </LineChart>
             </div>
           </div>
@@ -267,5 +214,19 @@ function Account() {
     </div>
   )
 }
+const mapStateToProps = (state) => {
+  console.log('Log: mapStateToProps -> state', state);
+  const { historyList, dataWeek, dataMonth } = state;
+  return {
+    historyList,
+    dataWeek,
+    dataMonth
+  }
+};
 
-export default Account;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getHistoryList: (params) => dispatch(getHistoryList(params)),
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

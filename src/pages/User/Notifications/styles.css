@@ -24,7 +24,7 @@
     font-weight: 550;
 }
 /*---------------Table-----------------*/
-.table-notification table{
+/* .table-notification table{
   margin: 10px auto;
   padding: 0px 30px;
   width: 95%;
@@ -36,7 +36,7 @@
   text-align: center;
   padding: 5px 0px;
 }
-/*tHead*/
+
 .table-notification table thead{
   table-layout: fixed;
   width: 98%;
@@ -48,7 +48,7 @@
   text-align: center;
   height: 60px;
 }
-/*tBody*/
+
 .table-notification table tbody{
   display: block;
   height: 300px;
@@ -73,4 +73,27 @@
 }
 .table-notification table td svg :hover{
   fill:#820014;
+} */
+
+.table-notification .ant-table table{
+  margin: 10px auto;
+  width: 95%;
+  height: calc(100%- 60px);
+  overflow: hidden;
+}
+.table-notification .ant-table table thead{
+  table-layout: fixed;
+  width: 98%;
+  display: table;
+}
+.table-notification .ant-table table tbody{
+  display: block;
+  height: 300px;
+  width: 100%;
+  overflow: auto;
+}
+.table-notification .ant-table table tbody tr{
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }

@@ -1,6 +1,3 @@
-// export * from './infoList.action';
-// export * from './statisticList.action';
-
 /*Notification*/
 export function getNotificationsList(params){
   return{
@@ -36,5 +33,3 @@ export function getHistoryList(params){
     payload: params
   }
 }
-
-/*----------------Statistic------------------- */

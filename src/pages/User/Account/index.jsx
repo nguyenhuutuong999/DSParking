@@ -5,19 +5,57 @@ import { connect } from 'react-redux';
 import Card from './../../../components/Cards/index'
 
 import { FaAddressCard, FaTrashAlt, FaThumbtack, } from 'react-icons/fa';
-import { Button, Form, Input, } from 'antd';
+import { Button, Form, Input, Table } from 'antd';
 
-function Account() {
-  const [transactionsList, setTransactionsList] = useState([
+import { getTransactionsList } from '../../../redux/actions';
+
+
+function Account({
+  getTransactionsList,
+  transactionsList,
+}) {
+  // const [transactionsList, setTransactionsList] = useState([
+  //   {
+  //     no:'001',
+  //     id:'GD10112020',
+  //     time:'10/11/2020',
+  //     money: '2000',
+  //     title: 'Top Up to DSParking',
+  //     balance:'4000',
+  //   },
+  // ])
+  const columns = [
     {
-      no:'001',
-      id:'GD10112020',
-      time:'10/11/2020',
-      money: '2000',
-      title: 'Top Up to DSParking',
-      balance:'4000',
+      title: 'Mã GD',
+      dataIndex: 'no',
+      key: 'no',
     },
-  ])
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Thời gian',
+      dataIndex: 'time',
+      key: 'time',
+    },
+    {
+      title: 'Số tiền',
+      dataIndex: 'money',
+      key: 'money',
+    },
+    {
+      title: 'Nội dung',
+      dataIndex: 'title',
+      key: 'title',
+    },
+    {
+      title: 'Số dư',
+      dataIndex: 'balance',
+      key: 'balance',
+    },
+  ];
   const renderTransactionList = () => {
     return transactionsList.map((item, itemIndex) => {
       return (
@@ -63,7 +101,7 @@ function Account() {
             </div>
         </div>
         <table>
-          <thead>
+          {/* <thead>
             <tr>
               <th>STT</th>
               <th>Mã giao dịch</th>
@@ -76,11 +114,24 @@ function Account() {
           </thead>
           <tbody>
             {renderTransactionList()}
-          </tbody>
+          </tbody> */}
+          <Table columns={columns} dataSource={transactionsList} />
         </table>
       </div>
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  console.log('Log: mapStateToProps -> state', state);
+  const { transactionsList } = state;
+  return {
+    transactionsList
+  }
+};
 
-export default Account;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getTransactionsList: (params) => dispatch(getTransactionsList(params)),
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Account);
