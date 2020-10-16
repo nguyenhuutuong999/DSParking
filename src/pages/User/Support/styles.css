@@ -28,7 +28,7 @@
 
 .support-header p {
   display: flex;
-  padding: 14px 20px;
+  padding: 14px 20px !important;
   font-size: 2rem;
   color: #5c0011;
   font-weight: 500;
@@ -81,5 +81,5 @@
 .footer-support p{
   text-align: center;
   color: #e6e6e6;
-  padding: 10px 0;
+  padding: 10px 0 !important;
 }

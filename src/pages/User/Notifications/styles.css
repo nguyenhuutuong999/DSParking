@@ -18,7 +18,7 @@
   height: 40px;
 }
 .notification-title p{
-    margin: 20px;
+    margin: 20px !important;
     font-size: 25px;
     color: darkslategray;
     font-weight: 550;

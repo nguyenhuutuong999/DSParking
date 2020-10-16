@@ -11,42 +11,120 @@ import history from '../../../util/history'
 
 import {
   Button,
-  Tooltip as Tip
+  Tooltip as Tip,
+  Table
 } from 'antd';
 import { ZoomInOutlined } from '@ant-design/icons';
 import { FaMotorcycle } from 'react-icons/fa';
 
 function Account() {
   /*-------------Data Chart---------------*/
-  const [historyList,  setHistoryList] = useState([
+  const columnsHistory = [
     {
-      stt: '001',
-      id:'10112020',
-      date:'10/11/2020',
-      place:'254 Nguyễn Văn Linh',
-      timeIn:'6:45',
-      timeOut:'10:05',
-      licensePlates:'567 56'
+      title: 'Mã',
+      dataIndex: 'id',
+      key: 'id',
     },
     {
-      stt: '002',
-      id:'10112020',
-      date:'10/11/2020',
-      place:'254 Nguyễn Văn Linh',
-      timeIn:'6:45',
-      timeOut:'10:05',
-      licensePlates:'567 56'
+      title: 'Ngày',
+      dataIndex: 'date',
+      key: 'date',
     },
     {
-      stt: '003',
-      id:'10112020',
-      date:'10/11/2020',
-      place:'254 Nguyễn Văn Linh',
-      timeIn:'6:45',
-      timeOut:'10:05',
-      licensePlates:'567 56'
+      title: 'Giờ vào',
+      dataIndex: 'timeIn',
+      key: 'timeIn',
     },
-  ])
+    {
+      title: 'Giờ ra',
+      dataIndex: 'timeOut',
+      key: 'timeOut',
+    },
+    {
+      title: 'Biển số',
+      dataIndex: 'licensePlates',
+      key: 'licensePlates',
+    },
+  ];
+  const historyList = [
+    {
+      key: '1',
+      id: '10112020',
+      date: '10/11/2020',
+      timeIn: '6:45',
+      timeOut: '10:05',
+      licensePlates: '567 56'
+    },
+    {
+      key: '2',
+      id: '10112020',
+      date: '10/11/2020',
+      timeIn: '6:45',
+      timeOut: '10:05',
+      licensePlates: '567 56'
+    },
+    {
+      key: '3',
+      id: '10112020',
+      date: '10/11/2020',
+      timeIn: '6:45',
+      timeOut: '10:05',
+      licensePlates: '567 56'
+    },
+    {
+      key: '4',
+      id: '10112020',
+      date: '10/11/2020',
+      timeIn: '6:45',
+      timeOut: '10:05',
+      licensePlates: '567 56'
+    },
+    {
+      key: '5',
+      id: '10112020',
+      date: '9/11/2020',
+      timeIn: '6:45',
+      timeOut: '10:05',
+      licensePlates: '567 56'
+    },
+    {
+      key: '6',
+      id: '10112020',
+      date: '10/1/2020',
+      timeIn: '6:45',
+      timeOut: '10:05',
+      licensePlates: '567 56'
+    },
+  ];
+  // const [historyList,  setHistoryList] = useState([
+  //   {
+  //     stt: '001',
+  //     id:'10112020',
+  //     date:'10/11/2020',
+  //     place:'254 Nguyễn Văn Linh',
+  //     timeIn:'6:45',
+  //     timeOut:'10:05',
+  //     licensePlates:'567 56'
+  //   },
+  //   {
+  //     stt: '002',
+  //     id:'10112020',
+  //     date:'10/11/2020',
+  //     place:'254 Nguyễn Văn Linh',
+  //     timeIn:'6:45',
+  //     timeOut:'10:05',
+  //     licensePlates:'567 56'
+  //   },
+  //   {
+  //     stt: '003',
+  //     id:'10112020',
+  //     date:'10/11/2020',
+  //     place:'254 Nguyễn Văn Linh',
+  //     timeIn:'6:45',
+  //     timeOut:'10:05',
+  //     licensePlates:'567 56'
+  //   },
+  // ])
   const dataweek = [
     {
       name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
@@ -84,7 +162,7 @@ function Account() {
       name: 'Page D', uv: 2780, pv: 2908, amt: 2000,
     }
   ];
-  
+
   const renderHistoryList = () => {
     return historyList.map((item, itemIndex) => {
       return (
@@ -105,12 +183,12 @@ function Account() {
 
           <div className="home-statistic-items">
             <div className="home-statistic-info">
-                <div className="icon-title-statistics">
-                  <div style={{width: '40px', height:'40px', borderRadius:'50%', backgroundColor:'#d3adf7'}}>
-                    < FaMotorcycle style={{fontSize:'25px', fill:'#722ed1', marginTop:'8px'}} />
-                  </div>
-                  <h5>LƯỢT GỬI / Tuần</h5>
+              <div className="icon-title-statistics">
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#d3adf7' }}>
+                  < FaMotorcycle style={{ fontSize: '25px', fill: '#722ed1', marginTop: '8px' }} />
                 </div>
+                <h5>LƯỢT GỬI / Tuần</h5>
+              </div>
               <h2>10</h2>
             </div>
             <div className="home-statistic-chart">
@@ -121,18 +199,18 @@ function Account() {
           </div>
 
           <div className="home-statistic-items">
-          <div className="home-statistic-info">
-                <div className="icon-title-statistics">
-                  <div style={{width: '40px', height:'40px', borderRadius:'50%', backgroundColor:'#b7eb8f'}}>
-                    < FaMotorcycle style={{fontSize:'25px', fill:'#389e0d', marginTop:'8px'}} />
-                  </div>
-                  <h5>LƯỢT GỬI / Tháng</h5>
+            <div className="home-statistic-info">
+              <div className="icon-title-statistics">
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#b7eb8f' }}>
+                  < FaMotorcycle style={{ fontSize: '25px', fill: '#389e0d', marginTop: '8px' }} />
                 </div>
+                <h5>LƯỢT GỬI / Tháng</h5>
+              </div>
               <h2>30</h2>
             </div>
             <div className="home-statistic-chart">
               <LineChart width={342} height={100} data={datamonth}>
-                <Line type="monotone" dataKey="pv" stroke="#3f6600" strokeWidth={2}/>
+                <Line type="monotone" dataKey="pv" stroke="#3f6600" strokeWidth={2} />
               </LineChart>
             </div>
           </div>
@@ -140,11 +218,11 @@ function Account() {
 
         <div className="home-history">
           <div className="home-history-detail">
-          <div className="home-history-title">
-            <h4>Lịch sử ra vào</h4>
-          </div>
-          <div className="home-history-table">
-            <table>
+            <div className="home-history-title">
+              <h4>Lịch sử ra vào</h4>
+            </div>
+            <div className="home-history-table">
+              {/* <table>
               <thead>
                 <tr>
                   <th>Mã</th>
@@ -157,9 +235,14 @@ function Account() {
               <tbody>
                 {renderHistoryList()}
               </tbody>
-            </table>
-            <Button className="btn-details-history" type="primary" ghost shape="round" onClick={() => history.push('/statistic')}>Xem chi tiết</Button>
-          </div>         
+            </table> */}
+              <div className="div-table-history">
+                <Table dataSource={historyList} columns={columnsHistory} />;
+              </div>
+              <div className="btn-history-detail">
+                <Button type="primary" ghost shape="round" onClick={() => history.push('/statistic')}>Xem chi tiết</Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

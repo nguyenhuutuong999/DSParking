@@ -44,7 +44,7 @@
   font-weight: 1000;
 }
 .card-right h6{
-  margin: 25px;
+  margin: 25px !important;
   text-align: center;
   font-size: 1.4rem;
   font-weight: 1000;

@@ -32,7 +32,7 @@
 .home-statistic-info h2{
   color: #2c2c2c;
   font-weight: 600;
-  margin: 0px 95px;
+  margin: 0px 95px !important;
 }
 .icon-title-statistics{
    display:flex;
@@ -41,8 +41,8 @@
    text-align: center;
 }
 .icon-title-statistics h5{
-  margin-top: 17px;
-  margin-left: 10px;
+  margin-top: 17px !important;
+  margin-left: 10px !important;
   font-weight: 700;
   color: #8c8c8c;
 }
@@ -69,18 +69,27 @@
 }
 .home-history-title h4{
     margin-top: 0;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.5em !important;
     font-weight: 700;
     font-size: 19px;
-    padding-top: 2px;
-    padding-left: 20px;
+    padding-top: 2px !important;
+    padding-left: 20px !important;
     color: #515365;
 }
 .home-history-table {
   height: 85%;
+  overflow: hidden;
   margin: 5px 0px;
 }
-
+.div-table-history{
+  height: 80%;
+  width: 100%;
+  overflow: hidden;
+}
+.btn-history-detail {
+  margin-top: 1%;
+  margin-left: 80%;
+}
 .home-history-table table {
   width: 95%;
   height: calc(100% - 80px);
@@ -101,7 +110,7 @@ td {
 }
 
 .btn-details-history {
-  margin-top: 5%;
+  margin-top: 2%;
   margin-left: 80%;
 }
 
