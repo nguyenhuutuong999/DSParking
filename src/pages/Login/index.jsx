@@ -42,8 +42,7 @@ import * as actions from "./../../redux/actions/index";
 //       }
 
 function Login(props) {
-  const [account, setAccount] = useState({ user: "idrootsv1", pass: 123, mess: false });
-
+  const [account, setAccount] = useState({ user: "std1", pass: 123, mess: false });
 
 
   function handleChange(event) {
@@ -56,6 +55,7 @@ function Login(props) {
   function onSubmit(event) {
     event.preventDefault();
     props.login(account);
+    
   }
   // useEffect(() => {
   //   async function fetchData() {
@@ -66,8 +66,8 @@ function Login(props) {
   //   fetchData()
   // }, []);
 
-  var { manageAccount } = props;
-
+  var { manageAccount } = props.manageAccount;
+ 
   return (
 
     <div className="limiter">
@@ -103,7 +103,7 @@ function Login(props) {
               <button type="submit" className="login100-form-btn">
                 Login
               </button>
-              {manageAccount.mess &&
+              {!manageAccount.mess &&
                             <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                         }
             </div>
@@ -125,7 +125,7 @@ function Login(props) {
 
 const mapStateToProps = (state) => {
   return {
-    manageAccount: state.manageAccount,
+    manageAccount: state,
   }
 };
 const mapDispatchToProps = (dispatch, props) => {
