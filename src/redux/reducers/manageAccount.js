@@ -35,7 +35,7 @@ var myReducer = (state = initialState, action) => {
                 mess: true,
               };
               
-             
+              
             }  
           }else {
             console.log("check2");
