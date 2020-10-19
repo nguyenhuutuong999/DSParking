@@ -1,5 +1,4 @@
 .home {
-  margin: 0 20px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -7,7 +6,7 @@
 
 /*Left*/
 .home-left{
-  width: 65%;
+  width: 75%;
   height: 100%;
 }
 .home-statistic {
@@ -20,7 +19,7 @@
   position: relative;
   width: 48%;
   height: 90%;
-  margin-right: 4%;
+  margin-right: 3%;
   background-color: white;
   border-radius: 8px;
   box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
@@ -49,9 +48,10 @@
 .home-statistic-chart{
   height: 60%;
 }
+
 .home-history{
-  width: 96%;
-  height: 60%; 
+  width: 97%;
+  height: 63%; 
 }
 .home-history-detail{
   width: 100%;
@@ -86,10 +86,6 @@
   width: 100%;
   overflow: hidden;
 }
-.btn-history-detail {
-  margin-top: 1%;
-  margin-left: 80%;
-}
 .home-history-table table {
   width: 95%;
   height: calc(100% - 80px);
@@ -105,7 +101,8 @@ td {
 }
 
 .home-history-table table thead th {
-  color: #1b55e2;
+  color: #db5c00;
+  font-weight: 600 ;
   padding: 5px 0px;
 }
 
@@ -116,35 +113,41 @@ td {
 
 /*Right*/
 .home-right{
-  width: 35%;
+  width: 25%;
 }
 .home-user {
-  width: 90%;
-  height: 300px;
+  width: 100%;
+  height: 310px;
   background-color: white;
   border-radius: 6px;
   box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
 
 }
 
-.home-user img {
-  margin-top: 10px;
-  margin-left: 100px;
-  width: 150px;
-  height: 150px;
+.home-user .div-img{
+  position: relative;
+  border-radius: 6px 6px 0px 0px;
+  height: 32%;
+  width: 100%;
+  background-color: #db5c00;
+}
+
+.home-user .div-img img {
+  position: absolute;
+  top: 30%;
+  left:24%;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
 }
 
-.home-user .btn-details-user {
-  margin-top: 15px;
-  margin-left: 220px;
-}
-
 .home-user-info {
-  margin-top: 10px;
+  height: 68%;
   width: 100%;
 }
-
+.home-user-info .information{
+  margin-top: 70px;
+}
 .home-user-info span {
   display: block;
   text-align: center;
@@ -154,24 +157,30 @@ td {
   font-weight: 600;
 }
 
+
 .home-qrcode {
   position: relative;
-  width: 90%;
-  height: 205px;
-  margin-top: 30px;
-  background: url('../../../img/cardid1.jpg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  width: 100%;
+  height: 220px;
+  margin-top: 20px;
   border-radius: 6px;
   box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
 }
 
+.home-qrcode p{
+  text-align: center;
+  font-weight: 600;
+  padding: 10px 0px !important;
+}
+.home-qrcode-img{
+  width: 170px;
+  height: 170px;
+  margin: 0 auto;
+}
 .home-qrcode img {
-  margin-top: 23%;
-  margin-left: 26%;
-  width: 95px;
-  height: 95px;
+  width: 170px;
+  height: 170px;
 }
 .home-qrcode .zoom {
   position: absolute;

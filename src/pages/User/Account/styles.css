@@ -45,17 +45,17 @@
   font-weight:400
 }
 /*Table*/
-.content-account table {
+/* .content-account table {
   height: calc(100% - 170px);
   width: 95%;
   margin: 0 auto;
   box-shadow: 3px 4px 6px #1111fc12;
-}
-.content-account table tr td {
+} */
+/* .content-account table tr td {
   height: 50px;
   text-align: center;
 }
-/*tHead*/
+
 .content-account table thead{
   table-layout: fixed;
   display: table;
@@ -68,7 +68,7 @@
   height: 40px;
   padding: 15px 0px;
 }
-/*tBody*/
+
 
 .content-account table tbody{
   display: block;
@@ -80,4 +80,39 @@
   width: 100%;
   table-layout: fixed;
   height: 50px;
+} */
+
+/**/
+.div-table{
+  width: 100%;
+  height: calc(100% - 170px);
+}
+.content-account .div-table .ant-table table{
+  margin: 0 auto;
+  width: 95%;
+  overflow: hidden;
+}
+.content-account .div-table .ant-table table thead{
+  table-layout: fixed;
+  width: 98%;
+  display: table;
+  color: #d48806;
+}
+.content-account .div-table .ant-table table thead th{
+  color:  #1b55e2 !important;
+  font-weight: 600;
+}
+.content-account .div-table .ant-table table tr th,td{
+  text-align: center !important;
+}
+.content-account .ant-table table tbody{
+  display: block;
+  height: 180px;
+  width: 100%;
+  overflow: auto;
+}
+.content-account .ant-table table tbody tr{
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }

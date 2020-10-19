@@ -39,7 +39,7 @@ function Home({
       title: 'Giờ ra', dataIndex: 'timeOut', key: 'timeOut',
     },
     {
-      title: 'Biển số', dataIndex: 'licensePlates', key: 'licensePlates',
+      title: 'Địa điểm', dataIndex: 'place', key: 'place',
     },
   ];
   // const [historyList,  setHistoryList] = useState([
@@ -131,16 +131,16 @@ function Home({
           <div className="home-statistic-items">
             <div className="home-statistic-info">
               <div className="icon-title-statistics">
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#d3adf7' }}>
-                  < FaMotorcycle style={{ fontSize: '25px', fill: '#722ed1', marginTop: '8px' }} />
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#ffe7ba' }}>
+                  < FaMotorcycle style={{ fontSize: '25px', fill: '#db5c00', marginTop: '8px' }} />
                 </div>
-                <h5>LƯỢT GỬI / Tuần</h5>
+                <h5>Lượt gửi tuần</h5>
               </div>
               <h2>10</h2>
             </div>
             <div className="home-statistic-chart">
-              <LineChart width={342} height={100} data={dataWeek}>
-                <Line type="monotone" dataKey="CP" stroke="#8884d8" strokeWidth={2} />
+              <LineChart width={380} height={100} data={dataWeek}>
+                <Line type="monotone" dataKey="CP" stroke="#db5c00" strokeWidth={2} />
               </LineChart>
             </div>
           </div>
@@ -148,16 +148,16 @@ function Home({
           <div className="home-statistic-items">
             <div className="home-statistic-info">
               <div className="icon-title-statistics">
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#b7eb8f' }}>
-                  < FaMotorcycle style={{ fontSize: '25px', fill: '#389e0d', marginTop: '8px' }} />
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#ffe7ba' }}>
+                  < FaMotorcycle style={{ fontSize: '25px', fill: '#db5c00', marginTop: '8px' }} />
                 </div>
-                <h5>LƯỢT GỬI / Tháng</h5>
+                <h5>Lượt gửi tháng</h5>
               </div>
               <h2>30</h2>
             </div>
             <div className="home-statistic-chart">
-              <LineChart width={342} height={100} data={dataMonth}>
-                <Line type="monotone" dataKey="CP" stroke="#3f6600" strokeWidth={2} />
+              <LineChart width={380} height={100} data={dataMonth}>
+                <Line type="monotone" dataKey="CP" stroke="#db5c00" strokeWidth={2} />
               </LineChart>
             </div>
           </div>
@@ -186,9 +186,6 @@ function Home({
               <div className="div-table-history">
                 <Table dataSource={historyList} columns={columnsHistory} />;
               </div>
-              <div className="btn-history-detail">
-                <Button type="primary" ghost shape="round" onClick={() => history.push('/statistic')}>Xem chi tiết</Button>
-              </div>
             </div>
           </div>
         </div>
@@ -196,19 +193,22 @@ function Home({
 
       <div className="home-right">
         <div className="home-user">
-          <img src={Avatar3} alt="Avatar" />
+          <div className="div-img">
+            <img src={Avatar3} alt="Avatar" />
+          </div>
           <div className="home-user-info">
-            <span className="name">Nguyễn T Bích Ni - 2320716843</span>
+            <div className="information">
+            <span className="name">Nguyễn T Bích Ni</span>
+            <span>2320716843</span>
             <span>24/01/1999</span>
             <span>K23CMU - TTT</span>
+            <span><Button onClick={() => history.push('/profile')}>Xem thông tin cá nhân</Button></span>
+            </div>
           </div>
-          <Button className="btn-details-user" type="primary" ghost shape="round" onClick={() => history.push('/profile')}>Xem chi tiết</Button>
         </div>
         <div className="home-qrcode">
-          <img src={QrCode} alt="QrCode" />
-          <Tip title="zoom">
-            <Button className="zoom" type="primary" shape="circle" icon={<ZoomInOutlined />} ghost />
-          </Tip>
+            <p>Mã QrCode của bạn:</p>
+            <div className="home-qrcode-img"><img src={QrCode} alt="QrCode" /></div>
         </div>
       </div>
     </div>

@@ -12,7 +12,6 @@ const initialState = {
   noticeListData: [
     {
       key: '1',
-      id: '001',
       level: '<div dangerouslySetInnerHTML={{__html: First &middot; Second}}></div>',
       title: 'Tài khoản của bạn chỉ còn dưới 5000',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, quo nemo totam dolore quae commodi. Aliquam quasi placeat rerum aut.',
@@ -20,7 +19,6 @@ const initialState = {
     },
     {
       key: '2',
-      id: '002',
       // level: () => <div className="level" style={{ backgroundColor: 'green' }}></div>,
       level: 'cao',
       title: 'Tài khoản của bạn chỉ còn dưới 5000',
@@ -29,7 +27,6 @@ const initialState = {
     },
     {
       key: '3',
-      id: '003',
       // level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
       level: 'cao',
       title: 'Tài khoản của bạn chỉ còn dưới 5000',
@@ -38,7 +35,6 @@ const initialState = {
     },
     {
       key: '4',
-      id: '004',
       // level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
       level: 'cao',
       title: 'Tài khoản của bạn chỉ còn dưới 5000',
@@ -57,6 +53,33 @@ const initialState = {
       title: 'Top Up to DSParking',
       balance: '4000',
     },
+    {
+      key: '2',
+      no: '001',
+      id: 'GD10112020',
+      time: '10/11/2020',
+      money: '2000',
+      title: 'Top Up to DSParking',
+      balance: '4000',
+    },
+    {
+      key: '3',
+      no: '001',
+      id: 'GD10112020',
+      time: '10/11/2020',
+      money: '2000',
+      title: 'Top Up to DSParking',
+      balance: '4000',
+    },
+    {
+      key: '4',
+      no: '001',
+      id: 'GD10112020',
+      time: '10/11/2020',
+      money: '2000',
+      title: 'Top Up to DSParking',
+      balance: '4000',
+    },
   ],
   //History
   historyList: [
@@ -68,7 +91,6 @@ const initialState = {
       place: '254 Nguyễn Văn Linh',
       timeIn: '6:45',
       timeOut: '10:05',
-      licensePlates: '567 56'
     },
     {
       key: '2',
@@ -78,7 +100,6 @@ const initialState = {
       place: '254 Nguyễn Văn Linh',
       timeIn: '6:45',
       timeOut: '10:05',
-      licensePlates: '567 56'
     },
     {
       key: '3',
@@ -88,7 +109,6 @@ const initialState = {
       place: '254 Nguyễn Văn Linh',
       timeIn: '6:45',
       timeOut: '10:05',
-      licensePlates: '567 56'
     },
   ],
   /*----------------Statistic------------------- */

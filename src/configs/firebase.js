@@ -19,11 +19,22 @@ const firebaseConfig = {
   measurementId: "G-65GTD6ETPY"
 };
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBX-bcVW22dRwtdCGrVb9m_fFKInxMzGYo",
+//   authDomain: "dtuparking.firebaseapp.com",
+//   databaseURL: "https://dtuparking.firebaseio.com",
+//   projectId: "dtuparking",
+//   storageBucket: "dtuparking.appspot.com",
+//   messagingSenderId: "1059316722935",
+//   appId: "1:1059316722935:web:1e69b103a0fd02a5cdf7f2",
+//   measurementId: "G-ZKSEMW84DK"
+// }
+
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const firebaseAppAuth = firebaseApp.auth();
- 
+
 const firebaseAppProviders = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
 };

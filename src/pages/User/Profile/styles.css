@@ -1,39 +1,43 @@
 .profile {
+  display:flex;
   width: 100%;
+  height: 100%;
 }
-/*--------------------*/
-.profile-main {
-  width: calc(100% - 80px);
-  margin: 20px 40px;
-  display: flex;
+/*Image*/
+.profile .div-img{
+  width: 22%;
+  height: 100%;
+  margin-right: 20px;
 }
 
-/*Image*/
-.div-img{
-  width: 30%;
-}
-.div-img-item {
-  position: relative;
-  width: 90%;
-  height: 50%;
+.profile .div-img .div-img-item {
+  width: 100%;
+  height: 40%;
+  margin: 0 auto;
   margin-bottom: 20px;
   border-radius: 6px;
   box-shadow: 3px 4px 8px #e2d6a3;
-  background-color: #ffffffb3;
+  background-color: #ffffff;
 }
 
+.profile .div-img .div-img-item .div-img-item-details{
+  position: relative;
+  width: 100%;
+  height: 80%;
+}
 .div-img-item img {
-  margin: 10px 23%;
-}
-
-.div-change-img {
   position: absolute;
-  bottom: 0px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height:180px
+}
+.profile .div-img .div-img-item .div-change-img{
   width: 100%;
   height: 20%;
-  background-color: #ad8b00;
+  background-color: #db5c00;
   border-radius: 0px 0px 6px 6px;
-  margin-bottom: 0px;
 }
 
 .div-change-img p {
@@ -45,66 +49,29 @@
 }
 
 /*Information*/
-.information {
-  width: 65%;
-  height: 100%;
-  margin-left: 40px;
-  margin-right: 10px;
-  /* background-color: #ffffffcc;
-  box-shadow: 3px 4px 8px #f0e5ba; */
+.div-information {
+  width: 80%;
+  height:90%;
+  background-color: #ffffff;
+  box-shadow: 3px 4px 8px #f0e5ba;
   border-radius: 5px;
 }
 
-.information-head {
-  width: 100%;
-  display: flex;
-  height: 62px;
-  border-radius: 5px 5px 0 0;
-  background-color: #00474f;
-  box-shadow: 0px 2px 3px #08727e;
-  border-bottom: 0.5px solid gray;
-}
-
-.information-head a {
-  height: 100%;
-  padding: 0 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 25px;
-  font-weight: 400;
-}
-
 /*Form*/
-.information-content {
-  position: relative;
-  width: 100%;
-  height: calc(100% - 62px);
-}
-
-.info-left {
-  margin-top: 50px;
-}
-
-.info-user {
-  width: 520px;
-  padding: 10px;
-  height: 250px;
-  margin: 58px auto;
+.div-information .information-content {
   display: flex;
-  justify-content: center;
 }
 
 .info-user-title {
-  width: 40%;
+  padding: 0px 0px 0px 20px;
+  width: 30%;
   height: 100%;
 }
 
 .info-user-title p {
-  margin-top: 20px !important;
+  margin-bottom: 17px !important;
   font-size: 18px;
-  font-weight: 1000;
+  font-weight: 600;
 }
 
 .info-user-title svg {
@@ -112,17 +79,24 @@
 }
 
 .info-user-content {
-  width: 60%;
+  width: 70%;
   height: 100%;
-  padding: 0px 20px;
 }
 
-.info-user-content p, input {
-  margin-top: 20px !important;
+.info-user-content p{
+  margin-bottom: 17px !important;
   font-size: 18px;
 }
 
+.ant-input{
+  margin-bottom: 13px !important;
+}
+
+
 /*Tab*/
+.ant-tabs{
+  width: 100%;
+}
 .div-btn-edit button .ant-btn-primary {
   color: #fff;
   background: #b69217;
@@ -131,12 +105,16 @@
   -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
-.div-btn-edit{
-  position: absolute;
-  top: 20%;
-  left: 85%;
-}
 
 .ant-tab-content {
   background-color: white !important;
+}
+.ant-form-item{
+  margin-bottom: 7px !important;
+}
+.tab-title{
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px;
+  height: 40px;
 }

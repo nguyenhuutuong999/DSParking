@@ -35,7 +35,7 @@
 
 .evaluation-header p {
   display: flex;
-  padding: 14px 20px;
+  padding: 14px 20px !important;
   font-size: 2rem;
   color: #5c0011;
   font-weight: 500;

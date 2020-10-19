@@ -10,17 +10,37 @@
   font-weight: 600;
   color: gray;
 }
+.div-svg-header{
+  position: relative;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color:  antiquewhite;
+}
 .header-right svg{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-size: 22px;
-  fill:#76838f;
+  fill: #fa8c16 !important;
 }
 .header-right svg:hover{
   cursor: pointer;
-  fill: #096dd9;
+  fill: #096dd9 !important;
 }
 .noti-dropdown-title {
   padding: 16px;
 }
 .noti-dropdown-menu p {
   white-space: pre-wrap;
+}
+
+.ant-space-item p{
+  font-size: 14px !important;
+  color: gray
+}
+
+.ant-space-item svg {
+  fill: #096dd9;
 }

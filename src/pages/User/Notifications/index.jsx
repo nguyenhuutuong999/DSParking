@@ -6,67 +6,87 @@ import Card from './../../../components/Cards/index'
 import ConfirmModal from '../../../components/ConfirmModal/index'
 
 import { FaTrashAlt, FaThumbtack, FaBell } from 'react-icons/fa';
-import { Button, Table } from 'antd';
+import { Button, Table, Tabs } from 'antd';
 
-import { getNotificationsList } from '../../../redux/actions';
+import { getNotificationsList, deleteNotifications } from '../../../redux/actions';
 
 function Notifications({
   noticeListData,
   getNotificationsList,
+  deleteNotifications
 }) {
   const [notificationDetail, setNotificationDetail] = useState([]);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [confirmModalData, setConfirmModalData] = useState({});
   // const [noticeListData, setNoticeListData] = useState([
   //   {
+  //     key: '1',
   //     id: '001',
-  //     level: () => <div className="level" style={{ backgroundColor: '#f5222d' }}></div>,
-  //     // level: 'cao',
+  //     level: '<div dangerouslySetInnerHTML={{__html: First &middot; Second}}></div>',
   //     title: 'Tài khoản của bạn chỉ còn dưới 5000',
   //     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, quo nemo totam dolore quae commodi. Aliquam quasi placeat rerum aut.',
   //     date: '05/10/2020'
   //   },
   //   {
+  //     key: '2',
   //     id: '002',
-  //     level: () => <div className="level" style={{ backgroundColor: 'green' }}></div>,
-  //     // level: 'cao',
+  //     // level: () => <div className="level" style={{ backgroundColor: 'green' }}></div>,
+  //     level: 'cao',
   //     title: 'Tài khoản của bạn chỉ còn dưới 5000',
   //     description: 'Ahihi',
   //     date: '05/10/2020'
   //   },
   //   {
+  //     key: '3',
   //     id: '003',
-  //     level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
-  //     // level: 'cao',
+  //     // level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
+  //     level: 'cao',
   //     title: 'Tài khoản của bạn chỉ còn dưới 5000',
   //     description: 'Ahihi',
   //     date: '05/10/2020'
   //   },
   //   {
+  //     key: '4',
   //     id: '004',
-  //     level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
-  //     // level: 'cao',
+  //     // level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
+  //     level: 'cao',
   //     title: 'Tài khoản của bạn chỉ còn dưới 5000',
   //     description: 'Ahihi',
   //     date: '05/10/2020'
   //   },
   // ])
+  // const columns = [
+  //   {
+  //     title: 'ID', dataIndex: 'id', key: 'id',
+  //   },
+  //   {
+  //     title: 'Mức độ', dataIndex: 'level', key: 'level',
+  //   },
+  //   {
+  //     title: 'Tiêu đề', dataIndex: 'title', key: 'title',
+  //   },
+  //   {
+  //     title: 'Ngày', dataIndex: 'date', key: 'date',
+  //   },
+  //   {
+  //     title: 'Hành động', dataIndex: '', key: 'x',
+  //     render: () => <Button danger onClick={(key) => handleShowConfirmModal(key)} type="text"><FaTrashAlt /></Button>,
+  //   },
+  // ];
+
   const columns = [
     {
-      title: 'ID', dataIndex: 'id', key: 'id',
+       dataIndex: 'level', key: 'level',
     },
     {
-      title: 'Mức độ', dataIndex: 'level', key: 'level',
+       dataIndex: 'title', key: 'title',
     },
     {
-      title: 'Tiêu đề', dataIndex: 'title', key: 'title',
+       dataIndex: 'date', key: 'date',
     },
     {
-      title: 'Ngày', dataIndex: 'date', key: 'date',
-    },
-    {
-      title: 'Hành động', dataIndex: '', key: 'x',
-      render: () => <Button danger type="text"><FaTrashAlt /></Button>,
+       dataIndex: '', key: 'x',
+      render: () => <Button danger onClick={(key) => handleShowConfirmModal(key)} type="text"><FaTrashAlt /></Button>,
     },
   ];
 
@@ -108,11 +128,12 @@ function Notifications({
   //   setIsShowConfirmModal(null);
   // }
 
-  // const handleDeleteNotifications = (deletedId) => {
-  //   deleteNotifications({id: deletedId})
-  //   setIsShowConfirmModal(false);
-  // }
+  const handleDeleteNotifications = (deletedId) => {
+    deleteNotifications({ id: deletedId })
+    setIsShowConfirmModal(false);
+  }
 
+  const { TabPane } = Tabs;
   //Render
   // const renderNotificationsList = () => {
   //   return noticeListData.map((item, itemIndex) => {
@@ -142,10 +163,23 @@ function Notifications({
     <div className="notification">
       <Card />
       <div className="table-notification">
-        <div className="notification-title">
+        <Tabs defaultActiveKey="1">
+          <TabPane tab="Thông báo" key="1">
+            <Table
+              columns={columns}
+              expandable={{
+                expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
+              }}
+              dataSource={noticeListData}
+              pagination={false}
+            />
+          </TabPane>
+        </Tabs>
+        {/* <div className="notification-title">
           <p><FaBell />Thông báo</p>
-        </div>
-        {/* <table>
+        </div> */}
+        {/*
+         <table>
           <thead>
             <tr>
               <th>STT</th>
@@ -159,19 +193,23 @@ function Notifications({
           <tbody>
             {renderNotificationsList()}
           </tbody>
-        </table> */}
-        <Table
+        </table> 
+        */}
+        {/* <Table
           columns={columns}
           expandable={{
             expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
           }}
           dataSource={noticeListData}
-        />
+          pagination={false}
+        /> */}
+
+
       </div>
       <ConfirmModal
         isShowModal={isShowConfirmModal}
         handleHideModal={handleHideConfirmModal}
-        // handleDeleteNotifications={handleDeleteNotifications}
+        handleDeleteNotifications={handleDeleteNotifications}
         modalData={confirmModalData}
       />
     </div>
@@ -188,6 +226,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getNotificationsList: (params) => dispatch(getNotificationsList(params)),
+    deleteNotifications: (params) => dispatch(deleteNotifications(params)),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

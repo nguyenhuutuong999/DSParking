@@ -86,7 +86,7 @@ function Account({
               labelCol={{ span: 10 }}
               wrapperCol={{ span: 14 }}
               layout="horizontal"
-              style={{display:'flex', justifyContent: 'space-between', marginTop:'13px'}}
+              style={{display:'flex', justifyContent: 'space-between', marginTop: '13px'}}
             >
               <Form.Item label="Tên tài khoản: ">
                 <Input />
@@ -100,8 +100,9 @@ function Account({
             </Form>
             </div>
         </div>
-        <table>
-          {/* <thead>
+        <div className="div-table">
+        {/* <table>
+          <thead>
             <tr>
               <th>STT</th>
               <th>Mã giao dịch</th>
@@ -114,9 +115,10 @@ function Account({
           </thead>
           <tbody>
             {renderTransactionList()}
-          </tbody> */}
-          <Table columns={columns} dataSource={transactionsList} />
-        </table>
+          </tbody>
+        </table> */}
+        <Table columns={columns} dataSource={transactionsList} pagination={false} />
+        </div>
       </div>
     </div>
   );

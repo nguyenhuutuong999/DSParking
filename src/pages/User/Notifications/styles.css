@@ -7,7 +7,7 @@
 }
 .table-notification{
   width: 100%;
-  height: calc(100% - 190px);
+  height: calc(100% - 160px);
   border-radius: 6px;
   box-shadow: 2px 4px 8px rgba(0,0,0,0.3);
   background-color: white;
@@ -23,61 +23,23 @@
     color: darkslategray;
     font-weight: 550;
 }
-/*---------------Table-----------------*/
-/* .table-notification table{
-  margin: 10px auto;
-  padding: 0px 30px;
-  width: 95%;
-  height: calc(100%- 60px);
+/*Tab*/
+.ant-tabs {
+  padding: 0px 20px !important;
 }
-.table-notification table th, td
-{
-  border-bottom: 1px solid #ddd;
-  text-align: center;
-  padding: 5px 0px;
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #db5c00 !important;
+  font-weight: 600 !important;
 }
 
-.table-notification table thead{
-  table-layout: fixed;
-  width: 98%;
-  display: table;
-  background-color: #e0e6ed;
-}
-.table-notification table thead tr{
-  color: #1b55e2;
-  text-align: center;
-  height: 60px;
+.ant-tabs-ink-bar {
+  position: absolute;
+  background: #db5c00 !important;
+  pointer-events: none;
 }
 
-.table-notification table tbody{
-  display: block;
-  height: 300px;
-  width: 100%;
-  overflow: auto;
-}
-.table-notification table tbody tr{
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-  height: 50px;
-}
-
-.level{
-  width: 80px;
-  height: 10px;
-  border-radius: 10px ;
-}
-.table-notification table td svg{
-  font-size: 1.7rem;
-  fill: #595959;
-}
-.table-notification table td svg :hover{
-  fill:#820014;
-} */
-
-.table-notification .ant-table table{
-  margin: 10px auto;
-  width: 95%;
+/*Table*/
+/* .table-notification .ant-table table{
   height: calc(100%- 60px);
   overflow: hidden;
 }
@@ -85,6 +47,13 @@
   table-layout: fixed;
   width: 98%;
   display: table;
+}
+.table-notification .ant-table table thead th{
+  color:  #1b55e2 !important;
+  font-weight: 600;
+}
+.table-notification .ant-table table tr th, td{
+  text-align: center !important;
 }
 .table-notification .ant-table table tbody{
   display: block;
@@ -96,4 +65,9 @@
   display: table;
   width: 100%;
   table-layout: fixed;
+} */
+
+.table-notification .ant-table{
+  height: 374px !important;
+  overflow: auto;
 }
