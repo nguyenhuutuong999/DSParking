@@ -27,9 +27,17 @@ import myReducer from "./redux/reducers/index";
 import * as serviceWorker from './serviceWorker';
 import history from './util/history'
 import 'antd/dist/antd.css';
-// add REDUX DEVTOOL TO TEST
-const store = createStore(myReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
+
+import thunk from "redux-thunk";
+import {applyMiddleware} from 'redux';
+
+// add REDUX DEVTOOL TO TEST
+const composeEnhancer =  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+const store = createStore(
+  myReducer,
+  composeEnhancer(applyMiddleware(thunk)),
+  )
 ReactDOM.render(
   <React.StrictMode>
     <Provider store = {store}>

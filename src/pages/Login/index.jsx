@@ -1,48 +1,14 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import './styles.css'
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 
-import history from './../../util/history';
+
 import { connect } from "react-redux";
 import * as actions from "./../../redux/actions/index";
 
-// class Login extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       user: "a",
-//       pass: "b",
-//       mess: false,
-//     };
-//   }
-//   componentDidMount() {
-//   //   console.log(this.state.mess);
-//   //  if(this.props.manageAccount){
-
-//   //    this.setState({
-//   //     user: this.props.manageAccount.user,
-//   //     pass: this.props.manageAccount.pass,
-//   //     mess: this.props.manageAccount.mess,
-//   //    })
-//   //  }
-//   //  console.log(this.state.mess);
-//   }
-//   handleChange = (event) =>{
-//         var target = event.target;
-//         var name = target.name;
-//         var value = target.value;
-//        this.setState({
-//         [name]: value,
-//        })
-
-//   }
-//   onSubmit = (event) =>{
-//         event.preventDefault();
-//         this.props.login(this.state);
-//       }
 
 function Login(props) {
-  const [account, setAccount] = useState({ user: "std1", pass: 123, mess: false });
+  const [account, setAccount] = useState({ user: "std1", pass: 123, mess: true });
 
 
   function handleChange(event) {
@@ -54,20 +20,10 @@ function Login(props) {
   }
   function onSubmit(event) {
     event.preventDefault();
-    props.login(account);
-    
+    props.loginRequest(account);
   }
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     setAccount({ ...account, mess: props.manageAccount.mess });
-  //     console.log(props.manageAccount.mess);
-  //   }
-
-  //   fetchData()
-  // }, []);
-
   var { manageAccount } = props.manageAccount;
- 
+
   return (
 
     <div className="limiter">
@@ -103,9 +59,9 @@ function Login(props) {
               <button type="submit" className="login100-form-btn">
                 Login
               </button>
-              {!manageAccount.mess &&
-                            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        }
+              {account.mess &&
+                <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+              }
             </div>
             <div className="login-text">
               <div>
@@ -130,9 +86,9 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    login: (account) => {
-      dispatch(actions.login(account));
-    },
+    loginRequest: (account) => {
+      dispatch(actions.loginRequest(account));
+    }
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
