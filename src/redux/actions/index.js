@@ -36,5 +36,19 @@ export function getHistoryList(params){
     payload: params
   }
 }
-
+// export function getUserInfoFirebase(params){
+//   return{
+//     type: 'GET_USER_FIREBASE',
+//     payload: params
+//   }
+// }
+// export function getUserInfoFirebaseRequest(params){
+//   return(dispatch){
+//     return firebaseApp.database().ref("User/parkingMan/account/std1").on('value', (snapshot) => {
+//       dispatch(getUserInfoFirebase(snapshot))
+//     })
+//   }
+// }
 /*----------------Statistic------------------- */
+
+

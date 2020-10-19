@@ -169,20 +169,6 @@ function Home({
               <h4>Lịch sử ra vào</h4>
             </div>
             <div className="home-history-table">
-              {/* <table>
-              <thead>
-                <tr>
-                  <th>Mã</th>
-                  <th>Ngày</th>
-                  <th>Giờ vào</th>
-                  <th>Giờ ra</th>
-                  <th>Biển số</th>
-                </tr>
-              </thead>
-              <tbody>
-                {renderHistoryList()}
-              </tbody>
-            </table> */}
               <div className="div-table-history">
                 <Table dataSource={historyList} columns={columnsHistory} />;
               </div>
@@ -193,22 +179,24 @@ function Home({
 
       <div className="home-right">
         <div className="home-user">
-          <div className="div-img">
-            <img src={Avatar3} alt="Avatar" />
-          </div>
-          <div className="home-user-info">
-            <div className="information">
-            <span className="name">Nguyễn T Bích Ni</span>
-            <span>2320716843</span>
-            <span>24/01/1999</span>
-            <span>K23CMU - TTT</span>
-            <span><Button onClick={() => history.push('/profile')}>Xem thông tin cá nhân</Button></span>
+          <div className="home-user-detail">
+            <div className="div-img">
+              <img src={Avatar3} alt="Avatar" />
+            </div>
+            <div className="home-user-info">
+              <div className="information">
+                <span className="name">Nguyễn T Bích Ni</span>
+                <span>2320716843</span>
+                <span>24/01/1999</span>
+                <span>K23CMU - TTT</span>
+                <span><Button onClick={() => history.push('/profile')}>Xem thông tin cá nhân</Button></span>
+              </div>
             </div>
           </div>
         </div>
         <div className="home-qrcode">
-            <p>Mã QrCode của bạn:</p>
-            <div className="home-qrcode-img"><img src={QrCode} alt="QrCode" /></div>
+          <p>Mã QrCode của bạn:</p>
+          <div className="home-qrcode-img"><img src={QrCode} alt="QrCode" /></div>
         </div>
       </div>
     </div>

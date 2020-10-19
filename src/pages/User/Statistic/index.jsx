@@ -290,20 +290,6 @@ function Statistic({
 
       <div className="statistic-row3">
         <table>
-          {/* <thead>
-            <tr>
-              <th>STT</th>
-              <th>Mã</th>
-              <th>Ngày</th>
-              <th>Giờ vào</th>
-              <th>Giờ ra</th>
-              <th>Địa điểm</th>
-              <th>Biển số</th>
-            </tr>
-          </thead>
-          <tbody>
-            {renderHistoryList()}
-          </tbody> */}
           <Table dataSource={historyList} columns={columnsHistory} />;
         </table>
       </div>

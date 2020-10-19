@@ -5,7 +5,8 @@
 
 .content-account {
   width: 100%;
-  height: calc(100% - 190px);
+  /* height: calc(100% - 190px); */
+  height: 100%;
   box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.3);
   border-radius: 6px;
   background-color: white;
@@ -18,11 +19,11 @@
 }
 
 .account-title p {
-  margin: 0px 20px;
+  margin: 0px 20px !important;
   display: flex;
   align-items: center;
-  font-size: 25px;
-  font-weight: 550;
+  font-size: 20px;
+  font-weight: 500;
   color: darkslategray;
   font-family: 'Noto Sans', 'Arial', 'Tahoma';
   height: 100%;

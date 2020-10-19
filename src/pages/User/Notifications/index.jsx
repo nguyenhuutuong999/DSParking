@@ -161,7 +161,6 @@ function Notifications({
 
   return (
     <div className="notification">
-      <Card />
       <div className="table-notification">
         <Tabs defaultActiveKey="1">
           <TabPane tab="Thông báo" key="1">

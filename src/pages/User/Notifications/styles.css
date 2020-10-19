@@ -7,7 +7,7 @@
 }
 .table-notification{
   width: 100%;
-  height: calc(100% - 160px);
+  max-height: 100%;
   border-radius: 6px;
   box-shadow: 2px 4px 8px rgba(0,0,0,0.3);
   background-color: white;
@@ -68,6 +68,6 @@
 } */
 
 .table-notification .ant-table{
-  height: 374px !important;
+  height: 475px !important;
   overflow: auto;
 }

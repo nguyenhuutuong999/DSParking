@@ -78,7 +78,10 @@ function Header({ signOut }) {
 
   return (
     <div className="app-header">
-      <div className="welcome">Xin chào, {authData.name} !!!</div>
+      <div className="welcome">
+        <p>Xin chào, {authData.name} !!!</p>
+        <p className="header-balance">Số dư: 5000</p>
+      </div>
       <Space className="header-right" align="center" size="middle">
         <div className="div-svg-header">
           <FaQrcode onClick={() => handleShowQrModal()} />

@@ -10,9 +10,9 @@
 }
 
 .evaluation-main {
-  margin: 20px 60px;
+  margin: 0 auto;
   width: calc(100% - 120px);
-  height: calc(100% - 100px);
+  height: 100%;
   background-color: white;
   border-radius: 6px;
   border: 0.5px solid #7e6411;

@@ -74,7 +74,7 @@ function Account({
 
   return (
     <div className="dsp-account">
-      <Card/>
+      {/* <Card/> */}
       <div className="content-account">
         <div className="account-title">
           <p><span><FaAddressCard/></span>Tài Khoản Ngân Hàng/DSPay</p>

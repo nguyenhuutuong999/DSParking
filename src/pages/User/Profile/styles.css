@@ -30,8 +30,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 180px;
-  height:180px
+  width: 170px;
+  height:170px
 }
 .profile .div-img .div-img-item .div-change-img{
   width: 100%;
@@ -51,7 +51,7 @@
 /*Information*/
 .div-information {
   width: 80%;
-  height:90%;
+  height:100%;
   background-color: #ffffff;
   box-shadow: 3px 4px 8px #f0e5ba;
   border-radius: 5px;
@@ -69,7 +69,7 @@
 }
 
 .info-user-title p {
-  margin-bottom: 17px !important;
+  margin-bottom: 16px !important;
   font-size: 18px;
   font-weight: 600;
 }
@@ -84,12 +84,12 @@
 }
 
 .info-user-content p{
-  margin-bottom: 17px !important;
+  margin-bottom: 16px !important;
   font-size: 18px;
 }
 
 .ant-input{
-  margin-bottom: 13px !important;
+  margin-bottom: 11.5px !important;
 }
 
 

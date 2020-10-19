@@ -3,10 +3,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
-  height: 56px;
+  height: 65px;
 }
-.app-header .welcome{
-  font-size: 20px;
+.app-header .welcome p{
+  font-size: 20px !important;
   font-weight: 600;
   color: gray;
 }
@@ -43,4 +43,7 @@
 
 .ant-space-item svg {
   fill: #096dd9;
+}
+.header-balance{
+  font-weight: 400 !important;
 }
