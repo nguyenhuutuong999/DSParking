@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import './styles.css';
 
 import { Route, NavLink, withRouter } from 'react-router-dom';
-import { FaUser, FaBell, FaChartArea, FaQuestionCircle, FaPenSquare, FaCog, FaSignOutAlt, FaHome, FaAddressCard } from 'react-icons/fa';
+import { FaUser, FaBell, FaChartArea, FaQuestionCircle, FaPenSquare, FaCog, FaSignOutAlt, FaHome, FaAddressCard, FaUsers } from 'react-icons/fa';
 import { RollbackOutlined } from '@ant-design/icons';
 
 import history from '../../util/history'
@@ -59,12 +59,6 @@ function Sidebar(props) {
       exact: true,
       icon: () =><FaCog className="icons" />
     },
-    {
-      name: "Đăng xuất",
-      to: "/login",
-      exact: true,
-      icon: () =><RollbackOutlined className="icons" />
-    },
   ];
 
   const admin_menus = [
@@ -92,6 +86,12 @@ function Sidebar(props) {
       to: "/admin/statistic",
       exact: true,
       icon: () =><FaChartArea className="icons" />
+    },
+    {
+      name: "Quản lí người dùng",
+      to: "/admin/management",
+      exact: true,
+      icon: () =><FaUsers className="icons" />
     },
   ];
 

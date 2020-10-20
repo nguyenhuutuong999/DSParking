@@ -3,7 +3,7 @@ import withFirebaseAuth from 'react-with-firebase-auth';
 import './styles.css'
 
 import { Space, Badge, Dropdown, Menu, Button, Modal } from 'antd';
-import { RollbackOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { RollbackOutlined, ExclamationCircleOutlined, DollarOutlined } from '@ant-design/icons';
 import { FaBell, FaQrcode, FaBirthdayCake, FaUser, FaExclamationCircle } from 'react-icons/fa';
 
 import history from '../../util/history'
@@ -80,26 +80,31 @@ function Header({ signOut }) {
     <div className="app-header">
       <div className="welcome">
         <p>Xin chào, {authData.name} !!!</p>
+
       </div>
       <Space className="header-right" align="center" size="middle">
-        <p className="header-balance">Số dư: 5000</p>
-
+        <div className="header-balance">
+          <Space>
+            <DollarOutlined />
+            <p>5000000</p>
+          </Space>
+        </div>
         <div className="div-svg-header">
           <FaQrcode onClick={() => handleShowQrModal()} />
         </div>
 
         <div className="div-svg-header">
-          
-            <Dropdown overlay={renderDropdownNotification()} placement="bottomRight">
+
+          <Dropdown overlay={renderDropdownNotification()} placement="bottomRight">
             {/* <Badge count={2}> */}
-              <FaBell />
+            <FaBell />
             {/* </Badge> */}
-            </Dropdown>
+          </Dropdown>
         </div>
 
-          <Dropdown overlay={renderDropdownAvatar()} placement="bottomCenter">
-            <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} src={Avatar} alt="Avatar" />
-          </Dropdown>
+        <Dropdown overlay={renderDropdownAvatar()} placement="bottomCenter">
+          <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} src={Avatar} alt="Avatar" />
+        </Dropdown>
       </Space>
 
       <Modal

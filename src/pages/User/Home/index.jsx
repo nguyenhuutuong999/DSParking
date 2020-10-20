@@ -170,7 +170,11 @@ function Home({
             </div>
             <div className="home-history-table">
               <div className="div-table-history">
-                <Table dataSource={historyList} columns={columnsHistory} />;
+                <Table 
+                  dataSource={historyList} 
+                  columns={columnsHistory}
+                  pagination={false}
+                 />;
               </div>
             </div>
           </div>

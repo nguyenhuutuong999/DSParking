@@ -1,11 +1,11 @@
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 import './styles.css';
 import { connect } from 'react-redux';
 
 import Card from './../../../components/Cards/index'
 
 import { FaAddressCard, FaTrashAlt, FaThumbtack, } from 'react-icons/fa';
-import { Button, Form, Input, Table } from 'antd';
+import { Button, Form, Input, Table, Tabs } from 'antd';
 
 import { getTransactionsList } from '../../../redux/actions';
 
@@ -56,6 +56,7 @@ function Account({
       key: 'balance',
     },
   ];
+  const { TabPane } = Tabs;
   const renderTransactionList = () => {
     return transactionsList.map((item, itemIndex) => {
       return (
@@ -76,17 +77,45 @@ function Account({
     <div className="dsp-account">
       {/* <Card/> */}
       <div className="content-account">
-        <div className="account-title">
-          <p><span><FaAddressCard/></span>Tài Khoản Ngân Hàng/DSPay</p>
+        <Tabs defaultActiveKey="1">
+          <TabPane tab="Tài Khoản Ngân Hàng / DSPay" key="1">
+            <div className="account-form">
+              <Button>Liên kết Ngân Hàng</Button>
+              <div className="account-info">
+                <Form
+                  labelCol={{ span: 10 }}
+                  wrapperCol={{ span: 14 }}
+                  layout="horizontal"
+                  style={{ display: 'flex', justifyContent: 'space-between', marginTop: '13px' }}
+                >
+                  <Form.Item label="Tên tài khoản: ">
+                    <Input />
+                  </Form.Item>
+                  <Form.Item label="Số thẻ: ">
+                    <Input />
+                  </Form.Item>
+                  <Form.Item label="Số dư hiện tại: ">
+                    <Input />
+                  </Form.Item>
+                </Form>
+              </div>
+            </div>
+            <div className="div-table">
+              <Table columns={columns} dataSource={transactionsList} pagination={false} />
+            </div>
+          </TabPane>
+        </Tabs>
+        {/* <div className="account-title">
+          <p><span><FaAddressCard /></span>Tài Khoản Ngân Hàng/DSPay</p>
         </div>
         <div className="account-form">
-            <Button>Liên kết Ngân Hàng</Button>
-            <div className="account-info">
+          <Button>Liên kết Ngân Hàng</Button>
+          <div className="account-info">
             <Form
               labelCol={{ span: 10 }}
               wrapperCol={{ span: 14 }}
               layout="horizontal"
-              style={{display:'flex', justifyContent: 'space-between', marginTop: '13px'}}
+              style={{ display: 'flex', justifyContent: 'space-between', marginTop: '13px' }}
             >
               <Form.Item label="Tên tài khoản: ">
                 <Input />
@@ -98,27 +127,11 @@ function Account({
                 <Input />
               </Form.Item>
             </Form>
-            </div>
+          </div>
         </div>
         <div className="div-table">
-        {/* <table>
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Mã giao dịch</th>
-              <th>Thời gian</th>
-              <th>Số tiền</th>
-              <th>Mô tả</th>
-              <th>Số dư còn lại</th>
-              <th>Thao tác</th>
-            </tr>
-          </thead>
-          <tbody>
-            {renderTransactionList()}
-          </tbody>
-        </table> */}
-        <Table columns={columns} dataSource={transactionsList} pagination={false} />
-        </div>
+          <Table columns={columns} dataSource={transactionsList} pagination={false} />
+        </div> */}
       </div>
     </div>
   );

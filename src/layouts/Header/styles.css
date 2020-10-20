@@ -17,7 +17,7 @@
   border-radius: 50%;
   background-color:  antiquewhite;
 }
-.header-right svg{
+.div-svg-header svg{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -25,7 +25,7 @@
   font-size: 22px;
   fill: #fa8c16 !important;
 }
-.header-right svg:hover{
+.div-svg-header svg:hover{
   cursor: pointer;
   fill: #096dd9 !important;
 }
@@ -45,5 +45,18 @@
   fill: #096dd9;
 }
 .header-balance{
-  font-weight: 400 !important;
+  min-width: 100px;
+  border-radius: 20px;
+  padding: 2px 10px;
+  display: flex;
+  background-color: antiquewhite;
+}
+.header-balance p{
+  font-size: 20px !important;
+  font-weight: 550;
+  color: darkred;
+}
+.header-balance svg{
+  font-size: 25px !important;
+  fill: #fa8c16 !important;
 }

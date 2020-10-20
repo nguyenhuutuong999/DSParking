@@ -16,6 +16,7 @@ import AdminHome from './pages/Admin/AdminHome';
 import AdminNotifications from './pages/Admin/AdminNotifications';
 import AdminProfile from './pages/Admin/AdminProfile';
 import AdminStatistic from './pages/Admin/AdminStatistic';
+import UsersManagement from './pages/Admin/UsersManagement';
 
 import Login from './pages/User/Login';
 import Profile from './pages/User/Profile';
@@ -41,6 +42,7 @@ ReactDOM.render(
           <LayoutDefault2 exact role="admin" path="/admin/notifications" component={AdminNotifications} />
           <LayoutDefault2 exact role="admin" path="/admin/profile" component={AdminProfile} />
           <LayoutDefault2 exact role="admin" path="/admin/statistic" component={AdminStatistic} />
+          <LayoutDefault2 exact role="admin" path="/admin/management" component={UsersManagement} />
 
           <LayoutDefault2 exact role="user" path="/profile" component={Profile} />
           <LayoutDefault2 exact role="user" path="/" component={Home} />
