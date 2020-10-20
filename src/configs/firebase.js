@@ -33,10 +33,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-const firebaseAppAuth = firebaseApp.auth();
-
-const firebaseAppProviders = {
+const firebaseProviders = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
 };
 
-export { firebaseApp, firebaseAppAuth, firebaseAppProviders }
+export { firebaseApp, firebaseProviders }

@@ -36,6 +36,7 @@ export function getHistoryList(params){
     payload: params
   }
 }
+
 // export function getUserInfoFirebase(params){
 //   return{
 //     type: 'GET_USER_FIREBASE',

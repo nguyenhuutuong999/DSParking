@@ -8,7 +8,8 @@ import { RollbackOutlined } from '@ant-design/icons';
 import history from '../../util/history'
 
 function Sidebar(props) {
-  const menus = [
+  const { role } = props;
+  const user_menus = [
     {
       name: "Home",
       to: "/",
@@ -65,18 +66,62 @@ function Sidebar(props) {
       icon: () =><RollbackOutlined className="icons" />
     },
   ];
+
+  const admin_menus = [
+    {
+      name: "Home",
+      to: "/admin",
+      exact: true,
+      icon: () =><FaHome className="icons" />
+
+    },
+    {
+      name: "Thông tin cá nhân",
+      to: "/admin/profile",
+      exact: true,
+      icon: () =><FaUser className="icons" />
+    },
+    {
+      name: "Thông báo",
+      to: "/admin/notifications",
+      exact: true,
+      icon: () =><FaBell className="icons" />
+    },
+    {
+      name: "Thống kê",
+      to: "/admin/statistic",
+      exact: true,
+      icon: () =><FaChartArea className="icons" />
+    },
+  ];
+
   const sidebarMap = () => {
-    return menus.map((item, index) => {
-      return (
-        <li className={`nav-item ${history.location.pathname === menus[index].to && 'nav-item-active'}`} key={index} onClick={() => history.push(menus[index].to)}>
-          <a href="#" className="nav-link">
-            {item.icon()}
-            <span className="link-text">{item.name}</span>
-          </a>
-        </li>
-      );
-    });
-  }
+    if(role === "user"){
+      return user_menus.map((item, index) => {
+        return (
+          <li className={`nav-item ${history.location.pathname === user_menus[index].to && 'nav-item-active'}`} key={index} onClick={() => history.push(user_menus[index].to)}>
+            <a href="#" className="nav-link">
+              {item.icon()}
+              <span className="link-text">{item.name}</span>
+            </a>
+          </li>
+        );
+      });
+    }
+    else{
+      return admin_menus.map((item, index) => {
+        return (
+          <li className={`nav-item ${history.location.pathname === admin_menus[index].to && 'nav-item-active'}`} key={index} onClick={() => history.push(admin_menus[index].to)}>
+            <a href="#" className="nav-link">
+              {item.icon()}
+              <span className="link-text">{item.name}</span>
+            </a>
+          </li>
+        );
+      });
+    }
+    }
+
   return (
     <div className="navbar">
       <ul className="navbar-nav">

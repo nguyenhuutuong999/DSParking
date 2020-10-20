@@ -6,7 +6,7 @@ import {
   firebaseApp,
 } from '../../../configs/firebase';
 
-function  Home() {
+function  AdminHome() {
   const [qrCodeData, setQRCodeData] = useState('');
   const [checkInUser, setCheckInUser] = useState({});
   const [checkInHistory, setCheckInHistory] = useState([]);
@@ -77,4 +77,4 @@ function  Home() {
   );
 }
 
-export default Home;
+export default AdminHome;

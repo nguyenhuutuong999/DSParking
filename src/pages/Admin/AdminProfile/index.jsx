@@ -1,13 +1,13 @@
 import React from 'react';
 
 
-function Notifications() {
+function AdminProfile() {
   
   return (
     <div className="Notifications">
-      Notifications
+      Profile
     </div>
   );
 }
 
-export default Notifications;
+export default AdminProfile;

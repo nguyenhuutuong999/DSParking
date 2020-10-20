@@ -1,12 +1,13 @@
 import React from 'react';
 
-function Setting() {
+
+function AdminNotifications() {
   
   return (
     <div className="Notifications">
-      Setting
+      Notifications
     </div>
   );
 }
 
-export default Setting;
+export default AdminNotifications;

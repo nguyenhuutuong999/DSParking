@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Statistic() {
+function AdminStatistic() {
   
   return (
     <div className="Notifications">
@@ -9,4 +9,4 @@ function Statistic() {
   );
 }
 
-export default Statistic;
+export default AdminStatistic;

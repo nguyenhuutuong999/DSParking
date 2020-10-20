@@ -171,6 +171,7 @@ function Notifications({
               }}
               dataSource={noticeListData}
               pagination={false}
+              showHeader={false}
             />
           </TabPane>
         </Tabs>

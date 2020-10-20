@@ -12,8 +12,8 @@ import Avatar from '../../img/avatar.jpg';
 import Qrcode from '../../img/qrcode.png'
 
 import {
-  firebaseAppAuth,
-  firebaseAppProviders,
+  firebaseApp,
+  firebaseProviders,
 } from '../../configs/firebase'
 import MenuItem from 'antd/lib/menu/MenuItem';
 
@@ -80,9 +80,10 @@ function Header({ signOut }) {
     <div className="app-header">
       <div className="welcome">
         <p>Xin chào, {authData.name} !!!</p>
-        <p className="header-balance">Số dư: 5000</p>
       </div>
       <Space className="header-right" align="center" size="middle">
+        <p className="header-balance">Số dư: 5000</p>
+
         <div className="div-svg-header">
           <FaQrcode onClick={() => handleShowQrModal()} />
         </div>
@@ -102,7 +103,7 @@ function Header({ signOut }) {
       </Space>
 
       <Modal
-        title="QRCode của bạn"
+        title="QRCode của bạn: "
         visible={isShowQrModal}
         onOk={handleHideQrModal}
         onCancel={handleHideQrModal}
@@ -115,6 +116,6 @@ function Header({ signOut }) {
 }
 
 export default withFirebaseAuth({
-  providers: firebaseAppProviders,
-  firebaseAppAuth,
+  providers: firebaseProviders,
+  firebaseAppAuth: firebaseApp.auth(),
 })(Header);
