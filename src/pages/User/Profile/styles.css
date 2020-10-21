@@ -60,6 +60,7 @@
 /*Form*/
 .div-information .information-content {
   display: flex;
+  height: calc(100% - 40px);
 }
 
 .info-user-title {
@@ -92,10 +93,16 @@
   margin-bottom: 11.5px !important;
 }
 
-
+/*Form Edit*/
+.ant-form{
+  width: 100%;
+}
 /*Tab*/
 .ant-tabs{
   width: 100%;
+}
+.ant-tabs-nav{
+  margin: 0px 0px 3px 0px !important;
 }
 .div-btn-edit button .ant-btn-primary {
   color: #fff;
@@ -114,7 +121,7 @@
 }
 .tab-title{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 0px 20px;
   height: 40px;
 }

@@ -18,8 +18,8 @@
     font-weight: 700;
     font-size: 19px;
     letter-spacing: 0px;
-    padding-top: 22px;
-    padding-left: 20px;
+    padding-top: 22px !important;
+    padding-left: 20px !important;
     color: #515365;
 }
 .statistic-row1 {

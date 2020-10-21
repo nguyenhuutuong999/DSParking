@@ -9,6 +9,7 @@ export function getNotificationsList(params){
   }
 }
 export function deleteNotifications(params) {
+  console.log("deleteNotifications -> params", params)
   return {
     type: 'DELETE_NOTIFICATIONS',
     payload: params,

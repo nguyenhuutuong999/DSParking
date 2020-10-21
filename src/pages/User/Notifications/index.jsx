@@ -15,6 +15,7 @@ function Notifications({
   getNotificationsList,
   deleteNotifications
 }) {
+  const { TabPane } = Tabs;
   const [notificationDetail, setNotificationDetail] = useState([]);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [confirmModalData, setConfirmModalData] = useState({});
@@ -74,9 +75,15 @@ function Notifications({
   //   },
   // ];
 
+  const tableData = noticeListData.map((notice) => ({
+    key: notice.id,
+    ...notice,
+  }))
+
   const columns = [
     {
        dataIndex: 'level', key: 'level',
+       render: (_, record) => <div dangerouslySetInnerHTML={{ __html: record.level } } style={{width:'80px', height:'10px', backgroundColor: record.level, borderRadius:'10px'}}></div>,
     },
     {
        dataIndex: 'title', key: 'title',
@@ -85,21 +92,38 @@ function Notifications({
        dataIndex: 'date', key: 'date',
     },
     {
-       dataIndex: '', key: 'x',
-      render: () => <Button danger onClick={(key) => handleShowConfirmModal(key)} type="text"><FaTrashAlt /></Button>,
+      dataIndex: '', key: 'x',
+      render: (_, record) => <Button danger onClick={() => handleShowConfirmModal(record.id)} type="text"><FaTrashAlt /></Button>,
     },
   ];
 
   //Hide / Show Modal
-  const handleShowConfirmModal = (index) => {
+  const handleShowConfirmModal = (id) => {
     setIsShowConfirmModal(true);
-    setConfirmModalData({ index: index });
+    setConfirmModalData({ id });
   }
   const handleHideConfirmModal = () => {
     setIsShowConfirmModal(false);
     setConfirmModalData({});
   }
 
+  //Delete
+  const handleDeleteNotifications = () => {
+    console.log("handleDeleteNotifications -> handleDeleteNotifications")
+    deleteNotifications({ id: confirmModalData.id })
+    setIsShowConfirmModal(false);
+  }
+  // const handleDeleteNotifications = (deletedId) => {
+  //   const newNotificationListData = noticeListData;
+  //   const notificationIndex = noticeListData.findIndex((item) => item.id === deletedId);
+  //   newNotificationListData.splice(notificationIndex, 1);
+  //   setNoticeListData([
+  //     ...newNotificationListData,
+  //   ]);
+  //   setIsShowConfirmModal(null);
+  // }
+
+  
   // //Show Details
   // const handleToggleDetails = (id) => {
   //   const moreNotificationIndex = notificationDetail.findIndex((moreId) => moreId === id);
@@ -117,23 +141,6 @@ function Notifications({
   //   }
   // }
 
-  //Delete
-  // const handleDeleteNotifications = (deletedId) => {
-  //   const newNotificationListData = noticeListData;
-  //   const notificationIndex = noticeListData.findIndex((item) => item.id === deletedId);
-  //   newNotificationListData.splice(notificationIndex, 1);
-  //   setNoticeListData([
-  //     ...newNotificationListData,
-  //   ]);
-  //   setIsShowConfirmModal(null);
-  // }
-
-  const handleDeleteNotifications = (deletedId) => {
-    deleteNotifications({ id: deletedId })
-    setIsShowConfirmModal(false);
-  }
-
-  const { TabPane } = Tabs;
   //Render
   // const renderNotificationsList = () => {
   //   return noticeListData.map((item, itemIndex) => {
@@ -169,42 +176,12 @@ function Notifications({
               expandable={{
                 expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
               }}
-              dataSource={noticeListData}
+              dataSource={tableData}
               pagination={false}
               showHeader={false}
             />
           </TabPane>
         </Tabs>
-        {/* <div className="notification-title">
-          <p><FaBell />Thông báo</p>
-        </div> */}
-        {/*
-         <table>
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Mức độ</th>
-              <th>Nội dung</th>
-              <th>Chi tiết</th>
-              <th>Ngày</th>
-              <th>Thao tác</th>
-            </tr>
-          </thead>
-          <tbody>
-            {renderNotificationsList()}
-          </tbody>
-        </table> 
-        */}
-        {/* <Table
-          columns={columns}
-          expandable={{
-            expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
-          }}
-          dataSource={noticeListData}
-          pagination={false}
-        /> */}
-
-
       </div>
       <ConfirmModal
         isShowModal={isShowConfirmModal}

@@ -174,7 +174,7 @@ function Home({
                   dataSource={historyList} 
                   columns={columnsHistory}
                   pagination={false}
-                 />;
+                 />
               </div>
             </div>
           </div>

@@ -33,7 +33,7 @@ function LoginPage() {
         <div className="login-background"></div>
         <div className="login-content">
           <div className="login-title">
-            <h1 class="w6 white" style={{ fontSize: 48 }}>DSPARKING</h1>
+            <h1 class="w6 white" style={{ fontSize: 48 }}> DSPARKING </h1>
             <Space style={{ margin: '24px 0 32px' }}>
               <p
                 className={`xl login-switch-type ${authType === 'login' && 'active'}`}

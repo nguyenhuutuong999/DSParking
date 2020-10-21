@@ -11,32 +11,32 @@ const initialState = {
   //notice
   noticeListData: [
     {
-      key: '1',
-      level: '<div dangerouslySetInnerHTML={{__html: First &middot; Second}}></div>',
+      id: '1',
+      level: '#fadb14',
       title: 'Tài khoản của bạn chỉ còn dưới 5000',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, quo nemo totam dolore quae commodi. Aliquam quasi placeat rerum aut.',
       date: '05/10/2020'
     },
     {
-      key: '2',
+      id: '2',
       // level: () => <div className="level" style={{ backgroundColor: 'green' }}></div>,
-      level: 'cao',
+      level: ' #52c41a',
       title: 'Tài khoản của bạn chỉ còn dưới 5000',
       description: 'Ahihi',
       date: '05/10/2020'
     },
     {
-      key: '3',
+      id: '3',
       // level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
-      level: 'cao',
+      level: '#cf1322',
       title: 'Tài khoản của bạn chỉ còn dưới 5000',
       description: 'Ahihi',
       date: '05/10/2020'
     },
     {
-      key: '4',
+      id: '4',
       // level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
-      level: 'cao',
+      level: '#fa8c16',
       title: 'Tài khoản của bạn chỉ còn dưới 5000',
       description: 'Ahihi',
       date: '05/10/2020'
@@ -76,10 +76,11 @@ const initialState = {
       no: '001',
       id: 'GD10112020',
       time: '10/11/2020',
-      money: '2000',
+      money: '4000',
       title: 'Top Up to DSParking',
       balance: '4000',
     },
+    
   ],
   //History
   historyList: [
@@ -195,7 +196,8 @@ const initialState = {
   ],
 };
 function myReducer(state = initialState, action) {
-  switch (action.style) {
+  console.log("myReducer -> action", action)
+  switch (action.type) {
     case 'GET_NOTIFIATIONS_LIST': {
       return {
         ...state,
