@@ -1,13 +1,13 @@
 import React from 'react';
 
 
-function AdminNotifications() {
+function AdminLineOut() {
   
   return (
     <div className="Notifications">
-      Notifications
+      AdminLineOut
     </div>
   );
 }
 
-export default AdminNotifications;
+export default AdminLineOut;

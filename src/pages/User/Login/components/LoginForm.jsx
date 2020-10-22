@@ -33,6 +33,7 @@ function LoginForm({
               avatar: snapshotValue.avatar,
               qrPin: snapshotValue.qrPin,
               role: snapshotValue.role,
+              money: snapshotValue.money,
           }))
           history.push("/")
           })
@@ -61,7 +62,7 @@ function LoginForm({
             .once("value")
             .then((snapshot) => {
               const snapshotValue = snapshot.val();
-              const { email, name, avatar, studentCode, licensePlates, qrPin, role } = snapshotValue;
+              const { email, name, avatar, studentCode, licensePlates, qrPin, role, money } = snapshotValue;
               localStorage.setItem("authData", JSON.stringify({
                 uid: result.user.uid,
                 email,
@@ -71,6 +72,7 @@ function LoginForm({
                 avatar,
                 qrPin,
                 role,
+                money,
               }));
               history.push("/");
             });

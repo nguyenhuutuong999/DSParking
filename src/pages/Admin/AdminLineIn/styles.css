@@ -1,0 +1,19 @@
+.line-in{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: antiquewhite;
+}
+.div-scan{
+  width: 60%;
+}
+.div-scan-information{
+  width: 40%;
+}
+.scan-information{
+  width: 80%;
+  height: 80%;
+  margin: 20px auto;
+  border: 0.5px solid gray;
+  background-color: rgba(245, 244, 238, 0.767);
+}

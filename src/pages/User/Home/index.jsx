@@ -1,12 +1,13 @@
-import React, { PureComponent, useState } from 'react';
+import React, { PureComponent, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   LineChart, Line,
 } from 'recharts';
+import QRCode from 'qrcode.react';
+import moment from 'moment';
 import './styles.css'
 
 import Avatar3 from '../../../img/avatar3.jpg'
-import QrCode from '../../../img/qrcode.png'
 import history from '../../../util/history'
 
 import {
@@ -14,10 +15,14 @@ import {
   Tooltip as Tip,
   Table
 } from 'antd';
-import { ZoomInOutlined } from '@ant-design/icons';
+
 import { FaMotorcycle } from 'react-icons/fa';
 
 import { getHistoryList } from '../../../redux/actions/index';
+
+import {
+  firebaseApp,
+} from '../../../configs/firebase';
 
 function Home({
   getHistoryList,
@@ -25,6 +30,22 @@ function Home({
   dataWeek,
   dataMonth
 }) {
+  const [checkInHistory, setCheckInHistory] = useState([]);
+  const authData = JSON.parse(localStorage.getItem('authData'));
+  useEffect(() => {
+    firebaseApp.database().ref(`/users/${authData.uid}/parkingHistory`).on('value', (snapshot) => {
+      let snapshotValue = snapshot.val();
+      let newCheckInHistory = [];
+      for (let checkInIndex in snapshotValue) {
+        newCheckInHistory = [
+          snapshotValue[checkInIndex],
+          ...newCheckInHistory,
+        ]
+      }
+      setCheckInHistory([...newCheckInHistory]);
+    })
+  }, [])
+
   const columnsHistory = [
     {
       title: 'Mã', dataIndex: 'id', key: 'id',
@@ -33,15 +54,20 @@ function Home({
       title: 'Ngày', dataIndex: 'date', key: 'date',
     },
     {
-      title: 'Giờ vào', dataIndex: 'timeIn', key: 'timeIn',
-    },
-    {
-      title: 'Giờ ra', dataIndex: 'timeOut', key: 'timeOut',
+      title: 'Thời gian', dataIndex: 'timeIn', key: 'timeIn',
     },
     {
       title: 'Địa điểm', dataIndex: 'place', key: 'place',
     },
   ];
+
+  const renderHistoryList = () => {
+    return checkInHistory.map((historyItem, historyIndex) => (
+      <div key={`history-${historyIndex}`}>
+        {moment(historyItem.dateTime.toString(), 'YYYYMMDDHHmm').format('HH:mm DD/MM/YYYY')}
+      </div>
+    ))
+  }
   // const [historyList,  setHistoryList] = useState([
   //   {
   //     stt: '001',
@@ -170,11 +196,13 @@ function Home({
             </div>
             <div className="home-history-table">
               <div className="div-table-history">
-                <Table 
+                {/* <Table 
                   dataSource={historyList} 
                   columns={columnsHistory}
                   pagination={false}
-                 />
+                 /> */}
+                 {renderHistoryList()}
+                 <div></div>
               </div>
             </div>
           </div>
@@ -189,7 +217,7 @@ function Home({
             </div>
             <div className="home-user-info">
               <div className="information">
-                <span className="name">Nguyễn T Bích Ni</span>
+                <span className="name">{authData.name}</span>
                 <span>2320716843</span>
                 <span>24/01/1999</span>
                 <span>K23CMU - TTT</span>
@@ -200,7 +228,9 @@ function Home({
         </div>
         <div className="home-qrcode">
           <p>Mã QrCode của bạn:</p>
-          <div className="home-qrcode-img"><img src={QrCode} alt="QrCode" /></div>
+          <div className="home-qrcode-img">
+            <QRCode value={`${authData.uid}${authData.qrPin}`} size={160} />
+          </div>
         </div>
       </div>
     </div>

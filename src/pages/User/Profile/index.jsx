@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles.css';
 
 import {
@@ -14,6 +14,9 @@ import { EditOutlined, SaveOutlined, CloseCircleOutlined } from '@ant-design/ico
 
 import { FaUser, FaIdCardAlt, FaPortrait, FaBirthdayCake, FaMapMarkerAlt, FaMapMarkedAlt, FaBuilding, FaCity, FaGlobeAsia } from 'react-icons/fa';
 
+import {
+  firebaseApp,
+} from '../../../configs/firebase';
 
 import Avatar3 from '../../../img/avatar3.jpg'
 import Qrcode from '../../../img/qrcode.png'
@@ -23,30 +26,30 @@ const { TabPane } = Tabs;
 function Profile() {
   const [isEditProfile, setIsEditProfile] = useState(false);
   const [isEditAddress, setIsEditAddress] = useState(false);
-  const [userInfo, setUserInfo] = useState([
-    {
-      id:'1',
-      username:'Nguyễn T Bích Na',
-      iduser:'2320716843',
-      cmnd:'206296503',
-      birthday:'24/01/1999',
-      email:'nguyentbichni@dtu.edu.vn',
-      address:'Châu Lâu',
-      village:'Điện Thọ',
-      town:'Điện Bàn',
-      city:'Quảng Nam',
-      nation:'Việt Nam'
-    }
-  ])
+
+  const [userData, setUserData] = useState({});
+  console.log("Profile -> userData", userData)
+
+  const authData = JSON.parse(localStorage.getItem('authData'));
+
+  const [editProfileForm] = Form.useForm();
+
+  useEffect(() => {
+    firebaseApp.database().ref(`/users/${authData.uid}`).on('value', (snapshot) => {
+      setUserData({ ...snapshot.val() });
+    })
+  }, [])
+
 
   const layout = {
     labelCol: { span: 5 },
     wrapperCol: { span: 19 },
   };
 
-  const handleEditProfile = (modifyValue) => {
-
-    setIsEditProfile(false);
+  const handleSubmitForm = (e) => {
+    // console.log(userInfo)
+    // setIsEditProfile(false);
+    console.log(editProfileForm.getFieldsValue());
   }
 
   return (
@@ -84,10 +87,11 @@ function Profile() {
                         <Space>
                           <Tooltip title="save">
                             <Button
+                              htmlType="button"
                               type="primary"
                               shape="circle"
                               icon={<SaveOutlined />}
-                              onClick={() => handleEditProfile()}
+                              onClick={() => handleSubmitForm()}
                             />
                           </Tooltip>
                           <Tooltip title="cancel">
@@ -123,14 +127,13 @@ function Profile() {
                     (
                         <Form
                           {...layout}
+                          form={editProfileForm}
                           name="basic"
-                          initialValues={{ remember: true }}
-                        // onFinish={onFinish}
-                        // onFinishFailed={onFinishFailed}
+                          initialValues={userData}
                         >
                           <Form.Item
                             label="Tên người dùng:"
-                            name="username"
+                            name="name"
                           >
                             <Input />
                           </Form.Item>
@@ -157,37 +160,37 @@ function Profile() {
                             label="Email:"
                             name="email"
                           >
-                            <Input />
+                            <Input name="email" />
                           </Form.Item>
                           <Form.Item
                             label="Địa chỉ/Tổ/Thôn:"
                             name="address"
                           >
-                            <Input />
+                            <Input name="address" />
                           </Form.Item>
                           <Form.Item
                             label="Phường/Xã:"
                             name="village"
                           >
-                            <Input />
+                            <Input name="village" />
                           </Form.Item>
                           <Form.Item
                             label="Quận/Huyện:"
                             name="town"
                           >
-                            <Input />
+                            <Input name="town" />
                           </Form.Item>
                           <Form.Item
                             label="Tỉnh/Thành phố:"
                             name="city"
                           >
-                            <Input />
+                            <Input name="city" />
                           </Form.Item>
                           <Form.Item
                             label="Quốc gia:"
                             name="nation"
                           >
-                            <Input />
+                            <Input name="nation" />
                           </Form.Item>
                         </Form>
                     )
@@ -207,7 +210,7 @@ function Profile() {
                           <p><FaGlobeAsia />Quốc gia: </p>
                         </div>
                         <div className="info-user-content">
-                          <p>{userInfo[0].username}</p>
+                          <p>{userData.name}</p>
                           <p>2320716843</p>
                           <p>206296503</p>
                           <p>24/01/1999</p>

@@ -38,6 +38,7 @@ function RegisterForm() {
           avatar: null,
           qrPin: '0000',
           role: 'user',
+          money: 0,
         }, (error) => {
           if (error) {
 
@@ -51,6 +52,7 @@ function RegisterForm() {
               avatar: null,
               qrPin: '0000',
               role: 'user',
+              money: 0,
             }));
             history.push("/");
           }

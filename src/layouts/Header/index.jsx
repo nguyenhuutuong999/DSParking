@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import withFirebaseAuth from 'react-with-firebase-auth';
+import React, { useState, useEffect } from 'react';
 import './styles.css'
 
 import { Space, Badge, Dropdown, Menu, Button, Modal } from 'antd';
@@ -19,6 +18,16 @@ import MenuItem from 'antd/lib/menu/MenuItem';
 
 function Header({ signOut }) {
   const [isShowQrModal, setIsShowQrModal] = useState(false);
+  const [userData, setUserData] = useState({});
+
+  const authData = JSON.parse(localStorage.getItem('authData'));
+
+  useEffect(() => {
+    firebaseApp.database().ref(`/users/${authData.uid}`).on('value', (snapshot) => {
+      setUserData({ ...snapshot.val() });
+    })
+  }, [])
+
   const handleShowQrModal = () => {
     setIsShowQrModal(true);
   }
@@ -27,9 +36,8 @@ function Header({ signOut }) {
     setIsShowQrModal(false);
   }
 
-  const authData = JSON.parse(localStorage.getItem('authData'));
   const handleLogout = () => {
-    signOut();
+    firebaseApp.auth().signOut();
     localStorage.removeItem('authData');
     return history.push('/login');
   }
@@ -79,14 +87,14 @@ function Header({ signOut }) {
   return (
     <div className="app-header">
       <div className="welcome">
-        <p>Xin chào, {authData.name} !!!</p>
+        <p>Xin chào, {userData.name} !!!</p>
 
       </div>
       <Space className="header-right" align="center" size="middle">
         <div className="header-balance">
           <Space>
             <DollarOutlined />
-            <p>5000000</p>
+            <p>{userData.money?.toLocaleString('vi')}</p>
           </Space>
         </div>
         <div className="div-svg-header">
@@ -103,7 +111,7 @@ function Header({ signOut }) {
         </div>
 
         <Dropdown overlay={renderDropdownAvatar()} placement="bottomCenter">
-          <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} src={Avatar} alt="Avatar" />
+          <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} src={userData.avatar} alt="Avatar" />
         </Dropdown>
       </Space>
 
@@ -120,7 +128,4 @@ function Header({ signOut }) {
   );
 }
 
-export default withFirebaseAuth({
-  providers: firebaseProviders,
-  firebaseAppAuth: firebaseApp.auth(),
-})(Header);
+export default Header;

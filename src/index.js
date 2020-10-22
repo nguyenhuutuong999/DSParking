@@ -12,8 +12,8 @@ import history from './util/history'
 import { createStore} from 'redux';
 import { Provider } from 'react-redux';
 
-import AdminHome from './pages/Admin/AdminHome';
-import AdminNotifications from './pages/Admin/AdminNotifications';
+import AdminLineIn from './pages/Admin/AdminLineIn';
+import AdminLineOut from './pages/Admin/AdminLineOut';
 import AdminProfile from './pages/Admin/AdminProfile';
 import AdminStatistic from './pages/Admin/AdminStatistic';
 import UsersManagement from './pages/Admin/UsersManagement';
@@ -39,8 +39,8 @@ ReactDOM.render(
         <Switch>
           <LayoutLogin exact path="/login" component={Login}/>
 
-          <LayoutDefault2 exact role="admin" path="/admin" component={AdminHome} />
-          <LayoutDefault2 exact role="admin" path="/admin/notifications" component={AdminNotifications} />
+          <LayoutDefault2 exact role="admin" path="/admin" component={AdminLineIn} />
+          <LayoutDefault2 exact role="admin" path="/admin/lineout" component={AdminLineOut} />
           <LayoutDefault2 exact role="admin" path="/admin/profile" component={AdminProfile} />
           <LayoutDefault2 exact role="admin" path="/admin/statistic" component={AdminStatistic} />
           <LayoutDefault2 exact role="admin" path="/admin/management" component={UsersManagement} />

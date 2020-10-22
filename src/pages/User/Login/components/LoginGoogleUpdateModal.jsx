@@ -45,6 +45,7 @@ function LoginGoogleUpdateModal({
       avatar: googleUpdateModalData.avatar,
       qrPin: DEFAULT_QR_PIN,
       role: 'user',
+      money: 0,
     }, (error) => {
       if (error) {
         // The write failed...
@@ -58,6 +59,7 @@ function LoginGoogleUpdateModal({
           avatar: googleUpdateModalData.avatar,
           qrPin: DEFAULT_QR_PIN,
           role: 'user',
+          money: 0,
         }));
         history.push('/');
       }

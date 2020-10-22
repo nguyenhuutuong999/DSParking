@@ -63,23 +63,23 @@ function Sidebar(props) {
 
   const admin_menus = [
     {
-      name: "Home",
+      name: "Line Vào",
       to: "/admin",
       exact: true,
       icon: () =><FaHome className="icons" />
 
     },
     {
+      name: "Line ra",
+      to: "/admin/lineout",
+      exact: true,
+      icon: () =><FaHome className="icons" />
+    },
+    {
       name: "Thông tin cá nhân",
       to: "/admin/profile",
       exact: true,
       icon: () =><FaUser className="icons" />
-    },
-    {
-      name: "Thông báo",
-      to: "/admin/notifications",
-      exact: true,
-      icon: () =><FaBell className="icons" />
     },
     {
       name: "Thống kê",
