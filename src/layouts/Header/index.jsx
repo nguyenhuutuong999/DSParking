@@ -12,7 +12,6 @@ import Qrcode from '../../img/qrcode.png'
 
 import {
   firebaseApp,
-  firebaseProviders,
 } from '../../configs/firebase'
 import MenuItem from 'antd/lib/menu/MenuItem';
 

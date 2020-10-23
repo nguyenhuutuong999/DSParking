@@ -267,13 +267,13 @@ function Statistic({
         </div>
 
         <div className="total-year">
-          <h4>Tổng lượt gửi / Năm</h4>
+            <h4>Tổng lượt gửi / Năm</h4>
           <div style={{ position: 'relative' }}>
             <PieChart width={200} height={400}>
               <Pie
                 data={dataCampus}
-                cx={107}
-                cy={100}
+                cx={95}
+                cy={80}
                 innerRadius={60}
                 outerRadius={80}
                 fill="#8884d8"
@@ -283,16 +283,16 @@ function Statistic({
                 {dataCampus.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
               </Pie>
             </PieChart>
-            <h1 style={{ position: 'absolute', top: '22%', left: '37%' }}>340</h1>
+            <h1 style={{ position: 'absolute', top: '16%', left: '36%' }}>340</h1>
           </div>
         </div>
       </div>
 
-      <div className="statistic-row3">
+      {/* <div className="statistic-row3">
         <table>
           <Table dataSource={historyList} columns={columnsHistory} />;
         </table>
-      </div>
+      </div> */}
     </div>
   );
 }

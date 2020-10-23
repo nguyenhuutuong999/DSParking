@@ -25,14 +25,26 @@ import {
 } from '../../../configs/firebase';
 
 function Home({
-  getHistoryList,
-  historyList,
+  // historyList,
   dataWeek,
   dataMonth
 }) {
   const [checkInHistory, setCheckInHistory] = useState([]);
+  const [weekChartData, setWeekChartData] = useState([]);
   const authData = JSON.parse(localStorage.getItem('authData'));
+
   useEffect(() => {
+    firebaseApp.database().ref(`/users/${authData.uid}/chartData/2020/month/10/day`).on('value', (snapshot) => {
+      let snapshotValue = snapshot.val();
+      const a = [19, 20, 21, 22, 23, 24, 25].map((item) => {
+        return {
+          name: `Ngày ${item}`,
+          CP: (snapshotValue[`${item}`] || {}).count || 0,
+        }
+      })
+      setWeekChartData([...a])
+      console.log("snapshotValue", a)
+    })
     firebaseApp.database().ref(`/users/${authData.uid}/parkingHistory`).on('value', (snapshot) => {
       let snapshotValue = snapshot.val();
       let newCheckInHistory = [];
@@ -61,42 +73,48 @@ function Home({
     },
   ];
 
+  const [historyList,  setHistoryList] = useState([
+    {
+      stt: '001',
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+    {
+      stt: '002',
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+    {
+      stt: '003',
+      id:'10112020',
+      date:'10/11/2020',
+      place:'254 Nguyễn Văn Linh',
+      timeIn:'6:45',
+      timeOut:'10:05',
+      licensePlates:'567 56'
+    },
+  ])
+
   const renderHistoryList = () => {
     return checkInHistory.map((historyItem, historyIndex) => (
-      <div key={`history-${historyIndex}`}>
-        {moment(historyItem.dateTime.toString(), 'YYYYMMDDHHmm').format('HH:mm DD/MM/YYYY')}
-      </div>
+      <>
+        <tr key={`history-${historyIndex}`}>
+          <td>{historyIndex}</td>
+          <td>{moment(historyItem.dateTime.toString(), 'YYYYMMDD').format('DD/MM/YYYY')}</td>
+          <td>{moment(historyItem.dateTime.toString(), 'HHmm').format('HH:mm')}</td>
+          <td>null</td>
+        </tr>
+      </>
     ))
   }
-  // const [historyList,  setHistoryList] = useState([
-  //   {
-  //     stt: '001',
-  //     id:'10112020',
-  //     date:'10/11/2020',
-  //     place:'254 Nguyễn Văn Linh',
-  //     timeIn:'6:45',
-  //     timeOut:'10:05',
-  //     licensePlates:'567 56'
-  //   },
-  //   {
-  //     stt: '002',
-  //     id:'10112020',
-  //     date:'10/11/2020',
-  //     place:'254 Nguyễn Văn Linh',
-  //     timeIn:'6:45',
-  //     timeOut:'10:05',
-  //     licensePlates:'567 56'
-  //   },
-  //   {
-  //     stt: '003',
-  //     id:'10112020',
-  //     date:'10/11/2020',
-  //     place:'254 Nguyễn Văn Linh',
-  //     timeIn:'6:45',
-  //     timeOut:'10:05',
-  //     licensePlates:'567 56'
-  //   },
-  // ])
   /*-------------Data Chart---------------*/
   // const dataWeek = [
   //   {
@@ -149,6 +167,7 @@ function Home({
   //     );
   //   });
   // }
+  
   return (
     <div className="home">
       <div className="home-left">
@@ -165,7 +184,7 @@ function Home({
               <h2>10</h2>
             </div>
             <div className="home-statistic-chart">
-              <LineChart width={380} height={100} data={dataWeek}>
+              <LineChart width={380} height={100} data={weekChartData}>
                 <Line type="monotone" dataKey="CP" stroke="#db5c00" strokeWidth={2} />
               </LineChart>
             </div>
@@ -196,13 +215,24 @@ function Home({
             </div>
             <div className="home-history-table">
               <div className="div-table-history">
-                {/* <Table 
-                  dataSource={historyList} 
+                <Table
+                  dataSource={historyList}
                   columns={columnsHistory}
                   pagination={false}
-                 /> */}
-                 {renderHistoryList()}
-                 <div></div>
+                />
+                {/* <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Ngày</th>
+                      <th>Thời gian</th>
+                      <th>Địa điểm</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {renderHistoryList()}
+                  </tbody>
+                  </table> */}
               </div>
             </div>
           </div>
@@ -213,12 +243,12 @@ function Home({
         <div className="home-user">
           <div className="home-user-detail">
             <div className="div-img">
-              <img src={Avatar3} alt="Avatar" />
+              <img src={authData.avatar} alt="Avatar" />
             </div>
             <div className="home-user-info">
               <div className="information">
                 <span className="name">{authData.name}</span>
-                <span>2320716843</span>
+                <span>{authData.studentCode}</span>
                 <span>24/01/1999</span>
                 <span>K23CMU - TTT</span>
                 <span><Button onClick={() => history.push('/profile')}>Xem thông tin cá nhân</Button></span>
@@ -226,12 +256,14 @@ function Home({
             </div>
           </div>
         </div>
+
         <div className="home-qrcode">
           <p>Mã QrCode của bạn:</p>
           <div className="home-qrcode-img">
             <QRCode value={`${authData.uid}${authData.qrPin}`} size={160} />
           </div>
         </div>
+
       </div>
     </div>
   )

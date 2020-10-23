@@ -63,7 +63,7 @@ function Setting() {
 
   return (
     <div className="div-header">
-      Setting
+      {/* Setting
       <QrReader
         delay={300}
         // onError={this.handleError}
@@ -71,9 +71,8 @@ function Setting() {
         style={{ width: 200 }}
       />
       <div>{checkInUser.email}</div>
-      {/* <p>{userInfo.id}</p> */}
       <br />
-      {renderHistoryList()}
+      {renderHistoryList()} */}
     </div>
   );
 }

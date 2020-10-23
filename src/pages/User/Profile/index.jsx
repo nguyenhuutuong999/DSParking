@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
+import QRCode from 'qrcode.react';
 
 import {
   Button,
@@ -47,8 +48,6 @@ function Profile() {
   };
 
   const handleSubmitForm = (e) => {
-    // console.log(userInfo)
-    // setIsEditProfile(false);
     console.log(editProfileForm.getFieldsValue());
   }
 
@@ -58,7 +57,7 @@ function Profile() {
 
         <div className="div-img-item">
           <div className="div-img-item-details">
-            <img src={Avatar3} alt="Avatar"></img>
+            <img src={authData.avatar} alt="Avatar"/>
           </div>
           <div className="div-change-img">
             <p>Thay đổi Avatar</p>
@@ -67,7 +66,7 @@ function Profile() {
 
         <div className="div-img-item">
           <div className="div-img-item-details">
-            <img src={Qrcode} alt="Avatar"></img>
+            <QRCode value={`${authData.uid}${authData.qrPin}`} size={160} className="img-profile-qrcode"/>
           </div>
           <div className="div-change-img">
             <p>Thay đổi QRCode</p>
@@ -211,10 +210,10 @@ function Profile() {
                         </div>
                         <div className="info-user-content">
                           <p>{userData.name}</p>
-                          <p>2320716843</p>
+                          <p>{userData.studentCode}</p>
                           <p>206296503</p>
                           <p>24/01/1999</p>
-                          <p>nguyentbichni@dtu.edu.vn</p>
+                          <p>{userData.email}</p>
                           <p>Châu Lâu</p>
                           <p>Điện Thọ</p>
                           <p>Điện Bàn</p>

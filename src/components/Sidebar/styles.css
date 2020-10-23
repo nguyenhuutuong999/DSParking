@@ -36,6 +36,7 @@
 
 .nav-item-active{
   background-color: antiquewhite;
+  border-right: 5px solid #db5c00 ;
 }
 
 .nav-item:last-child{
