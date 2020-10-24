@@ -7,7 +7,7 @@ import { FaBell, FaQrcode, FaBirthdayCake, FaUser, FaExclamationCircle } from 'r
 
 import history from '../../util/history'
 
-import Avatar from '../../img/avatar.jpg';
+import AvatarDefault from '../../img/avatardefault.jpg'
 import Qrcode from '../../img/qrcode.png'
 
 import {
@@ -110,7 +110,7 @@ function Header({ signOut }) {
         </div>
 
         <Dropdown overlay={renderDropdownAvatar()} placement="bottomCenter">
-          <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} src={userData.avatar} alt="Avatar" />
+          <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} src={ userData.avatar ? userData.avatar : AvatarDefault} alt="Avatar" />
         </Dropdown>
       </Space>
 

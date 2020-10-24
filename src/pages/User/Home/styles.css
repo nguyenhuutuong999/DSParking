@@ -135,9 +135,9 @@ td {
 .home-user-detail .div-img img {
   position: absolute;
   top: 30%;
-  left:24%;
-  width: 140px;
-  height: 140px;
+  left:28%;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
 }
 
@@ -146,7 +146,7 @@ td {
   width: 100%;
 }
 .home-user-info .information{
-  margin-top: 70px;
+  padding-top: 50px;
 }
 .home-user-info span {
   display: block;

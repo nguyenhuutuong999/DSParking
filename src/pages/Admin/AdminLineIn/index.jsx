@@ -79,6 +79,7 @@ function AdminLineIn() {
               updates[`/users/${uid}/chartData/${currentYear}/month/${currentMonth}/count`] = monthCount + 1;
               updates[`/users/${uid}/chartData/${currentYear}/month/${currentMonth}/day/${currentDay}/count`] = dayCount + 1;
             }
+
             firebaseApp.database().ref().update(updates);
             setCheckInUser(lineInData);
           } else {

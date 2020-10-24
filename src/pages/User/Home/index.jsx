@@ -7,7 +7,7 @@ import QRCode from 'qrcode.react';
 import moment from 'moment';
 import './styles.css'
 
-import Avatar3 from '../../../img/avatar3.jpg'
+import AvatarDefault from '../../../img/avatardefault.jpg'
 import history from '../../../util/history'
 
 import {
@@ -45,17 +45,37 @@ function Home({
       setWeekChartData([...a])
       console.log("snapshotValue", a)
     })
+
+    // firebaseApp.database().ref(`/users/${authData.uid}/parkingHistory`).on('value', (snapshot) => {
+    //   let snapshotValue = snapshot.val();
+    //   let newCheckInHistory = [];
+    //   for (let checkInIndex in snapshotValue) {
+    //     newCheckInHistory = [
+    //       snapshotValue[checkInIndex],
+    //       ...newCheckInHistory,
+    //     ]
+    //   }
+    //   setCheckInHistory([...newCheckInHistory]);
+    // })
+
     firebaseApp.database().ref(`/users/${authData.uid}/parkingHistory`).on('value', (snapshot) => {
-      let snapshotValue = snapshot.val();
+      let snapshotHistoryValue = snapshot.val();
       let newCheckInHistory = [];
-      for (let checkInIndex in snapshotValue) {
+      for (let checkInIndex in snapshotHistoryValue) {
         newCheckInHistory = [
-          snapshotValue[checkInIndex],
+          {
+            id: 'null',
+            date: moment(snapshotHistoryValue[checkInIndex].dateTime, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
+            timeIn: moment(snapshotHistoryValue[checkInIndex].dateTime, 'YYYYMMDDHHmm').format('HH:mm'),
+            place: 'null',
+          },
           ...newCheckInHistory,
         ]
       }
       setCheckInHistory([...newCheckInHistory]);
     })
+
+
   }, [])
 
   const columnsHistory = [
@@ -73,48 +93,6 @@ function Home({
     },
   ];
 
-  const [historyList,  setHistoryList] = useState([
-    {
-      stt: '001',
-      id:'10112020',
-      date:'10/11/2020',
-      place:'254 Nguyễn Văn Linh',
-      timeIn:'6:45',
-      timeOut:'10:05',
-      licensePlates:'567 56'
-    },
-    {
-      stt: '002',
-      id:'10112020',
-      date:'10/11/2020',
-      place:'254 Nguyễn Văn Linh',
-      timeIn:'6:45',
-      timeOut:'10:05',
-      licensePlates:'567 56'
-    },
-    {
-      stt: '003',
-      id:'10112020',
-      date:'10/11/2020',
-      place:'254 Nguyễn Văn Linh',
-      timeIn:'6:45',
-      timeOut:'10:05',
-      licensePlates:'567 56'
-    },
-  ])
-
-  const renderHistoryList = () => {
-    return checkInHistory.map((historyItem, historyIndex) => (
-      <>
-        <tr key={`history-${historyIndex}`}>
-          <td>{historyIndex}</td>
-          <td>{moment(historyItem.dateTime.toString(), 'YYYYMMDD').format('DD/MM/YYYY')}</td>
-          <td>{moment(historyItem.dateTime.toString(), 'HHmm').format('HH:mm')}</td>
-          <td>null</td>
-        </tr>
-      </>
-    ))
-  }
   /*-------------Data Chart---------------*/
   // const dataWeek = [
   //   {
@@ -167,7 +145,7 @@ function Home({
   //     );
   //   });
   // }
-  
+
   return (
     <div className="home">
       <div className="home-left">
@@ -216,23 +194,10 @@ function Home({
             <div className="home-history-table">
               <div className="div-table-history">
                 <Table
-                  dataSource={historyList}
+                  dataSource={checkInHistory}
                   columns={columnsHistory}
-                  pagination={false}
+                  pagination={ false }
                 />
-                {/* <table>
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Ngày</th>
-                      <th>Thời gian</th>
-                      <th>Địa điểm</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {renderHistoryList()}
-                  </tbody>
-                  </table> */}
               </div>
             </div>
           </div>
@@ -243,7 +208,7 @@ function Home({
         <div className="home-user">
           <div className="home-user-detail">
             <div className="div-img">
-              <img src={authData.avatar} alt="Avatar" />
+              <img src={authData.avatar ? authData.avatar : AvatarDefault} alt="Avatar" />
             </div>
             <div className="home-user-info">
               <div className="information">
@@ -260,7 +225,7 @@ function Home({
         <div className="home-qrcode">
           <p>Mã QrCode của bạn:</p>
           <div className="home-qrcode-img">
-            <QRCode value={`${authData.uid}${authData.qrPin}`} size={160} />
+            <QRCode value={`${authData.uid}${authData.qrPin}`} size={140} />
           </div>
         </div>
 

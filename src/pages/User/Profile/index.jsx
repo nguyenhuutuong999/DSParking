@@ -19,7 +19,7 @@ import {
   firebaseApp,
 } from '../../../configs/firebase';
 
-import Avatar3 from '../../../img/avatar3.jpg'
+import AvatarDefault from '../../../img/avatardefault.jpg'
 import Qrcode from '../../../img/qrcode.png'
 
 
@@ -57,7 +57,7 @@ function Profile() {
 
         <div className="div-img-item">
           <div className="div-img-item-details">
-            <img src={authData.avatar} alt="Avatar"/>
+            <img src={authData.avatar ? authData.avatar : AvatarDefault} alt="Avatar"/>
           </div>
           <div className="div-change-img">
             <p>Thay đổi Avatar</p>
