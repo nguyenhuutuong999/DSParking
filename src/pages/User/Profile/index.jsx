@@ -20,8 +20,6 @@ import {
 } from '../../../configs/firebase';
 
 import AvatarDefault from '../../../img/avatardefault.jpg'
-import Qrcode from '../../../img/qrcode.png'
-
 
 const { TabPane } = Tabs;
 function Profile() {
@@ -48,7 +46,7 @@ function Profile() {
   };
 
   const handleSubmitForm = (e) => {
-    console.log(editProfileForm.getFieldsValue());
+    console.log('editProfileForm', editProfileForm.getFieldsValue());
   }
 
   return (
@@ -139,7 +137,7 @@ function Profile() {
 
                           <Form.Item
                             label="Mã sinh viên:"
-                            name="iduser"
+                            name="studentCode"
                           >
                             <Input />
                           </Form.Item>
