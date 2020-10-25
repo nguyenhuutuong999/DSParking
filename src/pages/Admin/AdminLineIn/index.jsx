@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import QrReader from 'react-qr-reader';
-import { List, Avatar } from 'antd';
+import { List, Avatar, Space } from 'antd';
 import moment from 'moment';
 import './styles.css';
 
@@ -52,7 +52,7 @@ function AdminLineIn() {
               type: 'lineIn',
             }
             let updates = {};
-            
+
             if (snapshotValue.money - 1000 < 0) {
               window.alert('Không đủ tiền');
             } else {
@@ -100,7 +100,7 @@ function AdminLineIn() {
         renderItem={(item) => (
           <List.Item>
             <List.Item.Meta
-              avatar={<Avatar src = {item.avatar} />}
+              avatar={<Avatar src={item.avatar} />}
               title={item.email}
               description={moment(item.dateTime.toString(), 'YYYYMMDDHHmm').format('HH:mm DD/MM/YYYY')}
             />
@@ -116,18 +116,19 @@ function AdminLineIn() {
         <div className="div-camera">
           <QrReader
             delay={300}
-            // onError={this.handleError}
             onScan={(data) => handleScanQR(data)}
             style={{ width: 350 }}
           />
         </div>
         <br />
-        <div>
-          <div>{checkInUser.email}</div>
-        </div>
+          <div className="checkIn-user">
+              <h1>{checkInUser.name}</h1>
+              <p>{checkInUser.email}</p>
+              <p>{checkInUser.studentCode}</p>
+          </div>
       </div>
-      <div className="div-scan-information">
-        <div className="scan-information">
+      <div className="div-scan-history">
+        <div className="scan-history-information">
           {renderHistoryList()}
         </div>
       </div>

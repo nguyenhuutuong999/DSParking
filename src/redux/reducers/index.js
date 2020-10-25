@@ -19,7 +19,6 @@ const initialState = {
     },
     {
       id: '2',
-      // level: () => <div className="level" style={{ backgroundColor: 'green' }}></div>,
       level: ' #52c41a',
       title: 'Tài khoản của bạn chỉ còn dưới 5000',
       description: 'Ahihi',
@@ -27,7 +26,6 @@ const initialState = {
     },
     {
       id: '3',
-      // level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
       level: '#cf1322',
       title: 'Tài khoản của bạn chỉ còn dưới 5000',
       description: 'Ahihi',
@@ -35,7 +33,6 @@ const initialState = {
     },
     {
       id: '4',
-      // level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
       level: '#fa8c16',
       title: 'Tài khoản của bạn chỉ còn dưới 5000',
       description: 'Ahihi',

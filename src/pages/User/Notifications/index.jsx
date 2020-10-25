@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import './styles.css';
 
 import Card from './../../../components/Cards/index'
@@ -9,6 +10,7 @@ import { FaTrashAlt, FaThumbtack, FaBell } from 'react-icons/fa';
 import { Button, Table, Tabs } from 'antd';
 
 import { getNotificationsList, deleteNotifications } from '../../../redux/actions';
+import { firebaseApp } from '../../../configs/firebase';
 
 function Notifications({
   noticeListData,
@@ -16,69 +18,35 @@ function Notifications({
   deleteNotifications
 }) {
   const { TabPane } = Tabs;
-  const [notificationDetail, setNotificationDetail] = useState([]);
+  const [notificationList, setNotificationList] = useState([]);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [confirmModalData, setConfirmModalData] = useState({});
-  // const [noticeListData, setNoticeListData] = useState([
-  //   {
-  //     key: '1',
-  //     id: '001',
-  //     level: '<div dangerouslySetInnerHTML={{__html: First &middot; Second}}></div>',
-  //     title: 'Tài khoản của bạn chỉ còn dưới 5000',
-  //     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, quo nemo totam dolore quae commodi. Aliquam quasi placeat rerum aut.',
-  //     date: '05/10/2020'
-  //   },
-  //   {
-  //     key: '2',
-  //     id: '002',
-  //     // level: () => <div className="level" style={{ backgroundColor: 'green' }}></div>,
-  //     level: 'cao',
-  //     title: 'Tài khoản của bạn chỉ còn dưới 5000',
-  //     description: 'Ahihi',
-  //     date: '05/10/2020'
-  //   },
-  //   {
-  //     key: '3',
-  //     id: '003',
-  //     // level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
-  //     level: 'cao',
-  //     title: 'Tài khoản của bạn chỉ còn dưới 5000',
-  //     description: 'Ahihi',
-  //     date: '05/10/2020'
-  //   },
-  //   {
-  //     key: '4',
-  //     id: '004',
-  //     // level: () => <div className="level" style={{ backgroundColor: 'yellow' }}></div>,
-  //     level: 'cao',
-  //     title: 'Tài khoản của bạn chỉ còn dưới 5000',
-  //     description: 'Ahihi',
-  //     date: '05/10/2020'
-  //   },
-  // ])
-  // const columns = [
-  //   {
-  //     title: 'ID', dataIndex: 'id', key: 'id',
-  //   },
-  //   {
-  //     title: 'Mức độ', dataIndex: 'level', key: 'level',
-  //   },
-  //   {
-  //     title: 'Tiêu đề', dataIndex: 'title', key: 'title',
-  //   },
-  //   {
-  //     title: 'Ngày', dataIndex: 'date', key: 'date',
-  //   },
-  //   {
-  //     title: 'Hành động', dataIndex: '', key: 'x',
-  //     render: () => <Button danger onClick={(key) => handleShowConfirmModal(key)} type="text"><FaTrashAlt /></Button>,
-  //   },
-  // ];
+  const authData = JSON.parse(localStorage.getItem('authData'));
 
   const tableData = noticeListData.map((notice) => ({
     key: notice.id,
     ...notice,
   }))
+
+  useEffect(() => {
+    firebaseApp.database().ref(`/users/${authData.uid}/notification`).on('value', (snapshot) => {
+      let snapshotNotificationList = snapshot.val();
+      let newNotificationList = [];
+      for (let notificationIndex in snapshotNotificationList) {
+        newNotificationList = [
+          {
+            id: 'null',
+            level: snapshotNotificationList[notificationIndex].level,
+            title: snapshotNotificationList[notificationIndex].title,
+            description: snapshotNotificationList[notificationIndex].content,
+            date: moment(snapshotNotificationList[notificationIndex].dateTime, 'YYYYMMDDHHmm').format('DD/MM/YYYY HH:mm'),
+          },
+          ...newNotificationList,
+        ]
+      }
+      setNotificationList([...newNotificationList]);
+    })
+  }, [])
 
   const columns = [
     {
@@ -141,31 +109,6 @@ function Notifications({
   //   }
   // }
 
-  //Render
-  // const renderNotificationsList = () => {
-  //   return noticeListData.map((item, itemIndex) => {
-  //     return (
-  //       <>
-  //         <tr key={itemIndex}>
-  //             <td>{item.id}</td>
-  //             <td>{item.level()}</td>
-  //             <td className="col-content">{item.title}</td>
-  //             <td><Button type="primary" ghost onClick={() => handleToggleDetails(item.id)}>{notificationDetail.findIndex((moreId) => moreId === item.id) === -1 ? 'Chi tiết' : 'Thu gọn'}</Button></td>
-  //             <td>{item.date}</td>
-  //             <td><Button danger type="text" onClick={() => handleShowConfirmModal(item.id)}><FaTrashAlt /></Button></td>
-  //         </tr>
-  //           <div>
-  //             {(notificationDetail.findIndex((id) => id === item.id) !== -1) && (
-  //               <div className="notice-item-description">
-  //                 {item.description}
-  //               </div>
-  //             )}
-  //           </div>
-  //       </>
-  //     );
-  //   });
-  // }
-
   return (
     <div className="notification">
       <div className="table-notification">
@@ -176,7 +119,7 @@ function Notifications({
               expandable={{
                 expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
               }}
-              dataSource={tableData}
+              dataSource={notificationList}
               pagination={false}
               showHeader={false}
             />
