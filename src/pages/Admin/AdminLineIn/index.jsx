@@ -8,6 +8,8 @@ import {
   firebaseApp,
 } from '../../../configs/firebase';
 
+import AvatarDefault from '../../../img/avatardefault.jpg'
+
 function AdminLineIn() {
   const [qrCodeData, setQRCodeData] = useState('');
   const [checkInUser, setCheckInUser] = useState({});
@@ -45,7 +47,7 @@ function AdminLineIn() {
               email: snapshotValue.email,
               studentCode: snapshotValue.studentCode,
               licensePlates: snapshotValue.licensePlates,
-              // avatar: snapshotValue.avatar,
+              avatar: snapshotValue.avatar || null,
             }
             const parkingHistory = {
               dateTime: parseFloat(moment().format('YYYYMMDDHHmm')),
@@ -100,7 +102,7 @@ function AdminLineIn() {
         renderItem={(item) => (
           <List.Item>
             <List.Item.Meta
-              avatar={<Avatar src={item.avatar} />}
+              avatar={<Avatar src={item.avatar ? item.avatar : AvatarDefault} />}
               title={item.email}
               description={moment(item.dateTime.toString(), 'YYYYMMDDHHmm').format('HH:mm DD/MM/YYYY')}
             />

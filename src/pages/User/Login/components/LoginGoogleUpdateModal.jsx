@@ -6,6 +6,7 @@ import {
   CreditCardOutlined,
   QrcodeOutlined,
 } from '@ant-design/icons';
+import moment from 'moment';
 
 import history from '../../../../util/history';
 
@@ -21,6 +22,10 @@ function LoginGoogleUpdateModal({
   googleUpdateModalData
 }) {
   const [loginGoogleUpdateForm] = Form.useForm();
+  
+  const currentDay = moment().format('DD');
+  const currentMonth = moment().format('MM');
+  const currentYear = moment().format('YYYY');
 
   useEffect(() => {
     loginGoogleUpdateForm.resetFields();
@@ -46,6 +51,21 @@ function LoginGoogleUpdateModal({
       qrPin: DEFAULT_QR_PIN,
       role: 'user',
       money: 0,
+      chartData: {
+        [currentYear]: {
+          count: 0,
+          month: {
+            [currentMonth]: {
+              count: 0,
+              day: {
+                [currentDay]: {
+                  count: 0,
+                },
+              },
+            },
+          },
+        },
+      },
     }, (error) => {
       if (error) {
         // The write failed...

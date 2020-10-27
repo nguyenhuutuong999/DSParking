@@ -1,7 +1,7 @@
 import React, { PureComponent, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
-  LineChart, Line,
+  ResponsiveContainer, LineChart, Line, YAxis, XAxis, Tooltip
 } from 'recharts';
 import QRCode from 'qrcode.react';
 import moment from 'moment';
@@ -24,6 +24,8 @@ import {
   firebaseApp,
 } from '../../../configs/firebase';
 
+import { WEEKDAY_FORMAT } from '../../../constants/common';
+
 function Home({
   // historyList,
   dataWeek,
@@ -31,52 +33,89 @@ function Home({
 }) {
   const [checkInHistory, setCheckInHistory] = useState([]);
   const [weekChartData, setWeekChartData] = useState([]);
+  const [monthChartData, setMonthChartData] = useState([]);
+
+  const [totalWeekCount, setTotalWeekCount] = useState('0');
+  const [totalMonthCount, setTotalMonthCount] = useState('0');
+
   const authData = JSON.parse(localStorage.getItem('authData'));
 
-  useEffect(() => {
-    firebaseApp.database().ref(`/users/${authData.uid}/chartData/2020/month/10/day`).on('value', (snapshot) => {
-      let snapshotValue = snapshot.val();
-      const a = [19, 20, 21, 22, 23, 24, 25].map((item) => {
-        return {
-          name: `Ngày ${item}`,
-          CP: (snapshotValue[`${item}`] || {}).count || 0,
-        }
-      })
-      setWeekChartData([...a])
-      console.log("snapshotValue", a)
-    })
+  const currentDay = moment();
+  const oneWeekAgo = moment().subtract(6, 'days');
+  const oneMonthAgo = moment().subtract(1, 'month').add(1, 'days');
 
-    // firebaseApp.database().ref(`/users/${authData.uid}/parkingHistory`).on('value', (snapshot) => {
-    //   let snapshotValue = snapshot.val();
-    //   let newCheckInHistory = [];
-    //   for (let checkInIndex in snapshotValue) {
-    //     newCheckInHistory = [
-    //       snapshotValue[checkInIndex],
-    //       ...newCheckInHistory,
-    //     ]
-    //   }
-    //   setCheckInHistory([...newCheckInHistory]);
-    // })
+  const currentMonth = moment().format('MM');
+  const currentYear = moment().format('YYYY');
+
+  useEffect(() => {
+    const currentWeekAgo = getDayList(oneWeekAgo, currentDay);
+    const currentMonthAgo = getDayList(oneMonthAgo, currentDay);
+    firebaseApp.database().ref(`/users/${authData.uid}/chartData/${currentYear}/month`)
+      .on('value', (snapshot) => {
+        let snapshotValue = snapshot.val();
+        let newTotalWeekCount = 0;
+        const newWeekChartData = currentWeekAgo.map((item) => {
+          const weekCount = ((snapshotValue || {})[item.month]?.day || {})[item.day]?.count || 0;
+          newTotalWeekCount = newTotalWeekCount + weekCount;
+          return {
+            day: `${WEEKDAY_FORMAT[item.weekday]} ${item.day}/${item.month}`,
+            count: weekCount,
+          }
+        })
+        setTotalWeekCount(newTotalWeekCount);
+        setWeekChartData([...newWeekChartData])
+      })
+
+    firebaseApp.database().ref(`/users/${authData.uid}/chartData/${currentYear}/month`)
+      .on('value', (snapshot) => {
+        let snapshotValue = snapshot.val();
+        let newTotalMonthCount = 0;
+        const newMonthChartData = currentMonthAgo.map((item) => {
+          const monthCount = ((snapshotValue || {})[item.month]?.day || {})[item.day]?.count || 0;
+          newTotalMonthCount = newTotalMonthCount + monthCount;
+          return {
+            day: `${item.day}/${item.month}`,
+            count: monthCount,
+          }
+        })
+        setTotalMonthCount(newTotalMonthCount);
+        setMonthChartData([...newMonthChartData])
+      })
 
     firebaseApp.database().ref(`/users/${authData.uid}/parkingHistory`).on('value', (snapshot) => {
       let snapshotHistoryValue = snapshot.val();
       let newCheckInHistory = [];
-      for (let checkInIndex in snapshotHistoryValue) {
-        newCheckInHistory = [
-          {
-            id: 'null',
-            date: moment(snapshotHistoryValue[checkInIndex].dateTime, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
-            timeIn: moment(snapshotHistoryValue[checkInIndex].dateTime, 'YYYYMMDDHHmm').format('HH:mm'),
-            place: 'null',
-          },
-          ...newCheckInHistory,
-        ]
+      for (let checkInId in snapshotHistoryValue) {
+        if (newCheckInHistory.length <= 3) {
+          newCheckInHistory = [
+            {
+              id: 'null',
+              date: moment(snapshotHistoryValue[checkInId].dateTime, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
+              timeIn: moment(snapshotHistoryValue[checkInId].dateTime, 'YYYYMMDDHHmm').format('HH:mm'),
+              place: 'null',
+            },
+            ...newCheckInHistory,
+          ]
+        }
       }
       setCheckInHistory([...newCheckInHistory]);
     })
-
-
   }, [])
+
+  const getDayList = (startDay, endDay) => {
+    let days = [];
+    for (let date = startDay; date <= endDay; date.add(1, 'days')) {
+      days = [
+        ...days,
+        {
+          day: date.format('DD'),
+          month: date.format('MM'),
+          weekday: date.weekday(),
+        },
+      ]
+    }
+    return days;
+  }
 
   const columnsHistory = [
     {
@@ -93,59 +132,6 @@ function Home({
     },
   ];
 
-  /*-------------Data Chart---------------*/
-  // const dataWeek = [
-  //   {
-  //     name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
-  //   },
-  //   {
-  //     name: 'Page B', uv: 3000, pv: 1398, amt: 2210,
-  //   },
-  //   {
-  //     name: 'Page C', uv: 2000, pv: 15000, amt: 2290,
-  //   },
-  //   {
-  //     name: 'Page D', uv: 2780, pv: 3908, amt: 2000,
-  //   },
-  //   {
-  //     name: 'Page E', uv: 1890, pv: 4800, amt: 2181,
-  //   },
-  //   {
-  //     name: 'Page F', uv: 2390, pv: 3800, amt: 2500,
-  //   },
-  //   {
-  //     name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
-  //   },
-  // ];
-  // const dataMonth = [
-  //   {
-  //     name: 'Page A', uv: 5000, pv: 5000, amt: 2400,
-  //   },
-  //   {
-  //     name: 'Page B', uv: 3000, pv: 2098, amt: 2210,
-  //   },
-  //   {
-  //     name: 'Page C', uv: 2000, pv: 6000, amt: 2290,
-  //   },
-  //   {
-  //     name: 'Page D', uv: 2780, pv: 2908, amt: 2000,
-  //   }
-  // ];
-
-  // const renderHistoryList = () => {
-  //   return historyList.map((item, itemIndex) => {
-  //     return (
-  //       <tr key={itemIndex}>
-  //         <td>{item.id}</td>
-  //         <td>{item.date}</td>
-  //         <td>{item.timeIn}</td>
-  //         <td>{item.timeOut}</td>
-  //         <td>{item.licensePlates}</td>
-  //       </tr>
-  //     );
-  //   });
-  // }
-
   return (
     <div className="home">
       <div className="home-left">
@@ -159,12 +145,20 @@ function Home({
                 </div>
                 <h5>Lượt gửi tuần</h5>
               </div>
-              <h2>10</h2>
+              <h2>{totalWeekCount}</h2>
             </div>
             <div className="home-statistic-chart">
-              <LineChart width={380} height={100} data={weekChartData}>
-                <Line type="monotone" dataKey="CP" stroke="#db5c00" strokeWidth={2} />
-              </LineChart>
+              <ResponsiveContainer>
+                <LineChart
+                  data={weekChartData}
+                  margin={{ top: 10, right: 30, left: -30, bottom: -10 }}
+                >
+                  <XAxis dataKey="day" />
+                  <YAxis dataKey="count" />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="count" stroke="#db5c00" strokeWidth={2} />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
           </div>
 
@@ -176,12 +170,20 @@ function Home({
                 </div>
                 <h5>Lượt gửi tháng</h5>
               </div>
-              <h2>30</h2>
+              <h2>{totalMonthCount}</h2>
             </div>
             <div className="home-statistic-chart">
-              <LineChart width={380} height={100} data={dataMonth}>
-                <Line type="monotone" dataKey="CP" stroke="#db5c00" strokeWidth={2} />
-              </LineChart>
+              <ResponsiveContainer>
+                <LineChart
+                margin={{ top: 10, right: 30, left: -30, bottom: -10 }}
+                  data={monthChartData}
+                >
+                  <Tooltip />
+                  <XAxis dataKey="day" />
+                  <YAxis dataKey="count" />
+                  <Line type="monotone" dataKey="count" stroke="#db5c00" strokeWidth={2} />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </div>
@@ -196,7 +198,7 @@ function Home({
                 <Table
                   dataSource={checkInHistory}
                   columns={columnsHistory}
-                  pagination={ false }
+                  pagination={false}
                 />
               </div>
             </div>

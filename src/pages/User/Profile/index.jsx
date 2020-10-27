@@ -45,8 +45,22 @@ function Profile() {
     wrapperCol: { span: 19 },
   };
 
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = () => {
     console.log('editProfileForm', editProfileForm.getFieldsValue());
+    const profileValue = editProfileForm.getFieldsValue();
+    firebaseApp.database().ref(`/users/${authData.uid}`).update({
+      name: profileValue.name,
+      email: profileValue.email,
+      studentCode: profileValue.studentCode,
+      identityCard: profileValue.identityCard,
+      ...profileValue.birthday && { birthday: profileValue.birthday },
+      ...profileValue.address && { address: profileValue.birthday },
+      ...profileValue.ward && { ward: profileValue.birthday },
+      ...profileValue.district && { district: profileValue.district} ,
+      ...profileValue.city && { city: profileValue.city},
+      ...profileValue.country && { country: profileValue.country},
+    })
+    setIsEditProfile(false)
   }
 
   return (
@@ -55,7 +69,7 @@ function Profile() {
 
         <div className="div-img-item">
           <div className="div-img-item-details">
-            <img src={authData.avatar ? authData.avatar : AvatarDefault} alt="Avatar"/>
+            <img src={authData.avatar ? authData.avatar : AvatarDefault} alt="Avatar" />
           </div>
           <div className="div-change-img">
             <p>Thay đổi Avatar</p>
@@ -64,7 +78,7 @@ function Profile() {
 
         <div className="div-img-item">
           <div className="div-img-item-details">
-            <QRCode value={`${authData.uid}${authData.qrPin}`} size={160} className="img-profile-qrcode"/>
+            <QRCode value={`${authData.uid}${authData.qrPin}`} size={160} className="img-profile-qrcode" />
           </div>
           <div className="div-change-img">
             <p>Thay đổi QRCode</p>
@@ -122,74 +136,78 @@ function Profile() {
                 {
                   isEditProfile ?
                     (
-                        <Form
-                          {...layout}
-                          form={editProfileForm}
-                          name="basic"
-                          initialValues={userData}
+                      <Form
+                        {...layout}
+                        form={editProfileForm}
+                        name="basic"
+                        initialValues={userData}
+                      >
+                        <Form.Item
+                          label="Tên người dùng:"
+                          name="name"
+                          rules={[{ required: true, message: 'Vui lòng nhập tên người dùng!' }]}
                         >
-                          <Form.Item
-                            label="Tên người dùng:"
-                            name="name"
-                          >
-                            <Input />
-                          </Form.Item>
+                          <Input />
+                        </Form.Item>
 
-                          <Form.Item
-                            label="Mã sinh viên:"
-                            name="studentCode"
-                          >
-                            <Input />
-                          </Form.Item>
-                          <Form.Item
-                            label="CMND:"
-                            name="cmnd"
-                          >
-                            <Input />
-                          </Form.Item>
-                          <Form.Item
-                            label="Ngày sinh:"
-                            name="birthday"
-                          >
-                            <Input />
-                          </Form.Item>
-                          <Form.Item
-                            label="Email:"
-                            name="email"
-                          >
-                            <Input name="email" />
-                          </Form.Item>
-                          <Form.Item
-                            label="Địa chỉ/Tổ/Thôn:"
-                            name="address"
-                          >
-                            <Input name="address" />
-                          </Form.Item>
-                          <Form.Item
-                            label="Phường/Xã:"
-                            name="village"
-                          >
-                            <Input name="village" />
-                          </Form.Item>
-                          <Form.Item
-                            label="Quận/Huyện:"
-                            name="town"
-                          >
-                            <Input name="town" />
-                          </Form.Item>
-                          <Form.Item
-                            label="Tỉnh/Thành phố:"
-                            name="city"
-                          >
-                            <Input name="city" />
-                          </Form.Item>
-                          <Form.Item
-                            label="Quốc gia:"
-                            name="nation"
-                          >
-                            <Input name="nation" />
-                          </Form.Item>
-                        </Form>
+                        <Form.Item
+                          label="Mã sinh viên:"
+                          name="studentCode"
+                          rules={[{ required: true, message: 'Vui lòng nhập Mã số Sinh Viên!' }]}
+                        >
+                          <Input />
+                        </Form.Item>
+                        <Form.Item
+                          label="CMND:"
+                          name="identityCard"
+                          rules={[{ required: true, message: 'Vui lòng nhập số CMND!' }]}
+                        >
+                          <Input />
+                        </Form.Item>
+                        <Form.Item
+                          label="Ngày sinh:"
+                          name="birthday"
+                        >
+                          <Input />
+                        </Form.Item>
+                        <Form.Item
+                          label="Email:"
+                          name="email"
+                          rules={[{ required: true, message: 'Vui lòng nhập địa chỉ Email !' }]}
+                        >
+                          <Input name="email" disabled />
+                        </Form.Item>
+                        <Form.Item
+                          label="Địa chỉ/Tổ/Thôn:"
+                          name="address"
+                        >
+                          <Input name="address" />
+                        </Form.Item>
+                        <Form.Item
+                          label="Phường/Xã:"
+                          name="ward"
+                        >
+                          <Input name="ward" />
+                        </Form.Item>
+                        <Form.Item
+                          label="Quận/Huyện:"
+                          name="district"
+                        >
+                          <Input name="district" />
+                        </Form.Item>
+                        <Form.Item
+                          label="Tỉnh/Thành phố:"
+                          name="city"
+                        >
+                          <Input name="city" />
+                        </Form.Item>
+                        <Form.Item
+                          label="Quốc gia:"
+                          name="country"
+                        >
+                          <Input name="country" />
+                        </Form.Item>
+                      </Form>
                     )
                     :
                     (
@@ -207,16 +225,16 @@ function Profile() {
                           <p><FaGlobeAsia />Quốc gia: </p>
                         </div>
                         <div className="info-user-content">
-                          <p>{userData.name}</p>
-                          <p>{userData.studentCode}</p>
-                          <p>206296503</p>
-                          <p>24/01/1999</p>
-                          <p>{userData.email}</p>
-                          <p>Châu Lâu</p>
-                          <p>Điện Thọ</p>
-                          <p>Điện Bàn</p>
-                          <p>Quảng Nam</p>
-                          <p>Việt Nam</p>
+                          <p>{userData.name ? userData.name : '-'}</p>
+                          <p>{userData.studentCode ? userData.studentCode : '-'}</p>
+                          <p>{userData.identityCard ? userData.identityCard : '-'}</p>
+                          <p>{userData.birthday ? userData.birthday : '-'}</p>
+                          <p>{userData.email ? userData.email : '-'}</p>
+                          <p>{userData.address ? userData.address : '-'}</p>
+                          <p>{userData.ward ? userData.ward : '-'}</p>
+                          <p>{userData.district ? userData.district : '-'}</p>
+                          <p>{userData.city ? userData.city : '-'}</p>
+                          <p>{userData.country ? userData.country : '-'}</p>
                         </div>
                       </>
                     )

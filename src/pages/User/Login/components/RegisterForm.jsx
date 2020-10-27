@@ -7,6 +7,7 @@ import {
   QrcodeOutlined,
   LockOutlined,
 } from '@ant-design/icons';
+import moment from 'moment';
 
 import history from '../../../../util/history';
 
@@ -17,6 +18,10 @@ import { firebaseApp } from '../../../../configs/firebase';
 function RegisterForm() {
   const [registerForm] = Form.useForm();
 
+  const currentDay = moment().format('DD');
+  const currentMonth = moment().format('MM');
+  const currentYear = moment().format('YYYY');
+
   const handleRegisterEmailPassword = (values) => {
     console.log("handleRegisterEmailPassword -> values", values)
     const {
@@ -25,7 +30,6 @@ function RegisterForm() {
       studentCode,
       licensePlates,
       password,
-      rePassword
     } = values
     firebaseApp.auth().createUserWithEmailAndPassword(email, password)
       .then((result) => {
@@ -39,6 +43,21 @@ function RegisterForm() {
           qrPin: '0000',
           role: 'user',
           money: 0,
+          chartData: {
+            [currentYear]: {
+              count: 0,
+              month: {
+                [currentMonth]: {
+                  count: 0,
+                  day: {
+                    [currentDay]: {
+                      count: 0,
+                    },
+                  },
+                },
+              },
+            },
+          },
         }, (error) => {
           if (error) {
 
