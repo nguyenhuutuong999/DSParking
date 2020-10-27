@@ -29,7 +29,7 @@
 }
 
 .statistic-week {
-  width: 58%;
+  width: 40%;
   height: 95%;
   margin-right: 20px;
   background-color: #ffffff;
@@ -38,7 +38,7 @@
 }
 
 .statistic-month {
-  width: 40%;
+  width: 58%;
   height: 95%;
   background-color: #ffffff;
   border-radius: 6px;
@@ -99,4 +99,7 @@
 .statistic-row3 table thead th {
   color: #1b55e2;
   padding: 5px 0px;
+}
+.recharts-legend-item{
+  display: none !important;
 }

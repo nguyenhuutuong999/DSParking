@@ -24,13 +24,9 @@ import {
   firebaseApp,
 } from '../../../configs/firebase';
 
-import { WEEKDAY_FORMAT } from '../../../constants/common';
+import { WEEKDAY_FORMAT, CHECKIN_FORMAT } from '../../../constants/common';
 
-function Home({
-  // historyList,
-  dataWeek,
-  dataMonth
-}) {
+function Home() {
   const [checkInHistory, setCheckInHistory] = useState([]);
   const [weekChartData, setWeekChartData] = useState([]);
   const [monthChartData, setMonthChartData] = useState([]);
@@ -50,6 +46,7 @@ function Home({
   useEffect(() => {
     const currentWeekAgo = getDayList(oneWeekAgo, currentDay);
     const currentMonthAgo = getDayList(oneMonthAgo, currentDay);
+
     firebaseApp.database().ref(`/users/${authData.uid}/chartData/${currentYear}/month`)
       .on('value', (snapshot) => {
         let snapshotValue = snapshot.val();
@@ -58,7 +55,7 @@ function Home({
           const weekCount = ((snapshotValue || {})[item.month]?.day || {})[item.day]?.count || 0;
           newTotalWeekCount = newTotalWeekCount + weekCount;
           return {
-            day: `${WEEKDAY_FORMAT[item.weekday]} ${item.day}/${item.month}`,
+            day: `${WEEKDAY_FORMAT[item.weekday]}`,
             count: weekCount,
           }
         })
@@ -89,7 +86,7 @@ function Home({
         if (newCheckInHistory.length <= 3) {
           newCheckInHistory = [
             {
-              id: 'null',
+              type: CHECKIN_FORMAT[snapshotHistoryValue[checkInId].type],
               date: moment(snapshotHistoryValue[checkInId].dateTime, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
               timeIn: moment(snapshotHistoryValue[checkInId].dateTime, 'YYYYMMDDHHmm').format('HH:mm'),
               place: 'null',
@@ -119,7 +116,7 @@ function Home({
 
   const columnsHistory = [
     {
-      title: 'Mã', dataIndex: 'id', key: 'id',
+      title: 'Loại', dataIndex: 'type', key: 'type',
     },
     {
       title: 'Ngày', dataIndex: 'date', key: 'date',
@@ -216,9 +213,10 @@ function Home({
               <div className="information">
                 <span className="name">{authData.name}</span>
                 <span>{authData.studentCode}</span>
-                <span>24/01/1999</span>
-                <span>K23CMU - TTT</span>
-                <span><Button onClick={() => history.push('/profile')}>Xem thông tin cá nhân</Button></span>
+                <span>{authData.birthday ? authData.birthday : '-'}</span>
+                <span>
+                  <Button onClick={() => history.push('/profile')} style={{marginTop:'30px'}}>Xem thông tin cá nhân</Button>
+                </span>
               </div>
             </div>
           </div>

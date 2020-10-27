@@ -6,7 +6,6 @@ function ConfirmModal({
   isShowModal,
   handleHideModal,
   handleDeleteNotifications,
-  modalData
 }) {
   return (
     <>
@@ -19,7 +18,8 @@ function ConfirmModal({
         okText="Đồng ý"
         cancelText="Hủy"
       >
-        <p>Bạn có chắc chắn muốn xóa thông báo này?</p>
+        <p>Nộp tiền vào tài khoản !!! </p>
+
       </Modal>
     </>
   )

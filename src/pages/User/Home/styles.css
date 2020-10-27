@@ -12,7 +12,7 @@
 .home-statistic {
   display: flex;
   width: 100%;
-  height: 40%;
+  height: 45%;
 }
 
 .home-statistic-items{
@@ -26,7 +26,7 @@
 }
 
 .home-statistic-info{
-  height:40%
+  height:20%
 }
 .home-statistic-info h2{
   color: #2c2c2c;
@@ -47,12 +47,12 @@
 }
 .home-statistic-chart{
   padding: 20px;
-  height: 60%;
+  height: 80%;
 }
 
 .home-history{
   width: calc(100% - 20px);
-  height: 60%;
+  height: 55%;
 }
 .home-history-detail{
   width: 100%;
@@ -143,11 +143,11 @@ td {
 }
 
 .home-user-info {
-  height: 68%;
+  height: 56%;
   width: 100%;
 }
 .home-user-info .information{
-  padding-top: 50px;
+  padding-top: 60px;
 }
 .home-user-info span {
   display: block;

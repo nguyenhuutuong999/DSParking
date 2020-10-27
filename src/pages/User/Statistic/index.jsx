@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import './styles.css';
 
@@ -9,9 +9,10 @@ import {
   PieChart, Pie, Cell,
 } from 'recharts';
 
-import {
-  Table
-} from 'antd';
+import moment from 'moment';
+import { WEEKDAY_FORMAT } from '../../../constants/common';
+
+import { firebaseApp } from '../../../configs/firebase';
 
 import { getHistoryList } from '../../../redux/actions';
 
@@ -23,173 +24,69 @@ function Statistic({
   dataYear,
   dataCampus,
 }) {
-  const columnsHistory = [
-    {
-      title: 'STT',
-      dataIndex: 'stt',
-      key: 'stt',
-    },
-    {
-      title: 'Mã',
-      dataIndex: 'id',
-      key: 'id',
-    },
-    {
-      title: 'Ngày',
-      dataIndex: 'date',
-      key: 'date',
-    },
-    {
-      title: 'Địa điểm',
-      dataIndex: 'place',
-      key: 'place',
-    },
-    {
-      title: 'Giờ vào',
-      dataIndex: 'timeIn',
-      key: 'timeIn',
-    },
-    {
-      title: 'Giờ ra',
-      dataIndex: 'timeOut',
-      key: 'timeOut',
-    },
-    {
-      title: 'Biển số',
-      dataIndex: 'licensePlates',
-      key: 'licensePlates',
-    },
-  ];
-  // const [historyList,  setHistoryList] = useState([
-  //   {
-  //     stt: '001',
-  //     id:'10112020',
-  //     date:'10/11/2020',
-  //     place:'254 Nguyễn Văn Linh',
-  //     timeIn:'6:45',
-  //     timeOut:'10:05',
-  //     licensePlates:'567 56'
-  //   },
-  //   {
-  //     stt: '002',
-  //     id:'10112020',
-  //     date:'10/11/2020',
-  //     place:'254 Nguyễn Văn Linh',
-  //     timeIn:'6:45',
-  //     timeOut:'10:05',
-  //     licensePlates:'567 56'
-  //   },
-  //   {
-  //     stt: '003',
-  //     id:'10112020',
-  //     date:'10/11/2020',
-  //     place:'254 Nguyễn Văn Linh',
-  //     timeIn:'6:45',
-  //     timeOut:'10:05',
-  //     licensePlates:'567 56'
-  //   },
-  // ])
 
-  // const dataWeek = [
-  //   {
-  //     name: 'T2', CP: 8000
-  //   },
-  //   {
-  //     name: 'T3', CP: 3000
-  //   },
-  //   {
-  //     name: 'T4', CP: 2000
-  //   },
-  //   {
-  //     name: 'T5', CP: 5000
-  //   },
-  //   {
-  //     name: 'T6', CP: 1000
-  //   },
-  //   {
-  //     name: 'T7', CP: 2000
-  //   },
-  //   {
-  //     name: 'CN', CP: 3000
-  //   },
-  // ];
+  const authData = JSON.parse(localStorage.getItem('authData'));
 
-  // const dataMonth = [
-  //   {
-  //     name: 'Tuần 1', CP: 40000
-  //   },
-  //   {
-  //     name: 'Tuần 2', CP: 30000
-  //   },
-  //   {
-  //     name: 'Tuần 3', CP: 20000
-  //   },
-  //   {
-  //     name: 'Tuần 4', CP: 15000
-  //   },
-  // ]
+  const [weekChartData, setWeekChartData] = useState([]);
+  const [monthChartData, setMonthChartData] = useState([]);
+  const [yearChartData, setYearChartData] = useState([]);
 
-  // const dataYear = [
-  //   {
-  //     name: 'Thg 1', CP: 20000
-  //   },
-  //   {
-  //     name: 'Thg 2', CP: 40000
-  //   },
-  //   {
-  //     name: 'Thg 3', CP: 25000
-  //   },
-  //   {
-  //     name: 'Thg 4', CP: 10000
-  //   },
-  //   {
-  //     name: 'Thg 5', CP: 50000
-  //   },
-  //   {
-  //     name: 'Thg 6', CP: 35000
-  //   },
-  //   {
-  //     name: 'Thg 7', CP: 29000
-  //   },
-  //   {
-  //     name: 'Thg 8', CP: 30000
-  //   },
-  //   {
-  //     name: 'Thg 9', CP: 20000
-  //   },
-  //   {
-  //     name: 'Thg 10', CP: 56000
-  //   },
-  //   {
-  //     name: 'Thg 11', CP: 17000
-  //   },
-  //   {
-  //     name: 'Thg 12', CP: 23000
-  //   },
-  // ];
+  const currentDay = moment();
+  const startWeekDay = moment().startOf('isoWeek');
+  const endWeekDay = moment().endOf('isoWeek');
 
-  // const dataCampus = [
-  //   { name: 'Group A', value: 400 },
-  //   { name: 'Group B', value: 300 },
-  //   { name: 'Group C', value: 300 },
-  //   { name: 'Group D', value: 200 },
-  // ];
+  const startMonth = moment().startOf('month');
+  const endMonth = moment().endOf('month');
 
-  // const renderHistoryList = () => {
-  //   return historyList.map((item, itemIndex) => {
-  //     return (
-  //       <tr key={itemIndex}>
-  //         <td>{item.stt}</td>
-  //         <td>{item.id}</td>
-  //         <td>{item.date}</td>
-  //         <td>{item.timeIn}</td>
-  //         <td>{item.timeOut}</td>
-  //         <td>{item.place}</td>
-  //         <td>{item.licensePlates}</td>
-  //       </tr>
-  //     );
-  //   });
-  // }
+  // const currentMonth = moment().format('MM');
+  const currentYear = moment().format('YYYY');
+
+  const getDayList = (startDay, endDay) => {
+    let days = [];
+    for (let date = startDay; date <= endDay; date.add(1, 'days')) {
+      days = [
+        ...days,
+        {
+          day: date.format('DD'),
+          month: date.format('MM'),
+          weekday: date.weekday(),
+        },
+      ]
+    }
+    return days;
+  }
+
+  useEffect(() => {
+    const currentWeek = getDayList(startWeekDay, endWeekDay);
+    const currentMonth = getDayList(startMonth, endMonth);
+
+    firebaseApp.database().ref(`/users/${authData.uid}/chartData/${currentYear}/month`)
+      .on('value', (snapshot) => {
+        let snapshotValue = snapshot.val();
+        const newWeekChartData = currentWeek.map((item) => {
+          const weekCount = ((snapshotValue || {})[item.month]?.day || {})[item.day]?.count || 0;
+          return {
+            day: `${WEEKDAY_FORMAT[item.weekday]}`,
+            count: weekCount,
+          }
+        })
+        setWeekChartData([...newWeekChartData])
+      })
+
+    firebaseApp.database().ref(`/users/${authData.uid}/chartData/${currentYear}/month`)
+      .on('value', (snapshot) => {
+        let snapshotValue = snapshot.val();
+        const newMonthChartData = currentMonth.map((item) => {
+          const monthCount = ((snapshotValue || {})[item.month]?.day || {})[item.day]?.count || 0;
+          return {
+            day: `${item.day}/${item.month}`,
+            count: monthCount,
+          }
+        })
+        setMonthChartData([...newMonthChartData])
+      })
+  }, [])
+
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
   return (
     <div className="statistic">
@@ -200,22 +97,24 @@ function Statistic({
             <h3>Lượt gửi/ Tuần</h3>
           </div>
           <div style={{ height: '83%', marginTop: '2%' }}>
-            <BarChart
-              width={600}
-              height={300}
-              data={dataWeek}
-              margin={{
-                top: 5, right: 30, left: 20, bottom: 5,
-              }}
-              barSize={20}
-            >
-              <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <CartesianGrid strokeDasharray="3 3" />
-              <Bar dataKey="CP" fill="#8884d8" background={{ fill: '#eee' }} />
-            </BarChart>
+            <ResponsiveContainer>
+              <BarChart
+                width={600}
+                height={300}
+                data={weekChartData}
+                barSize={20}
+                margin={{
+                  right: 30,
+                }}
+              >
+                <XAxis dataKey="day" scale="point" padding={{ left: 10, right: 10 }} />
+                <YAxis dataKey="count" />
+                <Tooltip />
+                <Legend />
+                <CartesianGrid strokeDasharray="3 3" />
+                <Bar dataKey="count" fill="#8884d8" background={{ fill: '#eee' }} />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
@@ -226,16 +125,16 @@ function Statistic({
           <div style={{ height: '83%', marginTop: '2%' }}>
             <ResponsiveContainer>
               <AreaChart
-                data={dataMonth}
+                data={monthChartData}
                 margin={{
                   top: 10, right: 30, left: 0, bottom: 0,
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
+                <XAxis dataKey="day" />
+                <YAxis dataKey="count" />
                 <Tooltip />
-                <Area type="monotone" dataKey="CP" stroke="#8884d8" fill="#8884d8" />
+                <Area type="monotone" dataKey="count" stroke="#8884d8" fill="#8884d8" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -267,7 +166,7 @@ function Statistic({
         </div>
 
         <div className="total-year">
-            <h4>Tổng lượt gửi / Năm</h4>
+          <h4>Tổng lượt gửi / Năm</h4>
           <div style={{ position: 'relative' }}>
             <PieChart width={200} height={400}>
               <Pie

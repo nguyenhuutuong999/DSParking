@@ -12,6 +12,8 @@ import { Button, Table, Tabs } from 'antd';
 import { getNotificationsList, deleteNotifications } from '../../../redux/actions';
 import { firebaseApp } from '../../../configs/firebase';
 
+import { LEVEL_NOTIFICATIONS } from '../../../constants/common';
+
 function Notifications({
   noticeListData,
   getNotificationsList,
@@ -36,7 +38,7 @@ function Notifications({
         newNotificationList = [
           {
             id: 'null',
-            level: snapshotNotificationList[notificationIndex].level,
+            level: LEVEL_NOTIFICATIONS[snapshotNotificationList[notificationIndex].level],
             title: snapshotNotificationList[notificationIndex].title,
             description: snapshotNotificationList[notificationIndex].content,
             date: moment(snapshotNotificationList[notificationIndex].dateTime, 'YYYYMMDDHHmm').format('DD/MM/YYYY HH:mm'),

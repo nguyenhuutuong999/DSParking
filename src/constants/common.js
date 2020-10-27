@@ -8,3 +8,13 @@ export const WEEKDAY_FORMAT = {
   5: 'T6',
   6: 'C7',
 };
+export const CHECKIN_FORMAT = {
+ lineIn: 'Lượt vào',
+ lineOut: 'Lượt ra',
+};
+export const LEVEL_NOTIFICATIONS = {
+  high: 'Cao',
+  medium: 'Trung bình',
+  low: 'Thấp'
+ };
+ 

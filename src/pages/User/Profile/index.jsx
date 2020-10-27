@@ -9,12 +9,14 @@ import {
   DatePicker,
   Tooltip,
   Tabs,
-  Space
+  Space,
+  List,
 } from 'antd';
 import { EditOutlined, SaveOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
 import { FaUser, FaIdCardAlt, FaPortrait, FaBirthdayCake, FaMapMarkerAlt, FaMapMarkedAlt, FaBuilding, FaCity, FaGlobeAsia } from 'react-icons/fa';
 
+import moment from 'moment';
 import {
   firebaseApp,
 } from '../../../configs/firebase';
@@ -27,15 +29,32 @@ function Profile() {
   const [isEditAddress, setIsEditAddress] = useState(false);
 
   const [userData, setUserData] = useState({});
-  console.log("Profile -> userData", userData)
-
   const authData = JSON.parse(localStorage.getItem('authData'));
 
   const [editProfileForm] = Form.useForm();
+  const [checkInHistory, setCheckInHistory] = useState([]);
 
   useEffect(() => {
     firebaseApp.database().ref(`/users/${authData.uid}`).on('value', (snapshot) => {
       setUserData({ ...snapshot.val() });
+    })
+
+    firebaseApp.database().ref(`/users/${authData.uid}/parkingHistory`).on('value', (snapshot) => {
+      let snapshotHistoryValue = snapshot.val();
+      let newCheckInHistory = [];
+      for (let checkInId in snapshotHistoryValue) {
+        if (newCheckInHistory.length <= 3) {
+          newCheckInHistory = [
+            {
+              date: moment(snapshotHistoryValue[checkInId].dateTime, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
+              timeIn: moment(snapshotHistoryValue[checkInId].dateTime, 'YYYYMMDDHHmm').format('HH:mm'),
+              place: 'null',
+            },
+            ...newCheckInHistory,
+          ]
+        }
+      }
+      setCheckInHistory([...newCheckInHistory]);
     })
   }, [])
 
@@ -46,7 +65,6 @@ function Profile() {
   };
 
   const handleSubmitForm = () => {
-    console.log('editProfileForm', editProfileForm.getFieldsValue());
     const profileValue = editProfileForm.getFieldsValue();
     firebaseApp.database().ref(`/users/${authData.uid}`).update({
       name: profileValue.name,
@@ -61,6 +79,23 @@ function Profile() {
       ...profileValue.country && { country: profileValue.country},
     })
     setIsEditProfile(false)
+  }
+
+  const renderHistoryList = () => {
+    return (
+      <List
+        itemLayout="horizontal"
+        dataSource={checkInHistory}
+        renderItem={(item) => (
+          <List.Item>
+            <List.Item.Meta
+              title={item.date}
+              description={item.date}
+            />
+          </List.Item>
+        )}
+      />
+    )
   }
 
   return (
@@ -107,7 +142,7 @@ function Profile() {
                           </Tooltip>
                           <Tooltip title="cancel">
                             <Button
-                              type="primary"
+                              type="danger"
                               shape="circle"
                               icon={<CloseCircleOutlined />}
                               onClick={() => setIsEditProfile(false)}
@@ -242,7 +277,7 @@ function Profile() {
               </div>
             </TabPane>
             <TabPane tab="Lịch sử gửi xe" key="2">
-              Content of Tab Pane 2
+                {renderHistoryList()}
             </TabPane>
           </Tabs>
         </div>

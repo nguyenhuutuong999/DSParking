@@ -1,29 +1,64 @@
 import React, { useState } from 'react';
 import './styles.css';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
-import Card from './../../../components/Cards/index'
+import TopUpModal from '../../../components/TopUpModal/index'
 
 import { FaAddressCard, FaTrashAlt, FaThumbtack, } from 'react-icons/fa';
 import { Button, Form, Input, Table, Tabs } from 'antd';
 
 import { getTransactionsList } from '../../../redux/actions';
 
+import {
+  firebaseApp,
+} from '../../../configs/firebase';
+
 
 function Account({
   getTransactionsList,
   transactionsList,
 }) {
-  // const [transactionsList, setTransactionsList] = useState([
-  //   {
-  //     no:'001',
-  //     id:'GD10112020',
-  //     time:'10/11/2020',
-  //     money: '2000',
-  //     title: 'Top Up to DSParking',
-  //     balance:'4000',
-  //   },
-  // ])
+  const authData = JSON.parse(localStorage.getItem('authData'));
+  const [isShowTopUpModal, setIsShowTopUpModal] = useState(false);
+  const [topUpForm] = Form.useForm();
+
+  //Hide / Show Modal
+  const handleShowTopUpModal = () => {
+    setIsShowTopUpModal(true);
+  }
+  const handleHideTopUpModal = () => {
+    setIsShowTopUpModal(false);
+  }
+
+  //Handle TopUp
+  const handleTopUp = (value) => {
+    const moneyValue = topUpForm.getFieldsValue();
+    firebaseApp.database().ref(`/users/${authData.uid}`).once('value', (snapshot) => {
+      const snapshotValue = snapshot.val();
+      firebaseApp.database().ref(`/users/${authData.uid}`)
+      .update({
+        money: snapshotValue.money + parseFloat(moneyValue.money),
+      })
+    })
+
+    firebaseApp.database().ref(`/users/${authData.uid}/transaction`).push({
+      time:parseFloat(moment().format('YYYYMMDDHHmm')),
+      money: parseFloat(moneyValue.money),
+      title: 'Top Up',
+    })
+    setIsShowTopUpModal(false);
+  }
+
+  // const handleTopUp = (value) => {
+  //   const moneyValue = topUpForm.getFieldsValue();
+  //   console.log("moneyValue", moneyValue.money)
+  //     firebaseApp.database().ref(`/users/${authData.uid}`).update({
+  //       money: moneyValue.money
+  //     })
+  //   setIsShowTopUpModal(false);
+  // }
+
   const columns = [
     {
       title: 'Mã GD',
@@ -80,7 +115,7 @@ function Account({
         <Tabs defaultActiveKey="1">
           <TabPane tab="Tài Khoản Ngân Hàng / DSPay" key="1">
             <div className="account-form">
-              <Button>Liên kết Ngân Hàng</Button>
+              <Button  onClick={() => handleShowTopUpModal() }>Nạp tiền</Button>
               <div className="account-info">
                 <Form
                   labelCol={{ span: 10 }}
@@ -105,34 +140,13 @@ function Account({
             </div>
           </TabPane>
         </Tabs>
-        {/* <div className="account-title">
-          <p><span><FaAddressCard /></span>Tài Khoản Ngân Hàng/DSPay</p>
-        </div>
-        <div className="account-form">
-          <Button>Liên kết Ngân Hàng</Button>
-          <div className="account-info">
-            <Form
-              labelCol={{ span: 10 }}
-              wrapperCol={{ span: 14 }}
-              layout="horizontal"
-              style={{ display: 'flex', justifyContent: 'space-between', marginTop: '13px' }}
-            >
-              <Form.Item label="Tên tài khoản: ">
-                <Input />
-              </Form.Item>
-              <Form.Item label="Số thẻ: ">
-                <Input />
-              </Form.Item>
-              <Form.Item label="Số dư hiện tại: ">
-                <Input />
-              </Form.Item>
-            </Form>
-          </div>
-        </div>
-        <div className="div-table">
-          <Table columns={columns} dataSource={transactionsList} pagination={false} />
-        </div> */}
       </div>
+      <TopUpModal
+        isShowModal={isShowTopUpModal}
+        handleHideModal={handleHideTopUpModal}
+        handleTopUp ={handleTopUp}
+        topUpForm={topUpForm}
+      />
     </div>
   );
 }
