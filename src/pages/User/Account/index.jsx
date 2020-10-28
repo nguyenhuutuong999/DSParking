@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles.css';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -21,6 +21,8 @@ function Account({
 }) {
   const authData = JSON.parse(localStorage.getItem('authData'));
   const [isShowTopUpModal, setIsShowTopUpModal] = useState(false);
+  const [transactionHistory, setTransactionHistory] = useState([]);
+
   const [topUpForm] = Form.useForm();
 
   //Hide / Show Modal
@@ -37,18 +39,53 @@ function Account({
     firebaseApp.database().ref(`/users/${authData.uid}`).once('value', (snapshot) => {
       const snapshotValue = snapshot.val();
       firebaseApp.database().ref(`/users/${authData.uid}`)
-      .update({
-        money: snapshotValue.money + parseFloat(moneyValue.money),
-      })
+        .update({
+          money: snapshotValue.money + parseFloat(moneyValue.money),
+        })
     })
 
-    firebaseApp.database().ref(`/users/${authData.uid}/transaction`).push({
-      time:parseFloat(moment().format('YYYYMMDDHHmm')),
-      money: parseFloat(moneyValue.money),
-      title: 'Top Up',
+    // firebaseApp.database().ref(`/users/${authData.uid}/transaction`)
+    //   .push({
+    //     time: parseFloat(moment().format('YYYYMMDDHHmm')),
+    //     money: parseFloat(moneyValue.money),
+    //     content: moneyValue.content,
+    //   })
+    // setIsShowTopUpModal(false);
+
+    firebaseApp.database().ref(`/users/${authData.uid}`).once('value', (snapshot) => {
+      const snapshotValue = snapshot.val();
+      firebaseApp.database().ref(`/users/${authData.uid}/transaction`)
+        .push({
+          time: parseFloat(moment().format('YYYYMMDDHHmm')),
+          money: parseFloat(moneyValue.money),
+          content: moneyValue.content,
+          balance: snapshotValue.money,
+        })
+      setIsShowTopUpModal(false);
+
     })
-    setIsShowTopUpModal(false);
   }
+
+  useEffect(() => {
+    firebaseApp.database().ref(`/users/${authData.uid}/transaction`).on('value', (snapshot) => {
+      let snapshotTransactionValue = snapshot.val();
+      let newTransactionHistory = [];
+      for (let topUpId in snapshotTransactionValue) {
+        newTransactionHistory = [
+          {
+            no: 'null',
+            id: 'null',
+            time: moment(snapshotTransactionValue[topUpId].time, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
+            money: snapshotTransactionValue[topUpId].money,
+            content: snapshotTransactionValue[topUpId].content,
+            balance: snapshotTransactionValue[topUpId].balance
+          },
+          ...newTransactionHistory,
+        ]
+      }
+      setTransactionHistory([...newTransactionHistory]);
+    })
+  }, [])
 
   // const handleTopUp = (value) => {
   //   const moneyValue = topUpForm.getFieldsValue();
@@ -82,8 +119,8 @@ function Account({
     },
     {
       title: 'Nội dung',
-      dataIndex: 'title',
-      key: 'title',
+      dataIndex: 'content',
+      key: 'content',
     },
     {
       title: 'Số dư',
@@ -115,7 +152,7 @@ function Account({
         <Tabs defaultActiveKey="1">
           <TabPane tab="Tài Khoản Ngân Hàng / DSPay" key="1">
             <div className="account-form">
-              <Button  onClick={() => handleShowTopUpModal() }>Nạp tiền</Button>
+              <Button onClick={() => handleShowTopUpModal()}>Nạp tiền</Button>
               <div className="account-info">
                 <Form
                   labelCol={{ span: 10 }}
@@ -136,7 +173,7 @@ function Account({
               </div>
             </div>
             <div className="div-table">
-              <Table columns={columns} dataSource={transactionsList} pagination={{ pageSize: 10 }}/>
+              <Table columns={columns} dataSource={transactionHistory} pagination={{ pageSize: 10 }} />
             </div>
           </TabPane>
         </Tabs>
@@ -144,7 +181,7 @@ function Account({
       <TopUpModal
         isShowModal={isShowTopUpModal}
         handleHideModal={handleHideTopUpModal}
-        handleTopUp ={handleTopUp}
+        handleTopUp={handleTopUp}
         topUpForm={topUpForm}
       />
     </div>

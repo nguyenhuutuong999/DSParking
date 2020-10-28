@@ -96,7 +96,7 @@ function Statistic({
           <div className="div-statistic-head">
             <h3>Lượt gửi/ Tuần</h3>
           </div>
-          <div style={{ height: '83%', marginTop: '2%' }}>
+          <div style={{ height: '83%', padding:'20px' }}>
             <ResponsiveContainer>
               <BarChart
                 width={600}
@@ -122,7 +122,7 @@ function Statistic({
           <div className="div-statistic-head">
             <h3>Lượt gửi/ Tháng</h3>
           </div>
-          <div style={{ height: '83%', marginTop: '2%' }}>
+          <div style={{ height: '83%', padding:'20px' }}>
             <ResponsiveContainer>
               <AreaChart
                 data={monthChartData}
@@ -146,7 +146,8 @@ function Statistic({
           <div className="div-statistic-head">
             <h3>Lượt gửi/ Năm</h3>
           </div>
-          <div style={{ height: '83%', marginTop: '2%' }}>
+          <div style={{ height: '83%', padding:'20px'}}>
+          <ResponsiveContainer>
             <LineChart
               width={800}
               height={200}
@@ -162,6 +163,7 @@ function Statistic({
               <Tooltip />
               <Line type="monotone" dataKey="CP" stroke="#8884d8" fill="#8884d8" />
             </LineChart>
+          </ResponsiveContainer>
           </div>
         </div>
 

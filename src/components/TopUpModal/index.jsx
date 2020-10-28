@@ -19,8 +19,8 @@ function TopUpModal({
            form={topUpForm}
         >
           <Form.Item
-            label="Số Seri:"
-            name="seriNumber"
+            label="Nội dung:"
+            name="content"
             rules={[{ required: true, message: 'Vui lòng nhập số Seri!' }]}
           >
             <Input />

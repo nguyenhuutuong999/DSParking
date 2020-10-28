@@ -15,7 +15,7 @@ function Support() {
     if(supportType === 'manual') {
       return(
         <>
-          <div className="support-manual">
+          <div className="support-manual" style={{padding: '30px 0px'}}>
               <p><span>1. Đăng nhập: </span>Người dùng sử dụng tài khoản myDTU đã có sẵn để đăng nhập vào hệ thống DSParking.</p>
               <p><span>2. Chức năng thay đổi/ lấy mã QR Code:</span> Ở thanh menu, click vào <FaUser /> ‘Thông tin cá nhân’ để lấy mã ( đối với lần sử dụng đầu tiên) / thay đổi mã (đối với những lần sử dụng sau đó).</p>
               <p><span>3. Nạp thẻ / Liên kết tài khoản Ngân hàng:</span> Để thực hiện chức năng này bạn cần click vào  <FaAddressCard /> ‘ Tài khoản DSPay’.</p>
