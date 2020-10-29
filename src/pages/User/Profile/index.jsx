@@ -46,6 +46,8 @@ function Profile() {
         if (newCheckInHistory.length <= 3) {
           newCheckInHistory = [
             {
+              id: checkInId, 
+              type: snapshotHistoryValue[checkInId].type,
               date: moment(snapshotHistoryValue[checkInId].dateTime, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
               timeIn: moment(snapshotHistoryValue[checkInId].dateTime, 'YYYYMMDDHHmm').format('HH:mm'),
               place: 'null',
@@ -89,8 +91,8 @@ function Profile() {
         renderItem={(item) => (
           <List.Item>
             <List.Item.Meta
-              title={item.date}
-              description={item.date}
+              title={item.id}
+              description={item.timeIn}
             />
           </List.Item>
         )}
