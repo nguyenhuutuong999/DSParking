@@ -8,7 +8,8 @@ import { FaBell, FaQrcode, FaBirthdayCake, FaUser, FaExclamationCircle } from 'r
 import history from '../../util/history'
 
 import AvatarDefault from '../../img/avatardefault.jpg'
-import Qrcode from '../../img/qrcode.png'
+
+import QRCode from 'qrcode.react';
 
 import {
   firebaseApp,
@@ -120,7 +121,7 @@ function Header({ signOut }) {
         onOk={handleHideQrModal}
         onCancel={handleHideQrModal}
       >
-        <img src={Qrcode} style={{ width: '300px', height: '300px', margin: '4px 85px' }} />
+        <QRCode value={`${authData.uid}${authData.qrPin}`} size={250} style={{margin:'0 110px'}} />
       </Modal>
     </div>
 

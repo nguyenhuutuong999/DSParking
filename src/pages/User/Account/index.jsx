@@ -74,7 +74,6 @@ function Account({
         newTransactionHistory = [
           {
             no: 'null',
-            id: 'null',
             time: moment(snapshotTransactionValue[topUpId].time, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
             money: snapshotTransactionValue[topUpId].money,
             content: snapshotTransactionValue[topUpId].content,
@@ -101,11 +100,6 @@ function Account({
       title: 'Mã GD',
       dataIndex: 'no',
       key: 'no',
-    },
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
     },
     {
       title: 'Thời gian',

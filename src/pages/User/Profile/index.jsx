@@ -16,6 +16,8 @@ import { EditOutlined, SaveOutlined, CloseCircleOutlined } from '@ant-design/ico
 
 import { FaUser, FaIdCardAlt, FaPortrait, FaBirthdayCake, FaMapMarkerAlt, FaMapMarkedAlt, FaBuilding, FaCity, FaGlobeAsia } from 'react-icons/fa';
 
+import { WEEKDAY_FORMAT, CHECKIN_FORMAT } from '../../../constants/common';
+
 import moment from 'moment';
 import {
   firebaseApp,
@@ -47,7 +49,7 @@ function Profile() {
           newCheckInHistory = [
             {
               id: checkInId, 
-              type: snapshotHistoryValue[checkInId].type,
+              type: CHECKIN_FORMAT[snapshotHistoryValue[checkInId].type],
               date: moment(snapshotHistoryValue[checkInId].dateTime, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
               timeIn: moment(snapshotHistoryValue[checkInId].dateTime, 'YYYYMMDDHHmm').format('HH:mm'),
               place: 'null',
@@ -92,8 +94,12 @@ function Profile() {
           <List.Item>
             <List.Item.Meta
               title={item.id}
-              description={item.timeIn}
+              description={item.type}
             />
+            <div>
+              <p>{item.timeIn}</p>
+              <p>{item.date}</p>
+            </div>
           </List.Item>
         )}
       />
