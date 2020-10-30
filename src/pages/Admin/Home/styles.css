@@ -1,40 +1,334 @@
-.home{
-  margin: 0 20px;
+.home {
   width: 100%;
   height: 100%;
-  display: flex;
+  
 }
-.home-statistic{
-  display: flex;
-}
-.home-statistic-week{
-  width: 250px;
-  height: 200px;
-  background-color: aqua;
-  margin-right: 30px;
-}
-.home-statistic-month{
-  width: 250px;
-  height: 200px;
-  background-color: aqua;
-  margin-right: 30px;
-}
-.home-history{
-  width: 530px;
-  height: 290px;
-  margin-top: 30px;
-  background-color: blueviolet;
+/*Left*/
+.home-left{
+  width: 100%;
+  height: 100%;
 }
 
-/*Right*/
-.home-user{
-  width: 360px;
-  height: 300px;
-  background-color: antiquewhite;
+.home-week-static {
+  display: flex;
+  width: 100%;
+  height: 40%;
 }
-.home-qrcode{
-  width: 360px;
-  height: 190px;
-  margin-top: 30px;
-  background-color: aquamarine;
+
+.home-bottom-static {
+ 
+  display: flex;
+  width: 100%;
+  height: 60vh;
+}
+
+.home-month-chart{
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+
+  background: linear-gradient(-45deg, rgba(209, 209, 209, 0.22), rgba(255, 255, 255, 0.25));
+  box-shadow: 
+  10px 10px 14px 0 rgba(158, 157, 157, 0.25),
+  -8px -0px 10px 0 rgba(255, 255, 255, 0.3);
+}
+.col-xs-8, .col-xs-4{
+  padding: 0;
+}
+
+.home-week-items{
+  position: relative;
+  width: 25%;
+  margin-right: 20px;
+  height: 100%;
+  background: linear-gradient(-45deg, rgba(206, 205, 205, 0.22), rgba(255, 255, 255, 0.25));
+  border-radius: 5px;
+  box-shadow: 
+  10px 10px 14px 0 rgba(194, 193, 193, 0.25),
+  -8px -0px 10px 0 rgba(255, 255, 255, 0.3);
+}
+.icon-title-statistics{
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+  
+}
+.home-week-info{
+  height:40%
+}
+.home-week-info .number{
+  position: relative;
+  color: #2c2c2c;
+  font-size: 20px;
+  font-weight: bold;
+  float: right;
+  width: 30%;
+  
+}
+.icon-title-statistics .local{
+  position: relative;
+  font-weight: 700;
+  color: #8c8c8c;
+  width: 70%;
+  float: left;
+  
+}
+
+
+.home-week-chart{
+  width: 100%;
+  height: 120px;
+}
+
+.home-history{
+  width: calc(100% - 20px);
+  height: 60%;
+}
+.home-history-detail{
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.home-history-detail  .home-history-title {
+  width: 100%;
+  height: 15%;
+  padding: 10px 10px;
+  border-bottom: 0.2px solid rgb(216, 212, 212);
+}
+.home-history-title h4{
+    margin-top: 0;
+    margin-bottom: 0.5em !important;
+    font-weight: 700;
+    font-size: 19px;
+    padding-top: 2px !important;
+    padding-left: 20px !important;
+    color: #515365;
+}
+.home-history-table {
+  height: 85%;
+  overflow: hidden;
+  margin: 5px 0px;
+}
+.div-table-history{
+  height: 80%;
+  width: 100%;
+  overflow: hidden;
+}
+.home-history-table table {
+  width: 95%;
+  height: calc(100% - 80px);
+  margin: 0 auto;
+}
+
+.home-history-table table tr th,
+td {
+  text-align: center;
+}
+
+.home-history-table table thead {
+  background-color: #e0e6ed;
+}
+
+.home-history-table table thead th {
+  color: #db5c00;
+  font-weight: 600 ;
+  padding: 5px 0px;
+}
+
+.btn-details-history {
+  margin-top: 2%;
+  margin-left: 80%;
+}
+.revenue-block{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.home-revenue{
+  width: 100%;
+  height: 62%;
+  margin: 5px;
+  
+}
+.home-flow{
+  width: 100%;
+  height: 35%;
+  background: white;
+  margin: 5px;
+}
+.revenue-today, .revenue-monthly{
+  width: 100%;
+  height: 49%;
+  padding: 0 auto;
+  border-radius: 5px;
+  background: linear-gradient(-45deg, rgba(167, 166, 166, 0.22), rgba(255, 255, 255, 0.25));
+  box-shadow: 
+  10px 10px 14px 0 rgba(148, 148, 148, 0.25),
+  -8px -0px 10px 0 rgba(255, 255, 255, 0.3);
+}
+.time{
+  font-size: 150%;
+  font-weight: 500;
+  color: #aeafb8;
+
+}
+.revenue{
+  font-size:200%;
+  margin-left: 2%;
+  color: #8b8a22;
+  font-weight: 100;
+}
+.fa-coins{
+  color: #bec042;
+}
+/*Right*/
+.home-right{
+  width: 25%;
+}
+.home-user {
+  width: 100%;
+  height: 60%;
+}
+.cicle-icon{
+  background: #f5f2f2;
+  border-radius: 50px;
+  width: 70px;
+  height: 70px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.cicle-icon-small{
+  background: #f5f2f2;
+  border-radius: 50px;
+  width: 60px;
+  height: 60px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.home-user-detail{
+  height: calc(100% - 20px);
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
+}
+.home-user-detail .div-img{
+  position: relative;
+  border-radius: 6px 6px 0px 0px;
+  height: 32%;
+  width: 100%;
+  background-color: #db5c00;
+}
+
+.home-user-detail .div-img img {
+  position: absolute;
+  top: 30%;
+  left:24%;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+}
+
+.flow-section{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  border-radius: 6px;
+  background: linear-gradient(-45deg, rgba(114, 113, 113, 0.22), rgba(255, 255, 255, 0.25));
+  box-shadow: 
+  10px 10px 14px 0 rgba(148, 148, 148, 0.25),
+  -8px -0px 10px 0 rgba(255, 255, 255, 0.3);
+}
+.vehicle-flow{
+  padding-right: 5px;
+  margin: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 40%;
+  height: 15px;
+  font-size: 12px;
+  color: white;
+  border-radius: 20px;
+  background: #4555e6;
+  position: absolute;
+  z-index: 1;
+}
+.title-flow{
+  margin: 5px 0;
+}
+.flow-perc{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.flow-bar{
+  width: 100%;
+  position: relative;
+}
+.vehicle-flow-background{
+  position: relative;
+  padding-right: 5px;
+  margin: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 15px;
+  font-size: 12px;
+  color: white;
+  border-radius: 20px;
+  background: #e2e2e9;
+}
+.flow-block{
+  width: 90%;
+  float: left;
+  position: relative;
+}
+.home-user-info {
+  height: 68%;
+  width: 100%;
+}
+.home-user-info .information{
+  margin-top: 70px;
+}
+.home-user-info span {
+  display: block;
+  text-align: center;
+}
+
+.home-user-info .name {
+  font-weight: 600;
+}
+
+
+.home-qrcode {
+  position: relative;
+  width: 100%;
+  height: 40%;
+  border-radius: 6px;
+  box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+.home-qrcode p{
+  text-align: center;
+  font-weight: 600;
+  padding: 10px 0px !important;
+}
+.home-qrcode-img{
+  width: 170px;
+  height: 170px;
+  margin: 0 auto;
+}
+.home-qrcode img {
+  width: 170px;
+  height: 170px;
 }
