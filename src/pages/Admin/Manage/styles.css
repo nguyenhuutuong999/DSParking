@@ -1,6 +1,6 @@
 .manage{
   width: 100%;
-  margin-top: 100px;
+  margin-top: 50px;
 }
   
 td, th{
@@ -47,7 +47,6 @@ table{
 }
 .btn-success{
   background: rgb(93, 194, 89);
-  box-shadow: 
-  5px 5px 7px 0 rgba(64, 168, 87, 0.25),
+  box-shadow:  5px 5px 7px 0 rgba(64, 168, 87, 0.25),
   -6px -0px 8px 0 rgba(255, 255, 255, 0.3);
 }

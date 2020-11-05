@@ -1,21 +1,107 @@
-import React, { PureComponent, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import history from '../../../util/history'
 import * as actions from './../../../redux/actions/index';
-import { LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, Legend, YAxis, Tooltip } from 'recharts';
-import './styles.css'
+import { LineChart, Line, ResponsiveContainer, XAxis, Legend, YAxis, Tooltip } from 'recharts';
+import './styles.css';
+import moment from 'moment';
+import { WEEKDAY_FORMAT } from '../../../constants/common';
+import fire from './../../../services/firebase';
+
 
 function Home(props) {
   let nvl1 = props.getList
   const [nvl, setnvl] = useState([0, 0, 0, 0, 0, 0, 0]);
-  useEffect(() => {
-    props.getMoneyOutListTodayRequest();
-    setnvl(props.getList);
-    console.log(props.getList)
-    return () => {
 
-    }
+ 
+  const [totalToday254NVL, setTotalToday254NVL] = useState(0);
+  const [totalToday03qt, setTotalToday03qt] = useState(0);
+  const [totalToday334nvl, setTotalToday334nvl] = useState(0);
+  const [totalTodayHK, setTotalTodayHK] = useState(0);
+
+  const [weekChartData, setWeekChartData] = useState(0);
+  const [weektDataTotal, setWeekDataTotal] = useState(0);
+
+
+  //const authData = JSON.parse(localStorage.getItem('authData'));
+  const currentDay = moment();
+  const oneWeekAgo = moment().subtract(6, 'days');
+  const oneMonthAgo = moment().subtract(1, 'month').add(1, 'days');
+
+  const year = moment().year();
+  const currentMonth = moment().format('MM');
+  const currentYear = moment().format('YYYY');
+
+  useEffect(() => {
+    getWeekStatistic();
   }, [])
+  
+  //get week statistic form Firebase
+  function getWeekStatistic (){
+    const currentWeekAgo = getDayList(oneWeekAgo, currentDay);
+    // cua Ni baby
+    fire.database().ref("Data/")
+      .on('value', (snapshot) => {
+        let snapshotValue = snapshot.val();
+        let arr = [];
+        for (var obj in snapshotValue) {
+          Array.prototype.push.apply(arr, [snapshotValue[obj]]);
+        }
+        var weekCount = 0;
+        let getCountPlace = [];
+        let newWeekChartData = currentWeekAgo.map((item, index) => {
+          let nvl254 = 0;
+          let qtr = 0;
+          let nvl334 = 0;
+          let hk = 0;
+
+          arr.map((ob) => {
+            getCountPlace = ob.chartData[item.year].month[parseInt(item.month)].day[1]
+
+            // ID 1: 254 Nguyen Van Linh
+            // ID 2: Quang Trung
+            // ID 3: 254 334 Nguyen Van Linh
+            // ID 4: Hoa Khanh
+            nvl254 += getCountPlace["1"];
+            qtr += getCountPlace["2"];
+            nvl334 += getCountPlace["3"];
+            hk += getCountPlace["4"];
+
+          })
+          setTotalToday254NVL(nvl254);
+          setTotalToday334nvl(nvl334);
+          setTotalToday03qt(qtr);
+          setTotalTodayHK(hk);
+
+          weekCount += nvl254 + qtr + nvl334 + hk;
+          return {
+            "day": `${WEEKDAY_FORMAT[item.weekday]}`,
+            "nvl254" : nvl254,
+            "qtr": qtr,
+            "nvl334": nvl334,
+            "hk": hk,
+          }
+        })
+        setWeekChartData(newWeekChartData)
+        
+      })
+  }
+  
+  // get data from now to 7 day previous
+  const getDayList = (startDay, endDay) => {
+    let days = [];
+    for (let date = startDay; date <= endDay; date.add(1, 'days')) {
+      days = [
+        ...days,
+        {
+          day: date.format('DD'),
+          month: date.format('MM'),
+          year: year,
+          weekday: date.weekday(),
+        },
+      ]
+    }
+    return days;
+  }
   const data = [
     {
       "name": "Jan",
@@ -43,7 +129,7 @@ function Home(props) {
     },
     {
       "name": "Apr",
-      "254 NVL": 2780,
+      "254 NVL": 180,
       "334nvl": 3908,
       "03 Quang Trung": 5908,
       "Hoa Khanh": 2908,
@@ -139,26 +225,20 @@ function Home(props) {
       name: 'Page G', "254NVL": nvl1[6], pv: 4300, amt: 2100,
     },
   ];
-
-  const dataMonth = [
+  const columnsHistory = [
     {
-      name: 'Page A', uv: 5000, pv: 5000, amt: 2400,
+      title: 'Loại', dataIndex: 'type', key: 'type',
     },
     {
-      name: 'Page B', uv: 3000, pv: 2098, amt: 2210,
+      title: 'Ngày', dataIndex: 'date', key: 'date',
     },
     {
-      name: 'Page C', uv: 2000, pv: 6000, amt: 2290,
+      title: 'Thời gian', dataIndex: 'timeIn', key: 'timeIn',
     },
     {
-      name: 'Page D', uv: 2780, pv: 2908, amt: 2000,
-    }
+      title: 'Địa điểm', dataIndex: 'place', key: 'place',
+    },
   ];
-
-
-  function updateStatistic() {
-    props.updateDateWeek()
-  }
   return (
     <div className="home">
 
@@ -167,18 +247,40 @@ function Home(props) {
           <div className="home-week-info">
             <div className="icon-title-statistics">
 
-              <div className="local">254 Nguyen Van Linh</div>
-              <div className="number">{nvl1[0]}/300</div>
+              <div className="local">254 Nguyễn Văn Linh</div>
+              <div className="number">{totalToday254NVL}/500</div>
             </div>
 
           </div>
           <div className="home-week-chart">
+            <ResponsiveContainer width="98%" height={100}>
+              <LineChart data={weekChartData}
+                margin={{ left: -30 }}
+              >
+                <XAxis dataKey="day" tick={{ fill: '#db5c00' }} />
+                <YAxis dataKey="nvl254" tick={{ fill: '#db5c00' }} />
+                <Tooltip />
+                <Line type="monotone" dataKey="nvl254" stroke="#db5c00" strokeWidth={2} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+        <div className="home-week-items">
+          <div className="home-week-info">
+            <div className="icon-title-statistics">
+              <div className="local">03 Quang Trung</div>
+              <div className="number">{totalToday03qt}/300</div>
+            </div>
+          </div>
+          <div className="home-week-chart">
             <ResponsiveContainer width="100%" height={100}>
-              <LineChart data={dataWeek}>
-
-
-
-                <Line type="monotone" dataKey="254NVL" stroke="#db5c00" strokeWidth={2} />
+              <LineChart data={weekChartData}
+                margin={{ left: -30 }}
+              >
+                <XAxis dataKey="day" tick={{ fill: '#6875E9' }}/>
+                <YAxis  dataKey="qtr" tick={{ fill: '#6875E9' }}/>
+                <Tooltip />
+                <Line type="monotone" dataKey="qtr" stroke="#6875E9" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -187,18 +289,20 @@ function Home(props) {
           <div className="home-week-info">
             <div className="icon-title-statistics">
 
-              <div className="local">254 Nguyen Van Linh</div>
-              <div className="number">{nvl1[0]}/300</div>
+              <div className="local">334 Nguyễn Văn Linh</div>
+              <div className="number">{totalToday334nvl}/300</div>
             </div>
 
           </div>
           <div className="home-week-chart">
             <ResponsiveContainer width="100%" height={100}>
-              <LineChart data={dataWeek}>
-
-
-
-                <Line type="monotone" dataKey="254NVL" stroke="#db5c00" strokeWidth={2} />
+              <LineChart data={weekChartData}
+                margin={{ left: -30 }}
+              >
+                <XAxis dataKey="day" tick={{ fill: '#41B35D' }}/>
+                <YAxis  dataKey="nvl334" tick={{ fill: '#41B35D' }}/>
+                <Tooltip />
+                <Line type="monotone" dataKey="nvl334" stroke="#41B35D" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -207,52 +311,32 @@ function Home(props) {
           <div className="home-week-info">
             <div className="icon-title-statistics">
 
-              <div className="local">254 Nguyen Van Linh</div>
-              <div className="number">{nvl1[0]}/300</div>
+              <div className="local">Hòa Khánh</div>
+              <div className="number">{totalTodayHK}/300</div>
             </div>
 
           </div>
           <div className="home-week-chart">
             <ResponsiveContainer width="100%" height={100}>
-              <LineChart data={dataWeek}>
-
-
-
-                <Line type="monotone" dataKey="254NVL" stroke="#db5c00" strokeWidth={2} />
+              <LineChart data={weekChartData}
+                margin={{ left: -30 }}
+              >
+                <XAxis dataKey="day" tick={{ fill: '#36A6CA' }}/>
+                <YAxis  dataKey="hk" tick={{ fill: '#36A6CA' }}/>
+                <Tooltip />
+                <Line type="monotone" dataKey="hk" stroke="#36A6CA" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </div>
-        <div className="home-week-items">
-          <div className="home-week-info">
-            <div className="icon-title-statistics">
-
-              <div className="local">254 Nguyen Van Linh</div>
-              <div className="number">{nvl1[0]}/300</div>
-            </div>
-
-          </div>
-          <div className="home-week-chart">
-            <ResponsiveContainer width="100%" height={100}>
-              <LineChart data={dataWeek}>
-
-
-
-                <Line type="monotone" dataKey="254NVL" stroke="#db5c00" strokeWidth={2} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
       </div>
 
       <div className="home-bottom-static">
-
         <div class="col-xs-8">
           <div className="home-month-chart">
-            <ResponsiveContainer width="100%" height="100%" fill='white'>
+            <ResponsiveContainer width="97%" height="97%" fill='white'>
               <LineChart data={data}
-                margin={{ top: 35, right: 5 }}
+                margin={{ top: 35, right: 5 }} color="#fff"
                 fill='white'
               >
                 <XAxis dataKey="name" />
@@ -328,17 +412,16 @@ function Home(props) {
                     <div className="perc">10%</div>
                   </div>
                 </div>
-                
+
 
               </div>
             </div>
-            
+
           </div>
         </div>
 
       </div>
 
-      {/* <button type="button" className="btn btn-info" onClick={updateStatistic}>Update</button> */}
 
     </div>
   )
@@ -355,9 +438,7 @@ const mapDispatchToProps = (dispatch) => {
     getMoneyOutListTodayRequest: () => {
       dispatch(actions.getMoneyOutListTodayRequest())
     },
-    updateDateWeek: () => {
-      dispatch(actions.updateDateWeek())
-    }
+
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

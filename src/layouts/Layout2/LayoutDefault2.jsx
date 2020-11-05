@@ -58,7 +58,7 @@ function DefaultLayout2({ component: Component, ...props }) {
       render={(routerProps) => (
         <>
           <div className="page">
-            <div className="container">
+            <div className="app-container">
               <div className="row">
                 <div className="col-xs-2">
                   <div className="logo-wrapper">

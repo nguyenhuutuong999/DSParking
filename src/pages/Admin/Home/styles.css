@@ -15,19 +15,14 @@
   height: 40%;
 }
 
-.home-bottom-static {
- 
-  display: flex;
-  width: 100%;
-  height: 60vh;
-}
+
 
 .home-month-chart{
-  width: 100%;
-  height: 100%;
+  width: 99%;
+  height: 92%;
+  opacity: 0.8;
   border-radius: 6px;
-
-  background: linear-gradient(-45deg, rgba(209, 209, 209, 0.22), rgba(255, 255, 255, 0.25));
+  background: white;
   box-shadow: 
   10px 10px 14px 0 rgba(158, 157, 157, 0.25),
   -8px -0px 10px 0 rgba(255, 255, 255, 0.3);
@@ -39,9 +34,11 @@
 .home-week-items{
   position: relative;
   width: 25%;
-  margin-right: 20px;
+  opacity: 0.8;
+  margin-right: 5px;
+  padding: 5px;
   height: 100%;
-  background: linear-gradient(-45deg, rgba(206, 205, 205, 0.22), rgba(255, 255, 255, 0.25));
+  background: white;
   border-radius: 5px;
   box-shadow: 
   10px 10px 14px 0 rgba(194, 193, 193, 0.25),
@@ -50,7 +47,7 @@
 .icon-title-statistics{
   position: relative;
   width: 100%;
-  margin-top: 10px;
+  margin: 0px;
   
 }
 .home-week-info{
@@ -148,27 +145,43 @@ td {
   align-items: center;
   justify-content: center;
 }
-.home-revenue{
+.home-bottom-static {
+  margin: 15px 5px 10px 0;
+  display: flex;
   width: 100%;
-  height: 62%;
-  margin: 5px;
-  
+  height: 60vh;
+}
+.home-revenue{
+  width: 98%;
+  height: 60%;
+  background: white;
+  opacity: 0.8;
+  border-radius: 5px;
 }
 .home-flow{
-  width: 100%;
-  height: 35%;
+  width: 98%;
+  height: 32%;
+  opacity: 0.8;
   background: white;
-  margin: 5px;
+  border-radius: 5px;
 }
 .revenue-today, .revenue-monthly{
   width: 100%;
   height: 49%;
   padding: 0 auto;
-  border-radius: 5px;
-  background: linear-gradient(-45deg, rgba(167, 166, 166, 0.22), rgba(255, 255, 255, 0.25));
-  box-shadow: 
+  /* box-shadow: 
   10px 10px 14px 0 rgba(148, 148, 148, 0.25),
-  -8px -0px 10px 0 rgba(255, 255, 255, 0.3);
+  -8px -0px 10px 0 rgba(255, 255, 255, 0.3); */
+}
+.flow-section{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  /* box-shadow: 
+  10px 10px 14px 0 rgba(148, 148, 148, 0.25),
+  -8px -0px 10px 0 rgba(255, 255, 255, 0.3); */
 }
 .time{
   font-size: 150%;
@@ -234,18 +247,7 @@ td {
   border-radius: 50%;
 }
 
-.flow-section{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 50%;
-  border-radius: 6px;
-  background: linear-gradient(-45deg, rgba(114, 113, 113, 0.22), rgba(255, 255, 255, 0.25));
-  box-shadow: 
-  10px 10px 14px 0 rgba(148, 148, 148, 0.25),
-  -8px -0px 10px 0 rgba(255, 255, 255, 0.3);
-}
+
 .vehicle-flow{
   padding-right: 5px;
   margin: 0;
@@ -331,4 +333,7 @@ td {
 .home-qrcode img {
   width: 170px;
   height: 170px;
+}
+.col-xs-4{
+  margin-left: 5px;
 }

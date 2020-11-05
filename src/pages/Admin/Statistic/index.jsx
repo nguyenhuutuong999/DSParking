@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LineChart, Line, ResponsiveContainer, XAxis, Legend, YAxis, Tooltip } from 'recharts';
+import { LineChart, Line, ResponsiveContainer, XAxis, Legend, YAxis, Tooltip, Pie, PieChart, PolarAngleAxis, PolarRadiusAxis, Customized, PolarGrid } from 'recharts';
 import './styles.css'
 
 function Statistic() {
@@ -13,7 +13,7 @@ function Statistic() {
       "Hoa Khanh": 1400,
       "amt": 2400
     },
-    { 
+    {
       "name": "Feb",
       "254 NVL": 3000,
       "334nvl": 1398,
@@ -102,9 +102,35 @@ function Statistic() {
       "amt": 2100
     },
   ]
+  const data01 = [
+    {
+      "name": "Group A",
+      "value": 400
+    },
+    {
+      "name": "Group B",
+      "value": 300
+    },
+    {
+      "name": "Group C",
+      "value": 300
+    },
+    {
+      "name": "Group D",
+      "value": 200
+    },
+    {
+      "name": "Group E",
+      "value": 278
+    },
+    {
+      "name": "Group F",
+      "value": 189
+    }
+  ];
   return (
     <div className="statistic">
-      <div className="row">     
+      {/* <div className="row">     
           <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
             <select name="year" id="input-state" className="form-control">
             <option value={0}>Year</option>
@@ -166,36 +192,76 @@ function Statistic() {
               <option value={31}>31</option>
             </select>
           </div>
+        </div> */}
+
+
+      <div class="col-xs-12">
+
+        <div class="row">
+          <div class="col-xs-12">
+            
+            <div className="from-to">
+            <div class="input-group input-group-sm mb-3">
+              <select name="year" id="input-state" style={{fontSize: "13px"}} className="form-control-statistic">
+                <option value={0}>Place</option>
+                  <option value={1}>254 Nguyễn Văn Linh</option>
+                  <option value={2}>03 Quang Trung</option>
+                  <option value={3}>Hòa Khánh</option>
+                  <option value={4}>334/4 Nguyễn Văn Linh</option>
+                </select>
+            </div>
+            <div class="input-group input-group-sm mb-3">
+              <div class="input-group-prepend" style={{width : "70px"}}>
+                <span class="input-group-text" id="inputGroup-sizing-sm">Từ ngày</span>
+              </div>
+              <input type="text" class="form-control-statistic" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+            </div>
+            <div class="input-group input-group-sm mb-3">
+              <div class="input-group-prepend" style={{width : "40px"}}>
+                <span class="input-group-text" id="inputGroup-sizing-sm"> đến </span>
+              </div>
+              <input type="text" class="form-control-statistic" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+            </div>
+            </div>
           
-      
-        </div>
-        
-        
-        <div class="col-xs-12">
-          <div className="home-month-chart">
-            <ResponsiveContainer width="100%" height="100%" fill='white'>
-              <LineChart data={data}
-                margin={{ top: 35, right: 5 }}
-                fill='white'
-              >
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="254 NVL" stroke="#8684d8" />
-                <Line type="monotone" dataKey="334nvl" stroke="#82ca9d" />
-                <Line type="monotone" dataKey="03 Quang Trung" stroke="#c7b3e6" />
-                <Line type="monotone" dataKey="Hoa Khanh" stroke="#db5c00" />
-              </LineChart>
-            </ResponsiveContainer>
           </div>
         </div>
-        </div>
-        
-       
 
-    
-   
+
+
+        <div className="statistic-month-chart">
+          <ResponsiveContainer width="98%" height="98%" fill='white'>
+            <LineChart data={data}
+              margin={{left: -10}}
+              fill='white'
+            >
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="254 NVL" stroke="#8684d8" />
+              <Line type="monotone" dataKey="334nvl" stroke="#82ca9d" />
+              <Line type="monotone" dataKey="03 Quang Trung" stroke="#c7b3e6" />
+              <Line type="monotone" dataKey="Hoa Khanh" stroke="#db5c00" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      <div class="col-xs-12">
+        <div className="pie-chart">
+        <ResponsiveContainer width="98%" height="98%" fill='white'>
+        <PieChart>
+          <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#8884d8" />
+           <Legend /><Tooltip />
+        </PieChart>
+          </ResponsiveContainer>
+        </div>
+     
+      </div>
+
+    </div>
+
   )
 }
-export default Statistic;
+export default Statistic; 
