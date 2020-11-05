@@ -167,7 +167,7 @@ function Account({
               </div>
             </div>
             <div className="div-table">
-              <Table columns={columns} dataSource={transactionHistory} pagination={{ pageSize: 10 }} />
+              <Table columns={columns} dataSource={transactionHistory} pagination={{ pageSize: 4 }} />
             </div>
           </TabPane>
         </Tabs>

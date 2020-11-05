@@ -7,7 +7,7 @@ import Card from './../../../components/Cards/index'
 import ConfirmModal from '../../../components/ConfirmModal/index'
 
 import { FaTrashAlt, FaThumbtack, FaBell } from 'react-icons/fa';
-import { Button, Table, Tabs } from 'antd';
+import { Button, Table, Tabs, Tag } from 'antd';
 
 import { getNotificationsList, deleteNotifications } from '../../../redux/actions';
 import { firebaseApp } from '../../../configs/firebase';
@@ -21,6 +21,7 @@ function Notifications({
 }) {
   const { TabPane } = Tabs;
   const [notificationList, setNotificationList] = useState([]);
+  console.log("notificationList", notificationList)
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [confirmModalData, setConfirmModalData] = useState({});
   const authData = JSON.parse(localStorage.getItem('authData'));
@@ -38,7 +39,7 @@ function Notifications({
         newNotificationList = [
           {
             id: 'null',
-            level: LEVEL_NOTIFICATIONS[snapshotNotificationList[notificationIndex].level],
+            level: snapshotNotificationList[notificationIndex].level,
             title: snapshotNotificationList[notificationIndex].title,
             description: snapshotNotificationList[notificationIndex].content,
             date: moment(snapshotNotificationList[notificationIndex].dateTime, 'YYYYMMDDHHmm').format('DD/MM/YYYY HH:mm'),
@@ -53,7 +54,13 @@ function Notifications({
   const columns = [
     {
        dataIndex: 'level', key: 'level',
-       render: (_, record) => <div dangerouslySetInnerHTML={{ __html: record.level } } style={{width:'80px', height:'10px', backgroundColor: record.level, borderRadius:'10px'}}></div>,
+       render: (_, record) => {
+         return (
+          <Tag color={record.level === 'high' ? 'red' : 'gold'}>
+            {LEVEL_NOTIFICATIONS[record.level]}
+          </Tag>
+         )
+       }
     },
     {
        dataIndex: 'title', key: 'title',

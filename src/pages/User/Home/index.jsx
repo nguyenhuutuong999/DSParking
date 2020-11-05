@@ -27,6 +27,8 @@ import {
 import { WEEKDAY_FORMAT, CHECKIN_FORMAT } from '../../../constants/common';
 
 function Home() {
+  const [userData, setUserData] = useState({});
+
   const [checkInHistory, setCheckInHistory] = useState([]);
   const [weekChartData, setWeekChartData] = useState([]);
   const [monthChartData, setMonthChartData] = useState([]);
@@ -46,7 +48,10 @@ function Home() {
   useEffect(() => {
     const currentWeekAgo = getDayList(oneWeekAgo, currentDay);
     const currentMonthAgo = getDayList(oneMonthAgo, currentDay);
-
+  
+    firebaseApp.database().ref(`/users/${authData.uid}`).on('value', (snapshot) => {
+      setUserData({ ...snapshot.val() });
+    })
     firebaseApp.database().ref(`/users/${authData.uid}/chartData/${currentYear}/month`)
       .on('value', (snapshot) => {
         let snapshotValue = snapshot.val();
@@ -225,7 +230,7 @@ function Home() {
         <div className="home-qrcode">
           <p>Mã QrCode của bạn:</p>
           <div className="home-qrcode-img">
-            <QRCode value={`${authData.uid}${authData.qrPin}`} size={140} />
+            <QRCode value={`${authData.uid}${userData.qrPin}`} size={140} />
           </div>
         </div>
 

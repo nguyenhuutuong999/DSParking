@@ -43,7 +43,7 @@ function Support() {
                 <Form.Item label="Mô tả chi tiết: ">
                   <TextArea style={{ height: '100px' }} />
                 </Form.Item>
-                <Button style={{ marginLeft: '550px' }}>Gửi</Button>
+                <Button style={{ marginLeft: '750px' }}>Gửi</Button>
               </Form>
             </div>
         </>
