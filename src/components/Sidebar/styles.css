@@ -19,6 +19,7 @@
 }
 
 .nav-item{
+  transition: 0.8s;
   width: 100%;
   height: 60px;
 }

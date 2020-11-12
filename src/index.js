@@ -31,7 +31,7 @@ import Setting from './pages/User/Setting';
 import * as serviceWorker from './serviceWorker';
 import 'antd/dist/antd.css';
 const myStore = createStore(myReducer);
-console.log("myStore", myStore)
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={myStore}>

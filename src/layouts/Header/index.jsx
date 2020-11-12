@@ -41,6 +41,13 @@ function Header({ signOut }) {
     localStorage.removeItem('authData');
     return history.push('/login');
   }
+
+  const handleChangeQRCode = () => {
+    firebaseApp.database().ref(`/users/${authData.uid}`).update({
+      qrPin: Math.random().toString().substr(2, 4),
+    })
+  }
+
   const renderDropdownAvatar = () => {
     return (
       <Menu>
@@ -111,17 +118,19 @@ function Header({ signOut }) {
         </div>
 
         <Dropdown overlay={renderDropdownAvatar()} placement="bottomCenter">
-          <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} src={ userData.avatar ? userData.avatar : AvatarDefault} alt="Avatar" />
+          <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} src={userData.avatar ? userData.avatar : AvatarDefault} alt="Avatar" />
         </Dropdown>
       </Space>
 
       <Modal
         title="QRCode của bạn: "
         visible={isShowQrModal}
+        footer={false}
         onOk={handleHideQrModal}
         onCancel={handleHideQrModal}
       >
-        <QRCode value={`${authData.uid}${authData.qrPin}`} size={250} style={{margin:'0 110px'}} />
+          <QRCode value={`${authData.uid}${userData.qrPin}`} size={250} style={{ margin: '0 110px' }} />
+          <div onClick={() => handleChangeQRCode()}><Button type="primary" ghost >Đổi QRCode</Button></div>
       </Modal>
     </div>
 

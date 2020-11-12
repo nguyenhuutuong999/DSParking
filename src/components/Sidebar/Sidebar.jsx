@@ -30,7 +30,7 @@ function Sidebar(props) {
       icon: () =><FaBell className="icons" />
     },
     {
-      name: "Tài khoản DSParking",
+      name: "Lịch sử",
       to: "/account",
       exact: true,
       icon: () =><FaAddressCard className="icons" />
