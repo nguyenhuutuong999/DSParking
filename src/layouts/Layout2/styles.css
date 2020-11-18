@@ -26,8 +26,6 @@
     background: rgba(252, 252, 252, 0.7);
     overflow: hidden;
     z-index: 1;
-;
-
   }
   
   .row{
@@ -95,4 +93,8 @@
     height: 100%;
     margin-top: 50px;
    
+  }
+  .side-bar{
+    background: white;
+    height: 100vh;
   }

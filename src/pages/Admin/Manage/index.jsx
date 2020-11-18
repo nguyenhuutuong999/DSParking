@@ -6,7 +6,7 @@ function Evaluation() {
         <div className="manage">
 
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-12">
                     <div className="header-manage">
                         <div className="title">Manage Account</div>
                         <form class=" right form-inline d-flex justify-content-center md-form form-sm">
@@ -18,7 +18,7 @@ function Evaluation() {
 
                 </div>
 
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-12 ">
                     <table className="table">
                         <thead className="thead-dark">
                             <tr>

@@ -19,10 +19,7 @@ a:focus {
 	outline: none !important;
 }
 
-a:hover {
-	text-decoration: none;
-  color: #57b846;
-}
+
 
 /*---------------------------------------------*/
 h1,h2,h3,h4,h5,h6 {
@@ -99,7 +96,7 @@ iframe {
   font-family: Poppins-Regular;
   font-size: 14px;
   line-height: 1.5;
-  color: white;
+  color: rgb(82, 80, 80);
 }
 
 
@@ -123,6 +120,7 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
+  
   background: #9053c7;
   background: -webkit-linear-gradient(-135deg, #eb7a1a, #f859a8);
   background: -o-linear-gradient(-135deg, #90353e, #61386f);
@@ -133,10 +131,10 @@ iframe {
 .wrap-login100 {
   width: 960px;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 15px;
   overflow: hidden;
   box-shadow: 3px 6px 10px;
-
+  opacity: 0.9;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -161,7 +159,10 @@ iframe {
 /*------------------------------------------------------------------
 [  ]*/
 .login100-form {
-  width: 290px;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  opacity: 0.9;
 }
 
 .login100-form-title {
@@ -170,7 +171,6 @@ iframe {
   color: #333333;
   line-height: 1.2;
   text-align: center;
-
   width: 100%;
   display: block;
   padding-bottom: 54px;
@@ -178,23 +178,26 @@ iframe {
 /*---------------------------------------------*/
 .wrap-input100 {
   position: relative;
-  width: 100%;
+  width: 60%;
   z-index: 1;
   margin-bottom: 10px;
+  text-align: center;
+  margin: 10px auto;
 }
 
 .input100 {
+  position: relative;
   font-family: Poppins-Medium;
   font-size: 15px;
   line-height: 1.5;
   color: #666666;
-
   display: block;
   width: 100%;
   background: #e6e6e6;
   height: 50px;
   border-radius: 25px;
   padding: 0 30px 0 68px;
+  
 }
 .logo{
   margin: 10px 70px;
@@ -217,7 +220,7 @@ iframe {
   width: 100%;
   height: 100%;
   box-shadow: 0px 0px 0px 0px;
-  color: rgba(87,184,70, 0.8);
+  color: rgba(247, 241, 235, 0.8);
 }
 
 .input100:focus + .focus-input100 {
@@ -258,14 +261,11 @@ iframe {
   pointer-events: none;
   color: #666666;
 
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
+ 
 }
 
 .input100:focus + .focus-input100 + .symbol-input100 {
-  color: #57b846;
+  color: #b99052;
   padding-left: 28px;
 }
 
@@ -289,11 +289,10 @@ iframe {
   line-height: 1.5;
   color: #fff;
   text-transform: uppercase;
-
-  width: 100%;
+  width: 50%;
   height: 50px;
   border-radius: 25px;
-  background-image: linear-gradient( to right, #ed6ea0, #ec8c69, #f7186a, #fbb03b );
+  background-image: linear-gradient( to right, #9a6eed, #ec8c69 );
   box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
   display: -webkit-box;
   display: -webkit-flex;
@@ -304,14 +303,10 @@ iframe {
   align-items: center;
   padding: 0 25px;
 
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
 }
 
 .login100-form-btn:hover {
-  background: #333333;
+  background: #ad1e1e;
 }
 
 
@@ -372,11 +367,7 @@ iframe {
   border-radius: 13px;
   padding: 4px 25px 4px 10px;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
+  
   right: 8px;
   pointer-events: none;
 
@@ -389,10 +380,7 @@ iframe {
   visibility: hidden;
   opacity: 0;
 
-  -webkit-transition: opacity 0.4s;
-  -o-transition: opacity 0.4s;
-  -moz-transition: opacity 0.4s;
-  transition: opacity 0.4s;
+ 
 }
 
 .alert-validate::after {
@@ -403,11 +391,7 @@ iframe {
   color: #c80000;
   font-size: 15px;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
+ 
   right: 13px;
 }
 
@@ -453,26 +437,40 @@ iframe {
     width: 500px;
 }
 .form-login{
-  position: absolute;
-    left: 5%;
-    top: 25%;
-    border-radius: 5px;
-    background: rgba(0,0,0,0.2);
-    box-shadow: 3px 6px 10px palegoldenrod;
-    padding: 30px;
+    position: relative;
+    margin: 50px auto;
+    border-radius: 10px;
+    background: rgb(255, 255, 255);
+    opacity: 0.9;
+    box-shadow: 1px 2px 3px 1px rgb(216, 212, 206);
+    text-align: center;
+    height: 60vh;
+    width: 35%;
 }
 .form-login p{
   text-align: center;
   font-size: 30px;
-  color: white;
-  text-shadow: 3px 3px 3px #333333;
+  color:  #9a6eed;
+
+}
+.app-container-login{
+  width: 100%;
+  height: 100%;
+  text-align: center;
 }
 .text-dsparking {
-  font-size: 100px;
+  font-size: 70px;
   color: white;
   font-weight: 700;
-  opacity: 0.6;
+  opacity: 0.8;
   position: absolute;
   top: 5%;
-  left: 3%;
+  left: 39%;
+}
+
+.img-fluid-logo{
+  border-radius:10px;
+  
+  width: 70%;
+  position: relative;
 }

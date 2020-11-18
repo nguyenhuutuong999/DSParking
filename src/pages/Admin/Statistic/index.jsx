@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LineChart, Line, ResponsiveContainer, XAxis, Legend, YAxis, Tooltip, Pie, PieChart, PolarAngleAxis, PolarRadiusAxis, Customized, PolarGrid } from 'recharts';
+import { LineChart, Line, ResponsiveContainer,Cell, XAxis, Legend, YAxis, Tooltip, Pie, PieChart, PolarAngleAxis, PolarRadiusAxis, PolarGrid, LabelList, Label} from 'recharts';
 import './styles.css'
 
 function Statistic() {
@@ -8,7 +8,7 @@ function Statistic() {
     {
       "name": "Jan",
       "254 NVL": 4000,
-      "334nvl": 2400,
+      "334 NVL": 2400,
       "03 Quang Trung": 5400,
       "Hoa Khanh": 1400,
       "amt": 2400
@@ -16,7 +16,7 @@ function Statistic() {
     {
       "name": "Feb",
       "254 NVL": 3000,
-      "334nvl": 1398,
+      "334 NVL": 1398,
       "03 Quang Trung": 2398,
       "Hoa Khanh": 398,
       "amt": 2210
@@ -24,7 +24,7 @@ function Statistic() {
     {
       "name": "Mar",
       "254 NVL": 2000,
-      "334nvl": 4800,
+      "334 NVL": 4800,
       "03 Quang Trung": 5800,
       "Hoa Khanh": 3800,
       "amt": 2290
@@ -32,7 +32,7 @@ function Statistic() {
     {
       "name": "Apr",
       "254 NVL": 2780,
-      "334nvl": 3908,
+      "334 NVL": 3908,
       "03 Quang Trung": 5908,
       "Hoa Khanh": 2908,
       "amt": 2000
@@ -40,7 +40,7 @@ function Statistic() {
     {
       "name": "May",
       "254 NVL": 1890,
-      "334nvl": 4800,
+      "334 NVL": 4800,
       "03 Quang Trung": 2800,
       "Hoa Khanh": 3800,
       "amt": 2181
@@ -48,7 +48,7 @@ function Statistic() {
     {
       "name": "June",
       "254 NVL": 2390,
-      "334nvl": 3800,
+      "334 NVL": 3800,
       "03 Quang Trung": 3800,
       "Hoa Khanh": 2800,
       "amt": 2500
@@ -56,7 +56,7 @@ function Statistic() {
     {
       "name": "July",
       "254 NVL": 3490,
-      "334nvl": 4300,
+      "334 NVL": 4300,
       "03 Quang Trung": 2300,
       "Hoa Khanh": 3300,
       "amt": 2100
@@ -64,7 +64,7 @@ function Statistic() {
     {
       "name": "August",
       "254 NVL": 3490,
-      "334nvl": 4300,
+      "334 NVL": 4300,
       "03 Quang Trung": 4300,
       "Hoa Khanh": 3300,
       "amt": 2100
@@ -72,7 +72,7 @@ function Statistic() {
     {
       "name": "Sept",
       "254 NVL": 3490,
-      "334nvl": 4300,
+      "334 NVL": 4300,
       "03 Quang Trung": 1300,
       "Hoa Khanh": 3300,
       "amt": 2100
@@ -80,7 +80,7 @@ function Statistic() {
     {
       "name": "Oct",
       "254 NVL": 3490,
-      "334nvl": 4300,
+      "334 NVL": 4300,
       "03 Quang Trung": 4300,
       "Hoa Khanh": 1300,
       "amt": 2100
@@ -88,7 +88,7 @@ function Statistic() {
     {
       "name": "Nov",
       "254 NVL": 3490,
-      "334nvl": 4300,
+      "334 NVL": 4300,
       "03 Quang Trung": 1300,
       "Hoa Khanh": 3300,
       "amt": 2100
@@ -96,7 +96,7 @@ function Statistic() {
     {
       "name": "Dev",
       "254 NVL": 3490,
-      "334nvl": 4300,
+      "334 NVL": 4300,
       "03 Quang Trung": 1300,
       "Hoa Khanh": 2300,
       "amt": 2100
@@ -104,160 +104,102 @@ function Statistic() {
   ]
   const data01 = [
     {
-      "name": "Group A",
-      "value": 400
+      "name": "254 NVL",
+      "value": 400,
+      "color" : "#82CA9D",
+
     },
     {
-      "name": "Group B",
-      "value": 300
+      "name": "334 NVL",
+      "value": 300,
+      "color" : "#8DD1E1",
     },
     {
-      "name": "Group C",
-      "value": 300
+      "name": "03 Quang Trung",
+      "value": 200,
+      "color" : "#A4DE6C",
     },
     {
-      "name": "Group D",
-      "value": 200
+      "name": "Hoa Khanh",
+      "value": 100,
+      "color" : "#D0ED57",
     },
-    {
-      "name": "Group E",
-      "value": 278
-    },
-    {
-      "name": "Group F",
-      "value": 189
-    }
+
   ];
   return (
     <div className="statistic">
-      {/* <div className="row">     
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <select name="year" id="input-state" className="form-control">
-            <option value={0}>Year</option>
-              <option value={1999}>2019</option>
-              <option value={2020}>2020</option>
-            </select>
-          </div>
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <select name="" id="input-state" className="form-control">
-            <option value={0}>Month</option>
-              <option value={1}>Jan</option>
-              <option value={2}>Feb</option>
-              <option value={3}>Mar</option>
-              <option value={4}>Apr</option>
-              <option value={5}>May</option>
-              <option value={6}>June</option>
-              <option value={7}>July</option>
-              <option value={8}>Aug</option>
-
-              <option value={9}>Sept</option>
-              <option value={10}>Oct</option>
-              <option value={11}>Nov</option>
-              <option value={12}>Dec</option>
-            </select>
-          </div>
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <select  name="day" id="input-state" className="form-control">
-            <option value={0}>Day</option>
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-              <option value={9}>9</option>
-              <option value={10}>10</option>
-              <option value={11}>11</option>
-              <option value={12}>12</option>
-              <option value={13}>13</option>
-              <option value={14}>14</option>
-              <option value={15}>15</option>
-              <option value={16}>16</option>
-              <option value={17}>17</option>
-              <option value={18}>18</option>
-              <option value={19}>19</option>
-              <option value={20}>20</option>
-              <option value={21}>21</option>
-              <option value={22}>22</option>
-              <option value={23}>23</option>
-              <option value={24}>24</option>
-              <option value={25}>25</option>
-              <option value={26}>26</option>
-              <option value={27}>27</option>
-              <option value={28}>28</option>
-              <option value={29}>29</option>
-              <option value={30}>30</option>
-              <option value={31}>31</option>
-            </select>
-          </div>
-        </div> */}
-
 
       <div class="col-xs-12">
-
-        <div class="row">
-          <div class="col-xs-12">
-            
-            <div className="from-to">
-            <div class="input-group input-group-sm mb-3">
-              <select name="year" id="input-state" style={{fontSize: "13px"}} className="form-control-statistic">
-                <option value={0}>Place</option>
-                  <option value={1}>254 Nguyễn Văn Linh</option>
-                  <option value={2}>03 Quang Trung</option>
-                  <option value={3}>Hòa Khánh</option>
-                  <option value={4}>334/4 Nguyễn Văn Linh</option>
-                </select>
-            </div>
-            <div class="input-group input-group-sm mb-3">
-              <div class="input-group-prepend" style={{width : "70px"}}>
-                <span class="input-group-text" id="inputGroup-sizing-sm">Từ ngày</span>
-              </div>
-              <input type="text" class="form-control-statistic" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
-            </div>
-            <div class="input-group input-group-sm mb-3">
-              <div class="input-group-prepend" style={{width : "40px"}}>
-                <span class="input-group-text" id="inputGroup-sizing-sm"> đến </span>
-              </div>
-              <input type="text" class="form-control-statistic" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
-            </div>
-            </div>
-          
+        <div className="from-to">
+          <div class="input-group input-group-sm mb-3">
+            <select name="year" id="input-state" style={{ fontSize: "13px" }} className="form-control-statistic">
+              <option value={0}>All</option>
+              <option value={1}>254 Nguyễn Văn Linh</option>
+              <option value={2}>03 Quang Trung</option>
+              <option value={3}>Hòa Khánh</option>
+              <option value={4}>334/4 Nguyễn Văn Linh</option>
+            </select>
           </div>
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" style={{ width: "70px" }}>
+              <span class="input-group-text" id="inputGroup-sizing-sm">From</span>
+            </div>
+            <input type="text" class="form-control-statistic" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" style={{ width: "40px" }}>
+              <span class="input-group-text" id="inputGroup-sizing-sm">To</span>
+            </div>
+            <input type="text" class="form-control-statistic" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+          </div>
+
+
         </div>
 
 
-
-        <div className="statistic-month-chart">
+        <div className="statistic-chart">
           <ResponsiveContainer width="98%" height="98%" fill='white'>
             <LineChart data={data}
-              margin={{left: -10}}
+              margin={{ left: -10, top: 20 }}
               fill='white'
             >
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="254 NVL" stroke="#8684d8" />
-              <Line type="monotone" dataKey="334nvl" stroke="#82ca9d" />
-              <Line type="monotone" dataKey="03 Quang Trung" stroke="#c7b3e6" />
-              <Line type="monotone" dataKey="Hoa Khanh" stroke="#db5c00" />
+              <Line type="monotone" dataKey="254 NVL" stroke="#82CA9D" />
+              <Line type="monotone" dataKey="334 NVL" stroke="#8DD1E1" />
+              <Line type="monotone" dataKey="03 Quang Trung" stroke="#A4DE6C" />
+              <Line type="monotone" dataKey="Hoa Khanh" stroke="#D0ED57" />
             </LineChart>
           </ResponsiveContainer>
         </div>
       </div>
 
       <div class="col-xs-12">
-        <div className="pie-chart">
-        <ResponsiveContainer width="98%" height="98%" fill='white'>
-        <PieChart>
-          <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#8884d8" />
-           <Legend /><Tooltip />
-        </PieChart>
-          </ResponsiveContainer>
+        <div class="col-xs-3">
+          <div className="pie-chart">
+            <ResponsiveContainer width="98%" height="98%" fill='white'>
+              <PieChart>
+              <Label position="inside"/>
+                <Pie data={data01} nameKey="name" cx="50%" cy="50%" outerRadius={90} fill="#8884d8" label={(entry) => entry.value}>
+                {
+                 
+                  data01.map((index) => (
+                    <Cell key={index.name} fill={index.color} value = {index.value} />
+                  ))
+                }
+                </Pie>
+               
+               
+                <Legend /><Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
         </div>
-     
+
+
+
       </div>
 
     </div>

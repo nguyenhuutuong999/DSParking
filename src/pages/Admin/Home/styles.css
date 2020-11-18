@@ -15,8 +15,6 @@
   height: 40%;
 }
 
-
-
 .home-month-chart{
   width: 99%;
   height: 92%;
@@ -140,10 +138,11 @@ td {
   margin-left: 80%;
 }
 .revenue-block{
+  height: 50%;
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  
 }
 .home-bottom-static {
   margin: 15px 5px 10px 0;
@@ -153,25 +152,68 @@ td {
 }
 .home-revenue{
   width: 98%;
-  height: 60%;
+  height: 26%;
   background: white;
-  opacity: 0.8;
+  padding: 2%;
+  opacity: 1;
   border-radius: 5px;
+  display: flex;
+
 }
 .home-flow{
+  margin-top: 15px;
   width: 98%;
-  height: 32%;
+  height: 40%;
   opacity: 0.8;
-  background: white;
   border-radius: 5px;
 }
-.revenue-today, .revenue-monthly{
+.revenue-box{
   width: 100%;
-  height: 49%;
-  padding: 0 auto;
+  height: 50%;
+  padding: 1%;
+  opacity: 0.9;
+  border-radius: 10px;
   /* box-shadow: 
   10px 10px 14px 0 rgba(148, 148, 148, 0.25),
   -8px -0px 10px 0 rgba(255, 255, 255, 0.3); */
+}
+.revenue-monthly{
+  width: 100%;
+  height: 100%;
+  margin-left: 2px;
+  background: #6972FF;
+  box-shadow: 
+  5px 5px 7px 0 rgba(0, 4, 253, 0.25),
+  -5px -0px 5px 0 rgba(255, 255, 255, 0.3);
+}
+.revenue-today{
+  background: #FF8C80;
+  box-shadow: 
+  5px 5px 7px 0 rgba(253, 0, 0, 0.25),
+  -5px -0px 5px 0 rgba(255, 255, 255, 0.3);
+  width: 100%;
+  height: 100%;
+  margin-right: 2px;
+}
+.get-date{
+  display: flex;
+  align-items: center;
+}
+.moment-month{
+  margin-left: 5px;
+  font-size: 85%;
+}
+.calendar-icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fa-calendar-alt{
+  color: rgb(243, 243, 243);
+}
+.moment-month{
+  margin-top: 3px;
+  color: rgb(253, 253, 253);
 }
 .flow-section{
   width: 100%;
@@ -179,24 +221,30 @@ td {
   align-items: center;
   justify-content: center;
   height: 50%;
-  /* box-shadow: 
-  10px 10px 14px 0 rgba(148, 148, 148, 0.25),
-  -8px -0px 10px 0 rgba(255, 255, 255, 0.3); */
+  margin-bottom: 10px;
+  background: white;
+  border-radius: 5px;
 }
 .time{
-  font-size: 150%;
+  font-size: 100%;
   font-weight: 500;
-  color: #aeafb8;
+  color: #ffffff;
 
 }
+.fa-money-bill-alt{
+  color: rgb(185, 185, 34);
+  zoom: 1.8;
+}
 .revenue{
-  font-size:200%;
-  margin-left: 2%;
-  color: #8b8a22;
+  font-size: 100%;
+  color: #ffffff;
   font-weight: 100;
 }
-.fa-coins{
-  color: #bec042;
+.fa-today{
+  color: #eb4d3c;
+}
+.fa-month{
+  color: #3642eb;
 }
 /*Right*/
 .home-right{
@@ -209,20 +257,35 @@ td {
 .cicle-icon{
   background: #f5f2f2;
   border-radius: 50px;
-  width: 70px;
-  height: 70px;
+  margin-right: 5px;
+  border: 1px solid #cfcece;
+  width: 27%;
+  height: 100%;
   display:flex;
   align-items: center;
   justify-content: center;
 }
 .cicle-icon-small{
   background: #f5f2f2;
-  border-radius: 50px;
+  border-radius: 5px;
   width: 60px;
   height: 60px;
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: -40px;
+}
+.icon-users{
+  border: 1px solid #f0c1c1;
+  border-top: 0px;
+  border-left: 0px;
+  
+}
+.icon-today{
+  border: 1px solid #acb1f1;
+
+  border-top: 0px;
+  border-left: 0px;
 }
 .home-user-detail{
   height: calc(100% - 20px);
@@ -254,14 +317,22 @@ td {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 40%;
-  height: 15px;
+  
+  height: 12px;
   font-size: 12px;
   color: white;
   border-radius: 20px;
-  background: #4555e6;
+  
   position: absolute;
   z-index: 1;
+}
+.user-today{
+  background: #4555e6c7;
+  width: 20%;
+}
+.users{
+  background: #e64545d8;
+  width: 50%;
 }
 .title-flow{
   margin: 5px 0;
@@ -284,7 +355,7 @@ td {
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-  height: 15px;
+  height: 12px;
   font-size: 12px;
   color: white;
   border-radius: 20px;
@@ -336,4 +407,9 @@ td {
 }
 .col-xs-4{
   margin-left: 5px;
+}
+.img-coin{
+  position: relative;
+  width: 40px;
+  height: 40px;
 }
