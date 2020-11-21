@@ -8,14 +8,15 @@ import PrivateRoute from './pages/Login/PrivateRoute/PrivateRoute';
 //router to User
 import LayoutLogin from './layouts/Login/LayoutLogin'
 import Login from './pages/Login/index'
-import Profile from './pages/User/Profile/index'
-import Home from './pages/User/Home/index'
-import Account from './pages/User/Account/index'
-import Evaluation from './pages/User/Evaluation/index'
-import Notifications from './pages/User/Notifications/index'
-import Statistic from './pages/User/Statistic/index'
-import Support from './pages/User/Support/index'
-import Setting from './pages/User/Setting/index'
+import Profile from './pages/Admin/Profile/index'
+import Home from './pages/Admin/Home/index'
+import Account from './pages/Admin/Account/index'
+// import Evaluation from './pages/Admin/Evaluation/index'
+// import Notifications from './pages/Admin/Notifications/index'
+import Statistic from './pages/Admin/Statistic/index'
+import Manage from './pages/Admin/Manage/index';
+// import Support from './pages/Admin/Support/index'
+import Setting from './pages/Admin/Setting/index'
 
 //router to Admin
 
@@ -47,10 +48,11 @@ ReactDOM.render(
           <LayoutLogin  path="/login" component={Login}/>
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/account" component={Account} />
-          <PrivateRoute path="/evaluation" component={Evaluation} />
-          <PrivateRoute path="/notifications" component={Notifications} />
+          {/* <PrivateRoute path="/evaluation" component={Evaluation} /> */}
+          {/* <PrivateRoute path="/notifications" component={Notifications} /> */}
           <PrivateRoute path="/statistic" component={Statistic} />
-          <PrivateRoute path="/support" component={Support} />
+          <PrivateRoute path="/manage" component={Manage} />
+          {/* <PrivateRoute path="/support" component={Support} /> */}
           <PrivateRoute path="/setting" component={Setting} />
         </Switch>
     </Router>

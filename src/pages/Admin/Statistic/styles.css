@@ -1,0 +1,46 @@
+  .statistic-chart{
+      width: 100%;
+      height: 30vh;
+      background: white;
+      opacity: 0.9;
+      position: relative;
+      border-radius: 3px;
+  } 
+  .from-to{
+    display: flex;
+    justify-content: flex-end;
+  }
+  .input-group{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-control-statistic{
+    width: 150px;
+    height: 20px;
+    border-radius: 3px;
+
+  }
+  .input-group-prepend{
+    display:flex;
+    justify-content:flex-end;
+  }
+  .input-group-text{
+    margin-right: 5px;
+  }
+  select{
+    border-width: 0px;
+  }
+  .input-group{
+    margin-right: 3px;
+  }
+  .pie-chart{
+    width: 100%;
+    height: 40vh;
+    background: white;
+    border-radius: 3px;
+  }
+  .col-xs-3{
+    padding: 0px
+  }

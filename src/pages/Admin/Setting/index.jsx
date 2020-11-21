@@ -4,7 +4,7 @@ import './styles.css';
 function Setting() {
   return (
     <div className="div-header">
-      Setting
+    
     </div>
   );
 }
