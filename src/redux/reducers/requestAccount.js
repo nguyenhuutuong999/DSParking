@@ -27,12 +27,12 @@ var myReducer = (state = initialState, action) => {
     }
     case types.LOGIN_SUCCESS: {
       history.push('/');
-      return {
-        ...state,
-        user: "",
-        pass: "",
-        mess: false,
-      }
+      // return {
+      //   ...state,
+      //   user: "",
+      //   pass: "",
+      //   mess: false,
+      // }
     }
     default:
       return state;

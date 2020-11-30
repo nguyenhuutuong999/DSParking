@@ -4,11 +4,11 @@ import './styles.css';
 import {
   Button,
   Tooltip,
-  Tabs,
+  
 } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 
-import { FaUser, FaIdCardAlt, FaPortrait, FaBirthdayCake, FaMapMarkerAlt, FaMapMarkedAlt, FaBuilding, FaCity, FaGlobeAsia } from 'react-icons/fa';
+import { FaUser, FaIdCardAlt, FaPortrait, FaBirthdayCake, FaMapMarkerAlt} from 'react-icons/fa';
 function Profile() {
   return (
     <div className="profile">

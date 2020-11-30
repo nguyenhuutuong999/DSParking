@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux';
-import manageAccount from "./manageAccount";
-import getList from "./getList";
+import requestAccount from "./requestAccount";
+import getStatisticData from "./getStatisticData";
 
 const myReducer = combineReducers({
-    manageAccount,
-    getList,
+    requestAccount,
+    getStatisticData,
 });
 export default myReducer;

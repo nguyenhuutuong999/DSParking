@@ -1,26 +1,25 @@
-import React, {useState } from 'react'
+import React, {useState} from 'react'
 import './styles.css'
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import { connect } from "react-redux";
 import * as actions from "./../../redux/actions/index";
-import Avatar from '../../img/avatar.jpg'
 
 function Login(props) {
   const [account, setAccount] = useState({ user: "std1", pass: 123, mess: true });
 
-
   function handleChange(event) {
+
     var target = event.target;
     var name = target.name;
     var value = target.value;
     setAccount({ ...account, [name]: value });
-
+    
   }
   function onSubmit(event) {
     event.preventDefault();
     props.loginRequest(account);
   }
-  var { manageAccount } = props.manageAccount;
+  var {requestAccount} = props.requestAccount;
   return (
 
     <div className="page">
@@ -46,7 +45,7 @@ function Login(props) {
                 <FaLock />
               </span>
             </div>
-            <h5 className="text-light">{manageAccount.mess ? "Username/Password invalid !" : ""}</h5>
+            <h5 className="text-light">{requestAccount.mess ? "Username/Password invalid !" : ""}</h5>
             <div className="container-login100-form-btn">
               <button type="submit" className="login100-form-btn">
                 Login
@@ -68,12 +67,12 @@ function Login(props) {
       </div>
     </div>
 
-  )
+   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    manageAccount: state,
+    requestAccount: state,
   }
 };
 const mapDispatchToProps = (dispatch, props) => {

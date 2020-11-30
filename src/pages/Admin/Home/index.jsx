@@ -39,7 +39,7 @@ function Home() {
 
   const getDayList = (startDay, endDay) => {
     let days = [];
-    for (let date = startDay; date <= endDay; date.add(1, 'days')) {
+    for (let date = startDay.clone(); date <= endDay; date.add(1, 'days')) {
       days = [
         ...days,
         {
@@ -56,7 +56,7 @@ function Home() {
 
   const getMonthList = (startMonth, endMonth) => {
     let months = [];
-    for (let month = startMonth; month <= endMonth; month.add(1, 'months')) {
+    for (let month = startMonth.clone(); month <= endMonth; month.add(1, 'months')) {
       months = [
         ...months,
         {
@@ -77,7 +77,7 @@ function Home() {
   function getDataStatistic() {
 
     //get data form Firebase
-    fire.database().ref("Data/")
+    fire.database().ref("ChartStatis/")
       .on('value', (snapshot) => {
         let snapshotValue = snapshot.val();
         let arr = [];
@@ -100,28 +100,31 @@ function Home() {
       let qtr = 0;
       let nvl334 = 0;
       let hk = 0;
-      let arr1 = [];
+     
       arr.map((ob) => {
-
+        let arr1 = [];
         //getCountPlace = ob.chartData[item.year].month[10].day
         getCountPlace = ((ob.chartData || {})[item.year]?.month || {})[item.month]?.day || {};
 
         for (let obj in getCountPlace) {
-
           Array.prototype.push.apply(arr1, [getCountPlace[obj]]);
         }
       
-
+       
         arr1.map((ob) => {
           // ID 1: 254 Nguyen Van Linh
           // ID 2: Quang Trung
           // ID 3: 254 334 Nguyen Van Linh
           // ID 4: Hoa Khanh
-          nvl254 += ob["1"];
-          qtr += ob["2"];
-          nvl334 += ob["3"];
-          hk += ob["4"];
-
+          // nvl254 += ob["1"];
+          // qtr += ob["2"];
+          // nvl334 += ob["3"];
+          // hk += ob["4"];
+          nvl254 += ob["1"] ? ob["1"] : 0;
+          qtr += ob["2"] ? ob["2"] : 0;
+          nvl334 += ob["3"] ? ob["3"] : 0;
+          hk += ob["4"] ? ob["4"] : 0;
+          //console.log(hk);
         })
       })
 
@@ -153,14 +156,16 @@ function Home() {
       arr.map((ob) => {
         
         getCountPlace = (((ob.chartData || {})[item.year]?.month || {})[item.month]?.day || {})[2];
+        getCountPlace = getCountPlace?getCountPlace:{};
         // ID 1: 254 Nguyen Van Linh
         // ID 2: Quang Trung
         // ID 3: 254 334 Nguyen Van Linh
         // ID 4: Hoa Khanh
-        nvl254 += getCountPlace["1"];
-        qtr += getCountPlace["2"];
-        nvl334 += getCountPlace["3"];
-        hk += getCountPlace["4"];
+        nvl254 += getCountPlace["1"]?getCountPlace["1"]:0;
+        qtr += getCountPlace["2"]?getCountPlace["2"]:0;
+        nvl334 += getCountPlace["3"]?getCountPlace["3"]:0;
+        hk += getCountPlace["4"]?getCountPlace["4"]:0;
+        //console.log(getCountPlace)
 
       })
       setTotalToday254NVL(nvl254);
@@ -184,7 +189,6 @@ function Home() {
   }
   // get data from now to 7 day previous
 
-  console.log(monthChartData);
   return (
     <div className="home">
       <div className="home-week-static">

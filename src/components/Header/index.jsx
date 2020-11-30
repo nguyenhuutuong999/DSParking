@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
 
-import {FaQrcode, FaBell } from 'react-icons/fa';
+import {FaBell } from 'react-icons/fa';
 import Avatar from '../../img/avatar.jpg'
 
 
