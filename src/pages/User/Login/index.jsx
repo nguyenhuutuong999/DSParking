@@ -6,8 +6,6 @@ import {
 } from '../../../configs/firebase';
 
 import LoginForm from './components/LoginForm';
-import RegisterForm from './components/RegisterForm';
-import LoginGoogleUpdateModal from './components/LoginGoogleUpdateModal';
 
 import './styles.css';
 
@@ -41,30 +39,14 @@ function LoginPage() {
               >
                 Đăng nhập
               </p>
-              <p
-                className={`xl login-switch-type ${authType === 'register' && 'active'}`}
-                onClick={() => setAuthType('register')}
-              >
-                Đăng ký
-              </p>
             </Space>
-          </div>
-          {authType === 'login'
-            ? (
+          </div> 
               <LoginForm
                 setIsShowGoogleUpdateModal={setIsShowGoogleUpdateModal}
                 setGoogleUpdateModalData={setGoogleUpdateModalData}
               />
-            )
-            : <RegisterForm />
-          }
         </div>
       </div>
-      <LoginGoogleUpdateModal
-        isShowGoogleUpdateModal={isShowGoogleUpdateModal}
-        setIsShowGoogleUpdateModal={setIsShowGoogleUpdateModal}
-        googleUpdateModalData={googleUpdateModalData}
-      />
     </>
   )
 }
