@@ -256,26 +256,26 @@ console.log(revenue)
       "name": "254 NVL",
       "value": revenue.nvl254,
       "color": "#82CA9D",
-      "label" :`${perc(revenue.nvl254)}`
+      "label" :`${perc(revenue.nvl254)}%`
 
     },
     {
       "name": "334 NVL",
       "value": revenue.nvl334,
       "color": "#8DD1E1",
-      "label" :`${perc(revenue.nvl334)}`
+      "label" :`${perc(revenue.nvl334)}%`
     },
     {
       "name": "03 Quang Trung",
       "value": revenue.qtr,
       "color": "#A4DE6C",
-      "label" :`${perc(revenue.qtr)}`
+      "label" :`${perc(revenue.qtr)}%`
     },
     {
       "name": "Hoa Khanh",
       "value": revenue.hk,
       "color": "#D0ED57",
-      "label" :`${perc(revenue.hk)}`
+      "label" :`${perc(revenue.hk)}%`
     },
 
   ];
