@@ -1,6 +1,6 @@
 
 import * as types from "./../constants/index";
-import {firebaseApp} from "../../configs/firebase";
+import { firebaseApp } from "../../configs/firebase";
 export const login = (account) => {
   return {
     type: types.LOGIN,
@@ -16,7 +16,7 @@ export const loginSuccess = () => {
   return {
     type: types.LOGIN_SUCCESS,
   };
-}; 
+};
 export const loginRequest = (account) => {
   return (dispatch) => {
     var getUser = firebaseApp.database().ref("User/account/" + account.user);
@@ -57,7 +57,7 @@ export const updateDateWeek = () => {
 // const getDayList = (startDay, endDay) => {
 //   let days = [];
 //   for (let date = startDay.clone(); date <= endDay; date.add(1, 'days')) {
-   
+
 //     days = [
 //       ...days,
 //       {
@@ -72,10 +72,10 @@ export const updateDateWeek = () => {
 // }
 
 export const updateStatisticDataRequest = (selectedFromDate, selectedToDate) => {
- 
+
   return (dispatch) => {
     var getData = firebaseApp.database().ref("ChartStatis/");
-      return getData
+    return getData
       .on('value', (snapshot) => {
         let snapshotValue = snapshot.val();
         let arr = [];
@@ -85,7 +85,7 @@ export const updateStatisticDataRequest = (selectedFromDate, selectedToDate) => 
         //let currentWeekAgo = getDayList(selectedFromDate, selectedToDate);
         let days = [];
         for (let date = selectedFromDate.clone(); date <= selectedToDate; date.add(1, 'days')) {
-   
+
           days = [
             ...days,
             {
@@ -105,9 +105,9 @@ export const updateStatisticDataRequest = (selectedFromDate, selectedToDate) => 
           let qtr = 0;
           let nvl334 = 0;
           let hk = 0;
-    
+
           arr.map((ob) => {
-    
+
             getCountPlace = (((ob.chartData || {})[item.year]?.month || {})[item.month]?.day || {})[item.day];
             getCountPlace = getCountPlace ? getCountPlace : {};
             // ID 1: 254 Nguyen Van Linh
@@ -120,7 +120,7 @@ export const updateStatisticDataRequest = (selectedFromDate, selectedToDate) => 
             hk += getCountPlace["4"] ? getCountPlace["4"] : 0;
             //console.log(getCountPlace)
           })
-         
+
           // weekCount = nvl254 + qtr + nvl334 + hk;
           return {
             "day": item.day,
@@ -133,7 +133,7 @@ export const updateStatisticDataRequest = (selectedFromDate, selectedToDate) => 
         // setWeekChartData(newWeekChartData)
         dispatch(updateStatisticData(newWeekChartData))
       })
-  
+
   };
 };
 

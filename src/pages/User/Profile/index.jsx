@@ -6,7 +6,7 @@ import {
   Tabs,
   Form
 } from 'antd';
-import { EditOutlined} from '@ant-design/icons';
+import { EditOutlined } from '@ant-design/icons';
 
 import { FaUser, FaIdCardAlt, FaPortrait, FaBirthdayCake, FaMapMarkerAlt, FaMapMarkedAlt, FaBuilding, FaCity, FaGlobeAsia } from 'react-icons/fa';
 
@@ -21,13 +21,13 @@ function Profile() {
   const [isEditProfile, setIsEditProfile] = useState(false);
 
   const [userData, setUserData] = useState({});
-  const authData = JSON.parse(localStorage.getItem('authData'));
+  const user = JSON.parse(localStorage.getItem('user'));
 
   const [editProfileForm] = Form.useForm();
   const [checkInHistory, setCheckInHistory] = useState([]);
 
   useEffect(() => {
-    firebaseApp.database().ref(`/users/${authData.uid}`).on('value', (snapshot) => {
+    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).on('value', (snapshot) => {
       setUserData({ ...snapshot.val() });
     })
   }, [])
@@ -39,20 +39,20 @@ function Profile() {
   };
 
   const handleChangeQRCode = () => {
-    firebaseApp.database().ref(`/users/${authData.uid}`).update({
-      qrPin: Math.random().toString().substr(2, 4),
+    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).update({
+      secretNum: Math.random().toString().substr(2, 4),
     })
   }
 
   const handleSubmitForm = () => {
     const profileValue = editProfileForm.getFieldsValue();
-    firebaseApp.database().ref(`/users/${authData.uid}`).update({
+    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).update({
       name: profileValue.name,
       email: profileValue.email,
-      studentCode: profileValue.studentCode,
+      idStudent: profileValue.idStudent,
       identityCard: profileValue.identityCard,
       ...profileValue.birthday && { birthday: profileValue.birthday },
-      ...profileValue.address && { address: profileValue.address },
+      ...profileValue.adress && { adress: profileValue.adress },
       ...profileValue.ward && { ward: profileValue.ward },
       ...profileValue.district && { district: profileValue.district },
       ...profileValue.city && { city: profileValue.city },
@@ -62,7 +62,7 @@ function Profile() {
   }
 
   return (
-    <div className="profile">
+    <div className="profile-page">
       <div className="div-information">
         <Tabs defaultActiveKey="1">
           <TabPane tab="Thông tin cá nhân" key="1">
@@ -74,7 +74,7 @@ function Profile() {
                       <div className="avatar-edit">
                         <div className="avatar-edit-btn"><Button><EditOutlined /></Button></div>
                       </div>
-                      <img src={authData.avatar ? authData.avatar : AvatarDefault} alt="Avatar" />
+                      <img src={userData.avatar ? userData.avatar : AvatarDefault} alt="Avatar" />
                     </div>
                   </div>
                   <p>{userData.name}</p>
@@ -100,11 +100,11 @@ function Profile() {
                     </div>
                     <div className="info-user-content">
                       <p>{userData.name ? userData.name : '-'}</p>
-                      <p>{userData.studentCode ? userData.studentCode : '-'}</p>
+                      <p>{userData.idStudent ? userData.idStudent : '-'}</p>
                       <p>{userData.identityCard ? userData.identityCard : '-'}</p>
                       <p>{userData.birthday ? userData.birthday : '-'}</p>
                       <p>{userData.email ? userData.email : '-'}</p>
-                      <p>{userData.address ? userData.address : '-'}</p>
+                      <p>{userData.adress ? userData.adress : '-'}</p>
                       <p>{userData.ward ? userData.ward : '-'}</p>
                       <p>{userData.district ? userData.district : '-'}</p>
                       <p>{userData.city ? userData.city : '-'}</p>

@@ -77,30 +77,29 @@
     padding-left: 20px !important;
     color: #515365;
 }
-.home-history-table {
+.home-his-table {
   height: 85%;
   overflow: hidden;
 }
-.div-table-history{
+.div-history-table{
   height: 100%;
   width: 100%;
   overflow: hidden;
 }
-.home-history-table table {
-  width: 95%;
-  height: calc(100% - 80px);
+.home-his-table table {
+  height: 270px;
   margin: 0 auto;
 }
-.home-history-table table tr th,
+.home-his-table table tr th,
 td {
   text-align: center;
 }
 
-.home-history-table table thead {
+.home-his-table table thead {
   background-color: #e0e6ed;
 }
 
-.home-history-table table thead th {
+.home-his-table table thead th {
   color: #db5c00;
   font-weight: 600 ;
   padding: 5px 0px;
@@ -125,7 +124,7 @@ td {
   border-radius: 6px;
   box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
 }
-.home-user-detail .div-img{
+.home-user-detail .user-img{
   position: relative;
   border-radius: 6px 6px 0px 0px;
   height: 32%;
@@ -133,7 +132,7 @@ td {
   background-color: #db5c00;
 }
 
-.home-user-detail .div-img img {
+.home-user-detail .user-img img {
   position: absolute;
   top: 30%;
   left:28%;
@@ -143,10 +142,12 @@ td {
 }
 
 .home-user-info {
-  height: 56%;
+  height: 68%;
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
-.home-user-info .information{
+.home-user-info .user-information{
   padding-top: 60px;
 }
 .home-user-info span {
@@ -157,7 +158,6 @@ td {
 .home-user-info .name {
   font-weight: 600;
 }
-
 
 .home-qrcode {
   position: relative;

@@ -5,42 +5,35 @@ import './styles.css';
 
 import ConfirmModal from '../../../components/ConfirmModal/index'
 
-import { FaTrashAlt} from 'react-icons/fa';
+import { FaTrashAlt } from 'react-icons/fa';
 import { Button, Table, Tabs, Tag } from 'antd';
 
 import { firebaseApp } from '../../../configs/firebase';
 
 import { LEVEL_NOTIFICATIONS } from '../../../constants/common';
 
-function Notifications({
-  noticeListData,
- 
-  deleteNotifications
-}) {
+function Notifications() {
   const { TabPane } = Tabs;
   const [notificationList, setNotificationList] = useState([]);
   console.log("notificationList", notificationList)
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [confirmModalData, setConfirmModalData] = useState({});
-  const authData = JSON.parse(localStorage.getItem('authData'));
+  const user = JSON.parse(localStorage.getItem('user'));
 
-  const tableData = noticeListData.map((notice) => ({
-    key: notice.id,
-    ...notice,
-  }))
 
   useEffect(() => {
-    firebaseApp.database().ref(`/users/${authData.uid}/notification`).on('value', (snapshot) => {
+    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}/notification/notifi1`).on('value', (snapshot) => {
       let snapshotNotificationList = snapshot.val();
+      console.log("🚀 ~ file: index.jsx ~ line 27 ~ firebaseApp.database ~ snapshotNotificationList", snapshotNotificationList)
       let newNotificationList = [];
       for (let notificationIndex in snapshotNotificationList) {
         newNotificationList = [
           {
             id: 'null',
-            level: snapshotNotificationList[notificationIndex].level,
-            title: snapshotNotificationList[notificationIndex].title,
-            description: snapshotNotificationList[notificationIndex].content,
-            date: moment(snapshotNotificationList[notificationIndex].dateTime, 'YYYYMMDDHHmm').format('DD/MM/YYYY HH:mm'),
+            // level: snapshotNotificationList[notificationIndex].level,
+            title: snapshotNotificationList.title,
+            content: snapshotNotificationList[notificationIndex].content,
+            date: moment(snapshotNotificationList[notificationIndex].date, 'YYYYMMDDHHmm').format('DD/MM/YYYY HH:mm'),
           },
           ...newNotificationList,
         ]
@@ -51,20 +44,20 @@ function Notifications({
 
   const columns = [
     {
-       dataIndex: 'level', key: 'level',
-       render: (_, record) => {
-         return (
+      dataIndex: 'level', key: 'level',
+      render: (_, record) => {
+        return (
           <Tag color={record.level === 'high' ? 'red' : 'gold'}>
             {LEVEL_NOTIFICATIONS[record.level]}
           </Tag>
-         )
-       }
+        )
+      }
     },
     {
-       dataIndex: 'title', key: 'title',
+      dataIndex: 'title', key: 'title',
     },
     {
-       dataIndex: 'date', key: 'date',
+      dataIndex: 'date', key: 'date',
     },
     {
       dataIndex: '', key: 'x',
@@ -103,7 +96,7 @@ function Notifications({
       <ConfirmModal
         isShowModal={isShowConfirmModal}
         handleHideModal={handleHideConfirmModal}
-       
+
         modalData={confirmModalData}
       />
     </div>

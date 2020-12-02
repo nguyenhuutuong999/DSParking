@@ -17,7 +17,7 @@ function Account({
   
   transactionsList,
 }) {
-  const authData = JSON.parse(localStorage.getItem('authData'));
+  const user = JSON.parse(localStorage.getItem('user'));
   const [isShowTopUpModal, setIsShowTopUpModal] = useState(false);
   const [transactionHistory, setTransactionHistory] = useState([]);
   const [checkInHistory, setCheckInHistory] = useState([]);
@@ -35,15 +35,15 @@ function Account({
   //Handle TopUp
   const handleTopUp = (value) => {
     const moneyValue = topUpForm.getFieldsValue();
-    firebaseApp.database().ref(`/users/${authData.uid}`).once('value', (snapshot) => {
+    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).once('value', (snapshot) => {
       const snapshotValue = snapshot.val();
-      firebaseApp.database().ref(`/users/${authData.uid}`)
+      firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`)
         .update({
           money: snapshotValue.money + parseFloat(moneyValue.money),
         })
     })
 
-    // firebaseApp.database().ref(`/users/${authData.uid}/transaction`)
+    // firebaseApp.database().ref(`/users/${user.uid}/transaction`)
     //   .push({
     //     time: parseFloat(moment().format('YYYYMMDDHHmm')),
     //     money: parseFloat(moneyValue.money),
@@ -51,9 +51,9 @@ function Account({
     //   })
     // setIsShowTopUpModal(false);
 
-    firebaseApp.database().ref(`/users/${authData.uid}`).once('value', (snapshot) => {
+    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).once('value', (snapshot) => {
       const snapshotValue = snapshot.val();
-      firebaseApp.database().ref(`/users/${authData.uid}/transaction`)
+      firebaseApp.database().ref(`/User/information/parkingMan/${user.id}/transaction`)
         .push({
           time: parseFloat(moment().format('YYYYMMDDHHmm')),
           money: parseFloat(moneyValue.money),
@@ -66,7 +66,7 @@ function Account({
   }
 
   useEffect(() => {
-    firebaseApp.database().ref(`/users/${authData.uid}/transaction`).on('value', (snapshot) => {
+    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}/transaction`).on('value', (snapshot) => {
       let snapshotTransactionValue = snapshot.val();
       let newTransactionHistory = [];
       for (let topUpId in snapshotTransactionValue) {
@@ -84,7 +84,7 @@ function Account({
       setTransactionHistory([...newTransactionHistory]);
     })
 
-    firebaseApp.database().ref(`/users/${authData.uid}/parkingHistory`).on('value', (snapshot) => {
+    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}/parkingHistory`).on('value', (snapshot) => {
       let snapshotHistoryValue = snapshot.val();
       let newCheckInHistory = [];
       for (let checkInId in snapshotHistoryValue) {
@@ -108,7 +108,7 @@ function Account({
   // const handleTopUp = (value) => {
   //   const moneyValue = topUpForm.getFieldsValue();
   //   console.log("moneyValue", moneyValue.money)
-  //     firebaseApp.database().ref(`/users/${authData.uid}`).update({
+  //     firebaseApp.database().ref(`/users/${user.uid}`).update({
   //       money: moneyValue.money
   //     })
   //   setIsShowTopUpModal(false);
