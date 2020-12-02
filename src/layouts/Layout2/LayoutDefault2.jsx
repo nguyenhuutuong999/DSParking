@@ -1,69 +1,48 @@
 import React from 'react';
 import './styles.css'
-import Avatar from '../../img/avatar.jpg';
+
+import { Route, Redirect } from "react-router-dom";
+
+import Header from '../Header';
 import Sidebar from "./../../components/Sidebar/Sidebar";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import routes from './../../routes';
-import { FaBell, FaQrcode } from 'react-icons/fa';
 
+import branchImg from '../../assets/images/branch.png';
 
-function DefaultLayout2() {
-  var showContentMenu = (routes) => {
-    var result = null;
-    if (routes.length > 0) {
-      result = routes.map((route, index) => {
-        return (
-          <Route key={index} path={route.path} exact={route.exact} component={route.main} />
-        )
-      })
+function DefaultLayout2({ component: Component, role, ...props }) {
+  const authData = JSON.parse(localStorage.getItem('authData'));
+  if (!authData){
+    return <Redirect to="/login" />
+  } else if (authData.role !== role) {
+    if (authData.role === 'user') {
+      return <Redirect to="/" />
+    } else {
+      return <Redirect to="/admin" />
     }
-    return result;
   }
   return (
-    <Router>
-      <div className="page">
-        <div className="container">
-
-          <div className="row">
-            <div className="col-xs-2">
-              <div className="logo-wrapper">
-                <img src="./../../icon.png" className="img-fluid" alt="logo" />
+    <Route
+      {...props}
+      render={(routerProps) => (
+        <>
+          <div className="app-background">
+            <div className="app-container">
+              <div className="app-sidebar">
+                <img src={branchImg} className="branch-img" alt="logo" />
+                <Sidebar {...routerProps} role={role} />
               </div>
-              <Sidebar />
-
-            </div>
-            <div className="col-xs-1">
-              <div className="vl"></div>
-            </div>
-
-            <div className="col-xs-9">
-              <div className="header-main">
-                <div className="title-header">
-                  <div className="overview">Overview</div>
-                  <div className="greeting">Hi Tuong, Welcome back !!!</div>
+              <div className="app-main">
+                <Header {...routerProps} />
+                <div className="app-content">
+                  <Component {...routerProps} />
                 </div>
-
-                <ul className="header-list">
-
-                  <div className="header-items"><img style={{ width: '30px', height: '30px', borderRadius: '50%' }} src={Avatar} alt="Avatar"></img></div>
-                  <a className="header-items" href="#a"><FaBell /></a>
-                  <a className="header-items" href="#aFaQrcode /></a>
-
-                </ul>
-              </div>
-              <div className="main">
-                <Switch>
-                  {showContentMenu(routes)}
-                </Switch>
               </div>
             </div>
           </div>
-
-        </div>
-      </div>
-    </Router>
-
+        </>
+      )}
+    />
   );
+
 }
 
 export default DefaultLayout2;

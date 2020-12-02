@@ -1,85 +1,131 @@
-import React , {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles.css';
+import QRCode from 'qrcode.react';
 
 import {
   Button,
   Form,
   Input,
   DatePicker,
-  Tooltip,Tabs, Radio
+  Tooltip,
+  Tabs,
+  Space,
+  List,
 } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, SaveOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
-import { FaUser, FaIdCardAlt, FaPortrait, FaBirthdayCake, FaMapMarkerAlt, FaMapMarkedAlt, FaBuilding , FaCity, FaGlobeAsia} from 'react-icons/fa';
+import { FaUser, FaIdCardAlt, FaPortrait, FaBirthdayCake, FaMapMarkerAlt, FaMapMarkedAlt, FaBuilding, FaCity, FaGlobeAsia } from 'react-icons/fa';
 
+import { WEEKDAY_FORMAT, CHECKIN_FORMAT } from '../../../constants/common';
 
-import Avatar3 from '../../../img/avatar3.jpg'
-import Qrcode from '../../../img/qrcode.png'
+import moment from 'moment';
+import {
+  firebaseApp,
+} from '../../../configs/firebase';
 
+import AvatarDefault from '../../../img/avatardefault.jpg'
 
 const { TabPane } = Tabs;
 function Profile() {
+  const [isEditProfile, setIsEditProfile] = useState(false);
+
+  const [userData, setUserData] = useState({});
+  const authData = JSON.parse(localStorage.getItem('authData'));
+
+  const [editProfileForm] = Form.useForm();
+  const [checkInHistory, setCheckInHistory] = useState([]);
+
+  useEffect(() => {
+    firebaseApp.database().ref(`/users/${authData.uid}`).on('value', (snapshot) => {
+      setUserData({ ...snapshot.val() });
+    })
+  }, [])
+
+
+  const layout = {
+    labelCol: { span: 5 },
+    wrapperCol: { span: 19 },
+  };
+
+  const handleChangeQRCode = () => {
+    firebaseApp.database().ref(`/users/${authData.uid}`).update({
+      qrPin: Math.random().toString().substr(2, 4),
+    })
+  }
+
+  const handleSubmitForm = () => {
+    const profileValue = editProfileForm.getFieldsValue();
+    firebaseApp.database().ref(`/users/${authData.uid}`).update({
+      name: profileValue.name,
+      email: profileValue.email,
+      studentCode: profileValue.studentCode,
+      identityCard: profileValue.identityCard,
+      ...profileValue.birthday && { birthday: profileValue.birthday },
+      ...profileValue.address && { address: profileValue.address },
+      ...profileValue.ward && { ward: profileValue.ward },
+      ...profileValue.district && { district: profileValue.district },
+      ...profileValue.city && { city: profileValue.city },
+      ...profileValue.country && { country: profileValue.country },
+    })
+    setIsEditProfile(false)
+  }
+
   return (
     <div className="profile">
-
-      <div className="profile-main">
-        <div className="div-img">
-          <div className="div-img-item">
-            <div><img style={{ width: '160px', height: '160px' }} src={Avatar3} alt="Avatar"></img></div>
-            <div className="div-change-img"><p>Thay đổi avatar</p></div>
-          </div>
-          <div className="div-img-item">
-            <div><img style={{ width: '160px', height: '160px' }} src={Qrcode} alt="Avatar"></img></div>
-            <div className="div-change-img"><p>Thay đổi QRCode</p></div>
-          </div>
-        </div>
-
-        <div className="information">
-          <div className="information-content">
-            <Tabs defaultActiveKey="1" type="card">
-              <TabPane tab="Thông tin người dùng" key="1">
-                <div className="info-user">
-                  <div className="info-user-title">
-                    <p><FaUser />Tên người dùng:</p>
-                    <p><FaIdCardAlt />Mã sinh viên:</p>
-                    <p><FaPortrait />CMND:</p>
-                    <p><FaBirthdayCake />Ngày sinh:</p>
-                    <p><FaIdCardAlt />Email: </p>
+      <div className="div-information">
+        <Tabs defaultActiveKey="1">
+          <TabPane tab="Thông tin cá nhân" key="1">
+            <div className="information-content">
+              <div className="user-img">
+                <div className="div-avatar">
+                  <div className="div-avatar-content">
+                    <div className="avatar-content-detail">
+                      <div className="avatar-edit">
+                        <div className="avatar-edit-btn"><Button><EditOutlined /></Button></div>
+                      </div>
+                      <img src={authData.avatar ? authData.avatar : AvatarDefault} alt="Avatar" />
+                    </div>
                   </div>
-                  <div className="info-user-content">
-                    <p>Nguyễn T Bích Ni</p>
-                    <p>2320716843</p>
-                    <p>206296503</p>
-                    <p>24/01/1999</p>
-                    <p>nguyentbichni@dtu.edu.vn</p>
-                  </div>
+                  <p>{userData.name}</p>
                 </div>
-              </TabPane>
-              <TabPane tab="Địa chỉ hiện thời" key="2">
-              <div className="info-user">
-                  <div className="info-user-title">
-                    <p><FaMapMarkerAlt />Địa chỉ/Tổ/Thôn:</p>
-                    <p><FaMapMarkedAlt />Phường/Xã:</p>
-                    <p><FaBuilding />Quận/Huyện:</p>
-                    <p><FaCity />Tỉnh/Thành phố:</p>
-                    <p><FaGlobeAsia />Quốc gia: </p>
-                  </div>
-                  <div className="info-user-content">
-                    <p>Nguyễn T Bích Ni</p>
-                    <p>2320716843</p>
-                    <p>206296503</p>
-                    <p>24/01/1999</p>
-                    <p>nguyentbichni@dtu.edu.vn</p>
-                  </div>
+              </div>
+
+              <div className="user-information">
+                <div className="tab-title"></div>
+
+                <div className="information-content">
+                  <>
+                    <div className="info-user-title">
+                      <p><FaUser />Tên người dùng:</p>
+                      <p><FaIdCardAlt />Mã sinh viên:</p>
+                      <p><FaPortrait />CMND:</p>
+                      <p><FaBirthdayCake />Ngày sinh:</p>
+                      <p><FaIdCardAlt />Email: </p>
+                      <p><FaMapMarkerAlt />Địa chỉ/Tổ/Thôn:</p>
+                      <p><FaMapMarkedAlt />Phường/Xã:</p>
+                      <p><FaBuilding />Quận/Huyện:</p>
+                      <p><FaCity />Tỉnh/Thành phố:</p>
+                      <p><FaGlobeAsia />Quốc gia: </p>
+                    </div>
+                    <div className="info-user-content">
+                      <p>{userData.name ? userData.name : '-'}</p>
+                      <p>{userData.studentCode ? userData.studentCode : '-'}</p>
+                      <p>{userData.identityCard ? userData.identityCard : '-'}</p>
+                      <p>{userData.birthday ? userData.birthday : '-'}</p>
+                      <p>{userData.email ? userData.email : '-'}</p>
+                      <p>{userData.address ? userData.address : '-'}</p>
+                      <p>{userData.ward ? userData.ward : '-'}</p>
+                      <p>{userData.district ? userData.district : '-'}</p>
+                      <p>{userData.city ? userData.city : '-'}</p>
+                      <p>{userData.country ? userData.country : '-'}</p>
+                    </div>
+                  </>
                 </div>
-              </TabPane>
-            </Tabs>
-          </div>
-        </div>
-    </div>
-    {/* <Tooltip title="edit" >
-        <Button shape="circle" style={{ backgroundColor: '#8c8c8c' }} icon={<EditOutlined/>} />
-      </Tooltip> */}
+              </div>
+            </div>
+          </TabPane>
+        </Tabs>
+      </div>
     </div>
   );
 }

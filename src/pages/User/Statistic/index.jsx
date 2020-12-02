@@ -1,12 +1,217 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import './styles.css';
 
-function Statistic() {
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  AreaChart, Area, ResponsiveContainer,
+  LineChart, Line,
+  PieChart, Pie, Cell,
+} from 'recharts';
+
+import moment from 'moment';
+import { WEEKDAY_FORMAT } from '../../../constants/common';
+
+import { firebaseApp } from '../../../configs/firebase';
+
+import { getHistoryList } from '../../../redux/actions';
+
+function Statistic({
+  getHistoryList,
+  historyList,
+  dataWeek,
+  dataMonth,
+  dataYear,
+  dataCampus,
+}) {
+
+  const authData = JSON.parse(localStorage.getItem('authData'));
+
+  const [weekChartData, setWeekChartData] = useState([]);
+  const [monthChartData, setMonthChartData] = useState([]);
+  const [yearChartData, setYearChartData] = useState([]);
+
+  const currentDay = moment();
+  const startWeekDay = moment().startOf('isoWeek');
+  const endWeekDay = moment().endOf('isoWeek');
+
+  const startMonth = moment().startOf('month');
+  const endMonth = moment().endOf('month');
+
+  // const currentMonth = moment().format('MM');
+  const currentYear = moment().format('YYYY');
+
+  const getDayList = (startDay, endDay) => {
+    let days = [];
+    for (let date = startDay; date <= endDay; date.add(1, 'days')) {
+      days = [
+        ...days,
+        {
+          day: date.format('DD'),
+          month: date.format('MM'),
+          weekday: date.weekday(),
+        },
+      ]
+    }
+    return days;
+  }
+
+  useEffect(() => {
+    const currentWeek = getDayList(startWeekDay, endWeekDay);
+    const currentMonth = getDayList(startMonth, endMonth);
+
+    firebaseApp.database().ref(`/users/${authData.uid}/chartData/${currentYear}/month`)
+      .on('value', (snapshot) => {
+        let snapshotValue = snapshot.val();
+        const newWeekChartData = currentWeek.map((item) => {
+          const weekCount = ((snapshotValue || {})[item.month]?.day || {})[item.day]?.count || 0;
+          return {
+            day: `${WEEKDAY_FORMAT[item.weekday]}`,
+            count: weekCount,
+          }
+        })
+        setWeekChartData([...newWeekChartData])
+      })
+
+    firebaseApp.database().ref(`/users/${authData.uid}/chartData/${currentYear}/month`)
+      .on('value', (snapshot) => {
+        let snapshotValue = snapshot.val();
+        const newMonthChartData = currentMonth.map((item) => {
+          const monthCount = ((snapshotValue || {})[item.month]?.day || {})[item.day]?.count || 0;
+          return {
+            day: `${item.day}/${item.month}`,
+            count: monthCount,
+          }
+        })
+        setMonthChartData([...newMonthChartData])
+      })
+  }, [])
+
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
   return (
-    <div className="div-header">
-      Statistic
+    <div className="statistic">
+
+      <div className="statistic-row1">
+        <div className="statistic-week">
+          <div className="div-statistic-head">
+            <h3>Lượt gửi/ Tuần</h3>
+          </div>
+          <div style={{ height: '83%', padding:'20px' }}>
+            <ResponsiveContainer>
+              <BarChart
+                width={600}
+                height={300}
+                data={weekChartData}
+                barSize={20}
+                margin={{
+                  right: 30,
+                }}
+              >
+                <XAxis dataKey="day" scale="point" padding={{ left: 10, right: 10 }} />
+                <YAxis dataKey="count" />
+                <Tooltip />
+                <Legend />
+                <CartesianGrid strokeDasharray="3 3" />
+                <Bar dataKey="count" fill="#8884d8" background={{ fill: '#eee' }} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        <div className="statistic-month">
+          <div className="div-statistic-head">
+            <h3>Lượt gửi/ Tháng</h3>
+          </div>
+          <div style={{ height: '83%', padding:'20px' }}>
+            <ResponsiveContainer>
+              <AreaChart
+                data={monthChartData}
+                margin={{
+                  top: 10, right: 30, left: 0, bottom: 0,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="day" />
+                <YAxis dataKey="count" />
+                <Tooltip />
+                <Area type="monotone" dataKey="count" stroke="#8884d8" fill="#8884d8" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </div>
+
+      <div className="statistic-row2">
+        <div className="statistic-year">
+          <div className="div-statistic-head">
+            <h3>Lượt gửi/ Năm</h3>
+          </div>
+          <div style={{ height: '83%', padding:'20px'}}>
+          <ResponsiveContainer>
+            <LineChart
+              width={800}
+              height={200}
+              data={dataYear}
+              syncId="anyId"
+              margin={{
+                top: 10, right: 30, left: 0, bottom: 0,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="CP" stroke="#8884d8" fill="#8884d8" />
+            </LineChart>
+          </ResponsiveContainer>
+          </div>
+        </div>
+
+        <div className="total-year">
+          <h4>Tổng lượt gửi / Năm</h4>
+          <div style={{ position: 'relative' }}>
+            <PieChart width={200} height={400}>
+              <Pie
+                data={dataCampus}
+                cx={95}
+                cy={80}
+                innerRadius={60}
+                outerRadius={80}
+                fill="#8884d8"
+                paddingAngle={5}
+                dataKey="value"
+              >
+                {dataCampus.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
+              </Pie>
+            </PieChart>
+            <h1 style={{ position: 'absolute', top: '16%', left: '36%' }}>340</h1>
+          </div>
+        </div>
+      </div>
+
+      {/* <div className="statistic-row3">
+        <table>
+          <Table dataSource={historyList} columns={columnsHistory} />;
+        </table>
+      </div> */}
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  console.log('Log: mapStateToProps -> state', state);
+  const { historyList, dataWeek, dataMonth, dataYear, dataCampus } = state;
+  return {
+    historyList,
+    dataWeek,
+    dataMonth,
+    dataYear,
+    dataCampus
+  }
+};
 
-export default Statistic;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getHistoryList: (params) => dispatch(getHistoryList(params)),
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Statistic);

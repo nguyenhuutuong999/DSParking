@@ -1,70 +1,161 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import moment from 'moment';
 import './styles.css';
 
 import Card from './../../../components/Cards/index'
+import ConfirmModal from '../../../components/ConfirmModal/index'
 
 import { FaTrashAlt, FaThumbtack, FaBell } from 'react-icons/fa';
-import { Button } from 'antd';
+import { Button, Table, Tabs, Tag } from 'antd';
 
-function Notifications() {
+import { getNotificationsList, deleteNotifications } from '../../../redux/actions';
+import { firebaseApp } from '../../../configs/firebase';
+
+import { LEVEL_NOTIFICATIONS } from '../../../constants/common';
+
+function Notifications({
+  noticeListData,
+  getNotificationsList,
+  deleteNotifications
+}) {
+  const { TabPane } = Tabs;
+  const [notificationList, setNotificationList] = useState([]);
+  console.log("notificationList", notificationList)
+  const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
+  const [confirmModalData, setConfirmModalData] = useState({});
+  const authData = JSON.parse(localStorage.getItem('authData'));
+
+  const tableData = noticeListData.map((notice) => ({
+    key: notice.id,
+    ...notice,
+  }))
+
+  useEffect(() => {
+    firebaseApp.database().ref(`/users/${authData.uid}/notification`).on('value', (snapshot) => {
+      let snapshotNotificationList = snapshot.val();
+      let newNotificationList = [];
+      for (let notificationIndex in snapshotNotificationList) {
+        newNotificationList = [
+          {
+            id: 'null',
+            level: snapshotNotificationList[notificationIndex].level,
+            title: snapshotNotificationList[notificationIndex].title,
+            description: snapshotNotificationList[notificationIndex].content,
+            date: moment(snapshotNotificationList[notificationIndex].dateTime, 'YYYYMMDDHHmm').format('DD/MM/YYYY HH:mm'),
+          },
+          ...newNotificationList,
+        ]
+      }
+      setNotificationList([...newNotificationList]);
+    })
+  }, [])
+
+  const columns = [
+    {
+       dataIndex: 'level', key: 'level',
+       render: (_, record) => {
+         return (
+          <Tag color={record.level === 'high' ? 'red' : 'gold'}>
+            {LEVEL_NOTIFICATIONS[record.level]}
+          </Tag>
+         )
+       }
+    },
+    {
+       dataIndex: 'title', key: 'title',
+    },
+    {
+       dataIndex: 'date', key: 'date',
+    },
+    {
+      dataIndex: '', key: 'x',
+      render: (_, record) => <Button danger onClick={() => handleShowConfirmModal(record.id)} type="text"><FaTrashAlt /></Button>,
+    },
+  ];
+
+  //Hide / Show Modal
+  const handleShowConfirmModal = (id) => {
+    setIsShowConfirmModal(true);
+    setConfirmModalData({ id });
+  }
+  const handleHideConfirmModal = () => {
+    setIsShowConfirmModal(false);
+    setConfirmModalData({});
+  }
+
+  //Delete
+  const handleDeleteNotifications = () => {
+    console.log("handleDeleteNotifications -> handleDeleteNotifications")
+    deleteNotifications({ id: confirmModalData.id })
+    setIsShowConfirmModal(false);
+  }
+  // const handleDeleteNotifications = (deletedId) => {
+  //   const newNotificationListData = noticeListData;
+  //   const notificationIndex = noticeListData.findIndex((item) => item.id === deletedId);
+  //   newNotificationListData.splice(notificationIndex, 1);
+  //   setNoticeListData([
+  //     ...newNotificationListData,
+  //   ]);
+  //   setIsShowConfirmModal(null);
+  // }
+
+  
+  // //Show Details
+  // const handleToggleDetails = (id) => {
+  //   const moreNotificationIndex = notificationDetail.findIndex((moreId) => moreId === id);
+  //   if (moreNotificationIndex === -1) {
+  //     setNotificationDetail([
+  //       ...notificationDetail,
+  //       id,
+  //     ]);
+  //   } else {
+  //     const newDetailList = notificationDetail;
+  //     newDetailList.splice(moreNotificationIndex, 1);
+  //     setNotificationDetail([
+  //       ...newDetailList,
+  //     ]);
+  //   }
+  // }
+
   return (
     <div className="notification">
-      <Card />
       <div className="table-notification">
-        <div className="notification-title">
-          <p><FaBell style={{marginRight:'10px', fontSize:'25px', fill:"wheat"}}/>Thông báo</p>
-        </div>
-        <hr></hr>
-        <table>
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Mức độ</th>
-              <th>Nội dung</th>
-              <th>Chi tiết</th>
-              <th>Ngày</th>
-              <th>Thao tác</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>001</td>
-              <td><div className="level" style={{ backgroundColor: 'red' }}></div></td>
-              <td className="col-content">Số dư trong tài khoản của bạn chỉ còn dưới 5000</td>
-              <td><Button type="primary">Chi tiết</Button></td>
-              <td>05/10/2020</td>
-              <td><FaTrashAlt/> <FaThumbtack /></td>
-            </tr>
-            <tr>
-              <td>002</td>
-              <td><div className="level" style={{ backgroundColor: 'green' }}></div></td>
-              <td>Chúc mừng sinh nhật Nguyễn T Bích Ni</td>
-              <td><Button type="primary">Chi tiết</Button></td>
-              <td>05/10/2020</td>
-              <td><FaTrashAlt /> <FaThumbtack /></td>
-            </tr>
-            <tr>
-              <td>001</td>
-              <td><div className="level" style={{ backgroundColor: '#fa541c' }}></div></td>
-              <td>Số dư trong tài khoản của bạn chỉ còn dưới 5000</td>
-              <td><Button type="primary">Chi tiết</Button></td>
-              <td>05/10/2020</td>
-              <td><FaTrashAlt /> <FaThumbtack /></td>
-            </tr>
-            <tr>
-              <td>001</td>
-              <td><div className="level" style={{ backgroundColor: '#fadb14' }}></div></td>
-              <td>Số dư trong tài khoản của bạn chỉ còn dưới 5000</td>
-              <td><Button type="primary">Chi tiết</Button></td>
-              <td>05/10/2020</td>
-              <td><FaTrashAlt /> <FaThumbtack /></td>
-            </tr>
-          </tbody>
-        </table>
+        <Tabs defaultActiveKey="1">
+          <TabPane tab="Thông báo" key="1">
+            <Table
+              columns={columns}
+              expandable={{
+                expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
+              }}
+              dataSource={notificationList}
+              pagination={false}
+              showHeader={false}
+            />
+          </TabPane>
+        </Tabs>
       </div>
+      <ConfirmModal
+        isShowModal={isShowConfirmModal}
+        handleHideModal={handleHideConfirmModal}
+        handleDeleteNotifications={handleDeleteNotifications}
+        modalData={confirmModalData}
+      />
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  console.log('Log: mapStateToProps -> state', state);
+  const { noticeListData } = state;
+  return {
+    noticeListData
+  }
+};
 
-export default Notifications;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getNotificationsList: (params) => dispatch(getNotificationsList(params)),
+    deleteNotifications: (params) => dispatch(deleteNotifications(params)),
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

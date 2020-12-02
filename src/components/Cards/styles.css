@@ -1,26 +1,29 @@
 *{
-  color:#626c75
+  font-family:'Noto Sans', 'Arial', 'Tahoma';
 }
+
 .card-list{
   width: 100%;
-  margin: 25px 0px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
 }
 .card-items{
   background-color: #FFFFFF;
+  border-radius: 6px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .cards{
   display: flex;
-  width: 250px;
-  height: 90px;
+  width: 230px;
+  height: 80px;
 }
 
 .card-left{
   position: relative;
   width: 30%;
   height: 100%;
+  border-radius: 6px 0px 0px 6px;
 }
 .card-left svg{
   position: absolute;
@@ -37,13 +40,13 @@
   padding: 10px;
 }
 .card-right h5{
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-weight: 1000;
 }
 .card-right h6{
-  margin: 2px;
+  margin: 25px !important;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 1000;
 }
 
