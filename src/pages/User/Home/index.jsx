@@ -239,7 +239,6 @@ function Home() {
   )
 }
 const mapStateToProps = (state) => {
-  console.log('Log: mapStateToProps -> state', state);
   const { historyList, dataWeek, dataMonth } = state;
   return {
     historyList,

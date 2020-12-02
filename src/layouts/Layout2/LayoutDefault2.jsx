@@ -19,6 +19,7 @@ function DefaultLayout2({ component: Component, role, ...props }) {
       return <Redirect to="/admin" />
     }
   }
+  
   return (
     <Route
       {...props}
