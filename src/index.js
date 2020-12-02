@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 import { Router, Switch } from 'react-router-dom';
-
-import LayoutDefault2 from './layouts/Layout2/LayoutDefault2';
+//Router to Home
+import PrivateRoute from './pages/Login/PrivateRoute/PrivateRoute';
+//router to User
 import LayoutLogin from './layouts/Login/LayoutLogin'
 
 import myReducer from './redux/reducers/index'
@@ -28,12 +29,28 @@ import Statistic from './pages/User/Statistic';
 import Support from './pages/User/Support';
 import Setting from './pages/User/Setting';
 
+//import Redux library
+import {createStore} from "redux";
+import {Provider} from 'react-redux';
+import myReducer from "./redux/reducers/index";
 import * as serviceWorker from './serviceWorker';
+import history from './util/history'
 import 'antd/dist/antd.css';
 const myStore = createStore(myReducer);
 
+
+import thunk from "redux-thunk";
+import {applyMiddleware} from 'redux';
+
+// add REDUX DEVTOOL TO TEST
+const composeEnhancer =  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+const store = createStore(
+  myReducer,
+  composeEnhancer(applyMiddleware(thunk)),
+  )
 ReactDOM.render(
   <React.StrictMode>
+
     <Provider store={myStore}>
     <Router history={history}>
         <Switch>

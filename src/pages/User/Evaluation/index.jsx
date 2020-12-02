@@ -1,18 +1,18 @@
-import React , {useState} from 'react';
+import React  from 'react';
 import './styles.css';
 
 import { Radio, Button, Input } from 'antd';
 import { FaPenSquare } from 'react-icons/fa';
 
 function Evaluation() {
-    function onChange(e) {
-        console.log(`radio checked:${e.target.value}`);
-    }
-    const onChangeRadio = (e) => {
-        this.setState({
-            value: e.target.value,
-        });
-    };
+    // function onChange(e) {
+    //     console.log(`radio checked:${e.target.value}`);
+    // }
+    // const onChangeRadio = (e) => {
+    //     this.setState({
+    //         value: e.target.value,
+    //     });
+    // };
 
     return (
         <div className="evaluation">

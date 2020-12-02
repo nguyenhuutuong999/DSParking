@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
+=======
+import React from 'react';
+>>>>>>> dev_tuong
 import './styles.css';
 
-import { FaDollarSign, FaMotorcycle, FaLocationArrow } from 'react-icons/fa';
+import { FaDollarSign, FaMotorcycle } from 'react-icons/fa';
 
 import {
   firebaseApp,

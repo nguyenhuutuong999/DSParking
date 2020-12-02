@@ -1,0 +1,501 @@
+<<<<<<< HEAD:src/pages/User/Login/styles.css
+.login-container {
+  position: relative;
+=======
+body, html {
+	height: 100%;
+}
+
+/*---------------------------------------------*/
+a {
+	font-family: Poppins-Regular;
+	font-size: 14px;
+	line-height: 1.7;
+	color: #666666;
+	margin: 0px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+
+a:focus {
+	outline: none !important;
+}
+
+
+
+/*---------------------------------------------*/
+h1,h2,h3,h4,h5,h6 {
+	margin: 0px;
+}
+
+ul, li {
+	margin: 0px;
+	list-style-type: none;
+}
+
+
+/*---------------------------------------------*/
+input {
+	outline: none;
+	border: none;
+}
+
+textarea {
+  outline: none;
+  border: none;
+}
+
+textarea:focus, input:focus {
+  border-color: transparent !important;
+}
+
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; }
+input:focus::-moz-placeholder { color:transparent; }
+input:focus:-ms-input-placeholder { color:transparent; }
+
+textarea:focus::-webkit-input-placeholder { color:transparent; }
+textarea:focus:-moz-placeholder { color:transparent; }
+textarea:focus::-moz-placeholder { color:transparent; }
+textarea:focus:-ms-input-placeholder { color:transparent; }
+
+input::-webkit-input-placeholder { color: #999999; }
+input:-moz-placeholder { color: #999999; }
+input::-moz-placeholder { color: #999999; }
+input:-ms-input-placeholder { color: #999999; }
+
+textarea::-webkit-input-placeholder { color: #999999; }
+textarea:-moz-placeholder { color: #999999; }
+textarea::-moz-placeholder { color: #999999; }
+textarea:-ms-input-placeholder { color: #999999; }
+
+/*---------------------------------------------*/
+button {
+	outline: none !important;
+	border: none;
+	background: transparent;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+iframe {
+	border: none !important;
+}
+
+
+/*//////////////////////////////////////////////////////////////////
+[ Utility ]*/
+.txt1 {
+  font-family: Poppins-Regular;
+  font-size: 14px;
+  line-height: 1.5;
+  color: grey;
+}
+
+.txt2 {
+  font-family: Poppins-Regular;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgb(82, 80, 80);
+}
+
+
+/*//////////////////////////////////////////////////////////////////
+[ login ]*/
+
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-login100 {
+  width: 100%;  
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+>>>>>>> dev_tuong:src/pages/Login/styles.css
+  display: flex;
+  justify-content: center;
+  align-items: center;
+<<<<<<< HEAD:src/pages/User/Login/styles.css
+=======
+  padding: 15px;
+  
+  background: #9053c7;
+  background: -webkit-linear-gradient(-135deg, #eb7a1a, #f859a8);
+  background: -o-linear-gradient(-135deg, #90353e, #61386f);
+  background: -moz-linear-gradient(-135deg, #90353e, #61386f);
+  background: linear-gradient(135deg, #eb7a1a, #f859a8);
+}
+
+.wrap-login100 {
+  width: 960px;
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 3px 6px 10px;
+  opacity: 0.9;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 177px 130px 33px 95px;
+}
+
+/*------------------------------------------------------------------
+[  ]*/
+.login100-pic {
+  width: 316px;
+}
+
+.login100-pic img {
+  max-width: 100%;
+}
+
+
+/*------------------------------------------------------------------
+[  ]*/
+.login100-form {
+  width: 100%;
+  position: relative;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.login100-form-title {
+  font-family: Poppins-Bold;
+  font-size: 24px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+>>>>>>> dev_tuong:src/pages/Login/styles.css
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-image: url(../../../assets/images/login-background.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+<<<<<<< HEAD:src/pages/User/Login/styles.css
+
+.login-background {
+=======
+/*---------------------------------------------*/
+.wrap-input100 {
+  position: relative;
+  width: 60%;
+  z-index: 1;
+  margin-bottom: 10px;
+  text-align: center;
+  margin: 10px auto;
+}
+
+.input100 {
+  position: relative;
+  font-family: Poppins-Medium;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #666666;
+  display: block;
+  width: 100%;
+  background: #e6e6e6;
+  height: 50px;
+  border-radius: 25px;
+  padding: 0 30px 0 68px;
+  
+}
+.logo{
+  margin: 10px 70px;
+  width: 150px;
+}
+
+.login-text{
+  margin: 10px auto;
+  text-align: center;
+}
+/*------------------------------------------------------------------
+[ Focus ]*/
+.focus-input100 {
+  display: block;
+>>>>>>> dev_tuong:src/pages/Login/styles.css
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+<<<<<<< HEAD:src/pages/User/Login/styles.css
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 0;
+=======
+  height: 100%;
+  box-shadow: 0px 0px 0px 0px;
+  color: rgba(247, 241, 235, 0.8);
+}
+
+.input100:focus + .focus-input100 {
+  -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+  animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+@-webkit-keyframes anim-shadow {
+  to {
+    box-shadow: 0px 0px 70px 25px;
+    opacity: 0;
+  }
+}
+
+@keyframes anim-shadow {
+  to {
+    box-shadow: 0px 0px 70px 25px;
+    opacity: 0;
+  }
+>>>>>>> dev_tuong:src/pages/Login/styles.css
+}
+
+.login-content {
+  display: flex;
+<<<<<<< HEAD:src/pages/User/Login/styles.css
+  flex-direction: column;
+=======
+  align-items: center;
+  position: absolute;
+  border-radius: 25px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-left: 35px;
+  pointer-events: none;
+  color: #666666;
+
+ 
+}
+
+.input100:focus + .focus-input100 + .symbol-input100 {
+  color: #b99052;
+  padding-left: 28px;
+}
+
+/*------------------------------------------------------------------
+[ Button ]*/
+.container-login100-form-btn {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+>>>>>>> dev_tuong:src/pages/Login/styles.css
+  justify-content: center;
+  padding: 48px 32px;
+  width: 400px;
+  min-height: 600px;
+  border-radius: 4px;
+  box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.35);
+  z-index: 1;
+}
+
+<<<<<<< HEAD:src/pages/User/Login/styles.css
+.login-title {
+=======
+.login100-form-btn {
+  font-family: Montserrat-Bold;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #fff;
+  text-transform: uppercase;
+  width: 50%;
+  height: 50px;
+  border-radius: 25px;
+  background-image: linear-gradient( to right, #9a6eed, #ec8c69 );
+  box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+>>>>>>> dev_tuong:src/pages/Login/styles.css
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+<<<<<<< HEAD:src/pages/User/Login/styles.css
+=======
+  padding: 0 25px;
+
+}
+
+.login100-form-btn:hover {
+  background: #ad1e1e;
+}
+
+
+
+/*------------------------------------------------------------------
+[ Responsive ]*/
+
+
+
+@media (max-width: 992px) {
+  .wrap-login100 {
+    padding: 177px 90px 33px 85px;
+  }
+
+  .login100-pic {
+    width: 35%;
+  }
+
+  .login100-form {
+    width: 50%;
+  }
+>>>>>>> dev_tuong:src/pages/Login/styles.css
+}
+
+.login-switch-type {
+  position: relative;
+  transition: 0.3s all;
+  cursor: pointer;
+}
+
+.login-switch-type:hover {
+  color: #aaa;
+}
+
+.login-switch-type.active {
+  color: white;
+}
+
+.login-switch-type.active::after {
+  content: "";
+  position: absolute;
+<<<<<<< HEAD:src/pages/User/Login/styles.css
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  background-color: #1890ff;
+}
+
+.login-content .ant-input-affix-wrapper {
+  background-color: rgba(0, 0, 0, 0.35);
+  color: white;
+=======
+  max-width: 70%;
+  background-color: white;
+  border: 1px solid #c80000;
+  border-radius: 13px;
+  padding: 4px 25px 4px 10px;
+  top: 50%;
+  
+  right: 8px;
+  pointer-events: none;
+
+  font-family: Poppins-Medium;
+  color: #c80000;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+
+  visibility: hidden;
+  opacity: 0;
+
+ 
+}
+
+.alert-validate::after {
+  content: "\f06a";
+  font-family: FontAwesome;
+  display: block;
+  position: absolute;
+  color: #c80000;
+  font-size: 15px;
+  top: 50%;
+ 
+  right: 13px;
+>>>>>>> dev_tuong:src/pages/Login/styles.css
+}
+
+.login-content .ant-input-affix-wrapper .ant-input-suffix svg{
+  fill: white;
+}
+
+.login-content input {
+  background-color: transparent;
+  color: white;
+}
+
+.login-content .ant-checkbox-inner {
+  background-color: transparent;
+}
+
+.google-update-action {
+  display: flex;
+}
+
+.google-update-action button {
+  width: calc(100% - 4px);
+}
+
+<<<<<<< HEAD:src/pages/User/Login/styles.css
+.google-update-action button:first-child {
+  margin-right: 8px;
+}
+=======
+.img-login{
+    position: absolute;
+    right: 5%;
+    top: 31%;
+
+    width: 500px;
+}
+.form-login{
+    position: relative;
+    margin: 50px auto;
+    border-radius: 10px;
+    background: rgb(255, 255, 255);
+    opacity: 0.9;
+    box-shadow: 1px 2px 3px 1px rgb(216, 212, 206);
+    text-align: center;
+    height: 60vh;
+    width: 35%;
+}
+.form-login p{
+  text-align: center;
+  font-size: 30px;
+  color:  #9a6eed;
+
+}
+.app-container-login{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.text-dsparking {
+  font-size: 70px;
+  color: white;
+  font-weight: 700;
+  opacity: 0.8;
+  position: absolute;
+  top: 5%;
+  left: 39%;
+}
+
+.img-fluid-logo{
+  border-radius:10px;
+  
+  width: 70%;
+  position: relative;
+}
+>>>>>>> dev_tuong:src/pages/Login/styles.css

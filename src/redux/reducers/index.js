@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import { combineReducers } from 'redux';
 // import infoListReducers from './infoList.reducers';
 // import statisticListReducer from './statisticList.reducers';
@@ -237,4 +238,14 @@ function myReducer(state = initialState, action) {
     }
   }
 }
+=======
+import {combineReducers} from 'redux';
+import requestAccount from "./requestAccount";
+import getStatisticData from "./getStatisticData";
+
+const myReducer = combineReducers({
+    requestAccount,
+    getStatisticData,
+});
+>>>>>>> dev_tuong
 export default myReducer;

@@ -9,6 +9,7 @@
   align-items: center;
 }
 
+<<<<<<< HEAD
 .app-container {
   display: flex;
   margin: 42px;
@@ -32,6 +33,56 @@
   border-right: 2px solid rgb(247, 224, 224);
   background: rgba(252, 252, 252, 0.85);
 }
+=======
+  }
+  .app-container{
+    margin: 42px;
+    width: 100%;
+    height: calc(100vh - 84px);
+    border-radius: 5px;
+    box-shadow:
+      0 12.1px 2.6px rgba(0, 0, 0, 0.018),
+      0 24.9px 6.9px rgba(0, 0, 0, 0.026),
+      0 40.2px 13.8px rgba(0, 0, 0, 0.032),
+      0 61.7px 25.1px rgba(0, 0, 0, 0.039),
+      0 100.2px 44.6px rgba(0, 0, 0, 0.047),
+      0 249px 80px rgba(0, 0, 0, 0.06);
+    background: rgba(252, 252, 252, 0.7);
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .row{
+    margin: 0;
+    width: 100%;
+  }
+  .box{
+    background: black;
+    width: 50px;
+    height: 50px;
+  }
+  .vl {
+    border-left: 2px solid rgb(247, 224, 224);
+    height: 90vh;  
+  }
+  .col-xs-2, .col-xs-9{
+    margin: 0;
+    padding: 0;
+  }
+  .col-xs-9{
+    width: 81%;
+  }
+  .col-xs-2{
+    width: 18%;
+  }
+  
+  .col-xs-1{
+    padding: 0;
+    margin: 0;
+    width: 1%;
+  }
+  
+>>>>>>> dev_tuong
 
 .branch-img {
   width: 100%;
@@ -43,6 +94,19 @@
   width: calc(100% - 250px);
 }
 
+<<<<<<< HEAD
 .app-content {
   height: calc(100% - 65px);
 }
+=======
+  .main{
+    width: 100%;
+    height: 100%;
+    margin-top: 50px;
+   
+  }
+  .side-bar{
+    background: white;
+    height: 100vh;
+  }
+>>>>>>> dev_tuong

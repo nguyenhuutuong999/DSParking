@@ -1,8 +1,8 @@
 import React , {useState} from 'react';
 import './styles.css';
-
-import { Radio, Form, Input, Button, Select, DatePicker } from 'antd';
+import { Radio, Form, Input, Button, DatePicker } from 'antd';
 import { FaBookReader, FaUser, FaAddressCard } from 'react-icons/fa';
+
 const { TextArea } = Input;
 function Support() {
   function onChange(e) {
