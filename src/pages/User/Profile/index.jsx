@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
-import QRCode from 'qrcode.react';
 
 import {
   Button,
- 
-  Tooltip,
   Tabs,
-  Space,
-  List,
+  Form
 } from 'antd';
-import { EditOutlined, SaveOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { EditOutlined} from '@ant-design/icons';
 
 import { FaUser, FaIdCardAlt, FaPortrait, FaBirthdayCake, FaMapMarkerAlt, FaMapMarkedAlt, FaBuilding, FaCity, FaGlobeAsia } from 'react-icons/fa';
 
-import { WEEKDAY_FORMAT, CHECKIN_FORMAT } from '../../../constants/common';
-
-import moment from 'moment';
 import {
   firebaseApp,
 } from '../../../configs/firebase';

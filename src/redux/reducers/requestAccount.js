@@ -26,6 +26,7 @@ var myReducer = (state = initialState, action) => {
       }
     }
     case types.LOGIN_SUCCESS: {
+      console.log("test tuong")
       history.push('/');
       // return {
       //   ...state,

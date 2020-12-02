@@ -1,64 +1,6 @@
-<<<<<<< HEAD
-// export * from './infoList.action';
-// export * from './statisticList.action';
 
-/*Notification*/
-export function getNotificationsList(params){
-  return{
-    type: 'GET_NOTIFIATIONS_LIST',
-    payload: params
-  }
-}
-export function deleteNotifications(params) {
-  console.log("deleteNotifications -> params", params)
-  return {
-    type: 'DELETE_NOTIFICATIONS',
-    payload: params,
-  }
-}
-/* Account */
-export function getTransactionsList(params){
-  return{
-    type: 'GET_TRANSACTIONS_LIST',
-    payload: params
-  }
-}
-
-export function deleteTransactions(params){
-  return{
-    type: 'DELETE_TRANSACTIONS',
-    payload: params
-  }
-}
-
-/*History*/
-export function getHistoryList(params){
-  return{
-    type: 'GET_HISTORY_LIST',
-    payload: params
-  }
-}
-
-// export function getUserInfoFirebase(params){
-//   return{
-//     type: 'GET_USER_FIREBASE',
-//     payload: params
-//   }
-// }
-// export function getUserInfoFirebaseRequest(params){
-//   return(dispatch){
-//     return firebaseApp.database().ref("User/parkingMan/account/std1").on('value', (snapshot) => {
-//       dispatch(getUserInfoFirebase(snapshot))
-//     })
-//   }
-// }
-/*----------------Statistic------------------- */
-
-
-=======
 import * as types from "./../constants/index";
-import firebase from "../../services/firebase";
-
+import {firebaseApp} from "../../configs/firebase";
 export const login = (account) => {
   return {
     type: types.LOGIN,
@@ -77,7 +19,7 @@ export const loginSuccess = () => {
 }; 
 export const loginRequest = (account) => {
   return (dispatch) => {
-    var getUser = firebase.database().ref("User/account/" + account.user);
+    var getUser = firebaseApp.database().ref("User/account/" + account.user);
     return getUser.on(
       "value",
       function (snapshot) {
@@ -132,7 +74,7 @@ export const updateDateWeek = () => {
 export const updateStatisticDataRequest = (selectedFromDate, selectedToDate) => {
  
   return (dispatch) => {
-    var getData = firebase.database().ref("ChartStatis/");
+    var getData = firebaseApp.database().ref("ChartStatis/");
       return getData
       .on('value', (snapshot) => {
         let snapshotValue = snapshot.val();
@@ -201,4 +143,4 @@ export const updateStatisticData = (newWeekChartData) => {
     newWeekChartData,
   };
 };
->>>>>>> dev_tuong
+

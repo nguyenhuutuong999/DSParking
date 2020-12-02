@@ -8,7 +8,6 @@ function Login(props) {
   const [account, setAccount] = useState({ user: "std1", pass: 123, mess: true });
 
   function handleChange(event) {
-
     var target = event.target;
     var name = target.name;
     var value = target.value;
@@ -25,7 +24,6 @@ function Login(props) {
     <div className="page">
       
       <div className="app-container-login">
-     
        
         <div className="form-login">
         <img src="./../../logo.png" className="img-fluid-logo" alt="logo" />

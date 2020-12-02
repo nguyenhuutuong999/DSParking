@@ -1,25 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+//import Redux library
 
-import { Router, Switch } from 'react-router-dom';
-//Router to Home
-import PrivateRoute from './pages/Login/PrivateRoute/PrivateRoute';
-//router to User
-import LayoutLogin from './layouts/Login/LayoutLogin'
-
-import myReducer from './redux/reducers/index'
+import myReducer from "./redux/reducers/index";
+import * as serviceWorker from './serviceWorker';
 import history from './util/history'
-import { createStore} from 'redux';
+import 'antd/dist/antd.css';
+import { Router, Switch } from 'react-router-dom';
+import LayoutLogin from './layouts/Login/LayoutLogin'
+import { createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
-import AdminLineIn from './pages/Admin/AdminLineIn';
-import AdminLineOut from './pages/Admin/AdminLineOut';
-import AdminProfile from './pages/Admin/AdminProfile';
-import AdminStatistic from './pages/Admin/AdminStatistic';
-import UsersManagement from './pages/Admin/UsersManagement';
+import HomeA from './pages/Admin/Home/index';
+import AccountA from './pages/Admin/Account';
+import ProfileA from './pages/Admin/Profile';
+import StatisticA from './pages/Admin/Statistic';
+import ManageA from './pages/Admin/Manage';
 
-import Login from './pages/User/Login';
+import Login from './pages/Login';
 import Profile from './pages/User/Profile';
 import Home from './pages/User/Home';
 import Account from './pages/User/Account';
@@ -28,48 +28,32 @@ import Notifications from './pages/User/Notifications';
 import Statistic from './pages/User/Statistic';
 import Support from './pages/User/Support';
 import Setting from './pages/User/Setting';
+import PrivateRoute from './pages/Login/PrivateRoute/PrivateRoute'
+import LayoutDefault2 from "./layouts/Layout2/LayoutDefault2";
 
-//import Redux library
-import {createStore} from "redux";
-import {Provider} from 'react-redux';
-import myReducer from "./redux/reducers/index";
-import * as serviceWorker from './serviceWorker';
-import history from './util/history'
-import 'antd/dist/antd.css';
-const myStore = createStore(myReducer);
+const myStore = createStore(myReducer, applyMiddleware(thunk));
 
-
-import thunk from "redux-thunk";
-import {applyMiddleware} from 'redux';
-
-// add REDUX DEVTOOL TO TEST
-const composeEnhancer =  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-const store = createStore(
-  myReducer,
-  composeEnhancer(applyMiddleware(thunk)),
-  )
 ReactDOM.render(
   <React.StrictMode>
-
     <Provider store={myStore}>
     <Router history={history}>
         <Switch>
           <LayoutLogin exact path="/login" component={Login}/>
 
-          <LayoutDefault2 exact role="admin" path="/admin" component={AdminLineIn} />
-          <LayoutDefault2 exact role="admin" path="/admin/lineout" component={AdminLineOut} />
-          <LayoutDefault2 exact role="admin" path="/admin/profile" component={AdminProfile} />
-          <LayoutDefault2 exact role="admin" path="/admin/statistic" component={AdminStatistic} />
-          <LayoutDefault2 exact role="admin" path="/admin/management" component={UsersManagement} />
+          <LayoutDefault2 exact role="2" path="/admin" component={HomeA} />
+          <LayoutDefault2 exact role="2" path="/admin/account" component={AccountA} />
+          <LayoutDefault2 exact role="2" path="/admin/profile" component={ProfileA} />
+          <LayoutDefault2 exact role="2" path="/admin/statistic" component={StatisticA} />
+          <LayoutDefault2 exact role="2" path="/admin/management" component={ManageA} />
 
-          <LayoutDefault2 exact role="user" path="/profile" component={Profile} />
-          <LayoutDefault2 exact role="user" path="/" component={Home} />
-          <LayoutDefault2 exact role="user" path="/account" component={Account} />
-          <LayoutDefault2 exact role="user" path="/evaluation" component={Evaluation} />
-          <LayoutDefault2 exact role="user" path="/notifications" component={Notifications} />
-          <LayoutDefault2 exact role="user" path="/statistic" component={Statistic} />
-          <LayoutDefault2 exact role="user" path="/support" component={Support} />
-          <LayoutDefault2 exact role="user" path="/setting" component={Setting} />
+          <LayoutDefault2 exact role="1" path="/" component={Home} />
+          <LayoutDefault2 exact role="1" path="/profile" component={Profile} />
+          <LayoutDefault2 exact role="1" path="/account" component={Account} />
+          <LayoutDefault2 exact role="1" path="/evaluation" component={Evaluation} />
+          <LayoutDefault2 exact role="1" path="/notifications" component={Notifications} />
+          <LayoutDefault2 exact role="1" path="/statistic" component={Statistic} />
+          <LayoutDefault2 exact role="1" path="/support" component={Support} />
+          <LayoutDefault2 exact role="1" path="/setting" component={Setting} />
         </Switch>
     </Router>
     </Provider>

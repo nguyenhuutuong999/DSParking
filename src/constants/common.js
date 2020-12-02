@@ -1,14 +1,6 @@
 export const DEFAULT_QR_PIN = '0000';
 export const WEEKDAY_FORMAT = {
-<<<<<<< HEAD
-  0: 'CN',
-  1: 'T2',
-  2: 'T3',
-  3: 'T4',
-  4: 'T5',
-  5: 'T6',
-  6: 'C7',
-=======
+
   0: 'Su',
   1: 'Mo',
   2: 'Tu',
@@ -30,7 +22,6 @@ export const MONTH_FORMAT = {
   "10": 'Oct',
   "11": 'Nov',
   "12": 'Dec',
->>>>>>> dev_tuong
 };
 export const CHECKIN_FORMAT = {
  lineIn: 'Lượt vào',

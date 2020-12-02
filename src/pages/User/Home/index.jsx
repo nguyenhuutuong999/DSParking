@@ -1,4 +1,4 @@
-import React, { PureComponent, useState, useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   ResponsiveContainer, LineChart, Line, YAxis, XAxis, Tooltip
@@ -237,20 +237,9 @@ function Home() {
       </div>
     </div>
   )
+  return(
+    <div>hahaha</div>
+  )
 }
-const mapStateToProps = (state) => {
-  console.log('Log: mapStateToProps -> state', state);
-  const { historyList, dataWeek, dataMonth } = state;
-  return {
-    historyList,
-    dataWeek,
-    dataMonth
-  }
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getHistoryList: (params) => dispatch(getHistoryList(params)),
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;

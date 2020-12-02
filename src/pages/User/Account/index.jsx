@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
-import { connect } from 'react-redux';
 import moment from 'moment';
 
 import TopUpModal from '../../../components/TopUpModal/index'
 
-import { FaAddressCard, FaTrashAlt, FaThumbtack, } from 'react-icons/fa';
-import { Button, Form, Input, Table, Tabs, List } from 'antd';
-
-import { getTransactionsList } from '../../../redux/actions';
+import { FaTrashAlt, FaThumbtack, } from 'react-icons/fa';
+import { Form, Table, Tabs, List } from 'antd';
 
 import {
   firebaseApp,
@@ -17,7 +14,7 @@ import {
 import { CHECKIN_FORMAT } from '../../../constants/common';
 
 function Account({
-  getTransactionsList,
+  
   transactionsList,
 }) {
   const authData = JSON.parse(localStorage.getItem('authData'));
@@ -206,17 +203,4 @@ function Account({
     </div>
   );
 }
-const mapStateToProps = (state) => {
-  console.log('Log: mapStateToProps -> state', state);
-  const { transactionsList } = state;
-  return {
-    transactionsList
-  }
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getTransactionsList: (params) => dispatch(getTransactionsList(params)),
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Account);
+export default Account;

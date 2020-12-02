@@ -17,10 +17,6 @@ import { firebaseApp } from '../../../configs/firebase';
 import { getHistoryList } from '../../../redux/actions';
 
 function Statistic({
-  getHistoryList,
-  historyList,
-  dataWeek,
-  dataMonth,
   dataYear,
   dataCampus,
 }) {
@@ -209,9 +205,5 @@ const mapStateToProps = (state) => {
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getHistoryList: (params) => dispatch(getHistoryList(params)),
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Statistic);
+
+export default Statistic;

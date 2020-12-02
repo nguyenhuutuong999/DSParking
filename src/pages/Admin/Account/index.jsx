@@ -1,15 +1,13 @@
 import React from 'react';
 import './styles.css';
 
-import Card from './../../../components/Cards/index'
-
 import { FaAddressCard, FaTrashAlt, FaThumbtack, } from 'react-icons/fa';
 import { Button, Form, Input, } from 'antd';
 
 function Account() {
   return (
     <div className="dsp-account">
-      <Card/>
+     
       <div className="content-account">
         <div className="account-title">
           <p><span><FaAddressCard style={{marginRight:'10px', fontSize:'25px', fill:"#2c2c2c"}}/></span>Tài Khoản Ngân Hàng/DSPay</p>

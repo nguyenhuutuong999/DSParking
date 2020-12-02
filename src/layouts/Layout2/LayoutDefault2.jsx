@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles.css'
-<<<<<<< HEAD
+import history from "./../../util/history";
 
 import { Route, Redirect } from "react-router-dom";
 
@@ -10,29 +10,24 @@ import Sidebar from "./../../components/Sidebar/Sidebar";
 import branchImg from '../../assets/images/branch.png';
 
 function DefaultLayout2({ component: Component, role, ...props }) {
-  const authData = JSON.parse(localStorage.getItem('authData'));
+
+  const authData = JSON.parse(localStorage.getItem('user'));
+  console.log(authData)
+ 
   if (!authData){
     return <Redirect to="/login" />
-  } else if (authData.role !== role) {
-    if (authData.role === 'user') {
+  } else if (authData.position !== role) {
+    if (authData.position === '1') {
       return <Redirect to="/" />
     } else {
       return <Redirect to="/admin" />
     }
   }
-=======
-import { Route } from "react-router-dom";
-import Sidebar from "./../../components/Sidebar/Sidebar";
-import Header from '../../components/Header/index'
-
-function DefaultLayout2({ component: Component, ...props }) {
->>>>>>> dev_tuong
   return (
     <Route
       {...props}
       render={(routerProps) => (
         <>
-<<<<<<< HEAD
           <div className="app-background">
             <div className="app-container">
               <div className="app-sidebar">
@@ -43,26 +38,7 @@ function DefaultLayout2({ component: Component, ...props }) {
                 <Header {...routerProps} />
                 <div className="app-content">
                   <Component {...routerProps} />
-=======
-          <div className="page">
-            <div className="app-container">
-              <div className="row">
-                <div className="col-xs-2 side-bar">
-                  <div className="logo-wrapper">
-                    <img src="./../../icon.png" className="img-fluid" alt="logo" />
-                  </div>
-                  <Sidebar />
-                </div>
-                <div className="col-xs-1">
-                  <div className="vl"></div>
-                </div>
 
-                <div className="col-xs-9">
-                  <Header />
-                  <div className="main">
-                    <Component {...routerProps} />
-                  </div>
->>>>>>> dev_tuong
                 </div>
               </div>
             </div>

@@ -3,7 +3,7 @@ import { LineChart, Line, ResponsiveContainer, XAxis, Legend, YAxis, Tooltip } f
 import './styles.css';
 import moment from 'moment';
 import { WEEKDAY_FORMAT, MONTH_FORMAT } from '../../../constants/common';
-import fire from './../../../services/firebase';
+import {firebaseApp} from './../../../configs/firebase';
 ///tuong ne
 
 function Home() {
@@ -77,7 +77,7 @@ function Home() {
   function getDataStatistic() {
 
     //get data form Firebase
-    fire.database().ref("ChartStatis/")
+    firebaseApp.database().ref("ChartStatis/")
       .on('value', (snapshot) => {
         let snapshotValue = snapshot.val();
         let arr = [];

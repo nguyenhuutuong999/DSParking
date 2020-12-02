@@ -5,8 +5,8 @@ import 'date-fns';
 import DateFnsUtils from "@date-io/date-fns";
 import moment from 'moment';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import fire from './../../../services/firebase';
-import { WEEKDAY_FORMAT, MONTH_FORMAT } from '../../../constants/common';
+import {firebaseApp} from './../../../configs/firebase';
+import {  MONTH_FORMAT } from '../../../constants/common';
 
 function Statistic() {
 
@@ -103,7 +103,7 @@ function Statistic() {
 
   // get all date follow sequential day
   const getStatisticData = async (selectedFromDate, selectedToDate, cb) => {
-    fire.database().ref("ChartStatis/").on('value', (snapshot) => {
+    firebaseApp.database().ref("ChartStatis/").on('value', (snapshot) => {
       let snapshotValue = snapshot.val();
       let arr = [];
       for (let obj in snapshotValue) {
