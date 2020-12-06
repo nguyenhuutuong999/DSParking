@@ -143,4 +143,15 @@ export const updateStatisticData = (newWeekChartData) => {
     newWeekChartData,
   };
 };
+export const getInforPayment = (infor) => {
+  return {
+    type: types.GET_INFOR_PAYMENT,
+    infor,
+  };
+};
+export const getInforPaymentRequest = (infor) => {
+  return (dispatch) => {
+    
+  };
+};
 

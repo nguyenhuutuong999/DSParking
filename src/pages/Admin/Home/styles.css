@@ -1,4 +1,4 @@
-.home {
+.home-admin {
   width: 100%;
   height: 100%;
   
@@ -12,7 +12,7 @@
 .home-week-static {
   display: flex; 
   width: 100%;
-  height: 40%;
+  height: 30%;
 }
 
 .home-month-chart{

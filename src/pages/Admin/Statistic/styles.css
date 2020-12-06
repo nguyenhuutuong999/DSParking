@@ -110,6 +110,7 @@
  flex-wrap: wrap;
  width: 100%;
 
+
 }
 .statistic .revenue-box{
   width: 48%;
@@ -119,4 +120,16 @@
 .statistic-9{
   width: 75%;
   height: 100%;
+}
+.revenue-hk{
+  background: #6972FF;
+}
+.revenue-254nvl{
+  background: #FF8C80;
+}
+.revenue-03qtr{
+  background: #A4DE6C;
+}
+.revenue-334nvl{
+  background: #8DD1E1;
 }

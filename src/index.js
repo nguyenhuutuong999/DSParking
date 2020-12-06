@@ -18,6 +18,7 @@ import AccountA from './pages/Admin/Account';
 import ProfileA from './pages/Admin/Profile';
 import StatisticA from './pages/Admin/Statistic';
 import ManageA from './pages/Admin/Manage';
+import Payment from './pages/Admin/Payment';
 
 import Login from './pages/Login';
 import Profile from './pages/User/Profile';
@@ -31,6 +32,7 @@ import Setting from './pages/User/Setting';
 import PrivateRoute from './pages/Login/PrivateRoute/PrivateRoute'
 import LayoutDefault2 from "./layouts/Layout2/LayoutDefault2";
 
+
 const myStore = createStore(myReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
@@ -39,13 +41,13 @@ ReactDOM.render(
     <Router history={history}>
         <Switch>
           <LayoutLogin exact path="/login" component={Login}/>
-
+         
           <LayoutDefault2 exact role="2" path="/admin" component={HomeA} />
           <LayoutDefault2 exact role="2" path="/admin/account" component={AccountA} />
           <LayoutDefault2 exact role="2" path="/admin/profile" component={ProfileA} />
           <LayoutDefault2 exact role="2" path="/admin/statistic" component={StatisticA} />
           <LayoutDefault2 exact role="2" path="/admin/management" component={ManageA} />
-
+          <LayoutDefault2 exact role="2" path="/admin/payment" component={Payment} />
           <LayoutDefault2 exact role="1" path="/" component={Home} />
           <LayoutDefault2 exact role="1" path="/profile" component={Profile} />
           <LayoutDefault2 exact role="1" path="/account" component={Account} />

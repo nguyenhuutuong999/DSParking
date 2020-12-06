@@ -190,7 +190,7 @@ function Home() {
   // get data from now to 7 day previous
 
   return (
-    <div className="home">
+    <div className="home-admin">
       <div className="home-week-static">
         <div className="home-week-items">
           <div className="home-week-info">
