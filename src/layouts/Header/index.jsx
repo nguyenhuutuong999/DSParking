@@ -101,7 +101,7 @@ function Header({ signOut }) {
         <div className="header-balance">
           <Space>
             <DollarOutlined />
-            <p>{userData.money?.toLocaleString('vi')}</p>
+            <p>{parseInt(userData.money)?.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
           </Space>
         </div>
         <div className="div-svg-header">

@@ -52,7 +52,7 @@ function Home() {
   //   firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).on('value', (snapshot) => {
   //     setUserData({ ...snapshot.val() });
   //   })
-  //   firebaseApp.database().ref(`/users/${user.uid}/chartData/${currentYear}/month`)
+  //   firebaseApp.database().ref(`/History/parkingMan/moneyOut/${user.id}`)
   //     .on('value', (snapshot) => {
   //       let snapshotValue = snapshot.val();
   //       let newTotalWeekCount = 0;
@@ -68,21 +68,21 @@ function Home() {
   //       setWeekChartData([...newWeekChartData])
   //     })
 
-  //   firebaseApp.database().ref(`/users/${user.uid}/chartData/${currentYear}/month`)
-  //     .on('value', (snapshot) => {
-  //       let snapshotValue = snapshot.val();
-  //       let newTotalMonthCount = 0;
-  //       const newMonthChartData = currentMonthAgo.map((item) => {
-  //         const monthCount = ((snapshotValue || {})[item.month]?.day || {})[item.day]?.count || 0;
-  //         newTotalMonthCount = newTotalMonthCount + monthCount;
-  //         return {
-  //           day: `${item.day}/${item.month}`,
-  //           count: monthCount,
-  //         }
-  //       })
-  //       setTotalMonthCount(newTotalMonthCount);
-  //       setMonthChartData([...newMonthChartData])
+  // firebaseApp.database().ref(`/users/${user.uid}/chartData/${currentYear}/month`)
+  //   .on('value', (snapshot) => {
+  //     let snapshotValue = snapshot.val();
+  //     let newTotalMonthCount = 0;
+  //     const newMonthChartData = currentMonthAgo.map((item) => {
+  //       const monthCount = ((snapshotValue || {})[item.month]?.day || {})[item.day]?.count || 0;
+  //       newTotalMonthCount = newTotalMonthCount + monthCount;
+  //       return {
+  //         day: `${item.day}/${item.month}`,
+  //         count: monthCount,
+  //       }
   //     })
+  //     setTotalMonthCount(newTotalMonthCount);
+  //     setMonthChartData([...newMonthChartData])
+  //   })
 
   //   firebaseApp.database().ref(`/users/${user.uid}/parkingHistory`).on('value', (snapshot) => {
   //     let snapshotHistoryValue = snapshot.val();
@@ -140,55 +140,54 @@ function Home() {
   //       <div className="home-statistic">
 
   //         <div className="home-statistic-items">
-  //           <div className="home-statistic-info">
-  //             <div className="icon-title-statistics">
-  //               <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#ffe7ba' }}>
-  //                 < FaMotorcycle style={{ fontSize: '25px', fill: '#db5c00', marginTop: '8px' }} />
-  //               </div>
-  //               <h5>Lượt gửi tuần</h5>
-  //             </div>
-  //             <h2>{totalWeekCount}</h2>
-  //           </div>
-  //           <div className="home-statistic-chart">
-  //             <ResponsiveContainer>
-  //               <LineChart
-  //                 data={weekChartData}
-  //                 margin={{ top: 10, right: 30, left: -30, bottom: -10 }}
-  //               >
-  //                 <XAxis dataKey="day" />
-  //                 <YAxis dataKey="count" />
-  //                 <Tooltip />
-  //                 <Line type="monotone" dataKey="count" stroke="#db5c00" strokeWidth={2} />
-  //               </LineChart>
-  //             </ResponsiveContainer>
-  //           </div>
+  // <div className="home-statistic-info">
+  //   <div className="icon-title-statistics">
+  //     <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#ffe7ba' }}>
+  //       < FaMotorcycle style={{ fontSize: '25px', fill: '#db5c00', marginTop: '8px' }} />
+  //     </div>
+  //     <h5>Lượt gửi tuần</h5>
+  //   </div>
+  //   <h2>{totalWeekCount}</h2>
+  // </div>
+  // <div className="home-statistic-chart">
+  //   <ResponsiveContainer>
+  //     <LineChart
+  //       data={weekChartData}
+  //       margin={{ top: 10, right: 30, left: -30, bottom: -10 }}
+  //     >
+  //       <XAxis dataKey="day" />
+  //       <YAxis dataKey="count" />
+  //       <Tooltip />
+  //       <Line type="monotone" dataKey="count" stroke="#db5c00" strokeWidth={2} />
+  //     </LineChart>
+  //   </ResponsiveContainer>
+  // </div>
   //         </div>
 
-  //         <div className="home-statistic-items">
-  //           <div className="home-statistic-info">
-  //             <div className="icon-title-statistics">
-  //               <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#ffe7ba' }}>
-  //                 < FaMotorcycle style={{ fontSize: '25px', fill: '#db5c00', marginTop: '8px' }} />
-  //               </div>
-  //               <h5>Lượt gửi tháng</h5>
-  //             </div>
-  //             <h2>{totalMonthCount}</h2>
-  //           </div>
-  //           <div className="home-statistic-chart">
-  //             <ResponsiveContainer>
-  //               <LineChart
-  //               margin={{ top: 10, right: 30, left: -30, bottom: -10 }}
-  //                 data={monthChartData}
-  //               >
-  //                 <Tooltip />
-  //                 <XAxis dataKey="day" />
-  //                 <YAxis dataKey="count" />
-  //                 <Line type="monotone" dataKey="count" stroke="#db5c00" strokeWidth={2} />
-  //               </LineChart>
-  //             </ResponsiveContainer>
-  //           </div>
-  //         </div>
+  // <div className="home-statistic-items">
+  //   <div className="home-statistic-info">
+  //     <div className="icon-title-statistics">
+  //       <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#ffe7ba' }}>
+  //         < FaMotorcycle style={{ fontSize: '25px', fill: '#db5c00', marginTop: '8px' }} />
   //       </div>
+  //       <h5>Lượt gửi tháng</h5>
+  //     </div>
+  //     <h2>{totalMonthCount}</h2>
+  //   </div>
+  //   <div className="home-statistic-chart">
+  //     <ResponsiveContainer>
+  //       <LineChart
+  //         margin={{ top: 10, right: 30, left: -30, bottom: -10 }}
+  //         data={monthChartData}
+  //       >
+  //         <Tooltip />
+  //         <XAxis dataKey="day" />
+  //         <YAxis dataKey="count" />
+  //         <Line type="monotone" dataKey="count" stroke="#db5c00" strokeWidth={2} />
+  //       </LineChart>
+  //     </ResponsiveContainer>
+  //   </div>
+  // </div>
 
   //   <div className="home-history">
   //     <div className="home-history-detail">
@@ -239,15 +238,14 @@ function Home() {
   // )
   const [userData, setUserData] = useState({});
 
+  const user = JSON.parse(localStorage.getItem('user'));
+
   const [checkInHistory, setCheckInHistory] = useState([]);
   const [weekChartData, setWeekChartData] = useState([]);
   const [monthChartData, setMonthChartData] = useState([]);
 
   const [totalWeekCount, setTotalWeekCount] = useState('0');
   const [totalMonthCount, setTotalMonthCount] = useState('0');
-
-  const user = JSON.parse(localStorage.getItem('user'));
-
   const currentDay = moment();
   const oneWeekAgo = moment().subtract(6, 'days');
   const oneMonthAgo = moment().subtract(1, 'month').add(1, 'days');
@@ -263,6 +261,7 @@ function Home() {
         {
           day: date.format('DD'),
           month: date.format('MM'),
+          year: date.format('YYYY'),
           weekday: date.weekday(),
         },
       ]
@@ -292,13 +291,123 @@ function Home() {
     firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).on('value', (snapshot) => {
       setUserData({ ...snapshot.val() });
     })
+
+    firebaseApp.database().ref(`/History/parkingMan/moneyOut/${user.id}`)
+      .on('value', (snapshot) => {
+        let snapshotValue = snapshot.val();
+        let newTotalWeekCount = 0;
+        let arr = [];
+
+        for (let obj in snapshotValue) {
+          //get child object
+          Array.prototype.push.apply(arr, [snapshotValue[obj]]);
+        }
+
+        const newWeekChartData = currentWeekAgo.map((item) => {
+          let weekCount = 0;
+          arr.map((ob) => {
+            let convertDay = ob.dateGet.split(/-| /, 3);
+            // console.log(item.day)
+            // console.log(convertDay[2])
+            if (item.day == convertDay[2] && item.month == convertDay[1] && item.year == convertDay[0]) {
+              weekCount++;
+              console.log("check")
+            }
+          })
+          newTotalWeekCount += weekCount;
+          return {
+            day: `${WEEKDAY_FORMAT[item.weekday]}`,
+            count: weekCount,
+          }
+        })
+        setTotalWeekCount(newTotalWeekCount);
+        setWeekChartData([...newWeekChartData])
+      })
+
+    //Chart Month
+    firebaseApp.database().ref(`/History/parkingMan/moneyOut/${user.id}`)
+      .on('value', (snapshot) => {
+        let snapshotValue = snapshot.val();
+        let newTotalMonthCount = 0;
+        let arr = [];
+
+        for (let obj in snapshotValue) {
+          Array.prototype.push.apply(arr, [snapshotValue[obj]]);
+        }
+
+        const newMonthChartData = currentMonthAgo.map((item) => {
+          let monthCount = 0;
+          arr.map((ob) => {
+            let convertDay = ob.dateGet.split(/-| /, 3);
+            // console.log(item.day)
+            // console.log(convertDay[2])
+            if (item.day == convertDay[2] && item.month == convertDay[1] && item.year == convertDay[0]) {
+              monthCount++;
+            }
+          })
+          newTotalMonthCount += monthCount;
+          return {
+            day: `${item.day}/${item.month}`,
+            count: monthCount,
+          }
+        }) 
+        setTotalMonthCount(newTotalMonthCount);
+        setMonthChartData([...newMonthChartData])
+      })
   }, [])
+
   return (
     <div className="home">
       <div className="home-left">
         <div className="home-statistic">
-          <div className="home-statistic-items"></div>
-          <div className="home-statistic-items"></div>
+          <div className="home-statistic-items">
+            <div className="home-statistic-info">
+              <div className="icon-title-statistics">
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#ffe7ba' }}>
+                  < FaMotorcycle style={{ fontSize: '25px', fill: '#db5c00', marginTop: '8px' }} />
+                </div>
+                <h5>Lượt gửi tuần</h5>
+              </div>
+              <h2>{totalWeekCount}</h2>
+            </div>
+            <div className="home-statistic-chart">
+              <ResponsiveContainer>
+                <LineChart
+                  data={weekChartData}
+                  margin={{ top: 10, right: 30, left: -30, bottom: -10 }}
+                >
+                  <XAxis dataKey="day" />
+                  <YAxis dataKey="count" />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="count" stroke="#db5c00" strokeWidth={2} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+          <div className="home-statistic-items">
+            <div className="home-statistic-info">
+              <div className="icon-title-statistics">
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#ffe7ba' }}>
+                  < FaMotorcycle style={{ fontSize: '25px', fill: '#db5c00', marginTop: '8px' }} />
+                </div>
+                <h5>Lượt gửi tháng</h5>
+              </div>
+              <h2>{totalMonthCount}</h2>
+            </div>
+            <div className="home-statistic-chart">
+              <ResponsiveContainer>
+                <LineChart
+                  margin={{ top: 10, right: 30, left: -30, bottom: -10 }}
+                  data={monthChartData}
+                >
+                  <Tooltip />
+                  <XAxis dataKey="day" />
+                  <YAxis dataKey="count" />
+                  <Line type="monotone" dataKey="count" stroke="#db5c00" strokeWidth={2} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         </div>
         <div className="home-history">
           <div className="home-history-detail">
