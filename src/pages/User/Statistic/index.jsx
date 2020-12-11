@@ -14,14 +14,13 @@ import { WEEKDAY_FORMAT } from '../../../constants/common';
 
 import { firebaseApp } from '../../../configs/firebase';
 
-import { getHistoryList } from '../../../redux/actions';
 
 function Statistic({
   dataYear,
   dataCampus,
 }) {
 
-  const authData = JSON.parse(localStorage.getItem('authData'));
+  const user = JSON.parse(localStorage.getItem('user'));
 
   const [weekChartData, setWeekChartData] = useState([]);
   const [monthChartData, setMonthChartData] = useState([]);
@@ -45,6 +44,7 @@ function Statistic({
         {
           day: date.format('DD'),
           month: date.format('MM'),
+          year: date.format('YYYY'),
           weekday: date.weekday(),
         },
       ]
@@ -56,11 +56,22 @@ function Statistic({
     const currentWeek = getDayList(startWeekDay, endWeekDay);
     const currentMonth = getDayList(startMonth, endMonth);
 
-    firebaseApp.database().ref(`/users/${authData.uid}/chartData/${currentYear}/month`)
+    firebaseApp.database().ref(`/History/parkingMan/moneyOut/${user.id}`)
       .on('value', (snapshot) => {
         let snapshotValue = snapshot.val();
+        let arr = [];
+        for (let obj in snapshotValue) {
+          //get child object
+          Array.prototype.push.apply(arr, [snapshotValue[obj]]);
+        }
         const newWeekChartData = currentWeek.map((item) => {
-          const weekCount = ((snapshotValue || {})[item.month]?.day || {})[item.day]?.count || 0;
+          let weekCount = 0;
+          arr.map((ob) => {
+            let convertDay = ob.dateGet.split(/-| /, 3);
+            if (item.day == convertDay[2] && item.month == convertDay[1] && item.year == convertDay[0]) {
+              weekCount++;
+            }
+          })
           return {
             day: `${WEEKDAY_FORMAT[item.weekday]}`,
             count: weekCount,
@@ -69,11 +80,22 @@ function Statistic({
         setWeekChartData([...newWeekChartData])
       })
 
-    firebaseApp.database().ref(`/users/${authData.uid}/chartData/${currentYear}/month`)
+    firebaseApp.database().ref(`/History/parkingMan/moneyOut/${user.id}`)
       .on('value', (snapshot) => {
         let snapshotValue = snapshot.val();
+        let arr = [];
+        for (let obj in snapshotValue) {
+          //get child object
+          Array.prototype.push.apply(arr, [snapshotValue[obj]]);
+        }
         const newMonthChartData = currentMonth.map((item) => {
-          const monthCount = ((snapshotValue || {})[item.month]?.day || {})[item.day]?.count || 0;
+          let monthCount = 0;
+          arr.map((ob) => {
+            let convertDay = ob.dateGet.split(/-| /, 3);
+            if (item.day == convertDay[2] && item.month == convertDay[1] && item.year == convertDay[0]) {
+              monthCount++;
+            }
+          })
           return {
             day: `${item.day}/${item.month}`,
             count: monthCount,
@@ -163,7 +185,7 @@ function Statistic({
           </div>
         </div>
 
-        <div className="total-year">
+        {/* <div className="total-year">
           <h4>Tổng lượt gửi / Năm</h4>
           <div style={{ position: 'relative' }}>
             <PieChart width={200} height={400}>
@@ -182,7 +204,7 @@ function Statistic({
             </PieChart>
             <h1 style={{ position: 'absolute', top: '16%', left: '36%' }}>340</h1>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* <div className="statistic-row3">
@@ -194,7 +216,6 @@ function Statistic({
   );
 }
 const mapStateToProps = (state) => {
-  console.log('Log: mapStateToProps -> state', state);
   const { historyList, dataWeek, dataMonth, dataYear, dataCampus } = state;
   return {
     historyList,

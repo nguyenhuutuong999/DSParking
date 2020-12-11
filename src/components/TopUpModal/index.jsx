@@ -6,8 +6,7 @@ function TopUpModal({
   handleHideModal,
   handleTopUp,
   topUpForm
-}) 
-{
+}) {
   return (
     <>
       <Modal
@@ -16,7 +15,7 @@ function TopUpModal({
         footer={null}
       >
         <Form
-           form={topUpForm}
+          form={topUpForm}
         >
           <Form.Item
             label="Nội dung:"
@@ -37,11 +36,11 @@ function TopUpModal({
             <Space>
               <Button
                 type="primary"
-                onClick={(value) => {handleTopUp()}}
-                >
-                  Nạp
+                onClick={(value) => { handleTopUp() }}
+              >
+                Nạp
               </Button>
-              <Button type="danger" onClick={() => {handleHideModal()}}>Hủy</Button>
+              <Button type="danger" onClick={() => { handleHideModal() }}>Hủy</Button>
             </Space>
           </Form.Item>
         </Form>

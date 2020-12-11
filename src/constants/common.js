@@ -1,6 +1,5 @@
 export const DEFAULT_QR_PIN = '0000';
 export const WEEKDAY_FORMAT = {
-
   0: 'Su',
   1: 'Mo',
   2: 'Tu',
@@ -24,12 +23,17 @@ export const MONTH_FORMAT = {
   "12": 'Dec',
 };
 export const CHECKIN_FORMAT = {
- lineIn: 'Lượt vào',
- lineOut: 'Lượt ra',
+  lineIn: 'Lượt vào',
+  lineOut: 'Lượt ra',
 };
 export const LEVEL_NOTIFICATIONS = {
   high: 'Cao',
   medium: 'Trung bình',
   low: 'Thấp'
- };
- 
+};
+export const LOCATION = {
+  1: '254 Nguyễn Văn Linh',
+  2: 'Quang Trung',
+  3: '334 Nguyễn Văn Linh',
+  4: 'Hòa Khánh Nam'
+};

@@ -114,7 +114,6 @@ function Sidebar(props) {
         return (
           <li className={`nav-item ${history.location.pathname === user_menus[index].to && 'nav-item-active'}`} key={index} onClick={() => history.push(user_menus[index].to)}>
             <a href="#" className="nav-link">
-
               {item.icon()}
               <span className="link-text">{item.name}</span>
             </a>

@@ -2,100 +2,63 @@ import React, { useState, useEffect } from 'react';
 import './styles.css';
 import moment from 'moment';
 
-import TopUpModal from '../../../components/TopUpModal/index'
-
-import { FaTrashAlt, FaThumbtack, } from 'react-icons/fa';
 import { Form, Table, Tabs, List } from 'antd';
 
 import {
   firebaseApp,
 } from '../../../configs/firebase';
 
-import { CHECKIN_FORMAT } from '../../../constants/common';
+import { LOCATION } from '../../../constants/common';
 
 function Account({
-  
   transactionsList,
 }) {
   const user = JSON.parse(localStorage.getItem('user'));
-  const [isShowTopUpModal, setIsShowTopUpModal] = useState(false);
   const [transactionHistory, setTransactionHistory] = useState([]);
   const [checkInHistory, setCheckInHistory] = useState([]);
 
-  const [topUpForm] = Form.useForm();
-
-  //Hide / Show Modal
-  const handleShowTopUpModal = () => {
-    setIsShowTopUpModal(true);
-  }
-  const handleHideTopUpModal = () => {
-    setIsShowTopUpModal(false);
-  }
-
-  //Handle TopUp
-  const handleTopUp = (value) => {
-    const moneyValue = topUpForm.getFieldsValue();
-    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).once('value', (snapshot) => {
-      const snapshotValue = snapshot.val();
-      firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`)
-        .update({
-          money: snapshotValue.money + parseFloat(moneyValue.money),
-        })
-    })
-
-    // firebaseApp.database().ref(`/users/${user.uid}/transaction`)
-    //   .push({
-    //     time: parseFloat(moment().format('YYYYMMDDHHmm')),
-    //     money: parseFloat(moneyValue.money),
-    //     content: moneyValue.content,
-    //   })
-    // setIsShowTopUpModal(false);
-
-    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).once('value', (snapshot) => {
-      const snapshotValue = snapshot.val();
-      firebaseApp.database().ref(`/User/information/parkingMan/${user.id}/transaction`)
-        .push({
-          time: parseFloat(moment().format('YYYYMMDDHHmm')),
-          money: parseFloat(moneyValue.money),
-          content: moneyValue.content,
-          balance: snapshotValue.money,
-        })
-      setIsShowTopUpModal(false);
-
-    })
-  }
 
   useEffect(() => {
-    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}/transaction`).on('value', (snapshot) => {
-      let snapshotTransactionValue = snapshot.val();
-      let newTransactionHistory = [];
-      for (let topUpId in snapshotTransactionValue) {
-        newTransactionHistory = [
-          {
-            no: 'null',
-            time: moment(snapshotTransactionValue[topUpId].time, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
-            money: snapshotTransactionValue[topUpId].money,
-            content: snapshotTransactionValue[topUpId].content,
-            balance: snapshotTransactionValue[topUpId].balance
-          },
-          ...newTransactionHistory,
-        ]
-      }
-      setTransactionHistory([...newTransactionHistory]);
+    firebaseApp.database().ref(`/History/parkingMan/moneyIn/${user.id}`).on('value', (snapshot) => {
+      firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).on('value', (snapshotUser) => {
+        let snapshotUserInformation = snapshotUser.val();
+        let snapshotTransactionValue = snapshot.val();
+        let newTransactionHistory = [];
+
+        for (let obj in snapshotTransactionValue) {
+          Array.prototype.push.apply(newTransactionHistory, [snapshotTransactionValue[obj]]);
+        }
+
+        for (let topUpId in snapshotTransactionValue) {
+          newTransactionHistory = [
+            {
+              id: snapshotTransactionValue[topUpId].idPay,
+              date: moment(snapshotTransactionValue[topUpId].dateSend, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
+              money: snapshotTransactionValue[topUpId].payMoney,
+              content: "-",
+              balance: snapshotUserInformation.money
+            },
+            ...newTransactionHistory,
+          ]
+        }
+        setTransactionHistory([...newTransactionHistory]);
+      })
     })
 
-    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}/parkingHistory`).on('value', (snapshot) => {
+    firebaseApp.database().ref(`/History/parkingMan/moneyOut/${user.id}`).on('value', (snapshot) => {
       let snapshotHistoryValue = snapshot.val();
       let newCheckInHistory = [];
+      for (let obj in snapshotHistoryValue) {
+        Array.prototype.push.apply(newCheckInHistory, [snapshotHistoryValue[obj]]);
+      }
       for (let checkInId in snapshotHistoryValue) {
         if (newCheckInHistory.length <= 3) {
           newCheckInHistory = [
             {
-              id: checkInId,
-              type: CHECKIN_FORMAT[snapshotHistoryValue[checkInId].type],
-              date: moment(snapshotHistoryValue[checkInId].dateTime, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
-              timeIn: moment(snapshotHistoryValue[checkInId].dateTime, 'YYYYMMDDHHmm').format('HH:mm'),
-              place: 'null',
+              place: `${LOCATION[snapshotHistoryValue[checkInId].place]}`,
+              plateLicense: snapshotHistoryValue.plateLicense,
+              dateGet: moment(snapshotHistoryValue[checkInId].dateGet, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
+              dateSend: moment(snapshotHistoryValue[checkInId].dateSend, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
             },
             ...newCheckInHistory,
           ]
@@ -105,25 +68,16 @@ function Account({
     })
   }, [])
 
-  // const handleTopUp = (value) => {
-  //   const moneyValue = topUpForm.getFieldsValue();
-  //   console.log("moneyValue", moneyValue.money)
-  //     firebaseApp.database().ref(`/users/${user.uid}`).update({
-  //       money: moneyValue.money
-  //     })
-  //   setIsShowTopUpModal(false);
-  // }
-
   const columns = [
     {
       title: 'Mã GD',
-      dataIndex: 'no',
-      key: 'no',
+      dataIndex: 'id',
+      key: 'idPay',
     },
     {
       title: 'Thời gian',
-      dataIndex: 'time',
-      key: 'time',
+      dataIndex: 'date',
+      key: 'dateSend',
     },
     {
       title: 'Số tiền',
@@ -142,21 +96,6 @@ function Account({
     },
   ];
   const { TabPane } = Tabs;
-  const renderTransactionList = () => {
-    return transactionsList.map((item, itemIndex) => {
-      return (
-        <tr key={itemIndex}>
-          <td>{item.no}</td>
-          <td>{item.id}</td>
-          <td>{item.time}</td>
-          <td>{item.money}</td>
-          <td>{item.title}</td>
-          <td>{item.balance}</td>
-          <td><FaTrashAlt /> <FaThumbtack /></td>
-        </tr>
-      );
-    });
-  }
 
   const renderHistoryList = () => {
     return (
@@ -166,12 +105,12 @@ function Account({
         renderItem={(item) => (
           <List.Item>
             <List.Item.Meta
-              title={item.id}
-              description={item.type}
+              title={`${LOCATION[item.place]}`}
+              description={item.plateLicense}
             />
             <div>
-              <p>{item.timeIn}</p>
-              <p>{item.date}</p>
+              <p>{item.dateGet}</p>
+              <p>{item.dateSend}</p>
             </div>
           </List.Item>
         )}
@@ -181,7 +120,6 @@ function Account({
 
   return (
     <div className="dsp-account">
-      {/* <Card/> */}
       <div className="content-account">
         <Tabs defaultActiveKey="1">
           <TabPane tab="Lịch sử giao dịch" key="1">
@@ -190,16 +128,12 @@ function Account({
             </div>
           </TabPane>
           <TabPane tab="Lịch sử gửi xe" key="2">
-                {renderHistoryList()}
-            </TabPane>
+            <div className="history-parking">
+              {renderHistoryList()}
+            </div>
+          </TabPane>
         </Tabs>
       </div>
-      <TopUpModal
-        isShowModal={isShowTopUpModal}
-        handleHideModal={handleHideTopUpModal}
-        handleTopUp={handleTopUp}
-        topUpForm={topUpForm}
-      />
     </div>
   );
 }
