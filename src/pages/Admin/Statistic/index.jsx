@@ -24,7 +24,11 @@ function Statistic() {
 
   const [yearFilterData, setYearFilterData] = useState(false)
 
-  const [selectPlace, setSelectPlace] = useState(0)
+  const [selectPlace, setSelectPlace] = useState(0);
+
+    // const data totp up of the nearest Month
+    const [topUp, setTopUp] = useState(0);
+  
 
   const handleFromDateChange = (date) => {
     setSelectedFromDate(moment(date))
@@ -97,7 +101,7 @@ function Statistic() {
       })
 
     });
-
+    getDataTopUpStatistic();
   }, [selectedFromDate, selectedToDate, monthFilterData, yearFilterData])
 
 
@@ -155,18 +159,7 @@ function Statistic() {
                     hk++;
                   }
           }
-          // ID 1: 254 Nguyen Van Linh
-          // ID 2: Quang Trung
-          // ID 3: 254 334 Nguyen Van Linh
-          // ID 4: Hoa Khanh
-          // nvl254 += getCountPlace["1"] ? getCountPlace["1"] : 0;
-          // qtr += getCountPlace["2"] ? getCountPlace["2"] : 0;
-          // nvl334 += getCountPlace["3"] ? getCountPlace["3"] : 0;
-          // hk += getCountPlace["4"] ? getCountPlace["4"] : 0;
-          // nvl254 += getCountPlace["1"];
-          // qtr += getCountPlace["2"];
-          // nvl334 += getCountPlace["3"];
-          // hk += getCountPlace["4"];
+      
         })
 
         revenue.nvl254 += nvl254;
@@ -183,7 +176,7 @@ function Statistic() {
           "name": ` ${MONTH_FORMAT[item.month]}, ${item.day}`,
         }
       })
-      console.log(arr1);
+    
       cb(newWeekChartData)
       setRevenue(revenue)
     }
@@ -274,6 +267,52 @@ function Statistic() {
     cb(newYearChartData)
   }
 
+  function getDataTopUpStatistic() {
+
+    //get data form Firebase
+    firebaseApp.database().ref("History/parkingMan/moneyIn/")
+      .on('value', (snapshot) => {
+        let snapshotValue = snapshot.val();
+        let arr = [];
+        for (let obj in snapshotValue) {
+          Array.prototype.push.apply(arr, [snapshotValue[obj]]);
+        }
+       
+        let arr1 = [];
+        arr.map((obj) => {
+          for (let ob in obj) {
+            Array.prototype.push.apply(arr1, [obj[ob]]);
+          }
+        })
+        
+         console.log(arr1)
+         getTodayTopUpStatistic(arr1);
+         
+      })
+  }
+  const getTodayTopUpStatistic = (arr) => {
+    let filterDate = getDayList(selectedFromDate, selectedToDate);
+    let count = 0;
+    
+    filterDate.map((item) => {
+     
+      arr.map((ob) => {
+        
+        let convertDay = ob.dateSend.split(/-| /, 3);
+        
+        if (item.day == convertDay[2] && item.month == convertDay[1] && item.year == convertDay[0]) {
+            count += parseInt(ob.payMoney)
+            console.log(count)
+        
+        }
+    
+      })
+     
+    })      
+    setTopUp(count)
+     
+  }
+
   const perc = (value) => {
     return Math.round((value / (revenue.nvl254 + revenue.nvl334 + revenue.qtr + revenue.hk) * 100) * 10) / 10;
   }
@@ -314,7 +353,9 @@ function Statistic() {
     setYearFilterData(!yearFilterData);
     setMonthFilterData(false);
   }
-
+  const formatVND = (x) =>{
+    return x.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
+  }
   return (
 
     <div className="statistic">
@@ -455,66 +496,68 @@ function Statistic() {
                 <div className="time"> 254 NVL</div>
                 <div className="revenue-block">
                   <div className="cicle-icon">
-                    <i style={{ color: "#db4a3a" }} class="far fa-money-bill-alt"></i>
+                    <i style={{ color: "#019776dc" }} class="far fa-money-bill-alt"></i>
                     {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                   </div>
-                  <div className="revenue">{revenue.nvl254}.000 VND</div>
-                </div>
-                <div className="get-date">
-                  <div className="calendar-icon">
-                    <i class="far fa-calendar-alt"></i>
-                  </div>
-                  <div className="moment-month"></div>
-                </div>
+                  <div className="revenue">{formatVND(parseInt(`${revenue.nvl254}000`))}</div>
+                </div> 
+               
               </div>
 
               <div className="revenue-box revenue-03qtr">
                 <div className="time">03 Quang Trung</div>
                 <div className="revenue-block">
                   <div className="cicle-icon">
-                    <i style={{ color: "#3642eb" }} class="far fa-money-bill-alt"></i>
+                    <i style={{ color: "#ADE17B" }} class="far fa-money-bill-alt"></i>
                     {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                   </div>
-                  <div className="revenue"> {revenue.qtr}.000 VND</div>
+                  <div className="revenue"> {formatVND(parseInt(`${revenue.qtr}000`))}</div>
                 </div>
-                <div className="get-date">
-                  <div className="calendar-icon">
-                    <i class="far fa-calendar-alt"></i>
-                  </div>
-                  <div className="moment-month"></div>
-                </div>
+               
               </div>
               <div className="revenue-box revenue-334nvl">
                 <div className="time">334 NVL</div>
                 <div className="revenue-block">
                   <div className="cicle-icon">
-                    <i style={{ color: "#3642eb" }} class="far fa-money-bill-alt"></i>
+                    <i style={{ color: "#99D6E4" }} class="far fa-money-bill-alt"></i>
                     {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                   </div>
-                  <div className="revenue"> {revenue.nvl334}.000 VND</div>
+                  <div className="revenue"> {formatVND(parseInt(`${revenue.nvl334}000`))}</div>
                 </div>
-                <div className="get-date">
-                  <div className="calendar-icon">
-                    <i class="far fa-calendar-alt"></i>
-                  </div>
-                  <div className="moment-month"></div>
-                </div>
+               
               </div>
               <div className="revenue-box revenue-hk">
                 <div className="time">Hoa Khanh</div>
                 <div className="revenue-block">
                   <div className="cicle-icon">
-                    <i style={{ color: "#3642eb" }} class="far fa-money-bill-alt"></i>
+                    <i style={{ color: "#20ce85d2" }} class="far fa-money-bill-alt"></i>
                     {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                   </div>
-                  <div className="revenue"> {revenue.hk}.000 VND</div>
+                  <div className="revenue">{formatVND(parseInt(`${revenue.hk}000`))}</div>
                 </div>
-                <div className="get-date">
-                  <div className="calendar-icon">
-                    <i class="far fa-calendar-alt"></i>
+               
+              </div>
+              <div className="revenue-box revenue-topup">
+                <div className="time">Top Up</div>
+                <div className="revenue-block">
+                  <div className="cicle-icon">
+                    <i style={{ color: "#FF8C80" }} class="far fa-money-bill-alt"></i>
+                    {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                   </div>
-                  <div className="moment-month"></div>
+                  <div className="revenue"> {formatVND(parseInt(`${topUp}`))}</div>
                 </div>
+               
+              </div>
+              <div className="revenue-box revenue-revenue">
+                <div className="time">Revenue</div>
+                <div className="revenue-block">
+                  <div className="cicle-icon">
+                    <i style={{ color: "#6972FF" }} class="far fa-money-bill-alt"></i>
+                    {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
+                  </div>
+                  <div className="revenue">{formatVND(parseInt(`${revenue.qtr + revenue.nvl254 + revenue.nvl334 + revenue.hk}000`)+ parseInt(`${topUp}`))}</div>
+                </div>
+               
               </div>
 
             </div>
