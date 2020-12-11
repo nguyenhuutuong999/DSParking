@@ -5,8 +5,8 @@ import 'date-fns';
 import DateFnsUtils from "@date-io/date-fns";
 import moment from 'moment';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import {firebaseApp} from './../../../configs/firebase';
-import {  MONTH_FORMAT } from '../../../constants/common';
+import { firebaseApp } from './../../../configs/firebase';
+import { MONTH_FORMAT } from '../../../constants/common';
 
 function Statistic() {
 
@@ -15,7 +15,7 @@ function Statistic() {
   const [revenue, setRevenue] = useState({})
 
   const [selectedFromDate, setSelectedFromDate] = useState(
-    moment("11/1/2020")
+    moment("11/01/2020")
   )
   const [selectedToDate, setSelectedToDate] = useState(
     moment()
@@ -24,7 +24,11 @@ function Statistic() {
 
   const [yearFilterData, setYearFilterData] = useState(false)
 
-  const [selectPlace, setSelectPlace] = useState(0)
+  const [selectPlace, setSelectPlace] = useState(0);
+
+    // const data totp up of the nearest Month
+    const [topUp, setTopUp] = useState(0);
+  
 
   const handleFromDateChange = (date) => {
     setSelectedFromDate(moment(date))
@@ -43,7 +47,7 @@ function Statistic() {
       days = [
         ...days,
         {
-          day: date.format('D'),
+          day: date.format('DD'),
           month: date.format('MM'),
           year: date.format('YYYY'),
           weekday: date.weekday(),
@@ -97,53 +101,68 @@ function Statistic() {
       })
 
     });
-
+    getDataTopUpStatistic();
   }, [selectedFromDate, selectedToDate, monthFilterData, yearFilterData])
 
 
   // get all date follow sequential day
   const getStatisticData = async (selectedFromDate, selectedToDate, cb) => {
-    firebaseApp.database().ref("ChartStatis/").on('value', (snapshot) => {
+    firebaseApp.database().ref("History/parkingMan/moneyOut").on('value', (snapshot) => {
       let snapshotValue = snapshot.val();
       let arr = [];
       for (let obj in snapshotValue) {
         Array.prototype.push.apply(arr, [snapshotValue[obj]]);
       }
+      let arr1 = [];
+      arr.map((obj) => {
+        for (let ob in obj) {
+          Array.prototype.push.apply(arr1, [obj[ob]]);
+        }
+      })
+      //console.log(arr1)
       let currentWeekAgo = getDayList(selectedFromDate, selectedToDate);
 
-     let revenue = 
-       {
-         nvl254 : 0,
-         qtr : 0,
-         nvl334 : 0,
-         hk : 0
-       };
-       let count = 0;
+      let revenue =
+      {
+        nvl254: 0,
+        qtr: 0,
+        nvl334: 0,
+        hk: 0
+      };
+      let count = 0;
       let getCountPlace = [];
       let newWeekChartData = currentWeekAgo.map((item) => {
         let nvl254 = 0;
-        let qtr = 0;
-        let nvl334 = 0;
-        let hk = 0;
+        let qtr = 50;
+        let nvl334 = 30;
+        let hk = 20;
 
-        arr.map((ob) => {
 
-          getCountPlace = (((ob.chartData || {})[item.year]?.month || {})[item.month]?.day || {})[item.day];
-          getCountPlace = getCountPlace ? getCountPlace : {};
-          // ID 1: 254 Nguyen Van Linh
-          // ID 2: Quang Trung
-          // ID 3: 254 334 Nguyen Van Linh
-          // ID 4: Hoa Khanh
-          nvl254 += getCountPlace["1"] ? getCountPlace["1"] : 0;
-          qtr += getCountPlace["2"] ? getCountPlace["2"] : 0;
-          nvl334 += getCountPlace["3"] ? getCountPlace["3"] : 0;
-          hk += getCountPlace["4"] ? getCountPlace["4"] : 0;
-          // nvl254 += getCountPlace["1"];
-          // qtr += getCountPlace["2"];
-          // nvl334 += getCountPlace["3"];
-          // hk += getCountPlace["4"];
+        arr1.map((ob) => {
+          let convertDay = ob.dateGet.split(/-| /, 3);
+          // console.log(convertDay[0])
+          // console.log(convertDay[1])
+
+
+          if (item.day == convertDay[2] && item.month == convertDay[1] && item.year == convertDay[0]) {
+
+            if (ob.place == 1) {
+              nvl254++;
+            } else
+              if (ob.place == 2) {
+                qtr++;
+              } else
+                if (ob.place == 3) {
+                  nvl334++;
+                } else
+                  if (ob.place == 4) {
+                    hk++;
+                  }
+          }
+      
         })
-        revenue.nvl254 +=  nvl254;
+
+        revenue.nvl254 += nvl254;
         revenue.qtr += qtr;
         revenue.nvl334 += nvl334;
         revenue.hk += hk;
@@ -157,13 +176,13 @@ function Statistic() {
           "name": ` ${MONTH_FORMAT[item.month]}, ${item.day}`,
         }
       })
+    
       cb(newWeekChartData)
       setRevenue(revenue)
     }
-    
+
     )
   }
-console.log(revenue)
   //filter Statistic in Month
   const getMonthData = (arr, cb) => {
     let filterMonthAgo = getMonthList(selectedFromDate, selectedToDate);
@@ -248,34 +267,80 @@ console.log(revenue)
     cb(newYearChartData)
   }
 
-  const perc = (value) =>{
-    return Math.round((value/(revenue.nvl254+ revenue.nvl334+revenue.qtr+revenue.hk)*100)*10)/10;
+  function getDataTopUpStatistic() {
+
+    //get data form Firebase
+    firebaseApp.database().ref("History/parkingMan/moneyIn/")
+      .on('value', (snapshot) => {
+        let snapshotValue = snapshot.val();
+        let arr = [];
+        for (let obj in snapshotValue) {
+          Array.prototype.push.apply(arr, [snapshotValue[obj]]);
+        }
+       
+        let arr1 = [];
+        arr.map((obj) => {
+          for (let ob in obj) {
+            Array.prototype.push.apply(arr1, [obj[ob]]);
+          }
+        })
+        
+         console.log(arr1)
+         getTodayTopUpStatistic(arr1);
+         
+      })
+  }
+  const getTodayTopUpStatistic = (arr) => {
+    let filterDate = getDayList(selectedFromDate, selectedToDate);
+    let count = 0;
+    
+    filterDate.map((item) => {
+     
+      arr.map((ob) => {
+        
+        let convertDay = ob.dateSend.split(/-| /, 3);
+        
+        if (item.day == convertDay[2] && item.month == convertDay[1] && item.year == convertDay[0]) {
+            count += parseInt(ob.payMoney)
+            console.log(count)
+        
+        }
+    
+      })
+     
+    })      
+    setTopUp(count)
+     
+  }
+
+  const perc = (value) => {
+    return Math.round((value / (revenue.nvl254 + revenue.nvl334 + revenue.qtr + revenue.hk) * 100) * 10) / 10;
   }
   const data01 = [
     {
       "name": "254 NVL",
       "value": revenue.nvl254,
-      "color": "#82CA9D",
-      "label" :`${perc(revenue.nvl254)}%`
+      "color": "#FF8C80",
+      "label": `${perc(revenue.nvl254)}%`
 
     },
     {
       "name": "334 NVL",
       "value": revenue.nvl334,
       "color": "#8DD1E1",
-      "label" :`${perc(revenue.nvl334)}%`
+      "label": `${perc(revenue.nvl334)}%`
     },
     {
       "name": "03 Quang Trung",
       "value": revenue.qtr,
       "color": "#A4DE6C",
-      "label" :`${perc(revenue.qtr)}%`
+      "label": `${perc(revenue.qtr)}%`
     },
     {
       "name": "Hoa Khanh",
       "value": revenue.hk,
-      "color": "#D0ED57",
-      "label" :`${perc(revenue.hk)}%`
+      "color": "#6972FF",
+      "label": `${perc(revenue.hk)}%`
     },
 
   ];
@@ -288,7 +353,9 @@ console.log(revenue)
     setYearFilterData(!yearFilterData);
     setMonthFilterData(false);
   }
-
+  const formatVND = (x) =>{
+    return x.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
+  }
   return (
 
     <div className="statistic">
@@ -389,10 +456,10 @@ console.log(revenue)
               <Tooltip />
               <Legend />
 
-              {selectPlace == 1 || selectPlace == 0 ? <Line type="monotone" dataKey="254 NVL" stroke="#82CA9D" /> : <Line />}
+              {selectPlace == 1 || selectPlace == 0 ? <Line type="monotone" dataKey="254 NVL" stroke="#FF8C80" /> : <Line />}
               {selectPlace == 2 || selectPlace == 0 ? <Line type="monotone" dataKey="334 NVL" stroke="#8DD1E1" /> : <Line />}
               {selectPlace == 3 || selectPlace == 0 ? <Line type="monotone" dataKey="03 QT" stroke="#A4DE6C" /> : <Line />}
-              {selectPlace == 4 || selectPlace == 0 ? <Line type="monotone" dataKey="Hoa Khanh" stroke="#D0ED57" /> : <Line />}
+              {selectPlace == 4 || selectPlace == 0 ? <Line type="monotone" dataKey="Hoa Khanh" stroke="#6972FF" /> : <Line />}
 
             </LineChart>
           </ResponsiveContainer>
@@ -402,139 +469,144 @@ console.log(revenue)
       <div className="col-xs-12">
         <div className="col-xs-3">
           <div className="pie-chart">
+           
             <ResponsiveContainer width="98%" height="98%" fill='white'>
-              <PieChart>
-                <Label position="inside" />
-                <Pie data={data01} nameKey="name" cx="50%" cy="50%" outerRadius={90} fill="#8884d8" label={(entry) => entry.label}>
+              <PieChart >
+              <Label position="inside" />
+                <Pie data={data01} nameKey="name" label outerRadius={85} fill="#8884d8" label={(entry) => entry.label}>
                   {
-
-                    data01.map((index) => (
-                      <Cell key={index.name} fill={index.color} value={index.value} />
+                     data01.map((index) => (
+                      <Cell key={index.name}  fill={index.color}  />
                     ))
                   }
+                 
                 </Pie>
-                <Legend /><Tooltip />
+                <Tooltip />
+                <Legend />
               </PieChart>
+              
             </ResponsiveContainer>
           </div>
         </div>
 
         <div className="col-xs-9 statistic-9">
-          <div className="col-xs-6"> 
+          <div className="col-xs-6">
             <div className="home-revenue">
-              <div className="revenue-box revenue-today">
-                <div className="time">Today</div>
+              <div className="revenue-box revenue-254nvl">
+                <div className="time"> 254 NVL</div>
                 <div className="revenue-block">
                   <div className="cicle-icon">
-                    <i style={{ color: "#db4a3a" }} class="far fa-money-bill-alt"></i>
+                    <i style={{ color: "#019776dc" }} class="far fa-money-bill-alt"></i>
                     {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                   </div>
-                  <div className="revenue">{revenue.nvl254}.000 VND</div>
-                </div>
-                <div className="get-date">
-                  <div className="calendar-icon">
-                    <i class="far fa-calendar-alt"></i>
-                  </div>
-                  <div className="moment-month"></div>
-                </div>
+                  <div className="revenue">{formatVND(parseInt(`${revenue.nvl254}000`))}</div>
+                </div> 
+               
               </div>
 
-              <div className="revenue-box revenue-monthly">
-                <div className="time">Monthly</div>
+              <div className="revenue-box revenue-03qtr">
+                <div className="time">03 Quang Trung</div>
                 <div className="revenue-block">
                   <div className="cicle-icon">
-                    <i style={{ color: "#3642eb" }} class="far fa-money-bill-alt"></i>
+                    <i style={{ color: "#ADE17B" }} class="far fa-money-bill-alt"></i>
                     {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                   </div>
-                  <div className="revenue"> {revenue.qtr}.000 VND</div>
+                  <div className="revenue"> {formatVND(parseInt(`${revenue.qtr}000`))}</div>
                 </div>
-                <div className="get-date">
-                  <div className="calendar-icon">
-                    <i class="far fa-calendar-alt"></i>
-                  </div>
-                  <div className="moment-month"></div>
-                </div>
+               
               </div>
-              <div className="revenue-box revenue-monthly">
-                <div className="time">Monthly</div>
+              <div className="revenue-box revenue-334nvl">
+                <div className="time">334 NVL</div>
                 <div className="revenue-block">
                   <div className="cicle-icon">
-                    <i style={{ color: "#3642eb" }} class="far fa-money-bill-alt"></i>
+                    <i style={{ color: "#99D6E4" }} class="far fa-money-bill-alt"></i>
                     {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                   </div>
-                  <div className="revenue"> {revenue.nvl334}.000 VND</div>
+                  <div className="revenue"> {formatVND(parseInt(`${revenue.nvl334}000`))}</div>
                 </div>
-                <div className="get-date">
-                  <div className="calendar-icon">
-                    <i class="far fa-calendar-alt"></i>
-                  </div>
-                  <div className="moment-month"></div>
-                </div>
+               
               </div>
-              <div className="revenue-box revenue-monthly">
-                <div className="time">Monthly</div>
+              <div className="revenue-box revenue-hk">
+                <div className="time">Hoa Khanh</div>
                 <div className="revenue-block">
                   <div className="cicle-icon">
-                    <i style={{ color: "#3642eb" }} class="far fa-money-bill-alt"></i>
+                    <i style={{ color: "#20ce85d2" }} class="far fa-money-bill-alt"></i>
                     {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                   </div>
-                  <div className="revenue"> {revenue.hk}.000 VND</div>
+                  <div className="revenue">{formatVND(parseInt(`${revenue.hk}000`))}</div>
                 </div>
-                <div className="get-date">
-                  <div className="calendar-icon">
-                    <i class="far fa-calendar-alt"></i>
-                  </div>
-                  <div className="moment-month"></div>
-                </div>
+               
               </div>
-            
+              <div className="revenue-box revenue-topup">
+                <div className="time">Top Up</div>
+                <div className="revenue-block">
+                  <div className="cicle-icon">
+                    <i style={{ color: "#FF8C80" }} class="far fa-money-bill-alt"></i>
+                    {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
+                  </div>
+                  <div className="revenue"> {formatVND(parseInt(`${topUp}`))}</div>
+                </div>
+               
+              </div>
+              <div className="revenue-box revenue-revenue">
+                <div className="time">Revenue</div>
+                <div className="revenue-block">
+                  <div className="cicle-icon">
+                    <i style={{ color: "#6972FF" }} class="far fa-money-bill-alt"></i>
+                    {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
+                  </div>
+                  <div className="revenue">{formatVND(parseInt(`${revenue.qtr + revenue.nvl254 + revenue.nvl334 + revenue.hk}000`)+ parseInt(`${topUp}`))}</div>
+                </div>
+               
+              </div>
+
             </div>
           </div>
-          <div className="col-xs-6">  
-          <div className="home-flow">
-            <div className="flow-section">
-              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                <div className="cicle-icon-small icon-today">
-                  <i style={{ color: "#3642eb" }} class="fa fa-motorcycle fa-2x"></i>
+          <div className="col-xs-6">
+            <div className="home-flow">
+              <div className="flow-section">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                  <div className="cicle-icon-small icon-today">
+                    <i style={{ color: "#3642eb" }} class="fa fa-motorcycle fa-2x"></i>
+                  </div>
                 </div>
-              </div>
-              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                <div className="flow-block">
-                  <div className="title-flow">2.000/10.000 users/today</div>
-                  <div className="flow-perc">
-                    <div className="flow-bar">
-                      <div className="vehicle-flow user-today"></div>
-                      <div className="vehicle-flow-background"></div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                  <div className="flow-block">
+                    <div className="title-flow">2.000/10.000 users/today</div>
+                    <div className="flow-perc">
+                      <div className="flow-bar">
+                        <div className="vehicle-flow user-today"></div>
+                        <div className="vehicle-flow-background"></div>
+                      </div>
+                      <div className="perc">20%</div>
                     </div>
-                    <div className="perc">20%</div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="flow-section">
-              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                <div className="cicle-icon-small icon-users">
-                  <i style={{ color: "#db4a3a" }} class="fa fa-motorcycle fa-2x"></i>
-                </div>
-              </div>
-
-              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                <div className="flow-block">
-                  <div className="title-flow">10.000/20.000 users/school</div>
-                  <div className="flow-perc">
-                    <div className="flow-bar">
-                      <div className="vehicle-flow users"></div>
-                      <div className="vehicle-flow-background"></div>
-                    </div>
-                    <div className="perc">50%</div>
+              <div className="flow-section">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                  <div className="cicle-icon-small icon-users">
+                    <i style={{ color: "#db4a3a" }} class="fa fa-motorcycle fa-2x"></i>
                   </div>
                 </div>
 
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                  <div className="flow-block">
+                    <div className="title-flow">10.000/20.000 users/school</div>
+                    <div className="flow-perc">
+                      <div className="flow-bar">
+                        <div className="vehicle-flow users"></div>
+                        <div className="vehicle-flow-background"></div>
+                      </div>
+                      <div className="perc">50%</div>
+                    </div>
+                  </div>
 
+
+                </div>
               </div>
-            </div>
 
-          </div>
+            </div>
           </div>
 
         </div>

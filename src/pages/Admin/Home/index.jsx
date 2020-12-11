@@ -16,9 +16,12 @@ function Home() {
   const [weekChartData, setWeekChartData] = useState(0);
   const [weekDataTotal, setWeekDataTotal] = useState(0);
 
-  // const data of the nearest Month
+  // const data flow of the nearest Month
   const [monthChartData, setMonthChartData] = useState(0);
   const [monthDataTotal, setMonthDataTotal] = useState(0);
+  // const data totp up of the nearest Month
+  const [todayTopUp, setTodayTopUp] = useState(0);
+  const [monthTopUp, setMonthTopUp] = useState(0);
 
   //const authData = JSON.parse(localStorage.getItem('authData'));
   const currentMonth = moment();
@@ -34,7 +37,8 @@ function Home() {
   var myDateVariable= moment().format("dddd, Do MMM, YYYY")
  
   useEffect(() => {
-    getDataStatistic();
+    getDataFolowStatistic();
+    getDataTopUpStatistic();
   }, [])
 
   const getDayList = (startDay, endDay) => {
@@ -52,7 +56,6 @@ function Home() {
     }
     return days;
   }
-
 
   const getMonthList = (startMonth, endMonth) => {
     let months = [];
@@ -74,79 +77,96 @@ function Home() {
   let currentMonthAgo = getMonthList(oneYearAgo, currentMonth);
 
   //get week statistic form Firebase
-  function getDataStatistic() {
+  function getDataFolowStatistic() {
 
     //get data form Firebase
-    firebaseApp.database().ref("ChartStatis/")
+    firebaseApp.database().ref("History/parkingMan/moneyOut/")
       .on('value', (snapshot) => {
         let snapshotValue = snapshot.val();
         let arr = [];
         for (let obj in snapshotValue) {
           Array.prototype.push.apply(arr, [snapshotValue[obj]]);
         }
-        getWeekStatistic(arr);
-        getMonthStatistic(arr);
+       
+        let arr1 = [];
+        arr.map((obj) => {
+          for (let ob in obj) {
+            Array.prototype.push.apply(arr1, [obj[ob]]);
+          }
+        })
+         // console.log(convertDay[0])
+        getWeekFolowStatistic(arr1);
+        getMonthFolowStatistic(arr1);
       })
   }
 
   // get weekly data statistic other place
-  const getMonthStatistic = (arr) => {
+  const getWeekFolowStatistic = (arr) => {
+    let revenue =
+    {
+      nvl254: 0,
+      qtr: 0,
+      nvl334: 0,
+      hk: 0
+    };
+    let count = 0;
    
-    let monthCount = 0;
-    let getCountPlace = [];
-    let newMonthChartData = currentMonthAgo.map((item) => {
-     
+    let newWeekChartData = currentMonthAgo.map((item) => {
       let nvl254 = 0;
       let qtr = 0;
       let nvl334 = 0;
       let hk = 0;
-     
-      arr.map((ob) => {
-        let arr1 = [];
-        //getCountPlace = ob.chartData[item.year].month[10].day
-        getCountPlace = ((ob.chartData || {})[item.year]?.month || {})[item.month]?.day || {};
 
-        for (let obj in getCountPlace) {
-          Array.prototype.push.apply(arr1, [getCountPlace[obj]]);
+
+      arr.map((ob) => {
+        let convertDay = ob.dateGet.split(/-| /, 3);
+        // console.log(convertDay[0])
+        // console.log(convertDay[1])
+
+
+        if (item.month == convertDay[1] && item.year == convertDay[0]) {
+
+          if (ob.place == 1) {
+            nvl254++;
+          } else
+            if (ob.place == 2) {
+              qtr++;
+            } else
+              if (ob.place == 3) {
+                nvl334++;
+              } else
+                if (ob.place == 4) {
+                  hk++;
+                }
         }
-      
        
-        arr1.map((ob) => {
-          // ID 1: 254 Nguyen Van Linh
-          // ID 2: Quang Trung
-          // ID 3: 254 334 Nguyen Van Linh
-          // ID 4: Hoa Khanh
-          // nvl254 += ob["1"];
-          // qtr += ob["2"];
-          // nvl334 += ob["3"];
-          // hk += ob["4"];
-          nvl254 += ob["1"] ? ob["1"] : 0;
-          qtr += ob["2"] ? ob["2"] : 0;
-          nvl334 += ob["3"] ? ob["3"] : 0;
-          hk += ob["4"] ? ob["4"] : 0;
-          //console.log(hk);
-        })
       })
 
-      monthCount = nvl254 + qtr + nvl334 + hk;
+      revenue.nvl254 += nvl254;
+      revenue.qtr += qtr;
+      revenue.nvl334 += nvl334;
+      revenue.hk += hk;
+      count = nvl254 + qtr + nvl334 + hk;
+
       return {
-        "month": `${MONTH_FORMAT[item.month]}`,
+        "date": item,
         "254 NVL": nvl254,
         "03 QT": qtr,
         "334 NVL": nvl334,
         "Hoa Khanh": hk,
-
+        "name": `${MONTH_FORMAT[item.month]}`,
       }
     })
-    setMonthChartData(newMonthChartData)
-    setMonthDataTotal(monthCount);
+   
+    setMonthChartData(newWeekChartData)
+    setMonthDataTotal(count)
   }
 
   // get weekly data statistic other place
-  const getWeekStatistic = (arr) => {
+  const getMonthFolowStatistic = (arr) => {
 
     let weekCount = 0;
-    let getCountPlace = [];
+    
     let newWeekChartData = currentWeekAgo.map((item, index) => {
       let nvl254 = 0;
       let qtr = 0;
@@ -154,19 +174,27 @@ function Home() {
       let hk = 0;
 
       arr.map((ob) => {
-        
-        getCountPlace = (((ob.chartData || {})[item.year]?.month || {})[item.month]?.day || {})[2];
-        getCountPlace = getCountPlace?getCountPlace:{};
-        // ID 1: 254 Nguyen Van Linh
-        // ID 2: Quang Trung
-        // ID 3: 254 334 Nguyen Van Linh
-        // ID 4: Hoa Khanh
-        nvl254 += getCountPlace["1"]?getCountPlace["1"]:0;
-        qtr += getCountPlace["2"]?getCountPlace["2"]:0;
-        nvl334 += getCountPlace["3"]?getCountPlace["3"]:0;
-        hk += getCountPlace["4"]?getCountPlace["4"]:0;
-        //console.log(getCountPlace)
+        let convertDay = ob.dateGet.split(/-| /, 3);
+        // console.log(convertDay[0])
+        // console.log(convertDay[1])
 
+
+        if (item.day == convertDay[2] && item.month == convertDay[1] && item.year == convertDay[0]) {
+
+          if (ob.place == 1) {
+            nvl254++;
+          } else
+            if (ob.place == 2) {
+              qtr++;
+            } else
+              if (ob.place == 3) {
+                nvl334++;
+              } else
+                if (ob.place == 4) {
+                  hk++;
+                }
+        }
+       
       })
       setTotalToday254NVL(nvl254);
       setTotalToday334nvl(nvl334);
@@ -181,16 +209,63 @@ function Home() {
         "03 QT": qtr,
         "334 NVL": nvl334,
         "Hoa Khanh": hk,
-
+        
       }
     })
     setWeekChartData(newWeekChartData)
     setWeekDataTotal(weekCount);
   }
-  // get data from now to 7 day previous
+ 
+  //get week statistic form Firebase
+  function getDataTopUpStatistic() {
 
+    //get data form Firebase
+    firebaseApp.database().ref("History/parkingMan/moneyIn/")
+      .on('value', (snapshot) => {
+        let snapshotValue = snapshot.val();
+        let arr = [];
+        for (let obj in snapshotValue) {
+          Array.prototype.push.apply(arr, [snapshotValue[obj]]);
+        }
+       
+        let arr1 = [];
+        arr.map((obj) => {
+          for (let ob in obj) {
+            Array.prototype.push.apply(arr1, [obj[ob]]);
+          }
+        })
+        
+         // console.log(convertDay[0])
+         getTodayTopUpStatistic(arr1);
+         
+      })
+  }
+
+  // get weekly data statistic other place
+  const getTodayTopUpStatistic = (arr) => {
+    
+    let todayCount = 0;
+    let monthCount = 0;
+      arr.map((ob) => {
+        let convertDay = ob.dateSend.split(/-| /, 3);
+     
+        if (moment().format("MM") == convertDay[1] && moment().format("YYYY") == convertDay[0]) {
+          if (moment().format("DD") == convertDay[2]){
+            todayCount += parseInt(ob.payMoney)
+          }
+          monthCount += parseInt(ob.payMoney)
+          
+        }
+      })
+      setTodayTopUp(todayCount)
+      setMonthTopUp(monthCount)
+  }
+const formatVND = (x) =>{
+  return x.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
+}
+ 
   return (
-    <div className="home">
+    <div className="home-admin">
       <div className="home-week-static">
         <div className="home-week-items">
           <div className="home-week-info">
@@ -288,7 +363,7 @@ function Home() {
                 margin={{ top: 35, right: 5 }} color="#fff"
                 fill='white'
               >
-                <XAxis dataKey="month" />
+                <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
@@ -303,13 +378,49 @@ function Home() {
         <div class="col-xs-4">
           <div className="home-revenue">
             <div className="revenue-box revenue-today">
-              <div className="time">Today</div>
+              <div className="time">Flow</div>
               <div className="revenue-block">
                 <div className="cicle-icon">
                   <i style={{ color: "#db4a3a" }} class="far fa-money-bill-alt"></i>
                   {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                 </div>
-                <div className="revenue"> {weekDataTotal}.000 VND</div>
+                <div className="revenue"> {formatVND(parseInt(`${weekDataTotal}000`))} </div>
+              </div>
+              <div className="get-date">
+                <div className="calendar-icon">
+                  <i class="far fa-calendar-alt"></i>
+                </div>
+                <div className="moment-month">{myDateVariable}</div>
+              </div>
+            </div>
+
+            <div className="revenue-box revenue-today">
+              <div className="time">Top Up</div>
+              <div className="revenue-block">
+                <div className="cicle-icon">
+                  <i style={{ color: "#db4a3a" }} class="far fa-money-bill-alt"></i>
+                  {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
+                </div>
+                <div className="revenue"> {formatVND(todayTopUp)} </div>
+              </div>
+              <div className="get-date">
+                <div className="calendar-icon">
+                  <i class="far fa-calendar-alt"></i>
+                </div>
+                <div className="moment-month">{myDateVariable}</div>
+              </div>
+            </div>
+          
+          </div>
+          <div className="home-revenue">
+          <div className="revenue-box revenue-monthly">
+              <div className="time">Revenue</div>
+              <div className="revenue-block">
+                <div className="cicle-icon">
+                  <i style={{ color: "#db4a3a" }} class="far fa-money-bill-alt"></i>
+                  {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
+                </div>
+                <div className="revenue"> {formatVND(parseInt(`${weekDataTotal}000`)+todayTopUp)}</div>
               </div>
               <div className="get-date">
                 <div className="calendar-icon">
@@ -320,13 +431,13 @@ function Home() {
             </div>
 
             <div className="revenue-box revenue-monthly">
-              <div className="time">Monthly</div>
+              <div className="time">Revenue</div>
               <div className="revenue-block">
                 <div className="cicle-icon">
                   <i style={{ color: "#3642eb" }} class="far fa-money-bill-alt"></i>
                   {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                 </div>
-                <div className="revenue"> {monthDataTotal}.000 VND</div>
+                <div className="revenue">{formatVND((parseInt(`${monthDataTotal}000`)+monthTopUp))}</div>
               </div>
               <div className="get-date">
                 <div className="calendar-icon">
@@ -335,6 +446,7 @@ function Home() {
                 <div className="moment-month">{month}, {year}</div>
               </div>
             </div>
+          
           </div>
           <div className="home-flow">
             <div className="flow-section">

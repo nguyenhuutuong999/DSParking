@@ -12,9 +12,9 @@ import branchImg from '../../assets/images/branch.png';
 function DefaultLayout2({ component: Component, role, ...props }) {
 
   const authData = JSON.parse(localStorage.getItem('user'));
-  console.log(authData)
 
   if (!authData) {
+
     return <Redirect to="/login" />
   } else if (authData.position !== role) {
     if (authData.position === '1') {

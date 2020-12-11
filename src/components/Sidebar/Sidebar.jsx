@@ -105,6 +105,13 @@ function Sidebar(props) {
       icon: () =><FaUsers className="icons" />
 
     },
+    {
+      name: "Payment", 
+      to: "/admin/payment",
+      exact: true,
+      icon: () =><FaUsers className="icons" />
+
+    },
   ];
 
   const sidebarMap = () => {
