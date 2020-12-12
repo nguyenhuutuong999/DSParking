@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import './styles.css'
-import { FaEnvelope, FaLock } from 'react-icons/fa';
 import { connect } from "react-redux";
 import * as actions from "./../../redux/actions/index";
 
@@ -31,26 +30,20 @@ function Login(props) {
             <div className="wrap-input100">
               <input className="input100" type="text" value={account.user} name="user" onChange={handleChange} placeholder="Tên đăng nhập" />
               <span className="focus-input100"></span>
-              <span className="symbol-input100">
-                <FaEnvelope />
-              </span>
+              
             </div>
 
             <div className="wrap-input100">
               <input className="input100" type="password" value={account.pass} name="pass" onChange={handleChange} />
               <span className="focus-input100"></span>
-              <span className="symbol-input100">
-                <FaLock />
-              </span>
+             
             </div>
             <h5 className="text-light">{requestAccount.mess ? "Username/Password invalid !" : ""}</h5>
             <div className="container-login100-form-btn">
               <button type="submit" className="login100-form-btn">
                 Login
               </button>
-              {/* {account.mess &&
-                <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" alt='waiting'/>
-              } */}
+              
             </div>
             <div className="login-text">
               <div>

@@ -61,13 +61,6 @@ function Sidebar(props) {
       icon: () =><FaPenSquare className="icons" />
     },
     {
-      name: "Quản lí account",
-      to: "/manage",
-      exact: true,
-      position: 2,
-      icon: () =><FaSignOutAlt className="icons" />
-    },
-    {
       name: "Cài đặt",
       to: "/setting",
       exact: true,
@@ -84,7 +77,6 @@ function Sidebar(props) {
       icon: () =><FaHome className="icons" />
 
     },
-
     {
       name: "Profile",
       to: "/admin/profile",
@@ -106,8 +98,8 @@ function Sidebar(props) {
 
     },
     {
-      name: "Payment", 
-      to: "/admin/payment",
+      name: "Logout", 
+      to: "/login",
       exact: true,
       icon: () =><FaUsers className="icons" />
 
@@ -143,13 +135,16 @@ function Sidebar(props) {
     }
     }
 
-
   return (
-    <div className="navbar">
-      <ul className="navbar-nav">
-        {sidebarMap()}
+     role === "1"? 
+     (<div className="navbar"><ul className="navbar-nav">{sidebarMap()}
+     </ul>
+      </div>):
+      (<div className="navbar-admin"><ul className="navbar-nav-admin">{sidebarMap()}
       </ul>
-    </div>
+    </div>)
+   
+        
   );
 }
 

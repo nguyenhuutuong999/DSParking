@@ -37,7 +37,7 @@ function Header({ signOut }) {
   }
 
   const handleLogout = () => {
-    firebaseApp.auth().signOut();
+    
     localStorage.removeItem('user');
     return history.push('/login');
   }
@@ -90,50 +90,65 @@ function Header({ signOut }) {
       </Menu>
     )
   }
+  const sidebarr = () => {
+   var local = JSON.parse(localStorage.getItem("user")) ;
+    if(local.position === "2"){
+      return (
+     <div></div>
+        )
+    }else{
+      return(
+        
+        <div className="app-header">
+        <div className="welcome">
+          <p>Xin chào, {userData.name} !!!</p>
+    
+        </div>
+        <Space className="header-right" align="center" size="middle">
+          <div className="header-balance">
+            <Space>
+              <DollarOutlined />
+              <p>{parseInt(userData.money)?.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
+            </Space>
+          </div>
+          <div className="div-svg-header">
+            <FaQrcode onClick={() => handleShowQrModal()} />
+          </div>
+    
+          <div className="div-svg-header">
+    
+            <Dropdown overlay={renderDropdownNotification()} placement="bottomRight">
+              {/* <Badge count={2}> */}
+              <FaBell />
+              {/* </Badge> */}
+            </Dropdown>
+          </div>
+    
+          <Dropdown overlay={renderDropdownAvatar()} placement="bottomCenter">
+            <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} src={userData.avatar ? userData.avatar : AvatarDefault} alt="Avatar" />
+          </Dropdown>
+        </Space>
+    
+        <Modal
+          title="QRCode của bạn: "
+          visible={isShowQrModal}
+          footer={false}
+          onOk={handleHideQrModal}
+          onCancel={handleHideQrModal}
+        >
+          <QRCode value={`${user.id}${userData.secretNum}`} size={250} style={{ margin: '0 110px' }} />
+          <div onClick={() => handleChangeQRCode()}><Button type="primary" ghost >Đổi QRCode</Button></div>
+        </Modal>
+      </div>
+    
+      )
+      
+    }
+   
+  }
 
   return (
-    <div className="app-header">
-      <div className="welcome">
-        <p>Xin chào, {userData.name} !!!</p>
-
-      </div>
-      <Space className="header-right" align="center" size="middle">
-        <div className="header-balance">
-          <Space>
-            <DollarOutlined />
-            <p>{parseInt(userData.money)?.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
-          </Space>
-        </div>
-        <div className="div-svg-header">
-          <FaQrcode onClick={() => handleShowQrModal()} />
-        </div>
-
-        <div className="div-svg-header">
-
-          <Dropdown overlay={renderDropdownNotification()} placement="bottomRight">
-            {/* <Badge count={2}> */}
-            <FaBell />
-            {/* </Badge> */}
-          </Dropdown>
-        </div>
-
-        <Dropdown overlay={renderDropdownAvatar()} placement="bottomCenter">
-          <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} src={userData.avatar ? userData.avatar : AvatarDefault} alt="Avatar" />
-        </Dropdown>
-      </Space>
-
-      <Modal
-        title="QRCode của bạn: "
-        visible={isShowQrModal}
-        footer={false}
-        onOk={handleHideQrModal}
-        onCancel={handleHideQrModal}
-      >
-        <QRCode value={`${user.id}${userData.secretNum}`} size={250} style={{ margin: '0 110px' }} />
-        <div onClick={() => handleChangeQRCode()}><Button type="primary" ghost >Đổi QRCode</Button></div>
-      </Modal>
-    </div>
-
+    sidebarr()
   );
 }
 

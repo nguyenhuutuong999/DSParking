@@ -1,15 +1,15 @@
 import React from 'react';
 import './styles.css'
-import history from "./../../util/history";
+import history from "../../util/history";
 
 import { Route, Redirect } from "react-router-dom";
 
 import Header from '../Header';
-import Sidebar from "./../../components/Sidebar/Sidebar";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 import branchImg from '../../assets/images/branch.png';
 
-function DefaultLayout2({ component: Component, role, ...props }) {
+function LayoutUser({ component: Component, role, ...props }) {
 
   const authData = JSON.parse(localStorage.getItem('user'));
 
@@ -50,4 +50,4 @@ function DefaultLayout2({ component: Component, role, ...props }) {
 
 }
 
-export default DefaultLayout2;
+export default LayoutUser;
