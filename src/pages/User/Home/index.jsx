@@ -62,16 +62,16 @@ function Home() {
 
   const columnsHistory = [
     {
-      title: 'Ngày', dataIndex: 'dateSend', key: 'dateSend',
+      title: 'Date', dataIndex: 'date', key: 'date',
     },
     {
-      title: 'Thời gian', dataIndex: 'dateSend', key: 'dateSend',
+      title: 'Time In', dataIndex: 'timeIn', key: 'timeIn',
     },
     {
-      title: 'Địa điểm', dataIndex: 'place', key: 'place',
+      title: 'Place', dataIndex: 'place', key: 'place',
     },
     {
-      title: 'Biển số', dataIndex: 'plateLicense', key: 'plateLicense',
+      title: 'Plate License', dataIndex: 'plateLicense', key: 'plateLicense',
     },
   ];
 
@@ -91,7 +91,11 @@ function Home() {
 
         for (let obj in snapshotValue) {
           //get child object
-          Array.prototype.push.apply(arr, [snapshotValue[obj]]);
+          // Array.prototype.push.apply(arr, [snapshotValue[obj]]);
+          arr = [
+            ...arr,
+            snapshotValue[obj],
+          ];
         }
         const newWeekChartData = currentWeekAgo.map((item) => {
           let weekCount = 0;
@@ -143,17 +147,17 @@ function Home() {
     firebaseApp.database().ref(`/History/parkingMan/moneyOut/${user.id}`).on('value', (snapshot) => {
       let snapshotHistoryValue = snapshot.val();
       let newCheckInHistory = [];
-      for (let obj in snapshotHistoryValue) {
-        Array.prototype.push.apply(newCheckInHistory, [snapshotHistoryValue[obj]]);
-      }
+      // for (let obj in snapshotHistoryValue) {
+      //   Array.prototype.push.apply(newCheckInHistory, [snapshotHistoryValue[obj]]);
+      // }
       for (let checkInId in snapshotHistoryValue) {
         if (newCheckInHistory.length <= 3) {
           newCheckInHistory = [
             {
-              date: moment(snapshotHistoryValue[checkInId].dateSend, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
-              timeIn: moment(snapshotHistoryValue[checkInId].dateSend, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
+              date: moment(snapshotHistoryValue[checkInId].dateSend, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YYYY'),
+              timeIn: moment(snapshotHistoryValue[checkInId].dateSend, 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss'),
               place: `${LOCATION[snapshotHistoryValue[checkInId].place]}`,
-              plateLicense: snapshotHistoryValue.plateLicense
+              plateLicense: snapshotHistoryValue[checkInId].plateLicense
             },
             ...newCheckInHistory,
           ]
@@ -219,7 +223,7 @@ function Home() {
         <div className="home-history">
           <div className="home-history-detail">
             <div className="home-history-title">
-              <h4>Lịch sử ra vào</h4>
+              <h4>Parking History</h4>
             </div>
             <div className="home-his-table">
               <div className="div-history-table">
@@ -246,14 +250,14 @@ function Home() {
                 <span>{userData.idStudent}</span>
                 <span>{userData.birthday ? userData.birthday : '-'}</span>
                 <span>
-                  <Button onClick={() => history.push('/profile')} style={{ marginTop: '30px' }}>Xem thông tin cá nhân</Button>
+                  <Button onClick={() => history.push('/profile')} style={{ marginTop: '30px' }}>Profile</Button>
                 </span>
               </div>
             </div>
           </div>
         </div>
         <div className="home-qrcode">
-          <p>Mã QrCode của bạn:</p>
+          <p>Your QrCode:</p>
           <div className="home-qrcode-img">
             <QRCode value={`${user.id}${userData.secretNum}`} size={140} />
           </div>

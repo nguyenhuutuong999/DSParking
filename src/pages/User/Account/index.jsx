@@ -48,15 +48,15 @@ function Account({
     firebaseApp.database().ref(`/History/parkingMan/moneyOut/${user.id}`).on('value', (snapshot) => {
       let snapshotHistoryValue = snapshot.val();
       let newCheckInHistory = [];
-      for (let obj in snapshotHistoryValue) {
-        Array.prototype.push.apply(newCheckInHistory, [snapshotHistoryValue[obj]]);
-      }
+      // for (let obj in snapshotHistoryValue) {
+      //   Array.prototype.push.apply(newCheckInHistory, [snapshotHistoryValue[obj]]);
+      // }
       for (let checkInId in snapshotHistoryValue) {
         if (newCheckInHistory.length <= 3) {
           newCheckInHistory = [
             {
               place: `${LOCATION[snapshotHistoryValue[checkInId].place]}`,
-              plateLicense: snapshotHistoryValue.plateLicense,
+              plateLicense: snapshotHistoryValue[checkInId].plateLicense,
               dateGet: moment(snapshotHistoryValue[checkInId].dateGet, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
               dateSend: moment(snapshotHistoryValue[checkInId].dateSend, 'YYYYMMDDHHmm').format('DD/MM/YYYY'),
             },
@@ -70,27 +70,27 @@ function Account({
 
   const columns = [
     {
-      title: 'Mã GD',
+      title: 'Trading code',
       dataIndex: 'id',
       key: 'idPay',
     },
     {
-      title: 'Thời gian',
+      title: 'Time',
       dataIndex: 'date',
       key: 'dateSend',
     },
     {
-      title: 'Số tiền',
+      title: 'Amount of money',
       dataIndex: 'money',
       key: 'money',
     },
     {
-      title: 'Nội dung',
+      title: 'Content',
       dataIndex: 'content',
       key: 'content',
     },
     {
-      title: 'Số dư',
+      title: 'Balance',
       dataIndex: 'balance',
       key: 'balance',
     },
@@ -105,7 +105,7 @@ function Account({
         renderItem={(item) => (
           <List.Item>
             <List.Item.Meta
-              title={`${LOCATION[item.place]}`}
+              title={item.place}
               description={item.plateLicense}
             />
             <div>
@@ -122,12 +122,12 @@ function Account({
     <div className="dsp-account">
       <div className="content-account">
         <Tabs defaultActiveKey="1">
-          <TabPane tab="Lịch sử giao dịch" key="1">
+          <TabPane tab="Transaction History" key="1">
             <div className="div-table">
               <Table columns={columns} dataSource={transactionHistory} pagination={{ pageSize: 7 }} />
             </div>
           </TabPane>
-          <TabPane tab="Lịch sử gửi xe" key="2">
+          <TabPane tab="Parking History" key="2">
             <div className="history-parking">
               {renderHistoryList()}
             </div>

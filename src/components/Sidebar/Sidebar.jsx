@@ -19,56 +19,49 @@ function Sidebar(props) {
 
     },
     {
-      name: "Thông tin cá nhân",
+      name: "Profile",
       to: "/profile",
       exact: true,
       position: 0,
       icon: () =><FaUser className="icons" />
     },
     {
-      name: "Thông báo",
+      name: "Notifications",
       to: "/notifications",
       exact: true,
       position: 1,
       icon: () =><FaBell className="icons" />
     },
     {
-      name: "Lịch sử",
+      name: "History",
       to: "/account",
       exact: true,
       position: 1,
       icon: () =><FaAddressCard className="icons" />
     },
     {
-      name: "Thống kê",
+      name: "Statistics",
       to: "/statistic",
       exact: true,
       position: 0,
       icon: () =><FaChartArea className="icons" />
     },
     {
-      name: "Hỗ trợ",
+      name: "Support",
       to: "/support",
       exact: true,
       position: 1,
       icon: () =><FaQuestionCircle className="icons" />
     },
     {
-      name: "Đánh giá",
+      name: "Evaluations",
       to: "/evaluation",
       exact: true,
       position: 1,
       icon: () =><FaPenSquare className="icons" />
     },
     {
-      name: "Quản lí account",
-      to: "/manage",
-      exact: true,
-      position: 2,
-      icon: () =><FaSignOutAlt className="icons" />
-    },
-    {
-      name: "Cài đặt",
+      name: "Setting",
       to: "/setting",
       exact: true,
       position: 0,

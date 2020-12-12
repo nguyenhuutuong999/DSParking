@@ -38,12 +38,6 @@ function Profile() {
     wrapperCol: { span: 19 },
   };
 
-  const handleChangeQRCode = () => {
-    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).update({
-      secretNum: Math.random().toString().substr(2, 4),
-    })
-  }
-
   const handleSubmitForm = () => {
     const profileValue = editProfileForm.getFieldsValue();
     firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).update({
@@ -87,16 +81,16 @@ function Profile() {
                 <div className="information-content">
                   <>
                     <div className="info-user-title">
-                      <p><FaUser />Tên người dùng:</p>
-                      <p><FaIdCardAlt />Mã sinh viên:</p>
-                      <p><FaPortrait />CMND:</p>
-                      <p><FaBirthdayCake />Ngày sinh:</p>
+                      <p><FaUser />Name:</p>
+                      <p><FaIdCardAlt />Student Code:</p>
+                      <p><FaPortrait />Identity Card:</p>
+                      <p><FaBirthdayCake />Birth day:</p>
                       <p><FaIdCardAlt />Email: </p>
-                      <p><FaMapMarkerAlt />Địa chỉ/Tổ/Thôn:</p>
-                      <p><FaMapMarkedAlt />Phường/Xã:</p>
-                      <p><FaBuilding />Quận/Huyện:</p>
-                      <p><FaCity />Tỉnh/Thành phố:</p>
-                      <p><FaGlobeAsia />Quốc gia: </p>
+                      <p><FaMapMarkerAlt />Address:</p>
+                      <p><FaMapMarkedAlt />Ward:</p>
+                      <p><FaBuilding />District:</p>
+                      <p><FaCity />City:</p>
+                      <p><FaGlobeAsia />Country: </p>
                     </div>
                     <div className="info-user-content">
                       <p>{userData.name ? userData.name : '-'}</p>
