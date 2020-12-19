@@ -151,7 +151,7 @@ function Home() {
       //   Array.prototype.push.apply(newCheckInHistory, [snapshotHistoryValue[obj]]);
       // }
       for (let checkInId in snapshotHistoryValue) {
-        if (newCheckInHistory.length <= 3) {
+        // if (newCheckInHistory.length <= 3) {
           newCheckInHistory = [
             {
               date: moment(snapshotHistoryValue[checkInId].dateSend, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YYYY'),
@@ -161,7 +161,7 @@ function Home() {
             },
             ...newCheckInHistory,
           ]
-        }
+        // }
       }
       setCheckInHistory([...newCheckInHistory]);
     })

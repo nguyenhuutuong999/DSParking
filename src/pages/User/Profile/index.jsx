@@ -38,23 +38,6 @@ function Profile() {
     wrapperCol: { span: 19 },
   };
 
-  const handleSubmitForm = () => {
-    const profileValue = editProfileForm.getFieldsValue();
-    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).update({
-      name: profileValue.name,
-      email: profileValue.email,
-      idStudent: profileValue.idStudent,
-      identityCard: profileValue.identityCard,
-      ...profileValue.birthday && { birthday: profileValue.birthday },
-      ...profileValue.adress && { adress: profileValue.adress },
-      ...profileValue.ward && { ward: profileValue.ward },
-      ...profileValue.district && { district: profileValue.district },
-      ...profileValue.city && { city: profileValue.city },
-      ...profileValue.country && { country: profileValue.country },
-    })
-    setIsEditProfile(false)
-  }
-
   return (
     <div className="profile-page">
       <div className="div-information">

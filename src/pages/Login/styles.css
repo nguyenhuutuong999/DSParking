@@ -218,7 +218,7 @@ iframe {
   }
 }
 
-@keyframes anim-shadow {
+/* @keyframes anim-shadow {
   to {
     box-shadow: 0px 0px 70px 25px;
     opacity: 0;
@@ -236,7 +236,7 @@ iframe {
   color: #666666;
 
  
-}
+} */
 
 .input100:focus + .focus-input100 + .symbol-input100 {
   color: #b99052;

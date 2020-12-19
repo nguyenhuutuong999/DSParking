@@ -52,7 +52,6 @@ function Account({
       //   Array.prototype.push.apply(newCheckInHistory, [snapshotHistoryValue[obj]]);
       // }
       for (let checkInId in snapshotHistoryValue) {
-        if (newCheckInHistory.length <= 3) {
           newCheckInHistory = [
             {
               place: `${LOCATION[snapshotHistoryValue[checkInId].place]}`,
@@ -62,7 +61,6 @@ function Account({
             },
             ...newCheckInHistory,
           ]
-        }
       }
       setCheckInHistory([...newCheckInHistory]);
     })
@@ -109,8 +107,8 @@ function Account({
               description={item.plateLicense}
             />
             <div>
-              <p>{item.dateGet}</p>
-              <p>{item.dateSend}</p>
+              <p>Date Send: {item.dateSend}</p>
+              <p>Date Get: {item.dateGet}</p>
             </div>
           </List.Item>
         )}
