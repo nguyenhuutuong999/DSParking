@@ -99,10 +99,10 @@
 }
 
 /*Information*/
-.information {
-  width: 980px;
-  height: 480px;
-  margin-left: 40px;
+.profile-admin .information {
+  width: 50%;
+  height: 50vh;
+  margin-left: 10px;
   margin-right: 10px;
   background-color: #ffffffcc;
   box-shadow: 3px 4px 8px #f0e5ba;
@@ -140,8 +140,8 @@
   margin-top: 50px;
 }
 
-.info-user {
-  width: 520px;
+.profile-admin .info-user {
+  width: 100%;
   padding: 10px;
   height: 250px;
   margin: 58px auto;
@@ -149,7 +149,7 @@
   justify-content: center;
 }
 
-.info-user-title {
+.profile-admin .info-user-title {
   width: 40%;
   height: 100%;
 }
@@ -163,10 +163,10 @@
   margin: 0px 10px;
 }
 
-.info-user-content {
-  width: 60%;
+.profile-admin .info-user-content {
+  width: 50%;
   height: 100%;
-  padding: 0px 20px;
+  
 }
 
 .info-user-content p {

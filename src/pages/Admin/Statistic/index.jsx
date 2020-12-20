@@ -15,7 +15,7 @@ function Statistic() {
   const [revenue, setRevenue] = useState({})
 
   const [selectedFromDate, setSelectedFromDate] = useState(
-    moment("11/01/2020")
+    moment("11/01/2020") 
   )
   const [selectedToDate, setSelectedToDate] = useState(
     moment()
@@ -362,7 +362,7 @@ function Statistic() {
 
       <div className="col-xs-12">
         <div className="from-to">
-          <div class="input-group input-group-sm mb-3">
+         
             <select onChange={onSelector} value={selectPlace} name="place" id="input-state" style={{ fontSize: "13px" }} className="form-control-statistic">
               <option value={0}>All</option>
               <option value={1}>254 Nguyễn Văn Linh</option>
@@ -370,8 +370,8 @@ function Statistic() {
               <option value={3}>Hòa Khánh</option>
               <option value={4}>334/4 Nguyễn Văn Linh</option>
             </select>
-          </div>
-          <div class="input-group input-group-sm mb-3">
+         
+         
             <div class="input-group-prepend" style={{ width: "70px" }}>
               <span class="input-group-text" id="inputGroup-sizing-sm">From</span>
             </div>
@@ -396,8 +396,8 @@ function Statistic() {
               </MuiPickersUtilsProvider>
             </div>
 
-          </div>
-          <div class="input-group input-group-sm mb-3">
+         
+         
             <div class="input-group-prepend" style={{ width: "40px" }}>
               <span class="input-group-text" id="inputGroup-sizing-sm">To</span>
             </div>
@@ -422,25 +422,25 @@ function Statistic() {
               </MuiPickersUtilsProvider>
             </div>
 
-          </div>
+       
 
 
         </div>
         <div className="from-to">
 
-          <div class="input-group input-group-sm mb-3">
+          
             <div class="input-group-prepend" style={{ width: "70px" }}>
               <button class="input-group-text filter filter-month" onClick={() => setStateOnFilterMonth()} id="">Month</button>
             </div>
             {/* <input type="text" class="form-control-statistic" aria-label="Small" aria-describedby="inputGroup-sizing-sm" /> */}
 
-          </div>
-          <div class="input-group input-group-sm mb-3">
+          
+          
             <div class="input-group-prepend" style={{ width: "70px" }}>
               <button class="input-group-text filter filter-year" onClick={() => setStateOnFilterYear()} id="">Year</button>
             </div>
 
-          </div>
+       
 
 
         </div>

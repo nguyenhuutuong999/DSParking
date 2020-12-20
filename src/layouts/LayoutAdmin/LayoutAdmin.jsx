@@ -22,21 +22,21 @@ function LayoutAdmin({ component: Component, role, ...props }) {
     } else {
       return <Redirect to="/admin" />
     }
-  }
+  } 
   return (
     <Route
       {...props}
       render={(routerProps) => (
         <>
-          <div className="app-background">
-            <div className="app-container">
+          <div className="app-background-admin">
+            <div className="app-container-admin">
               <div className="app-sidebar">
                 <img src={branchImg} className="branch-img" alt="logo" />
                 <Sidebar {...routerProps} role={role} />
               </div>
               <div className="app-main">
                 <Header {...routerProps} />
-                <div className="app-content">
+                <div className="app-content-admin">
                   <Component {...routerProps} />
 
                 </div>

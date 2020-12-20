@@ -5,7 +5,7 @@ import {
 } from 'recharts';
 import QRCode from 'qrcode.react';
 import moment from 'moment';
-import './styles.css'
+import './styles.css' 
 
 import AvatarDefault from '../../../img/avatardefault.jpg'
 import history from '../../../util/history'

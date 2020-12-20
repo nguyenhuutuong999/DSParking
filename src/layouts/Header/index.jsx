@@ -23,7 +23,7 @@ function Header({ signOut }) {
   const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).on('value', (snapshot) => {
+    firebaseApp.database().ref(`/User/information/${user.position === "1"?"parkingMan":"admin"}/${user.id}`).on('value', (snapshot) => {
       setUserData({ ...snapshot.val() });
     })
   }, [])
@@ -94,14 +94,18 @@ function Header({ signOut }) {
    var local = JSON.parse(localStorage.getItem("user")) ;
     if(local.position === "2"){
       return (
-     <div></div>
+        <div className="app-header">
+        <div className="welcome">
+          <p>Welcome Back, {userData.name} !!!</p>
+          </div>
+      </div>
         )
     }else{
       return(
         
         <div className="app-header">
         <div className="welcome">
-          <p>Xin chào, {userData.name} !!!</p>
+          <p>Welcome Back, {userData.name} !!!</p>
     
         </div>
         <Space className="header-right" align="center" size="middle">

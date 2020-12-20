@@ -11,6 +11,8 @@ import { Router, Switch } from 'react-router-dom';
 import LayoutLogin from './pages/Login/index';
 import { createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from "./redux/sagas/index"
 import { Provider } from 'react-redux';
 
 import HomeA from './pages/Admin/Home/index';
@@ -32,8 +34,9 @@ import Setting from './pages/User/Setting';
 import LayoutAdmin from "./layouts/LayoutAdmin/LayoutAdmin";
 import LayoutUser from "./layouts/LayoutUser/LayoutUser";
 
-
-const myStore = createStore(myReducer, applyMiddleware(thunk));
+const sagaMiffleware = createSagaMiddleware();
+const myStore = createStore(myReducer, applyMiddleware(thunk,sagaMiffleware));
+sagaMiffleware.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>

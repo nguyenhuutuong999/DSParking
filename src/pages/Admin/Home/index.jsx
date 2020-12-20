@@ -4,7 +4,7 @@ import './styles.css';
 import moment from 'moment';
 import { WEEKDAY_FORMAT, MONTH_FORMAT } from '../../../constants/common';
 import {firebaseApp} from './../../../configs/firebase';
-///tuong ne
+
 
 function Home() {
 
