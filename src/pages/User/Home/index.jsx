@@ -174,8 +174,8 @@ function Home() {
           <div className="home-statistic-items">
             <div className="home-statistic-info">
               <div className="icon-title-statistics">
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#ffe7ba' }}>
-                  < FaMotorcycle style={{ fontSize: '25px', fill: '#db5c00', marginTop: '8px' }} />
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#c4b0e3' }}>
+                  < FaMotorcycle style={{ fontSize: '25px', fill: '#b300b3', marginTop: '8px' }} />
                 </div>
                 <h5>Lượt gửi tuần</h5>
               </div>
@@ -190,7 +190,7 @@ function Home() {
                   <XAxis dataKey="day" />
                   <YAxis dataKey="count" />
                   <Tooltip />
-                  <Line type="monotone" dataKey="count" stroke="#db5c00" strokeWidth={2} />
+                  <Line type="monotone" dataKey="count" stroke="#b300b3" strokeWidth={2} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -198,8 +198,8 @@ function Home() {
           <div className="home-statistic-items">
             <div className="home-statistic-info">
               <div className="icon-title-statistics">
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#ffe7ba' }}>
-                  < FaMotorcycle style={{ fontSize: '25px', fill: '#db5c00', marginTop: '8px' }} />
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#c4b0e3' }}>
+                  < FaMotorcycle style={{ fontSize: '25px', fill: '#b300b3', marginTop: '8px' }} />
                 </div>
                 <h5>Lượt gửi tháng</h5>
               </div>
@@ -214,7 +214,7 @@ function Home() {
                   <Tooltip />
                   <XAxis dataKey="day" />
                   <YAxis dataKey="count" />
-                  <Line type="monotone" dataKey="count" stroke="#db5c00" strokeWidth={2} />
+                  <Line type="monotone" dataKey="count" stroke="#b300b3" strokeWidth={2} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
