@@ -29,17 +29,17 @@
   font-weight: 600;
 }
 .nav-item-active .nav-link{
-  color:rgb(64, 30, 128) ;
+  color:#c44a8a ;
 }
 .nav-item-active .link-text{
-  color: rgb(64, 30, 128) ;
+  color:#c44a8a ;
   font-size: 16px;
   font-weight: 600;
 }
 
 .nav-item-active{
-  background-color: #f9e6ff;
-  border-right: 5px solid rgb(64, 30, 128) ;
+  background-color: rgba(196,74,138,0.25);
+  border-right: 5px solid #c44a8a ;
 }
 
 .nav-item:last-child{
@@ -56,7 +56,7 @@
   text-decoration: none;
 }
 .nav-link:hover{
-  color:rgb(64, 30, 128);
+  color:#c44a8a;
   text-decoration: none;
 }
 

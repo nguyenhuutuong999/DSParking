@@ -23,7 +23,10 @@ import { WEEKDAY_FORMAT } from "../../../constants/common";
 import { firebaseApp } from "../../../configs/firebase";
 
 function Statistic({ dataYear }) {
-  console.log("🚀 ~ file: index.jsx ~ line 26 ~ Statistic ~ dataYear", dataYear)
+  console.log(
+    "🚀 ~ file: index.jsx ~ line 26 ~ Statistic ~ dataYear",
+    dataYear
+  );
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [weekChartData, setWeekChartData] = useState([]);
@@ -124,9 +127,9 @@ function Statistic({ dataYear }) {
           arr.map((ob) => {
             let convertDay = ob.dateGet.split(/-| /, 3);
             if (
-              item.day == convertDay[2] &&
-              item.month == convertDay[1] &&
-              item.year == convertDay[0]
+              item.day === convertDay[2] &&
+              item.month === convertDay[1] &&
+              item.year === convertDay[0]
             ) {
               weekCount++;
             }

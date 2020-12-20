@@ -1,77 +1,88 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import {
-  ResponsiveContainer, LineChart, Line, YAxis, XAxis, Tooltip
-} from 'recharts';
-import QRCode from 'qrcode.react';
-import moment from 'moment';
-import './styles.css'
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  YAxis,
+  XAxis,
+  Tooltip,
+} from "recharts";
+import QRCode from "qrcode.react";
+import moment from "moment";
+import "./styles.css";
 
-import AvatarDefault from '../../../img/avatardefault.jpg'
-import history from '../../../util/history'
+import AvatarDefault from "../../../img/avatardefault.jpg";
+import history from "../../../util/history";
+
+import { Button, Tooltip as Tip, Table } from "antd";
+
+import { FaMotorcycle } from "react-icons/fa";
+
+import { getHistoryList } from "../../../redux/actions/index";
+
+import { firebaseApp } from "../../../configs/firebase";
 
 import {
-  Button,
-  Tooltip as Tip,
-  Table
-} from 'antd';
-
-import { FaMotorcycle } from 'react-icons/fa';
-
-import { getHistoryList } from '../../../redux/actions/index';
-
-import {
-  firebaseApp,
-} from '../../../configs/firebase';
-
-import { WEEKDAY_FORMAT, CHECKIN_FORMAT, LOCATION } from '../../../constants/common';
+  WEEKDAY_FORMAT,
+  CHECKIN_FORMAT,
+  LOCATION,
+} from "../../../constants/common";
 
 function Home() {
   const [userData, setUserData] = useState({});
 
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [checkInHistory, setCheckInHistory] = useState([]);
   const [weekChartData, setWeekChartData] = useState([]);
   const [monthChartData, setMonthChartData] = useState([]);
 
-  const [totalWeekCount, setTotalWeekCount] = useState('0');
-  const [totalMonthCount, setTotalMonthCount] = useState('0');
+  const [totalWeekCount, setTotalWeekCount] = useState("0");
+  const [totalMonthCount, setTotalMonthCount] = useState("0");
   const currentDay = moment();
-  const oneWeekAgo = moment().subtract(6, 'days');
-  const oneMonthAgo = moment().subtract(1, 'month').add(1, 'days');
+  const oneWeekAgo = moment().subtract(6, "days");
+  const oneMonthAgo = moment().subtract(1, "month").add(1, "days");
 
-  const currentMonth = moment().format('MM');
-  const currentYear = moment().format('YYYY');
+  const currentMonth = moment().format("MM");
+  const currentYear = moment().format("YYYY");
 
   const getDayList = (startDay, endDay) => {
     let days = [];
-    for (let date = startDay; date <= endDay; date.add(1, 'days')) {
+    for (let date = startDay; date <= endDay; date.add(1, "days")) {
       days = [
         ...days,
         {
-          day: date.format('DD'),
-          month: date.format('MM'),
-          year: date.format('YYYY'),
+          day: date.format("DD"),
+          month: date.format("MM"),
+          year: date.format("YYYY"),
           weekday: date.weekday(),
         },
-      ]
+      ];
     }
     return days;
-  }
+  };
 
   const columnsHistory = [
     {
-      title: 'Date', dataIndex: 'date', key: 'date',
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
     },
     {
-      title: 'Time In', dataIndex: 'timeIn', key: 'timeIn',
+      title: "Time In",
+      dataIndex: "timeIn",
+      key: "timeIn",
     },
     {
-      title: 'Place', dataIndex: 'place', key: 'place',
+      title: "Place",
+      dataIndex: "place",
+      key: "place",
     },
     {
-      title: 'Plate License', dataIndex: 'plateLicense', key: 'plateLicense',
+      title: "Plate License",
+      dataIndex: "plateLicense",
+      key: "plateLicense",
     },
   ];
 
@@ -79,12 +90,17 @@ function Home() {
     const currentWeekAgo = getDayList(oneWeekAgo, currentDay);
     const currentMonthAgo = getDayList(oneMonthAgo, currentDay);
 
-    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).on('value', (snapshot) => {
-      setUserData({ ...snapshot.val() });
-    })
+    firebaseApp
+      .database()
+      .ref(`/User/information/parkingMan/${user.id}`)
+      .on("value", (snapshot) => {
+        setUserData({ ...snapshot.val() });
+      });
 
-    firebaseApp.database().ref(`/History/parkingMan/moneyOut/${user.id}`)
-      .on('value', (snapshot) => {
+    firebaseApp
+      .database()
+      .ref(`/History/parkingMan/moneyOut/${user.id}`)
+      .on("value", (snapshot) => {
         let snapshotValue = snapshot.val();
         let newTotalWeekCount = 0;
         let arr = [];
@@ -92,32 +108,35 @@ function Home() {
         for (let obj in snapshotValue) {
           //get child object
           // Array.prototype.push.apply(arr, [snapshotValue[obj]]);
-          arr = [
-            ...arr,
-            snapshotValue[obj],
-          ];
+          arr = [...arr, snapshotValue[obj]];
         }
         const newWeekChartData = currentWeekAgo.map((item) => {
           let weekCount = 0;
           arr.map((ob) => {
             let convertDay = ob.dateGet.split(/-| /, 3);
-            if (item.day == convertDay[2] && item.month == convertDay[1] && item.year == convertDay[0]) {
+            if (
+              item.day == convertDay[2] &&
+              item.month == convertDay[1] &&
+              item.year == convertDay[0]
+            ) {
               weekCount++;
             }
-          })
+          });
           newTotalWeekCount += weekCount;
           return {
             day: `${WEEKDAY_FORMAT[item.weekday]}`,
             count: weekCount,
-          }
-        })
+          };
+        });
         setTotalWeekCount(newTotalWeekCount);
-        setWeekChartData([...newWeekChartData])
-      })
+        setWeekChartData([...newWeekChartData]);
+      });
 
     //Chart Month
-    firebaseApp.database().ref(`/History/parkingMan/moneyOut/${user.id}`)
-      .on('value', (snapshot) => {
+    firebaseApp
+      .database()
+      .ref(`/History/parkingMan/moneyOut/${user.id}`)
+      .on("value", (snapshot) => {
         let snapshotValue = snapshot.val();
         let newTotalMonthCount = 0;
         let arr = [];
@@ -129,43 +148,56 @@ function Home() {
           let monthCount = 0;
           arr.map((ob) => {
             let convertDay = ob.dateGet.split(/-| /, 3);
-            if (item.day == convertDay[2] && item.month == convertDay[1] && item.year == convertDay[0]) {
+            if (
+              item.day == convertDay[2] &&
+              item.month == convertDay[1] &&
+              item.year == convertDay[0]
+            ) {
               monthCount++;
             }
-          })
+          });
           newTotalMonthCount += monthCount;
           return {
             day: `${item.day}/${item.month}`,
             count: monthCount,
-          }
-        })
+          };
+        });
         setTotalMonthCount(newTotalMonthCount);
-        setMonthChartData([...newMonthChartData])
-      })
+        setMonthChartData([...newMonthChartData]);
+      });
 
     //History
-    firebaseApp.database().ref(`/History/parkingMan/moneyOut/${user.id}`).on('value', (snapshot) => {
-      let snapshotHistoryValue = snapshot.val();
-      let newCheckInHistory = [];
-      // for (let obj in snapshotHistoryValue) {
-      //   Array.prototype.push.apply(newCheckInHistory, [snapshotHistoryValue[obj]]);
-      // }
-      for (let checkInId in snapshotHistoryValue) {
-        // if (newCheckInHistory.length <= 3) {
+    firebaseApp
+      .database()
+      .ref(`/History/parkingMan/moneyOut/${user.id}`)
+      .on("value", (snapshot) => {
+        let snapshotHistoryValue = snapshot.val();
+        let newCheckInHistory = [];
+        // for (let obj in snapshotHistoryValue) {
+        //   Array.prototype.push.apply(newCheckInHistory, [snapshotHistoryValue[obj]]);
+        // }
+        for (let checkInId in snapshotHistoryValue) {
+          // if (newCheckInHistory.length <= 3) {
           newCheckInHistory = [
             {
-              date: moment(snapshotHistoryValue[checkInId].dateSend, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YYYY'),
-              timeIn: moment(snapshotHistoryValue[checkInId].dateSend, 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss'),
+              date: moment(
+                snapshotHistoryValue[checkInId].dateSend,
+                "YYYY-MM-DD HH:mm:ss"
+              ).format("DD/MM/YYYY"),
+              timeIn: moment(
+                snapshotHistoryValue[checkInId].dateSend,
+                "YYYY-MM-DD HH:mm:ss"
+              ).format("HH:mm:ss"),
               place: `${LOCATION[snapshotHistoryValue[checkInId].place]}`,
-              plateLicense: snapshotHistoryValue[checkInId].plateLicense
+              plateLicense: snapshotHistoryValue[checkInId].plateLicense,
             },
             ...newCheckInHistory,
-          ]
-        // }
-      }
-      setCheckInHistory([...newCheckInHistory]);
-    })
-  }, [])
+          ];
+          // }
+        }
+        setCheckInHistory([...newCheckInHistory]);
+      });
+  }, []);
 
   return (
     <div className="home">
@@ -174,8 +206,21 @@ function Home() {
           <div className="home-statistic-items">
             <div className="home-statistic-info">
               <div className="icon-title-statistics">
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#c4b0e3' }}>
-                  < FaMotorcycle style={{ fontSize: '25px', fill: '#b300b3', marginTop: '8px' }} />
+                <div
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    backgroundColor:  "rgba(196,74,138,0.25)",
+                  }}
+                >
+                  <FaMotorcycle
+                    style={{
+                      fontSize: "25px",
+                      fill: "#b300b3",
+                      marginTop: "8px",
+                    }}
+                  />
                 </div>
                 <h5>Lượt gửi tuần</h5>
               </div>
@@ -188,9 +233,18 @@ function Home() {
                   margin={{ top: 10, right: 30, left: -30, bottom: -10 }}
                 >
                   <XAxis dataKey="day" />
-                  <YAxis dataKey="count" />
+                  <YAxis
+                    dataKey="count"
+                    type="number"
+                    domain={[0, (dataMax) => (dataMax <= 4 ? 4 : dataMax)]}
+                  />
                   <Tooltip />
-                  <Line type="monotone" dataKey="count" stroke="#b300b3" strokeWidth={2} />
+                  <Line
+                    type="monotone"
+                    dataKey="count"
+                    stroke="#c44a8a"
+                    strokeWidth={2}
+                  />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -198,8 +252,21 @@ function Home() {
           <div className="home-statistic-items">
             <div className="home-statistic-info">
               <div className="icon-title-statistics">
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#c4b0e3' }}>
-                  < FaMotorcycle style={{ fontSize: '25px', fill: '#b300b3', marginTop: '8px' }} />
+                <div
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    backgroundColor: " rgba(196,74,138,0.25)",
+                  }}
+                >
+                  <FaMotorcycle
+                    style={{
+                      fontSize: "25px",
+                      fill: "#c44a8a",
+                      marginTop: "8px",
+                    }}
+                  />
                 </div>
                 <h5>Lượt gửi tháng</h5>
               </div>
@@ -213,8 +280,17 @@ function Home() {
                 >
                   <Tooltip />
                   <XAxis dataKey="day" />
-                  <YAxis dataKey="count" />
-                  <Line type="monotone" dataKey="count" stroke="#b300b3" strokeWidth={2} />
+                  <YAxis
+                    dataKey="count"
+                    type="number"
+                    domain={[0, (dataMax) => (dataMax <= 4 ? 4 : dataMax)]}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="count"
+                    stroke="#c44a8a"
+                    strokeWidth={2}
+                  />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -242,15 +318,23 @@ function Home() {
         <div className="home-user">
           <div className="home-user-detail">
             <div className="user-img">
-              <img src={userData.avatar ? userData.avatar : AvatarDefault} alt="Avatar" />
+              <img
+                src={userData.avatar ? userData.avatar : AvatarDefault}
+                alt="Avatar"
+              />
             </div>
             <div className="home-user-info">
               <div className="user-information">
                 <span className="name">{userData.name}</span>
                 <span>{userData.idStudent}</span>
-                <span>{userData.birthday ? userData.birthday : '-'}</span>
+                <span>{userData.birthday ? userData.birthday : "-"}</span>
                 <span>
-                  <Button onClick={() => history.push('/profile')} style={{ marginTop: '30px' }}>Profile</Button>
+                  <Button
+                    onClick={() => history.push("/profile")}
+                    style={{ marginTop: "30px" }}
+                  >
+                    Profile
+                  </Button>
                 </span>
               </div>
             </div>
@@ -264,7 +348,7 @@ function Home() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Home;
