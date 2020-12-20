@@ -8,6 +8,7 @@ import Header from '../Header';
 import Sidebar from "../../components/Sidebar/Sidebar";
 
 import branchImg from '../../assets/images/branch.png';
+import logo from '../../assets/images/logo.jpg'
 
 function LayoutAdmin({ component: Component, role, ...props }) {
 
@@ -31,7 +32,7 @@ function LayoutAdmin({ component: Component, role, ...props }) {
           <div className="app-background">
             <div className="app-container">
               <div className="app-sidebar">
-                <img src={branchImg} className="branch-img" alt="logo" />
+                <img src={logo} className="branch-img" alt="logo" />
                 <Sidebar {...routerProps} role={role} />
               </div>
               <div className="app-main">

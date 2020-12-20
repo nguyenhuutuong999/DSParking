@@ -5,17 +5,14 @@ var user = JSON.parse(localStorage.getItem("user"));
 const initialState = user
   ? user
   : {
-    user: "",
-    pass: "",
-    mess: false,
-  };
+      user: "",
+      pass: "",
+      mess: false,
+    };
 var myReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.LOGIN: {
-
-      return {
-        
-      }
+      return {};
     }
     case types.LOGIN_FAIL: {
       return {
@@ -23,11 +20,11 @@ var myReducer = (state = initialState, action) => {
         user: "",
         pass: "",
         mess: true,
-      }
+      };
     }
     case types.LOGIN_SUCCESS: {
-      console.log("test tuong")
-      history.push('/');
+      console.log("test tuong");
+      history.push("/");
       // return {
       //   ...state,
       //   user: "",
@@ -40,4 +37,3 @@ var myReducer = (state = initialState, action) => {
   }
 };
 export default myReducer;
- 
