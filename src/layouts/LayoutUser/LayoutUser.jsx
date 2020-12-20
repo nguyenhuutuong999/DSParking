@@ -7,7 +7,7 @@ import { Route, Redirect } from "react-router-dom";
 import Header from '../Header';
 import Sidebar from "../../components/Sidebar/Sidebar";
 
-import branchImg from '../../assets/images/branch.png';
+import branchImg from '../../assets/images/logo.jpg';
 
 function LayoutUser({ component: Component, role, ...props }) {
 
