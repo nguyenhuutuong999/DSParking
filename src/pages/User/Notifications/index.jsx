@@ -80,7 +80,7 @@ function Notifications() {
     <div className="notification">
       <div className="table-notification">
         <Tabs defaultActiveKey="1">
-          <TabPane tab="Thông báo" key="1">
+          <TabPane tab="Notifications" key="1">
             <Table
               columns={columns}
               expandable={{
@@ -96,7 +96,6 @@ function Notifications() {
       <ConfirmModal
         isShowModal={isShowConfirmModal}
         handleHideModal={handleHideConfirmModal}
-
         modalData={confirmModalData}
       />
     </div>

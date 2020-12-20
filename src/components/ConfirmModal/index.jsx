@@ -18,8 +18,7 @@ function ConfirmModal({
         okText="Đồng ý"
         cancelText="Hủy"
       >
-        <p>Nộp tiền vào tài khoản !!! </p>
-
+        <p>Are you sure want to log out? </p>
       </Modal>
     </>
   )
