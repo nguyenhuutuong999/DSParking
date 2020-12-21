@@ -17,7 +17,7 @@ function LayoutAdmin({ component: Component, role, ...props }) {
 
     return <Redirect to="/login" />
   } else if (authData.position !== role) {
-    if (authData.position === '1') {
+    if (authData.position === '3') {
       return <Redirect to="/" />
     } else {
       return <Redirect to="/admin" />

@@ -42,20 +42,20 @@ ReactDOM.render(
         <Switch>
           <LayoutLogin exact path="/login" component={Login}/>
          
-          <LayoutAdmin exact role="2" path="/admin" component={HomeA} />
-          <LayoutAdmin exact role="2" path="/admin/account" component={AccountA} />
-          <LayoutAdmin exact role="2" path="/admin/profile" component={ProfileA} />
-          <LayoutAdmin exact role="2" path="/admin/statistic" component={StatisticA} />
-          <LayoutAdmin exact role="2" path="/admin/management" component={ManageA} />
+          <LayoutAdmin exact role="4" path="/admin" component={HomeA} />
+          <LayoutAdmin exact role="4" path="/admin/account" component={AccountA} />
+          <LayoutAdmin exact role="4" path="/admin/profile" component={ProfileA} />
+          <LayoutAdmin exact role="4" path="/admin/statistic" component={StatisticA} />
+          <LayoutAdmin exact role="4" path="/admin/management" component={ManageA} />
           {/* <LayoutAdmin exact role="2" path="/admin/payment" component={Payment} /> */}
-          <LayoutUser exact role="1" path="/" component={Home} />
-          <LayoutUser exact role="1" path="/profile" component={Profile} />
-          <LayoutUser exact role="1" path="/account" component={Account} />
-          <LayoutUser exact role="1" path="/evaluation" component={Evaluation} />
-          <LayoutUser exact role="1" path="/notifications" component={Notifications} />
-          <LayoutUser exact role="1" path="/statistic" component={Statistic} />
-          <LayoutUser exact role="1" path="/support" component={Support} />
-          <LayoutUser exact role="1" path="/setting" component={Setting} />
+          <LayoutUser exact role="3" path="/" component={Home} />
+          <LayoutUser exact role="3" path="/profile" component={Profile} />
+          <LayoutUser exact role="3" path="/account" component={Account} />
+          <LayoutUser exact role="3" path="/evaluation" component={Evaluation} />
+          <LayoutUser exact role="3" path="/notifications" component={Notifications} />
+          <LayoutUser exact role="3" path="/statistic" component={Statistic} />
+          <LayoutUser exact role="3" path="/support" component={Support} />
+          <LayoutUser exact role="3" path="/setting" component={Setting} />
         </Switch>
     </Router>
     </Provider>

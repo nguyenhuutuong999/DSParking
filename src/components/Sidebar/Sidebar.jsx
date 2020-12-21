@@ -8,13 +8,20 @@ import { FaUser, FaBell, FaChartArea, FaQuestionCircle, FaPenSquare, FaCog, FaSi
 import history from '../../util/history'
 
 function Sidebar(props) {
+
+  // const handleLogout = () => {
+    
+  //   localStorage.removeItem("user");
+  //   return history.push("/login");
+  // };
+
   const { role } = props;
   const user_menus = [
     {
       name: "Home",
       to: "/",
       exact: true,
-      position: 0,
+      
       icon: () =><FaHome className="icons" />
 
     },
@@ -22,42 +29,37 @@ function Sidebar(props) {
       name: "Profile",
       to: "/profile",
       exact: true,
-      position: 0,
+      
       icon: () =><FaUser className="icons" />
     },
     {
       name: "Notifications",
       to: "/notifications",
       exact: true,
-      position: 1,
       icon: () =><FaBell className="icons" />
     },
     {
       name: "History",
       to: "/account",
       exact: true,
-      position: 1,
       icon: () =><FaAddressCard className="icons" />
     },
     {
       name: "Statistics",
       to: "/statistic",
       exact: true,
-      position: 0,
       icon: () =><FaChartArea className="icons" />
     },
     {
       name: "Support",
       to: "/support",
       exact: true,
-      position: 1,
       icon: () =><FaQuestionCircle className="icons" />
     },
     {
       name: "Evaluations",
       to: "/evaluation",
       exact: true,
-      position: 1,
       icon: () =><FaPenSquare className="icons" />
     },
     {
@@ -65,7 +67,6 @@ function Sidebar(props) {
       name: "Setting",
       to: "/setting",
       exact: true,
-      position: 0,
       icon: () =><FaCog className="icons" />
     },
   ];
@@ -102,14 +103,14 @@ function Sidebar(props) {
       name: "Logout", 
       to: "/login",
       exact: true,
-      icon: () =><FaUsers className="icons" />
-
+      icon: () =><FaUsers className="icons" />,
+      
     },
   ];
 
   const sidebarMap = () => {
 
-    if(role === "1"){
+    if(role === "3"){
       return user_menus.map((item, index) => {
         return (
           <li className={`nav-item ${history.location.pathname === user_menus[index].to && 'nav-item-active'}`} key={index} onClick={() => history.push(user_menus[index].to)}>
@@ -137,7 +138,7 @@ function Sidebar(props) {
     }
 
   return (
-     role === "1"? 
+     role === "3"? 
      (<div className="navbar"><ul className="navbar-nav">{sidebarMap()}
      </ul>
       </div>):

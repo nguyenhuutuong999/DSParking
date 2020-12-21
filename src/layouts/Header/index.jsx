@@ -107,7 +107,7 @@ function Header({ signOut }) {
   }
   const sidebarr = () => {
    var local = JSON.parse(localStorage.getItem("user")) ;
-    if(local.position === "2"){
+    if(local.position == "4"){
       return (
         <div className="app-header">
         <div className="welcome">

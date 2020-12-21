@@ -18,13 +18,14 @@ export const loginSuccess = () => {
   };
 };
 export const loginRequest = (account) => {
+  console.log(account)
   return (dispatch) => {
     var getUser = firebaseApp.database().ref("User/account/" + account.user);
     return getUser.on(
       "value",
       function (snapshot) {
         if (snapshot.val() !== null) {
-          if (snapshot.val().pwd == account.pass) {
+          if (snapshot.val().pwd+"" == account.pass) {
             localStorage.setItem("user", JSON.stringify(snapshot.val()));
             dispatch(loginSuccess());
           } else {
