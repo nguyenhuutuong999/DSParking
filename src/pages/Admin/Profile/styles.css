@@ -35,8 +35,6 @@
   top: 85%;
   left: 70%
 }
-
-
 .title{
   height: 35px;
   background-color: #00474f;
@@ -51,12 +49,11 @@
   margin-right: 5px;
   fill: wheat;
 }
-
 .info-details Form Form.Item{
   margin-bottom: 3px;
 } */
 /*--------------------*/
-.profile-main {
+.profile-admin .profile-main {
   display: flex;
   margin: 0 0;
 }
@@ -99,10 +96,10 @@
 }
 
 /*Information*/
-.information {
-  width: 980px;
-  height: 480px;
-  margin-left: 40px;
+.profile-admin .information {
+  width: 50%;
+  height: 50vh;
+  margin-left: 10px;
   margin-right: 10px;
   background-color: #ffffffcc;
   box-shadow: 3px 4px 8px #f0e5ba;
@@ -131,7 +128,7 @@
 }
 
 /*Form*/
-.information-content {
+.profile-admin .information-content {
   width: 100%;
   height: calc(100% - 62px);
 }
@@ -140,8 +137,8 @@
   margin-top: 50px;
 }
 
-.info-user {
-  width: 520px;
+.profile-admin .info-user {
+  width: 100%;
   padding: 10px;
   height: 250px;
   margin: 58px auto;
@@ -149,7 +146,7 @@
   justify-content: center;
 }
 
-.info-user-title {
+.profile-admin .info-user-title {
   width: 40%;
   height: 100%;
 }
@@ -163,10 +160,10 @@
   margin: 0px 10px;
 }
 
-.info-user-content {
-  width: 60%;
+.profile-admin .info-user-content {
+  width: 50%;
   height: 100%;
-  padding: 0px 20px;
+  
 }
 
 .info-user-content p {

@@ -15,11 +15,11 @@
   height: 30%;
 }
 
-.home-month-chart{
+.home-admin .home-month-chart{
   width: 99%;
   height: 92%;
   opacity: 0.8;
-  border-radius: 6px;
+  border-radius: 3px;
   background: white;
   box-shadow: 
   10px 10px 14px 0 rgba(158, 157, 157, 0.25),
@@ -29,7 +29,7 @@
   padding: 0;
 }
 
-.home-week-items{
+.home-admin .home-week-items{
   position: relative;
   width: 25%;
   opacity: 0.8;
@@ -37,21 +37,20 @@
   padding: 5px;
   height: 100%;
   background: white;
-  border-radius: 5px;
+  border-radius: 3px;
   box-shadow: 
   10px 10px 14px 0 rgba(194, 193, 193, 0.25),
   -8px -0px 10px 0 rgba(255, 255, 255, 0.3);
 }
-.icon-title-statistics{
+.icon-title-statistics-admin{
   position: relative;
   width: 100%;
   margin: 0px;
-  
 }
 .home-week-info{
-  height:40%
+  height:25%
 }
-.home-week-info .number{
+.icon-title-statistics-admin .number{
   position: relative;
   color: #2c2c2c;
   font-size: 20px;
@@ -60,7 +59,7 @@
   width: 30%;
   
 }
-.icon-title-statistics .local{
+.icon-title-statistics-admin .local{
   position: relative;
   font-weight: 700;
   color: #8c8c8c;
@@ -72,18 +71,18 @@
 
 .home-week-chart{
   width: 100%;
-  height: 120px;
+  height: 150px;
 }
 
 .home-history{
   width: calc(100% - 20px);
   height: 60%;
 }
-.home-history-detail{
+.home-admin .home-history-detail{
   width: 100%;
   height: 100%;
   background-color: #ffffff;
-  border-radius: 6px;
+  border-radius: 3px;
   box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -150,29 +149,29 @@ td {
   width: 100%;
   height: 60vh;
 }
-.home-revenue{
+.home-admin .home-revenue{
   width: 98%;
   height: 26%;
   background: white;
   padding: 2%;
   opacity: 1;
-  border-radius: 5px;
+  border-radius: 3px;
   display: flex;
 
 }
-.home-flow{
+.home-admin .home-flow{
   margin-top: 15px;
   width: 98%;
   height: 34%;
   opacity: 0.8;
-  border-radius: 5px;
+  border-radius: 3px;
 }
-.revenue-box{
+ .revenue-box{
   width: 100%;
   height: 50%;
   padding: 1%;
   opacity: 0.9;
-  border-radius: 10px;
+  border-radius: 5px;
   /* box-shadow: 
   10px 10px 14px 0 rgba(148, 148, 148, 0.25),
   -8px -0px 10px 0 rgba(255, 255, 255, 0.3); */
@@ -215,15 +214,16 @@ td {
   margin-top: 3px;
   color: rgb(253, 253, 253);
 }
-.flow-section{
+.home-admin .flow-section{
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 50%;
   margin-bottom: 10px;
   background: white;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 .time{
   font-size: 100%;
@@ -267,35 +267,36 @@ td {
 }
 .cicle-icon-small{
   background: #f5f2f2;
-  border-radius: 5px;
-  width: 60px;
-  height: 60px;
+  border-radius: 3px;
+  width: 100%;
+  height: calc(100% - 0px);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: -40px;
+  box-shadow: 
+  5px 5px 7px 0 rgba(43, 79, 240, 0.13),
+  -5px -0px 5px 0 rgba(255, 255, 255, 0.3);
+}
+.border-icon{
+  height: 100%;
 }
 .icon-users{
-  border: 1px solid #f0c1c1;
   border-top: 0px;
   border-left: 0px;
-  
 }
 .icon-today{
-  border: 1px solid #acb1f1;
-
   border-top: 0px;
   border-left: 0px;
 }
-.home-user-detail{
+.home-admin .home-user-detail{
   height: calc(100% - 20px);
   background-color: white;
-  border-radius: 6px;
+  border-radius: 3px;
   box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.1);
 }
-.home-user-detail .div-img{
+.home-admin .home-user-detail .div-img{
   position: relative;
-  border-radius: 6px 6px 0px 0px;
+  border-radius: 3px 3px 0px 0px;
   height: 32%;
   width: 100%;
   background-color: #db5c00;

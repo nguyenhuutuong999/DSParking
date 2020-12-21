@@ -1,17 +1,24 @@
 import React from 'react';
 import './styles.css';
-
-import {
-  Button,
-  Tooltip,
-  
-} from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import {firebaseApp} from './../../../configs/firebase';
 
 import { FaUser, FaIdCardAlt, FaPortrait, FaBirthdayCake, FaMapMarkerAlt} from 'react-icons/fa';
+import { useEffect } from 'react';
+import { useState } from 'react';
 function Profile() {
+
+ const[userInfor,setUserInfor] = useState({});
+  useEffect(() => {
+    var user = JSON.parse(localStorage.getItem("user"));
+    firebaseApp.database().ref("User/information/admin/"+user.id)
+    .on('value', (snapshot) => {
+      setUserInfor(snapshot.val());
+      
+    })
+  }, [])
+
   return (
-    <div className="profile">
+    <div className="profile-admin">
 
       <div className="profile-main">
       
@@ -20,36 +27,31 @@ function Profile() {
             
                 <div className="info-user">
                   <div className="info-user-title">
-                    <p><FaUser />Tên người dùng:</p>
-                    <p><FaIdCardAlt />ID</p>
-                    <p><FaPortrait />CMND:</p>
-                    <p><FaBirthdayCake />Ngày sinh:</p>
+                    <p><FaUser />Name:</p> 
+                    
+                    <p><FaPortrait />ID:</p>
+                    <p><FaBirthdayCake />Day of Birth:</p>
+                    <p><FaIdCardAlt />Phone:</p>
+
                     <p><FaIdCardAlt />Email: </p>
-                    <p><FaMapMarkerAlt />Địa chỉ hiện tại:</p>
+                    <p><FaMapMarkerAlt />Address:</p>
                     
                   </div>
                   <div className="info-user-content">
-                    <p>Nguyễn Hữu Tường</p>
-                    <p>2320716843</p>
-                    <p>206296503</p>
-                    <p>24/01/1999</p>
-                    <p>nguyentbichni@dtu.edu.vn</p>
-                    <p>Man Thiện, Hải Châu, Đà Nẵng</p>
+                    <p>{userInfor.name}</p>
+                    <p>{userInfor.idA}</p>
+                    <p>{userInfor.birthday}</p>
+                    <p>{userInfor.phone}</p>
+                    <p>{userInfor.email}</p>
+                    <p>{userInfor.address}</p>
                    
                   </div>
-                </div>
-                <div className="div-btn-edit">
-                  <Tooltip title="edit">
-                    <Button type="primary" shape="circle" icon={<EditOutlined />} />
-                  </Tooltip>
                 </div>
              
           </div>
         </div>
       </div>
-      {/* <Tooltip title="edit" >
-        <Button shape="circle" style={{ backgroundColor: '#8c8c8c' }} icon={<EditOutlined/>} />
-      </Tooltip> */}
+      
     </div>
   );
 }

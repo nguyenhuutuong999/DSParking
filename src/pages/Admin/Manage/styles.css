@@ -1,21 +1,24 @@
 .manage{
   width: 100%;
-  margin-top: 50px;
+ 
 }
-  
-td, th{
+.manage td, th{
   padding: 3 !important;
+  
 }
-td{
+.manage td{
+  color:rgb(57, 80, 131)
+}
+.manage td{
   text-align: left;
 }
 .form-inline .form-control{
   width: 90%;
   margin-right : 10px;
 }
-table{
-  border-radius: 6px;
-  background: linear-gradient(-45deg, rgba(161, 160, 160, 0.22), rgba(255, 255, 255, 0.25));
+.manage table{
+  border-radius: 3px;
+  background: white;
   box-shadow: 
   10px 10px 14px 0 rgba(148, 148, 148, 0.25),
   -8px -0px 10px 0 rgba(255, 255, 255, 0.3);
@@ -23,13 +26,21 @@ table{
 .header-manage{
   display: flex;
   align-items: center;
- position: relative;
+  position: relative;
   width: 100%;
+  
+}
+.btn-mybutton{
+  background: #a00c51;
+  color: white;
+  margin-left : 70%;
 }
 .right{
+  margin-left: -2%;
   position: relative;
   width: 30%;
 }
+
 .title{
   position: relative;
   float: left;
@@ -52,4 +63,39 @@ table{
 }
 .col-xs-12{
   margin-bottom: 10px;
+}
+.manage .btn-small{
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:none;
+}
+.manage .btn-small p{
+  width: 100%;
+  font-size: 15px;
+}
+
+.manage .btn-primary{
+  background: rgb(250, 250, 250) !important;
+ color: black !important;
+ border: none !important;
+ width: 40px;
+ height: 25px;
+}
+
+
+.selector-actor{
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 220px !important;
+}
+.manage .form-control-statistic{
+  width: 150px;
+  height: 35px;
+  border-radius: 3px;
+  z-index: 1;
+  background: white;
 }

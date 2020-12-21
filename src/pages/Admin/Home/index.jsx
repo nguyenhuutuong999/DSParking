@@ -269,7 +269,7 @@ const formatVND = (x) =>{
       <div className="home-week-static">
         <div className="home-week-items">
           <div className="home-week-info">
-            <div className="icon-title-statistics">
+            <div className="icon-title-statistics-admin">
 
               <div className="local">254 Nguyễn Văn Linh</div>
               <div className="number">{totalToday254NVL}/500</div>
@@ -277,9 +277,9 @@ const formatVND = (x) =>{
 
           </div>
           <div className="home-week-chart">
-            <ResponsiveContainer width="98%" height={100}>
+            <ResponsiveContainer width="100%" height={130}>
               <LineChart data={weekChartData}
-                margin={{ left: -35, top: 4, right:4 }}
+                margin={{ left: -30, top: 4, right:4 }}
               >
                 <XAxis dataKey="day" tick={{ fill: '#db5c00' }} />
                 <YAxis dataKey="254 NVL" tick={{ fill: '#db5c00' }} />
@@ -291,15 +291,15 @@ const formatVND = (x) =>{
         </div>
         <div className="home-week-items">
           <div className="home-week-info">
-            <div className="icon-title-statistics">
+            <div className="icon-title-statistics-admin">
               <div className="local">03 Quang Trung</div>
               <div className="number">{totalToday03qt}/300</div>
             </div>
           </div>
           <div className="home-week-chart">
-            <ResponsiveContainer width="100%" height={100}>
+            <ResponsiveContainer width="100%" height={130}>
               <LineChart data={weekChartData}
-                margin={{ left: -35, top: 4, right:4 }}
+                margin={{ left: -30, top: 4, right:4 }}
               >
                 <XAxis dataKey="day" tick={{ fill: '#6875E9' }} />
                 <YAxis dataKey="03 QT" tick={{ fill: '#6875E9' }} />
@@ -311,7 +311,7 @@ const formatVND = (x) =>{
         </div>
         <div className="home-week-items">
           <div className="home-week-info">
-            <div className="icon-title-statistics">
+            <div className="icon-title-statistics-admin">
 
               <div className="local">334 Nguyễn Văn Linh</div>
               <div className="number">{totalToday334nvl}/300</div>
@@ -319,9 +319,9 @@ const formatVND = (x) =>{
 
           </div>
           <div className="home-week-chart">
-            <ResponsiveContainer width="100%" height={100}>
+            <ResponsiveContainer width="100%" height={130}>
               <LineChart data={weekChartData}
-                margin={{ left: -35, top: 4, right:4 }}
+                margin={{ left: -30, top: 4, right:4 }}
               >
                 <XAxis dataKey="day" tick={{ fill: '#41B35D' }} />
                 <YAxis dataKey="334 NVL" tick={{ fill: '#41B35D' }} />
@@ -333,7 +333,7 @@ const formatVND = (x) =>{
         </div>
         <div className="home-week-items">
           <div className="home-week-info">
-            <div className="icon-title-statistics">
+            <div className="icon-title-statistics-admin">
 
               <div className="local">Hòa Khánh</div>
               <div className="number">{totalTodayHK}/300</div>
@@ -341,9 +341,9 @@ const formatVND = (x) =>{
 
           </div>
           <div className="home-week-chart">
-            <ResponsiveContainer width="100%" height={100}>
+            <ResponsiveContainer width="100%" height={130}>
               <LineChart data={weekChartData}
-                margin={{ left: -35 , top: 4, right:4 }}
+                margin={{ left: -30 , top: 4, right:4 }}
               >
                 <XAxis dataKey="day" tick={{ fill: '#36A6CA' }} />
                 <YAxis dataKey="Hoa Khanh" tick={{ fill: '#36A6CA' }} />
@@ -450,9 +450,9 @@ const formatVND = (x) =>{
           </div>
           <div className="home-flow">
             <div className="flow-section">
-              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 border-icon">
                 <div className="cicle-icon-small icon-today">
-                  <i style={{ color: "#3642eb" }} class="fa fa-motorcycle fa-2x"></i>
+                  <i style={{ color: "#3642eb" }} class="fas fa-users fa-2x"></i>
                 </div>
               </div>
               <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
@@ -469,9 +469,9 @@ const formatVND = (x) =>{
               </div>
             </div>
             <div className="flow-section">
-              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 border-icon">
                 <div className="cicle-icon-small icon-users">
-                  <i style={{ color: "#db4a3a" }} class="fa fa-motorcycle fa-2x"></i>
+                  <i style={{ color: "#db4a3a" }} class="fas fa-users fa-2x"></i>
                 </div>
               </div>
 

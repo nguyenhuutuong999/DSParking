@@ -26,7 +26,12 @@
   overflow: hidden;
   z-index: 1;
 }
-
+.navbar{
+  padding: 0;
+}
+.navbar-nav li{
+  padding-left: 10px;
+}
 .app-sidebar {
   width: 250px;
   border-right: 2px solid rgb(247, 224, 224);
