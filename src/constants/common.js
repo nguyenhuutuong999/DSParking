@@ -32,8 +32,8 @@ export const LEVEL_NOTIFICATIONS = {
   low: 'Thấp'
 };
 export const LOCATION = {
-  1: '254 Nguyễn Văn Linh',
-  2: 'Quang Trung',
+  1: 'Hòa Khánh',
+  2: '254 Nguyễn Văn Linh',
   3: '334 Nguyễn Văn Linh',
-  4: 'Hòa Khánh Nam'
+  0: 'Quang Trung'
 };

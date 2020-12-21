@@ -23,71 +23,70 @@ import { WEEKDAY_FORMAT } from "../../../constants/common";
 import { firebaseApp } from "../../../configs/firebase";
 
 function Statistic({ dataYear }) {
-  console.log("🚀 ~ file: index.jsx ~ line 26 ~ Statistic ~ dataYear", dataYear)
+  console.log(
+    "🚀 ~ file: index.jsx ~ line 26 ~ Statistic ~ dataYear",
+    dataYear
+  );
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [weekChartData, setWeekChartData] = useState([]);
+  console.log("🚀 ~ file: index.jsx ~ line 33 ~ Statistic ~ weekChartData", weekChartData)
   const [monthChartData, setMonthChartData] = useState([]);
   const [yearChartData, setYearChartData] = useState([
     {
-      name: "Thg 1",
+      name: "Jan",
       CP: 20000,
     },
     {
-      name: "Thg 2",
+      name: "Feb",
       CP: 40000,
     },
     {
-      name: "Thg 3",
+      name: "Mar",
       CP: 25000,
     },
     {
-      name: "Thg 4",
+      name: "Apr",
       CP: 10000,
     },
     {
-      name: "Thg 5",
+      name: "May",
       CP: 50000,
     },
     {
-      name: "Thg 6",
+      name: "June",
       CP: 35000,
     },
     {
-      name: "Thg 7",
+      name: "July",
       CP: 29000,
     },
     {
-      name: "Thg 8",
+      name: "Aug",
       CP: 30000,
     },
     {
-      name: "Thg 9",
+      name: "Sept",
       CP: 20000,
     },
     {
-      name: "Thg 10",
+      name: "Oct",
       CP: 56000,
     },
     {
-      name: "Thg 11",
+      name: "Nov",
       CP: 17000,
     },
     {
-      name: "Thg 12",
+      name: "Dec",
       CP: 23000,
     },
   ]);
-
-  const currentDay = moment();
   const startWeekDay = moment().startOf("isoWeek");
   const endWeekDay = moment().endOf("isoWeek");
 
   const startMonth = moment().startOf("month");
   const endMonth = moment().endOf("month");
-
-  // const currentMonth = moment().format('MM');
-  const currentYear = moment().format("YYYY");
 
   const getDayList = (startDay, endDay) => {
     let days = [];
@@ -170,13 +169,12 @@ function Statistic({ dataYear }) {
       });
   }, []);
 
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
   return (
     <div className="statistic">
       <div className="statistic-row1">
         <div className="statistic-week">
           <div className="div-statistic-head">
-            <h3>Lượt gửi/ Tuần</h3>
+            <h3>Parking times / week</h3>
           </div>
           <div style={{ height: "83%", padding: "20px" }}>
             <ResponsiveContainer>
@@ -200,7 +198,7 @@ function Statistic({ dataYear }) {
                 <CartesianGrid strokeDasharray="3 3" />
                 <Bar
                   dataKey="count"
-                  fill="#8884d8"
+                  fill="#db92b9"
                   background={{ fill: "#eee" }}
                 />
               </BarChart>
@@ -210,7 +208,7 @@ function Statistic({ dataYear }) {
 
         <div className="statistic-month">
           <div className="div-statistic-head">
-            <h3>Lượt gửi/ Tháng</h3>
+            <h3>Parking times / month</h3>
           </div>
           <div style={{ height: "83%", padding: "20px" }}>
             <ResponsiveContainer>
@@ -230,8 +228,8 @@ function Statistic({ dataYear }) {
                 <Area
                   type="monotone"
                   dataKey="count"
-                  stroke="#8884d8"
-                  fill="#8884d8"
+                  stroke="#c44a8a"
+                  fill="#db92b9"
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -242,7 +240,7 @@ function Statistic({ dataYear }) {
       <div className="statistic-row2">
         <div className="statistic-year">
           <div className="div-statistic-head">
-            <h3>Lượt gửi/ Năm</h3>
+            <h3>Parking times / year</h3>
           </div>
           <div style={{ height: "83%", padding: "20px" }}>
             <ResponsiveContainer>
@@ -265,8 +263,8 @@ function Statistic({ dataYear }) {
                 <Line
                   type="monotone"
                   dataKey="CP"
-                  stroke="#8884d8"
-                  fill="#8884d8"
+                  stroke="#c44a8a"
+                  fill="#c44a8a"
                 />
               </LineChart>
             </ResponsiveContainer>

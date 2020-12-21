@@ -22,46 +22,54 @@ function Notifications() {
 
 
   useEffect(() => {
-    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}/notification/notifi1`).on('value', (snapshot) => {
-      let snapshotNotificationList = snapshot.val();
-      console.log("🚀 ~ file: index.jsx ~ line 27 ~ firebaseApp.database ~ snapshotNotificationList", snapshotNotificationList)
-      let newNotificationList = [];
-      for (let notificationIndex in snapshotNotificationList) {
-        newNotificationList = [
-          {
-            id: 'null',
-            // level: snapshotNotificationList[notificationIndex].level,
-            title: snapshotNotificationList.title,
-            content: snapshotNotificationList[notificationIndex].content,
-            date: moment(snapshotNotificationList[notificationIndex].date, 'YYYYMMDDHHmm').format('DD/MM/YYYY HH:mm'),
-          },
-          ...newNotificationList,
-        ]
-      }
-      setNotificationList([...newNotificationList]);
-    })
-  }, [])
+    firebaseApp
+      .database()
+      .ref(`/User/information/parkingMan/${user.id}/notification`)
+      .on("value", (snapshot) => {
+        let snapshotNotificationList = snapshot.val();
+        let newNotificationList = [];
+        for (let notificationIndex in snapshotNotificationList) {
+          newNotificationList = [
+            {
+              key: notificationIndex,
+              title: snapshotNotificationList[notificationIndex].title,
+              content: snapshotNotificationList[notificationIndex].content,
+              date: moment(
+                snapshotNotificationList[notificationIndex].date,
+                "YYYY-MM-DD"
+              ).format("DD/MM/YYYY"),
+            },
+            ...newNotificationList,
+          ];
+        }
+        console.log('🚀 ~ file: index.jsx ~ line 35 ~ .on ~ newNotificationList', newNotificationList);
+        setNotificationList([...newNotificationList]);
+      });
+  }, []);
 
-  const columns = [
+  const notificationTableColumns = [
     {
-      dataIndex: 'level', key: 'level',
-      render: (_, record) => {
-        return (
-          <Tag color={record.level === 'high' ? 'red' : 'gold'}>
-            {LEVEL_NOTIFICATIONS[record.level]}
-          </Tag>
-        )
-      }
+      dataIndex: "title",
+      key: "title",
     },
     {
-      dataIndex: 'title', key: 'title',
+      dataIndex: "date",
+      key: "date",
+      width: 150,
     },
     {
-      dataIndex: 'date', key: 'date',
-    },
-    {
-      dataIndex: '', key: 'x',
-      render: (_, record) => <Button danger onClick={() => handleShowConfirmModal(record.id)} type="text"><FaTrashAlt /></Button>,
+      dataIndex: "action",
+      key: "action",
+      width: 50,
+      render: (_, record) => (
+        <Button
+          danger
+          onClick={() => handleShowConfirmModal(record.id)}
+          type="text"
+        >
+          <FaTrashAlt />
+        </Button>
+      ),
     },
   ];
 
@@ -82,7 +90,7 @@ function Notifications() {
         <Tabs defaultActiveKey="1">
           <TabPane tab="Notifications" key="1">
             <Table
-              columns={columns}
+              columns={notificationTableColumns}
               expandable={{
                 expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
               }}

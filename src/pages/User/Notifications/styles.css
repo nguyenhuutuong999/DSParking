@@ -28,13 +28,13 @@
   padding: 0px 20px !important;
 }
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #db5c00 !important;
+  color: #c44a8a !important;
   font-weight: 600 !important;
 }
 
 .ant-tabs-ink-bar {
   position: absolute;
-  background: #db5c00 !important;
+  background: #c44a8a !important;
   pointer-events: none;
 }
 
