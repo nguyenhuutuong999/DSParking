@@ -69,13 +69,13 @@ function Header({ signOut }) {
         <Menu.Item onClick={() => history.push('/profile')} >
           <Space>
             <FaUser />
-            <p> Thông tin cá nhân</p>
+            <p>Profile</p>
           </Space>
         </Menu.Item>
         <Menu.Item onClick={() => handleLogout()}>
           <Space>
             <RollbackOutlined />
-            <p>Đăng xuất</p>
+            <p>Log out</p>
           </Space>
         </Menu.Item>
       </Menu>
@@ -85,22 +85,22 @@ function Header({ signOut }) {
     return (
       <Menu className="noti-dropdown-menu" style={{ width: 300, }}>
         <div className="noti-dropdown-title">
-          <h6>Bạn có 5 thông báo mới</h6>
+          <h6>You have 5 new notifications</h6>
         </div>
         <Menu.Item style={{ height: '40px', borderBottom: '0.2px solid #ededed' }}>
           <Space>
             <FaBirthdayCake style={{ fill: '#8dc63f' }} />
-            <p>Chúc mừng sinh nhật Nguyễn T Bích Ni</p>
+            <p>Happy Birthday to Đạt</p>
           </Space>
         </Menu.Item>
         <Menu.Item style={{ height: '40px', borderBottom: '0.2px solid #ededed' }}>
           <Space>
             <FaExclamationCircle style={{ fill: '#cc3f44' }} />
-            <p>Số dư trong tài khoản dưới 5000</p>
+            <p>Your balance less than 5000</p>
           </Space>
         </Menu.Item>
         <MenuItem style={{ backgroundColor: '#f5f5f5' }} onClick={() => history.push('/notifications')}>
-          <a href="#" style={{ textAlign: 'center', color: '#979898' }}>---Xem tất cả---</a>
+          <a href="#" style={{ textAlign: 'center', color: '#979898' }}>---All---</a>
         </MenuItem>
       </Menu>
     )
