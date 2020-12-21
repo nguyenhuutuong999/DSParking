@@ -26,9 +26,9 @@ function Statistic() {
 
   const [selectPlace, setSelectPlace] = useState(0);
 
-    // const data totp up of the nearest Month
-    const [topUp, setTopUp] = useState(0);
-  
+  // const data totp up of the nearest Month
+  const [topUp, setTopUp] = useState(0);
+
 
   const handleFromDateChange = (date) => {
     setSelectedFromDate(moment(date))
@@ -159,7 +159,7 @@ function Statistic() {
                     hk++;
                   }
           }
-      
+
         })
 
         revenue.nvl254 += nvl254;
@@ -176,7 +176,7 @@ function Statistic() {
           "name": ` ${MONTH_FORMAT[item.month]}, ${item.day}`,
         }
       })
-    
+
       cb(newWeekChartData)
       setRevenue(revenue)
     }
@@ -277,69 +277,69 @@ function Statistic() {
         for (let obj in snapshotValue) {
           Array.prototype.push.apply(arr, [snapshotValue[obj]]);
         }
-       
+
         let arr1 = [];
         arr.map((obj) => {
           for (let ob in obj) {
             Array.prototype.push.apply(arr1, [obj[ob]]);
           }
         })
-        
-         console.log(arr1)
-         getTodayTopUpStatistic(arr1);
-         
+
+        console.log(arr1)
+        getTodayTopUpStatistic(arr1);
+
       })
   }
   const getTodayTopUpStatistic = (arr) => {
     let filterDate = getDayList(selectedFromDate, selectedToDate);
     let count = 0;
-    
+
     filterDate.map((item) => {
-     
+
       arr.map((ob) => {
-        
+
         let convertDay = ob.dateSend.split(/-| /, 3);
-        
+
         if (item.day == convertDay[2] && item.month == convertDay[1] && item.year == convertDay[0]) {
-            count += parseInt(ob.payMoney)
-            console.log(count)
-        
+          count += parseInt(ob.payMoney)
+          console.log(count)
+
         }
-    
+
       })
-     
-    })      
+
+    })
     setTopUp(count)
-     
+
   }
 
-  const perc = (value) => {
-    return Math.round((value / (revenue.nvl254 + revenue.nvl334 + revenue.qtr + revenue.hk) * 100) * 10) / 10;
+   const perc = (value) => {
+    let cal = Math.round((value / (revenue.nvl254 + revenue.nvl334 + revenue.qtr + revenue.hk) * 100) * 10) / 10;
+    return cal;
   }
   const data01 = [
     {
       "name": "254 NVL",
       "value": revenue.nvl254,
-      "color": "#FF8C80",
+      "color": "#5C2BD7",
       "label": `${perc(revenue.nvl254)}%`
-
-    },
-    {
-      "name": "334 NVL",
-      "value": revenue.nvl334,
-      "color": "#8DD1E1",
-      "label": `${perc(revenue.nvl334)}%`
     },
     {
       "name": "03 Quang Trung",
       "value": revenue.qtr,
-      "color": "#A4DE6C",
+      "color": "#F21C58",
       "label": `${perc(revenue.qtr)}%`
+    },
+    {
+      "name": "334 NVL",
+      "value": revenue.nvl334,
+      "color": "#37B684",
+      "label": `${perc(revenue.nvl334)}%`
     },
     {
       "name": "Hoa Khanh",
       "value": revenue.hk,
-      "color": "#6972FF",
+      "color": "#FC591D",
       "label": `${perc(revenue.hk)}%`
     },
 
@@ -353,8 +353,8 @@ function Statistic() {
     setYearFilterData(!yearFilterData);
     setMonthFilterData(false);
   }
-  const formatVND = (x) =>{
-    return x.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
+  const formatVND = (x) => {
+    return x.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })
   }
   return (
 
@@ -428,14 +428,14 @@ function Statistic() {
         </div>
         <div className="from-to">
 
-          <div class="input-group input-group-sm mb-3">
+          <div class="input-group input-group-sm mb-3 filter-button">
             <div class="input-group-prepend" style={{ width: "70px" }}>
               <button class="input-group-text filter filter-month" onClick={() => setStateOnFilterMonth()} id="">Month</button>
             </div>
             {/* <input type="text" class="form-control-statistic" aria-label="Small" aria-describedby="inputGroup-sizing-sm" /> */}
 
           </div>
-          <div class="input-group input-group-sm mb-3">
+          <div class="input-group input-group-sm mb-3 filter-button">
             <div class="input-group-prepend" style={{ width: "70px" }}>
               <button class="input-group-text filter filter-year" onClick={() => setStateOnFilterYear()} id="">Year</button>
             </div>
@@ -446,9 +446,9 @@ function Statistic() {
         </div>
 
         <div className="statistic-chart">
-          <ResponsiveContainer width="98%" height="98%" fill='white'>
+          <ResponsiveContainer width="100%" height="100%" fill='white'>
             <LineChart data={chartData}
-              margin={{ left: -10, top: 20 }}
+              margin={{ left: 0, top: 30, right: 40 }}
               fill='white'
             >
               <XAxis dataKey="name" />
@@ -456,10 +456,11 @@ function Statistic() {
               <Tooltip />
               <Legend />
 
-              {selectPlace == 1 || selectPlace == 0 ? <Line type="monotone" dataKey="254 NVL" stroke="#FF8C80" /> : <Line />}
-              {selectPlace == 2 || selectPlace == 0 ? <Line type="monotone" dataKey="334 NVL" stroke="#8DD1E1" /> : <Line />}
-              {selectPlace == 3 || selectPlace == 0 ? <Line type="monotone" dataKey="03 QT" stroke="#A4DE6C" /> : <Line />}
-              {selectPlace == 4 || selectPlace == 0 ? <Line type="monotone" dataKey="Hoa Khanh" stroke="#6972FF" /> : <Line />}
+              {selectPlace == 1 || selectPlace == 0 ? <Line type="monotone" dataKey="254 NVL" stroke="#5C2BD7" /> : <Line />}
+              {selectPlace == 2 || selectPlace == 0 ? <Line type="monotone" dataKey="334 NVL" stroke="#37B684" /> : <Line />}
+              {selectPlace == 4 || selectPlace == 0 ? <Line type="monotone" dataKey="Hoa Khanh" stroke="#FC591D" /> : <Line />}
+              {selectPlace == 3 || selectPlace == 0 ? <Line type="monotone" dataKey="03 QT" stroke="#F21C58" /> : <Line />}
+             
 
             </LineChart>
           </ResponsiveContainer>
@@ -469,23 +470,24 @@ function Statistic() {
       <div className="col-xs-12">
         <div className="col-xs-3">
           <div className="pie-chart">
-           
-            <ResponsiveContainer width="98%" height="98%" fill='white'>
-              <PieChart >
-              <Label position="inside" />
+
+            <ResponsiveContainer width="100%" height="100%" fill='white'>
+              <PieChart  >
+                <Label position="inside" />
                 <Pie data={data01} nameKey="name" label outerRadius={85} fill="#8884d8" label={(entry) => entry.label}>
                   {
-                     data01.map((index) => (
-                      <Cell key={index.name}  fill={index.color}  />
+                    data01.map((index) => (
+                      <Cell key={index.name} fill={index.color} />
                     ))
                   }
-                 
+
                 </Pie>
                 <Tooltip />
                 <Legend />
               </PieChart>
-              
+
             </ResponsiveContainer>
+          
           </div>
         </div>
 
@@ -496,117 +498,121 @@ function Statistic() {
                 <div className="time"> 254 NVL</div>
                 <div className="revenue-block">
                   <div className="cicle-icon">
-                    <i style={{ color: "#019776dc" }} class="far fa-money-bill-alt"></i>
+                    <i style={{ color: "#5C2BD7" }} class="far fa-money-bill-alt"></i>
                     {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                   </div>
                   <div className="revenue">{formatVND(parseInt(`${revenue.nvl254}000`))}</div>
-                </div> 
-               
+                </div>
+
               </div>
 
               <div className="revenue-box revenue-03qtr">
                 <div className="time">03 Quang Trung</div>
                 <div className="revenue-block">
                   <div className="cicle-icon">
-                    <i style={{ color: "#ADE17B" }} class="far fa-money-bill-alt"></i>
+                    <i style={{ color: "#F21C58" }} class="far fa-money-bill-alt"></i>
                     {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                   </div>
                   <div className="revenue"> {formatVND(parseInt(`${revenue.qtr}000`))}</div>
                 </div>
-               
+
               </div>
               <div className="revenue-box revenue-334nvl">
                 <div className="time">334 NVL</div>
                 <div className="revenue-block">
                   <div className="cicle-icon">
-                    <i style={{ color: "#99D6E4" }} class="far fa-money-bill-alt"></i>
+                    <i style={{ color: "#37B684" }} class="far fa-money-bill-alt"></i>
                     {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                   </div>
                   <div className="revenue"> {formatVND(parseInt(`${revenue.nvl334}000`))}</div>
                 </div>
-               
+
               </div>
               <div className="revenue-box revenue-hk">
                 <div className="time">Hoa Khanh</div>
                 <div className="revenue-block">
                   <div className="cicle-icon">
-                    <i style={{ color: "#20ce85d2" }} class="far fa-money-bill-alt"></i>
+                    <i style={{ color: "#FC591D" }} class="far fa-money-bill-alt"></i>
                     {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                   </div>
                   <div className="revenue">{formatVND(parseInt(`${revenue.hk}000`))}</div>
                 </div>
-               
-              </div>
-              <div className="revenue-box revenue-topup">
-                <div className="time">Top Up</div>
-                <div className="revenue-block">
-                  <div className="cicle-icon">
-                    <i style={{ color: "#FF8C80" }} class="far fa-money-bill-alt"></i>
-                    {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
-                  </div>
-                  <div className="revenue"> {formatVND(parseInt(`${topUp}`))}</div>
-                </div>
-               
-              </div>
-              <div className="revenue-box revenue-revenue">
-                <div className="time">Revenue</div>
-                <div className="revenue-block">
-                  <div className="cicle-icon">
-                    <i style={{ color: "#6972FF" }} class="far fa-money-bill-alt"></i>
-                    {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
-                  </div>
-                  <div className="revenue">{formatVND(parseInt(`${revenue.qtr + revenue.nvl254 + revenue.nvl334 + revenue.hk}000`)+ parseInt(`${topUp}`))}</div>
-                </div>
-               
-              </div>
 
+              </div>
             </div>
           </div>
           <div className="col-xs-6">
-            <div className="home-flow">
-              <div className="flow-section">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                  <div className="cicle-icon-small icon-today">
-                    <i style={{ color: "#3642eb" }} class="fa fa-motorcycle fa-2x"></i>
-                  </div>
-                </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                  <div className="flow-block">
-                    <div className="title-flow">2.000/10.000 users/today</div>
-                    <div className="flow-perc">
-                      <div className="flow-bar">
-                        <div className="vehicle-flow user-today"></div>
-                        <div className="vehicle-flow-background"></div>
-                      </div>
-                      <div className="perc">20%</div>
+            <div className="total-sum">
+              <div className="total-statistic">
+                <div className="revenue-box revenue-topup">
+                  <div className="time">Top Up</div>
+                  <div className="revenue-block">
+                    <div className="cicle-icon">
+                      <i style={{ color: "#FF8C80" }} class="far fa-money-bill-alt"></i>
+                      {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
                     </div>
+                    <div className="revenue"> {formatVND(parseInt(`${topUp}`))}</div>
+                  </div>
+
+                </div>
+                <div className="revenue-box revenue-revenue">
+                  <div className="time">Revenue</div>
+                  <div className="revenue-block">
+                    <div className="cicle-icon">
+                      <i style={{ color: "#6972FF" }} class="far fa-money-bill-alt"></i>
+                      {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
+                    </div>
+                    <div className="revenue">{formatVND(parseInt(`${revenue.qtr + revenue.nvl254 + revenue.nvl334 + revenue.hk}000`) + parseInt(`${topUp}`))}</div>
+                  </div>
+
+                </div>
+
+              </div>
+              <div className="home-flow">
+            <div className="flow-section">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 border-icon">
+                <div className="cicle-icon-small icon-today">
+                  <i style={{ color: "#3642eb" }} class="fas fa-users fa-2x"></i>
+                </div>
+              </div>
+              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <div className="flow-block">
+                  <div className="title-flow">2.000/10.000 users/today</div>
+                  <div className="flow-perc">
+                    <div className="flow-bar">
+                      <div className="vehicle-flow user-today"></div>
+                      <div className="vehicle-flow-background"></div>
+                    </div>
+                    <div className="perc">20%</div>
                   </div>
                 </div>
               </div>
-              <div className="flow-section">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                  <div className="cicle-icon-small icon-users">
-                    <i style={{ color: "#db4a3a" }} class="fa fa-motorcycle fa-2x"></i>
-                  </div>
-                </div>
-
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                  <div className="flow-block">
-                    <div className="title-flow">10.000/20.000 users/school</div>
-                    <div className="flow-perc">
-                      <div className="flow-bar">
-                        <div className="vehicle-flow users"></div>
-                        <div className="vehicle-flow-background"></div>
-                      </div>
-                      <div className="perc">50%</div>
-                    </div>
-                  </div>
-
-
-                </div>
-              </div>
-
             </div>
+            <div className="flow-section">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 border-icon">
+                <div className="cicle-icon-small icon-users">
+                  <i style={{ color: "#db4a3a" }} class="fas fa-users fa-2x"></i>
+                </div>
+              </div>
+
+              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <div className="flow-block">
+                  <div className="title-flow">10.000/20.000 users/school</div>
+                  <div className="flow-perc">
+                    <div className="flow-bar">
+                      <div className="vehicle-flow users"></div>
+                      <div className="vehicle-flow-background"></div>
+                    </div>
+                    <div className="perc">50%</div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+          </div>
+       </div>
           </div>
 
         </div>
