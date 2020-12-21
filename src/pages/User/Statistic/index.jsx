@@ -174,7 +174,7 @@ function Statistic({ dataYear }) {
       <div className="statistic-row1">
         <div className="statistic-week">
           <div className="div-statistic-head">
-            <h3>Lượt gửi/ Tuần</h3>
+            <h3>Parking times / week</h3>
           </div>
           <div style={{ height: "83%", padding: "20px" }}>
             <ResponsiveContainer>
@@ -208,7 +208,7 @@ function Statistic({ dataYear }) {
 
         <div className="statistic-month">
           <div className="div-statistic-head">
-            <h3>Lượt gửi/ Tháng</h3>
+            <h3>Parking times / month</h3>
           </div>
           <div style={{ height: "83%", padding: "20px" }}>
             <ResponsiveContainer>
@@ -240,7 +240,7 @@ function Statistic({ dataYear }) {
       <div className="statistic-row2">
         <div className="statistic-year">
           <div className="div-statistic-head">
-            <h3>Lượt gửi/ Năm</h3>
+            <h3>Parking times / year</h3>
           </div>
           <div style={{ height: "83%", padding: "20px" }}>
             <ResponsiveContainer>

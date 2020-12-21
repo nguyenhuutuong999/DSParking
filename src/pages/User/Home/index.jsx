@@ -222,7 +222,7 @@ function Home() {
                     }}
                   />
                 </div>
-                <h5>Lượt gửi tuần</h5>
+                <h5>Parking times / week</h5>
               </div>
               <h2>{totalWeekCount}</h2>
             </div>
@@ -268,7 +268,7 @@ function Home() {
                     }}
                   />
                 </div>
-                <h5>Lượt gửi tháng</h5>
+                <h5>Parking times / month</h5>
               </div>
               <h2>{totalMonthCount}</h2>
             </div>
