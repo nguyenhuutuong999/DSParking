@@ -1,11 +1,21 @@
 import React from "react";
-import './styles.css';
+import "./styles.css";
 
-import { withRouter } from 'react-router-dom';
-import { FaUser, FaBell, FaChartArea, FaQuestionCircle, FaPenSquare, FaCog, FaSignOutAlt, FaHome, FaAddressCard, FaUsers } from 'react-icons/fa';
+import { withRouter } from "react-router-dom";
+import {
+  FaUser,
+  FaBell,
+  FaChartArea,
+  FaQuestionCircle,
+  FaPenSquare,
+  FaCog,
+  FaSignOutAlt,
+  FaHome,
+  FaAddressCard,
+  FaUsers,
+} from "react-icons/fa";
 
-
-import history from '../../util/history'
+import history from "../../util/history";
 
 function Sidebar(props) {
   const { role } = props;
@@ -15,58 +25,56 @@ function Sidebar(props) {
       to: "/",
       exact: true,
       position: 0,
-      icon: () =><FaHome className="icons" />
-
+      icon: () => <FaHome className="icons" />,
     },
     {
       name: "Profile",
       to: "/profile",
       exact: true,
       position: 0,
-      icon: () =><FaUser className="icons" />
+      icon: () => <FaUser className="icons" />,
     },
     {
       name: "Notifications",
       to: "/notifications",
       exact: true,
       position: 1,
-      icon: () =><FaBell className="icons" />
+      icon: () => <FaBell className="icons" />,
     },
     {
       name: "History",
       to: "/account",
       exact: true,
       position: 1,
-      icon: () =><FaAddressCard className="icons" />
+      icon: () => <FaAddressCard className="icons" />,
     },
     {
       name: "Statistics",
       to: "/statistic",
       exact: true,
       position: 0,
-      icon: () =><FaChartArea className="icons" />
+      icon: () => <FaChartArea className="icons" />,
     },
     {
       name: "Support",
       to: "/support",
       exact: true,
       position: 1,
-      icon: () =><FaQuestionCircle className="icons" />
+      icon: () => <FaQuestionCircle className="icons" />,
     },
     {
       name: "Evaluations",
       to: "/evaluation",
       exact: true,
       position: 1,
-      icon: () =><FaPenSquare className="icons" />
+      icon: () => <FaPenSquare className="icons" />,
     },
     {
-
       name: "Setting",
       to: "/setting",
       exact: true,
       position: 0,
-      icon: () =><FaCog className="icons" />
+      icon: () => <FaCog className="icons" />,
     },
   ];
 
@@ -75,57 +83,65 @@ function Sidebar(props) {
       name: "Home",
       to: "/admin",
       exact: true,
-      icon: () =><FaHome className="icons" />
-
+      icon: () => <FaHome className="icons" />,
     },
     {
       name: "Profile",
       to: "/admin/profile",
       exact: true,
 
-      icon: () =><FaUser className="icons" />
+      icon: () => <FaUser className="icons" />,
     },
     {
       name: "Statistic",
       to: "/admin/statistic",
       exact: true,
-      icon: () =><FaChartArea className="icons" />
+      icon: () => <FaChartArea className="icons" />,
     },
     {
-      name: "Management", 
+      name: "Management",
       to: "/admin/management",
       exact: true,
-      icon: () =><FaUsers className="icons" />
-
+      icon: () => <FaUsers className="icons" />,
     },
     {
-      name: "Logout", 
+      name: "Logout",
       to: "/login",
       exact: true,
-      icon: () =><FaUsers className="icons" />
-
+      icon: () => <FaUsers className="icons" />,
     },
   ];
 
   const sidebarMap = () => {
-
-    if(role === "1"){
+    if (role === "1") {
       return user_menus.map((item, index) => {
         return (
-          <li className={`nav-item ${history.location.pathname === user_menus[index].to && 'nav-item-active'}`} key={index} onClick={() => history.push(user_menus[index].to)}>
+          <li
+            className={`nav-item ${
+              history.location.pathname === user_menus[index].to &&
+              "nav-item-active"
+            }`}
+            key={index}
+            onClick={() => history.push(user_menus[index].to)}
+          >
             <a href="#" className="nav-link">
               {item.icon()}
               <span className="link-text">{item.name}</span>
             </a>
           </li>
         );
-
       });
-    }
-    else{
+    } else {
       return admin_menus.map((item, index) => {
         return (
-          <li className={`nav-item ${history.location.pathname === admin_menus[index].to && 'nav-item-active'}`} key={index} onClick={() => history.push(admin_menus[index].to)}>
+          <li
+            className={`nav-item ${
+              history.location.pathname === admin_menus[index].to &&
+              "nav-item-active"
+            }`}
+            key={index}
+            onClick={() => history.push(admin_menus[index].to)}
+          >
             <a href="#" className="nav-link">
               {item.icon()}
               <span className="link-text">{item.name}</span>
@@ -134,18 +150,16 @@ function Sidebar(props) {
         );
       });
     }
-    }
+  };
 
-  return (
-     role === "1"? 
-     (<div className="navbar"><ul className="navbar-nav">{sidebarMap()}
-     </ul>
-      </div>):
-      (<div className="navbar-admin"><ul className="navbar-nav-admin">{sidebarMap()}
-      </ul>
-    </div>)
-   
-        
+  return role === "1" ? (
+    <div className="navbar">
+      <ul className="navbar-nav">{sidebarMap()}</ul>
+    </div>
+  ) : (
+    <div className="navbar-admin">
+      <ul className="navbar-nav-admin">{sidebarMap()}</ul>
+    </div>
   );
 }
 
