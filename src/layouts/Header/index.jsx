@@ -62,60 +62,63 @@ function Header({ signOut }) {
       });
   };
 
+
   const renderDropdownAvatar = () => {
     return (
       <Menu>
-        <Menu.Item onClick={() => history.push("/profile")}>
+        <Menu.Item onClick={() => history.push('/profile')} >
           <Space>
             <FaUser />
-            <p>Profile</p>
+            <p> Thông tin cá nhân</p>
           </Space>
         </Menu.Item>
         <Menu.Item onClick={() => handleLogout()}>
           <Space>
             <RollbackOutlined />
-            <p>Log Out</p>
+            <p>Đăng xuất</p>
           </Space>
         </Menu.Item>
       </Menu>
-    );
-  };
+    )
+  }
   const renderDropdownNotification = () => {
     return (
-      <Menu className="noti-dropdown-menu" style={{ width: 300 }}>
+      <Menu className="noti-dropdown-menu" style={{ width: 300, }}>
         <div className="noti-dropdown-title">
-          <h6>You have 5 new notifications</h6>
+          <h6>Bạn có 5 thông báo mới</h6>
         </div>
-        <Menu.Item
-          style={{ height: "40px", borderBottom: "0.2px solid #ededed" }}
-        >
+        <Menu.Item style={{ height: '40px', borderBottom: '0.2px solid #ededed' }}>
           <Space>
-            <FaBirthdayCake style={{ fill: "#8dc63f" }} />
-            <p>Happy Birth Day Nguyễn T Bích Ni</p>
+            <FaBirthdayCake style={{ fill: '#8dc63f' }} />
+            <p>Chúc mừng sinh nhật Nguyễn T Bích Ni</p>
           </Space>
         </Menu.Item>
-        <Menu.Item
-          style={{ height: "40px", borderBottom: "0.2px solid #ededed" }}
-        >
+        <Menu.Item style={{ height: '40px', borderBottom: '0.2px solid #ededed' }}>
           <Space>
-            <FaExclamationCircle style={{ fill: "#c44a8a" }} />
-            <p>The balance in the account is less than 5000</p>
+            <FaExclamationCircle style={{ fill: '#cc3f44' }} />
+            <p>Số dư trong tài khoản dưới 5000</p>
           </Space>
         </Menu.Item>
-        <MenuItem
-          style={{ backgroundColor: "#f5f5f5" }}
-          onClick={() => history.push("/notifications")}
-        >
-          <a href="#" style={{ textAlign: "center", color: "#979898" }}>
-            ---All---
-          </a>
+        <MenuItem style={{ backgroundColor: '#f5f5f5' }} onClick={() => history.push('/notifications')}>
+          <a href="#" style={{ textAlign: 'center', color: '#979898' }}>---Xem tất cả---</a>
         </MenuItem>
       </Menu>
-    );
-  };
-
-  return (
-    <div className="app-header">
+    )
+  }
+  const sidebarr = () => {
+   var local = JSON.parse(localStorage.getItem("user")) ;
+    if(local.position === "2"){
+      return (
+        <div className="app-header">
+        <div className="welcome">
+          <p>Welcome Back, {userData.name} !!!</p>
+          </div>
+      </div>
+        )
+    }else{
+      return(
+        
+        <div className="app-header">
       <div className="welcome">
         <p>Hi, {userData.name} !!!</p>
       </div>
@@ -174,6 +177,14 @@ function Header({ signOut }) {
         </div>
       </Modal>
     </div>
+      )
+      
+    }
+   
+  }
+
+  return (
+    sidebarr()
   );
 }
 

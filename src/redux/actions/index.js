@@ -24,7 +24,7 @@ export const loginRequest = (account) => {
       "value",
       function (snapshot) {
         if (snapshot.val() !== null) {
-          if (snapshot.val().pwd === account.pass) {
+          if (snapshot.val().pwd == account.pass) {
             localStorage.setItem("user", JSON.stringify(snapshot.val()));
             dispatch(loginSuccess());
           } else {
