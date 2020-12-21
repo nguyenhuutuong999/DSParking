@@ -23,7 +23,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 22px;
-  fill: #fa8c16 !important;
+  fill: #c44a8a !important;
 }
 .div-svg-header svg:hover{
   cursor: pointer;
@@ -58,7 +58,7 @@
 }
 .header-balance svg{
   font-size: 25px !important;
-  fill: #fa8c16 !important;
+  fill: #c44a8a !important;
 }
 .change-qrcode{
   display: flex;

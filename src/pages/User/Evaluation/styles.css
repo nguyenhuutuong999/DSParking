@@ -3,12 +3,6 @@
   height: 100%;
 }
 
-.radio-group {
-  width: 350px;
-  display: flex;
-  margin-left: 600px;
-}
-
 .evaluation-main {
   margin: 0 auto;
   width: calc(100% - 120px);

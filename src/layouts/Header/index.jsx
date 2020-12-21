@@ -98,7 +98,7 @@ function Header({ signOut }) {
           style={{ height: "40px", borderBottom: "0.2px solid #ededed" }}
         >
           <Space>
-            <FaExclamationCircle style={{ fill: "#cc3f44" }} />
+            <FaExclamationCircle style={{ fill: "#c44a8a" }} />
             <p>The balance in the account is less than 5000</p>
           </Space>
         </Menu.Item>

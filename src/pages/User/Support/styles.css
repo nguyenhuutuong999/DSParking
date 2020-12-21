@@ -4,9 +4,8 @@
 }
 
 .radio-group {
-  width: 350px;
   display: flex;
-  margin-left: 600px;
+  justify-content: flex-end;
 }
 
 .support-main {
