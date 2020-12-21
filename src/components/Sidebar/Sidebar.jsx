@@ -30,16 +30,13 @@ function Sidebar(props) {
     {
       name: "Home",
       to: "/",
-      exact: true,
-      
+      exact: true,      
       icon: () =><FaHome className="icons" />
-
     },
     {
       name: "Profile",
       to: "/profile",
-      exact: true,
-      
+      exact: true,     
       icon: () =><FaUser className="icons" />
     },
     {
@@ -110,10 +107,7 @@ function Sidebar(props) {
       name: "Logout",
       to: "/login",
       exact: true,
-
       icon: () =><FaUsers className="icons" />,
-      
-
     },
   ];
 
