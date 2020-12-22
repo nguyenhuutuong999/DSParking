@@ -11,6 +11,8 @@ function Manage() {
     // const loading = useSelector(state => state.manageAccount.loading)
     // const error = useSelector(state => state.manageAccount.error)
     const [users, setUsers] = useState([])
+    const [inforUsers, setInforUsers] = useState([])
+    const [selectPlace, setSelectPlace] = useState(-1);
     useEffect(() => {
         // dispatch(actions.getUserAccount())
         getUser()
@@ -26,13 +28,46 @@ function Manage() {
             Array.prototype.push.apply(arr, [snapshotValue[obj]]);
         }
         setUsers(arr)
+
+        let arrInfor = [];
+        const snapInfor = await firebaseApp.database().ref("User/information").once('value')
+        const snapshotValueInfor = snapInfor.val();
+
+        for (let obj in snapshotValueInfor) {
+            Array.prototype.push.apply(arrInfor, [snapshotValueInfor[obj]]);
+            
+        }
+        setInforUsers(arrInfor)
+        
+    }
+    console.log(inforUsers)
+    function onSelector(event) {
+        setSelectPlace(event.target.value);
     }
 
-    let index = 0;
-    const mapUser = users.map((user) => {
-        return <Table user={user} key={user.id} index={index++} />
-    })
 
+    let filters = users.filter((item) => {
+        if(selectPlace === -1){
+        return users;
+        }else
+        return item.position+"" === selectPlace
+    })
+    const mapUser = () =>{
+        let index = 0;
+        
+        return filters.map((user) => {
+            return inforUsers.map((item) =>{
+                for (let obj in item) { 
+                   if(user.id === obj){
+                    return <Table user={user} key={user.id} index={index++} infor = {item[obj]}/>
+                   }
+                } 
+            })
+           
+        })
+    }
+   
+   
     return (
         <div className="manage">
 
@@ -45,14 +80,17 @@ function Manage() {
                                 aria-label="Search" />
                             <i class="fas fa-search" aria-hidden="true"></i>
                         </form>
-                       
+
                         <div class="selector-actor">
-                            <select  name="place" id="input-state" style={{ fontSize: "13px" }} className="form-control-statistic">
-                            <option value={0}>Filter</option>
-                            <option value={1}>Motorbike Owner</option>
-                            <option value={2}>Guard</option>
-                            <option value={3}>Place</option>
-                          
+                            <select onChange={onSelector} value={selectPlace} name="place" id="input-state" style={{ fontSize: "13px" }} className="form-control-statistic">
+                                <option value={-1}>Filter</option>
+                                <option value={0}>GuardBOT</option>
+                                <option value={3}>Motorbike Owner</option>
+                                <option value={1}>Guard</option>
+                                <option value={2}>Teacher</option>
+                                <option value={4}>Admin</option>
+                                <option value={5}>Place</option>
+
                             </select>
                         </div>
                         <button className="btn btn-mybutton">Add Account</button>
@@ -79,7 +117,7 @@ function Manage() {
 
                         </thead>
                         <tbody>
-                            {mapUser}
+                            {mapUser()}
 
                         </tbody>
                     </table>

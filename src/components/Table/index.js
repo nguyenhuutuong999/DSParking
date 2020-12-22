@@ -1,15 +1,26 @@
 import React from 'react';
 
 function Table(props){
+    const formatVND = (x) => {
+        return x.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })
+      }
+   console.log(props)
     return(
         <tr>
         <th scope="row">{props.index}</th>
         <td>{props.user.id}</td>
-        <td>{props.user.position}</td>
-        <td>{props.user.fullName}</td>
-        <td>{props.user.class}</td>
-        <td>{props.user.birthday}</td>
-        <td>a</td>
+        <td>{props.infor.name}</td>
+        <td>{props.infor.money?formatVND(parseInt(props.infor.money)):"None"}</td>
+        <td>{props.infor.adress}</td>
+        <td>{props.infor.birthday}</td>
+        <td>
+            {
+            props.infor.position == "0" ? "Admin":
+            props.infor.position == "1" ? "Guard":
+            props.infor.position == "2" ? "Teacher":
+            props.infor.position == "3" ? "Student":""
+        }
+        </td>
         <td> <button type="button" class="btn btn-success btn-small"><p>Active</p></button></td>
         <th scope="row">
             <div class="dropdown show">
