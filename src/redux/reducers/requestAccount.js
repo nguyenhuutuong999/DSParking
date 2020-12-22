@@ -23,8 +23,7 @@ var myReducer = (state = initialState, action) => {
       };
     }
     case types.LOGIN_SUCCESS: {
-      console.log("test tuong");
-      history.push("/");
+      history.push("/landing");
       // return {
       //   ...state,
       //   user: "",
