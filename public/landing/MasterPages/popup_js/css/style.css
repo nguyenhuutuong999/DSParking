@@ -1,0 +1,101 @@
+/* Define the space for the popout. */
+
+#popout {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: absolute;
+    height: auto;
+}
+
+/* Basic formatting within the ad space. */
+
+#popout a,
+#popout a img {
+    text-decoration: none;
+    border: 0;
+    outline: 0;
+    width: 100%
+}
+
+#popout a span {
+    display: none;
+}
+
+/* Formatting the "Cap" - the part the user click to open the ad. */
+
+#popout #cap {
+    width: 280px;
+    height: 20px;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+    background: url(../image/bg-cap.gif) repeat-x;
+    color: #c93737;
+    text-align: center;
+    position: fixed;
+    cursor: pointer;
+}
+
+#planetmap a {
+    cursor: hand;
+}
+
+#popout #cap .demo {
+    background: url(../image/open-icon.gif) 5px 3px no-repeat;
+    padding-left: 23px;
+}
+
+/* Formatting the close button. */
+
+#popout a#close {
+    position: absolute;
+    cursor: pointer;
+    right: 0px;
+    top: 0px;
+    height: 36px;
+    width: 36px;
+    z-index: 9999;
+}
+
+/* Formatting the ad itself. */
+
+#popout #adbox {
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    z-index: 9998;
+    /*border: 1px solid #FFFFFF; */
+}
+
+#popout .darkness {
+    background: none repeat scroll 0 0 #000000;
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9997;
+}
+
+#popout .btn {
+    bottom: 26px;
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    text-indent: -5000px;
+    cursor: pointer;
+    height: 31px;
+    left: 403px;
+    top: 206px;
+    width: 131px;
+}
+
+@media screen and (max-width: 414px) {
+    #popout #adbox {
+        margin: 0 5px !important;
+        left: 0;
+        top: 30%;
+    }
+}
