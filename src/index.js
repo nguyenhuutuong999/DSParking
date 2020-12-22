@@ -52,7 +52,6 @@ ReactDOM.render(
           <LayoutUser exact role="3" path="/statistic" component={Statistic} />
           <LayoutUser exact role="3" path="/support" component={Support} />
           <LayoutUser exact role="3" path="/setting" component={Setting} />
-          <Route exact role="3" path="/landing" component={Landing} />
          
           <LayoutAdmin exact role="4" path="/admin" component={HomeA} />
           <LayoutAdmin exact role="4" path="/admin/account" component={AccountA} />
@@ -60,6 +59,8 @@ ReactDOM.render(
           <LayoutAdmin exact role="4" path="/admin/statistic" component={StatisticA} />
           <LayoutAdmin exact role="4" path="/admin/management" component={ManageA} />
           {/* <LayoutAdmin exact role="2" path="/admin/payment" component={Payment} /> */}
+
+          <Route exact role="3" path="/landing" component={Landing} />
 
         </Switch>
     </Router>

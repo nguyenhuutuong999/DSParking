@@ -141,7 +141,14 @@ function Sidebar(props) {
               "nav-item-active"
             }`}
             key={index}
-            onClick={() => history.push(admin_menus[index].to)}
+            onClick={() => {
+              if (admin_menus[index].to === 'logout') {
+                localStorage.removeItem('user');
+                history.push(admin_menus[index].to);
+              } else {
+                history.push(admin_menus[index].to)
+              }
+            }}
           >
             <a href="#" className="nav-link">
               {item.icon()}
