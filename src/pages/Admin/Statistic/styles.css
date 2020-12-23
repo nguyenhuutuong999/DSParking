@@ -39,7 +39,14 @@
     justify-content:flex-end;
   }
   .input-group-text{
-    margin-right: 5px;
+   
+    background: white;
+    border:none;
+    border-radius: 5px;
+    font-size: 13px !important;
+    font-weight: 600;
+    padding:  .10rem .5rem !important;
+   
   }
   select{
     border-width: 0px;
@@ -66,7 +73,7 @@
    
 }
 .MuiInputBase-input{
-  padding :0 0 5px 0 !important;
+  padding :2px !important;
 }
 
 .MuiPickersToolbar-toolbar  {

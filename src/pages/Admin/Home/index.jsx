@@ -126,16 +126,16 @@ function Home() {
 
         if (item.month == convertDay[1] && item.year == convertDay[0]) {
 
-          if (ob.place == 1) {
+          if (ob.place == 2) {
             nvl254++;
           } else
-            if (ob.place == 2) {
+            if (ob.place == 0) {
               qtr++;
             } else
               if (ob.place == 3) {
                 nvl334++;
               } else
-                if (ob.place == 4) {
+                if (ob.place == 1) {
                   hk++;
                 }
         }
@@ -150,10 +150,11 @@ function Home() {
 
       return {
         "date": item,
-        "254 NVL": nvl254,
         "03 QT": qtr,
+         "Hoa Khanh": hk,
+        "254 NVL": nvl254,
         "334 NVL": nvl334,
-        "Hoa Khanh": hk,
+       
         "name": `${MONTH_FORMAT[item.month]}`,
       }
     })
@@ -181,16 +182,16 @@ function Home() {
 
         if (item.day == convertDay[2] && item.month == convertDay[1] && item.year == convertDay[0]) {
 
-          if (ob.place == 1) {
+          if (ob.place == 2) {
             nvl254++;
           } else
-            if (ob.place == 2) {
+            if (ob.place == 0) {
               qtr++;
             } else
               if (ob.place == 3) {
                 nvl334++;
               } else
-                if (ob.place == 4) {
+                if (ob.place == 1) {
                   hk++;
                 }
         }
@@ -205,10 +206,10 @@ function Home() {
       weekCount = nvl254 + qtr + nvl334 + hk;
       return {
         "day": `${WEEKDAY_FORMAT[item.weekday]}`,
-        "254 NVL": nvl254,
         "03 QT": qtr,
-        "334 NVL": nvl334,
         "Hoa Khanh": hk,
+       "254 NVL": nvl254,
+       "334 NVL": nvl334,
         
       }
     })
@@ -272,7 +273,7 @@ const formatVND = (x) =>{
             <div className="icon-title-statistics-admin">
 
               <div className="local">254 Nguyễn Văn Linh</div>
-              <div className="number">{totalToday254NVL}/500</div>
+              <div className="number">{totalToday254NVL}/200</div>
             </div>
 
           </div>
@@ -314,7 +315,7 @@ const formatVND = (x) =>{
             <div className="icon-title-statistics-admin">
 
               <div className="local">334 Nguyễn Văn Linh</div>
-              <div className="number">{totalToday334nvl}/300</div>
+              <div className="number">{totalToday334nvl}/100</div>
             </div>
 
           </div>
@@ -336,7 +337,7 @@ const formatVND = (x) =>{
             <div className="icon-title-statistics-admin">
 
               <div className="local">Hòa Khánh</div>
-              <div className="number">{totalTodayHK}/300</div>
+              <div className="number">{totalTodayHK}/500</div>
             </div>
 
           </div>
