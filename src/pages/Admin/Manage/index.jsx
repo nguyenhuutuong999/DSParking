@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import './styles.css';
 import Table from "./../../../components/Table/index"
-import * as actions from "./../../../redux/actions/index";
 import { firebaseApp } from './../../../configs/firebase';
 function Manage() {
-    // const dispatch = useDispatch();
-    // const users = useSelector(state => state.manageAccount.users)
-    // const loading = useSelector(state => state.manageAccount.loading)
-    // const error = useSelector(state => state.manageAccount.error)
+   
     const [users, setUsers] = useState([])
     const [inforUsers, setInforUsers] = useState([])
     const [selectPlace, setSelectPlace] = useState(-1);
+    const [keyword, setKeyword] = useState("a");
     useEffect(() => {
-        // dispatch(actions.getUserAccount())
+        
         getUser()
 
     }, [])
@@ -40,25 +36,29 @@ function Manage() {
         setInforUsers(arrInfor)
         
     }
-    console.log(inforUsers)
+    
     function onSelector(event) {
         setSelectPlace(event.target.value);
     }
-
+    function onChangeKeyWord(event){
+        setKeyword(event.target.value)
+      }
 
     let filters = users.filter((item) => {
-        if(selectPlace === -1){
+        if(selectPlace == -1){
         return users;
         }else
         return item.position+"" === selectPlace
     })
+        
     const mapUser = () =>{
         let index = 0;
-        
         return filters.map((user) => {
             return inforUsers.map((item) =>{
                 for (let obj in item) { 
                    if(user.id === obj){
+                      
+                       if(item[obj].name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1)
                     return <Table user={user} key={user.id} index={index++} infor = {item[obj]}/>
                    }
                 } 
@@ -67,7 +67,8 @@ function Manage() {
         })
     }
    
-   
+    
+     
     return (
         <div className="manage">
 
@@ -76,7 +77,11 @@ function Manage() {
                     <div className="header-manage">
 
                         <form class=" right form-inline d-flex justify-content-center md-form form-sm">
-                            <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
+                            <input value ={keyword}
+                                onChange = {onChangeKeyWord} 
+                                class="form-control form-control-sm mr-3 w-75" 
+                                type="text" 
+                                placeholder="Search"
                                 aria-label="Search" />
                             <i class="fas fa-search" aria-hidden="true"></i>
                         </form>
