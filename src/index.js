@@ -44,14 +44,14 @@ ReactDOM.render(
         <Switch>
           <LayoutLogin exact path="/login" component={Login}/>
 
-          <LayoutUser exact role="3" path="/" component={Home} />
-          <LayoutUser exact role="3" path="/profile" component={Profile} />
-          <LayoutUser exact role="3" path="/account" component={Account} />
-          <LayoutUser exact role="3" path="/evaluation" component={Evaluation} />
-          <LayoutUser exact role="3" path="/notifications" component={Notifications} />
-          <LayoutUser exact role="3" path="/statistic" component={Statistic} />
-          <LayoutUser exact role="3" path="/support" component={Support} />
-          <LayoutUser exact role="3" path="/setting" component={Setting} />
+          <LayoutUser exact  path="/" component={Home} />
+          <LayoutUser exact  path="/profile" component={Profile} />
+          <LayoutUser exact  path="/account" component={Account} />
+          <LayoutUser exact  path="/evaluation" component={Evaluation} />
+          <LayoutUser exact  path="/notifications" component={Notifications} />
+          <LayoutUser exact  path="/statistic" component={Statistic} />
+          <LayoutUser exact  path="/support" component={Support} />
+          <LayoutUser exact  path="/setting" component={Setting} />
          
           <LayoutAdmin exact role="4" path="/admin" component={HomeA} />
           <LayoutAdmin exact role="4" path="/admin/account" component={AccountA} />

@@ -5,7 +5,9 @@ import { Space, Dropdown, Menu, Button, Modal } from "antd";
 import {
   RollbackOutlined,
   DollarOutlined,
+  DownloadOutlined
 } from "@ant-design/icons";
+
 import {
   FaBell,
   FaQrcode,
@@ -179,6 +181,9 @@ function Header() {
             <div onClick={() => handleChangeQRCode()} className="change-qrcode">
               <Button type="primary" ghost>
                 Change QRCode
+              </Button>
+              <Button type="primary" ghost icon={<DownloadOutlined />}>
+                Export
               </Button>
             </div>
           </Modal>

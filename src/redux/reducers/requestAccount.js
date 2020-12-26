@@ -24,8 +24,8 @@ var myReducer = (state = initialState, action) => {
     }
     case types.LOGIN_SUCCESS: {
       var local = JSON.parse(localStorage.getItem("user"));
-      if(local.position == "3"){
-      history.push("/landing");
+      if(local.position == "3" || local.position == "2"){
+        history.push("/landing");
       }
       else{
         history.push("/");

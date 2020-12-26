@@ -8,7 +8,7 @@ function Manage() {
     const [users, setUsers] = useState([])
     const [inforUsers, setInforUsers] = useState([])
     const [selectPlace, setSelectPlace] = useState(-1);
-    const [keyword, setKeyword] = useState("a");
+    const [keyword, setKeyword] = useState("");
     useEffect(() => {
         
         getUser()

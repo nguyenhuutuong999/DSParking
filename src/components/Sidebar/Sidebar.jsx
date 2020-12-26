@@ -18,14 +18,15 @@ import {
 import history from "../../util/history";
 
 function Sidebar(props) {
-
+  const authData = JSON.parse(localStorage.getItem('user'));
   // const handleLogout = () => {
     
   //   localStorage.removeItem("user");
   //   return history.push("/login");
   // };
 
-  const { role } = props;
+  const  role  = authData.position;
+  console.log(role)
   const user_menus = [
     {
       name: "Home",
@@ -113,26 +114,7 @@ function Sidebar(props) {
 
   const sidebarMap = () => {
 
-    if(role === "3"){
-
-      return user_menus.map((item, index) => {
-        return (
-          <li
-            className={`nav-item ${
-              history.location.pathname === user_menus[index].to &&
-              "nav-item-active"
-            }`}
-            key={index}
-            onClick={() => history.push(user_menus[index].to)}
-          >
-            <a href="#" className="nav-link">
-              {item.icon()}
-              <span className="link-text">{item.name}</span>
-            </a>
-          </li>
-        );
-      });
-    } else {
+    if(role == "4"){
       return admin_menus.map((item, index) => {
         return (
           <li
@@ -157,18 +139,38 @@ function Sidebar(props) {
           </li>
         );
       });
+     
+    } else {
+      return user_menus.map((item, index) => {
+        return (
+          <li
+            className={`nav-item ${
+              history.location.pathname === user_menus[index].to &&
+              "nav-item-active"
+            }`}
+            key={index}
+            onClick={() => history.push(user_menus[index].to)}
+          >
+            <a href="#" className="nav-link">
+              {item.icon()}
+              <span className="link-text">{item.name}</span>
+            </a>
+          </li>
+        );
+      });
     }
 
     }
 
   return (
-     role === "3"? 
-     (<div className="navbar"><ul className="navbar-nav">{sidebarMap()}
+     role == "4"? 
+     (<div className="navbar-admin"><ul className="navbar-nav-admin">{sidebarMap()}
      </ul>
-      </div>):
-      (<div className="navbar-admin"><ul className="navbar-nav-admin">{sidebarMap()}
+   </div>
+    ):
+      ( <div className="navbar"><ul className="navbar-nav">{sidebarMap()}
       </ul>
-    </div>)
+       </div>)
    
         
 

@@ -133,9 +133,9 @@ function Statistic() {
      
       let newWeekChartData = currentWeekAgo.map((item) => {
         let nvl254 = 0;
-        let qtr = 50;
-        let nvl334 = 30;
-        let hk = 20;
+        let qtr = 0;
+        let nvl334 = 0;
+        let hk = 0;
 
         arr1.map((ob) => {
           let convertDay = ob.dateGet.split(/-| /, 3);

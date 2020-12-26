@@ -16,13 +16,10 @@ function LayoutUser({ component: Component, role, ...props }) {
   if (!authData) {
 
     return <Redirect to="/login" />
-  } else if (authData.position !== role) {
-    if (authData.position === '3') {
-      return <Redirect to="/" />
-    } else {
+  } else if (authData.position == "4"){
       return <Redirect to="/admin" />
-    }
   }
+  
   return (
     <Route
       {...props}
@@ -32,7 +29,7 @@ function LayoutUser({ component: Component, role, ...props }) {
             <div className="app-container">
               <div className="app-sidebar">
                 <img src={branchImg} className="branch-img" alt="logo" />
-                <Sidebar {...routerProps} role={role} />
+                <Sidebar {...routerProps} role={authData.position} />
               </div>
               <div className="app-main">
                 <Header {...routerProps} />
