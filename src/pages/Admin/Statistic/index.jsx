@@ -15,7 +15,7 @@ function Statistic() {
   const [revenue, setRevenue] = useState({})
 
   const [selectedFromDate, setSelectedFromDate] = useState(
-    moment("11/01/2020")
+    moment().subtract(30, "days") 
   )
   const [selectedToDate, setSelectedToDate] = useState(
     moment()
@@ -24,7 +24,7 @@ function Statistic() {
 
   const [yearFilterData, setYearFilterData] = useState(false)
 
-  const [selectPlace, setSelectPlace] = useState(0);
+  const [selectPlace, setSelectPlace] = useState(-1);
 
   // const data totp up of the nearest Month
   const [topUp, setTopUp] = useState(0);
@@ -130,32 +130,27 @@ function Statistic() {
         hk: 0
       };
       let count = 0;
-      let getCountPlace = [];
+     
       let newWeekChartData = currentWeekAgo.map((item) => {
         let nvl254 = 0;
         let qtr = 50;
         let nvl334 = 30;
         let hk = 20;
 
-
         arr1.map((ob) => {
           let convertDay = ob.dateGet.split(/-| /, 3);
-          // console.log(convertDay[0])
-          // console.log(convertDay[1])
-
-
           if (item.day == convertDay[2] && item.month == convertDay[1] && item.year == convertDay[0]) {
 
-            if (ob.place == 1) {
+            if (ob.place == 2) {
               nvl254++;
             } else
-              if (ob.place == 2) {
+              if (ob.place == 0) {
                 qtr++;
               } else
                 if (ob.place == 3) {
                   nvl334++;
                 } else
-                  if (ob.place == 4) {
+                  if (ob.place == 1) {
                     hk++;
                   }
           }
@@ -169,10 +164,10 @@ function Statistic() {
         count += nvl254 + qtr + nvl334 + hk;
         return {
           "date": item,
-          "254 NVL": nvl254,
           "03 QT": qtr,
-          "334 NVL": nvl334,
-          "Hoa Khanh": hk,
+         "Hoa Khanh": hk,
+        "254 NVL": nvl254,
+        "334 NVL": nvl334,
           "name": ` ${MONTH_FORMAT[item.month]}, ${item.day}`,
         }
       })
@@ -204,10 +199,11 @@ function Statistic() {
           // ID 2: Quang Trung
           // ID 3: 254 334 Nguyen Van Linh
           // ID 4: Hoa Khanh
-          nvl254 += ob["254 NVL"];
           qtr += ob["03 QT"];
-          nvl334 += ob["334 NVL"];
           hk += ob["Hoa Khanh"];
+          nvl254 += ob["254 NVL"];
+          nvl334 += ob["334 NVL"];
+         
         }
 
       })
@@ -215,10 +211,10 @@ function Statistic() {
       return {
         "month": item.month,
         "year": item.year,
-        "254 NVL": nvl254,
         "03 QT": qtr,
+         "Hoa Khanh": hk,
+        "254 NVL": nvl254,
         "334 NVL": nvl334,
-        "Hoa Khanh": hk,
         "total": monthCount,
         "name": `${MONTH_FORMAT[item.month]}, ${item.year}`
       }
@@ -256,10 +252,10 @@ function Statistic() {
       yearCount = nvl254 + qtr + nvl334 + hk;
       return {
         "month": item.year,
-        "254 NVL": nvl254,
         "03 QT": qtr,
+         "Hoa Khanh": hk,
+        "254 NVL": nvl254,
         "334 NVL": nvl334,
-        "Hoa Khanh": hk,
         "total": yearCount,
         "name": item.year
       }
@@ -364,11 +360,11 @@ function Statistic() {
         <div className="from-to">
           <div class="input-group input-group-sm mb-3">
             <select onChange={onSelector} value={selectPlace} name="place" id="input-state" style={{ fontSize: "13px" }} className="form-control-statistic">
-              <option value={0}>All</option>
-              <option value={1}>254 Nguyễn Văn Linh</option>
-              <option value={2}>03 Quang Trung</option>
-              <option value={3}>Hòa Khánh</option>
-              <option value={4}>334/4 Nguyễn Văn Linh</option>
+              <option value={-1}>All</option>
+              <option value={0}>03 Quang Trung</option>
+              <option value={1}>Hòa Khánh</option>
+              <option value={2}>254 Nguyễn Văn Linh</option>
+              <option value={3}>334/4 Nguyễn Văn Linh</option>
             </select>
           </div>
           <div class="input-group input-group-sm mb-3">
@@ -456,10 +452,10 @@ function Statistic() {
               <Tooltip />
               <Legend />
 
-              {selectPlace == 1 || selectPlace == 0 ? <Line type="monotone" dataKey="254 NVL" stroke="#5C2BD7" /> : <Line />}
-              {selectPlace == 2 || selectPlace == 0 ? <Line type="monotone" dataKey="334 NVL" stroke="#37B684" /> : <Line />}
-              {selectPlace == 4 || selectPlace == 0 ? <Line type="monotone" dataKey="Hoa Khanh" stroke="#FC591D" /> : <Line />}
-              {selectPlace == 3 || selectPlace == 0 ? <Line type="monotone" dataKey="03 QT" stroke="#F21C58" /> : <Line />}
+              {selectPlace == 2 || selectPlace == -1 ? <Line type="monotone" dataKey="254 NVL" stroke="#5C2BD7" /> : <Line />}
+              {selectPlace == 3 || selectPlace == -1 ? <Line type="monotone" dataKey="334 NVL" stroke="#37B684" /> : <Line />}
+              {selectPlace == 1 || selectPlace == -1 ? <Line type="monotone" dataKey="Hoa Khanh" stroke="#FC591D" /> : <Line />}
+              {selectPlace == 0 || selectPlace == -1 ? <Line type="monotone" dataKey="03 QT" stroke="#F21C58" /> : <Line />}
              
 
             </LineChart>

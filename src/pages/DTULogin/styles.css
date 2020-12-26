@@ -74,7 +74,7 @@ th {
 #main-panel a:link,
 #main-panel a:visited {
   text-decoration: none;
-  color: #4e4d4d;
+
 }
 
 ol,
@@ -119,6 +119,7 @@ del {
 
 #box-captcha {
   padding: 0 !important;
+  width: 265px;
 }
 
 .floatbox {
@@ -159,7 +160,7 @@ del {
 #UpdatePanel1 {
   padding: 0 !important;
   float: right;
-  width: 130px;
+  width: 100px;
 }
 
 body {
@@ -394,6 +395,7 @@ width: 960px;*/
 #application ul li.title {
   font-weight: 700;
   color: #fff;
+  width: 88px;
 }
 
 #application ul li.elearning {
@@ -490,10 +492,9 @@ width: 960px;*/
 #form {
   margin-left: 495px;
   width: 420px;
-  /*height: 183px;
-padding-top: 3px;*/
+  
   margin-top: 4px;
-  margin-bottom: 4px;
+  margin-bottom: 44px;
   height: 104px;
   padding-top: 13px;
   position: relative;
@@ -535,7 +536,7 @@ padding-top: 3px;*/
 
 #form .forgetpass .button {
   float: right;
-  margin-right: 20px;
+  margin-right: 40px;
 }
 
 #form .forgetpass .help {
@@ -564,6 +565,7 @@ padding-top: 3px;*/
   width: 266px;
   height: 21px;
   padding-left: 10px;
+  float:none !important;
 }
 
 #form .btn {

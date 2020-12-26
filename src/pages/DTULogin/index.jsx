@@ -226,7 +226,7 @@ function DTULoginPage(props) {
               <div id="copyright">
                 <span>
                   Copyright&copy; 2020{" "}
-                  <a href="http://duytan.edu.vn" target="_blank">
+                  <a href="http://duytan.edu.vn" target="_blank" style={{}}>
                     Đại học Duy Tân
                   </a>
                   .
