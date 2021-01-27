@@ -20,7 +20,7 @@ import history from "../../util/history";
 function Sidebar(props) {
 
   // const handleLogout = () => {
-    
+
   //   localStorage.removeItem("user");
   //   return history.push("/login");
   // };
@@ -30,50 +30,50 @@ function Sidebar(props) {
     {
       name: "Home",
       to: "/",
-      exact: true,      
-      icon: () =><FaHome className="icons" />
+      exact: true,
+      icon: () => <FaHome className="icons" />
     },
     {
       name: "Profile",
       to: "/profile",
-      exact: true,     
-      icon: () =><FaUser className="icons" />
+      exact: true,
+      icon: () => <FaUser className="icons" />
     },
     {
       name: "Notifications",
       to: "/notifications",
       exact: true,
-      icon: () =><FaBell className="icons" />
+      icon: () => <FaBell className="icons" />
     },
     {
       name: "History",
       to: "/account",
       exact: true,
-      icon: () =><FaAddressCard className="icons" />
+      icon: () => <FaAddressCard className="icons" />
     },
     {
       name: "Statistics",
       to: "/statistic",
       exact: true,
-      icon: () =><FaChartArea className="icons" />
+      icon: () => <FaChartArea className="icons" />
     },
     {
       name: "Support",
       to: "/support",
       exact: true,
-      icon: () =><FaQuestionCircle className="icons" />
+      icon: () => <FaQuestionCircle className="icons" />
     },
     {
       name: "Evaluations",
       to: "/evaluation",
       exact: true,
-      icon: () =><FaPenSquare className="icons" />
+      icon: () => <FaPenSquare className="icons" />
     },
     {
       name: "Setting",
       to: "/setting",
       exact: true,
-      icon: () =><FaCog className="icons" />
+      icon: () => <FaCog className="icons" />
     },
   ];
 
@@ -107,21 +107,20 @@ function Sidebar(props) {
       name: "Logout",
       to: "/login",
       exact: true,
-      icon: () =><FaUsers className="icons" />,
+      icon: () => <FaUsers className="icons" />,
     },
   ];
 
   const sidebarMap = () => {
 
-    if(role === "3"){
+    if (role === "3") {
 
       return user_menus.map((item, index) => {
         return (
           <li
-            className={`nav-item ${
-              history.location.pathname === user_menus[index].to &&
+            className={`nav-item ${history.location.pathname === user_menus[index].to &&
               "nav-item-active"
-            }`}
+              }`}
             key={index}
             onClick={() => history.push(user_menus[index].to)}
           >
@@ -136,10 +135,9 @@ function Sidebar(props) {
       return admin_menus.map((item, index) => {
         return (
           <li
-            className={`nav-item ${
-              history.location.pathname === admin_menus[index].to &&
+            className={`nav-item ${history.location.pathname === admin_menus[index].to &&
               "nav-item-active"
-            }`}
+              }`}
             key={index}
             onClick={() => {
               if (admin_menus[index].to === 'logout') {
@@ -159,18 +157,18 @@ function Sidebar(props) {
       });
     }
 
-    }
+  }
 
   return (
-     role === "3"? 
-     (<div className="navbar"><ul className="navbar-nav">{sidebarMap()}
-     </ul>
-      </div>):
+    role === "3" ?
+      (<div className="navbar"><ul className="navbar-nav">{sidebarMap()}
+      </ul>
+      </div>) :
       (<div className="navbar-admin"><ul className="navbar-nav-admin">{sidebarMap()}
       </ul>
-    </div>)
-   
-        
+      </div>)
+
+
 
   );
 }
