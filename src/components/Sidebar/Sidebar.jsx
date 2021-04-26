@@ -65,6 +65,12 @@ function Sidebar(props) {
       icon: () =><FaQuestionCircle className="icons" />
     },
     {
+      name: "Payment",
+      to: "/payment",
+      exact: true,
+      icon: () =><FaQuestionCircle className="icons" />
+    },
+    {
       name: "Evaluations",
       to: "/evaluation",
       exact: true,

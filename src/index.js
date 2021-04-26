@@ -30,7 +30,7 @@ import Notifications from './pages/User/Notifications';
 import Statistic from './pages/User/Statistic';
 import Support from './pages/User/Support';
 import Setting from './pages/User/Setting';
-
+import Payment from './pages/User/Payment';
 import LayoutAdmin from "./layouts/LayoutAdmin/LayoutAdmin";
 import LayoutUser from "./layouts/LayoutUser/LayoutUser";
 
@@ -51,6 +51,7 @@ ReactDOM.render(
           <LayoutUser exact  path="/notifications" component={Notifications} />
           <LayoutUser exact  path="/statistic" component={Statistic} />
           <LayoutUser exact  path="/support" component={Support} />
+          <LayoutUser exact  path="/payment" component={Payment} />
           <LayoutUser exact  path="/setting" component={Setting} />
          
           <LayoutAdmin exact role="4" path="/admin" component={HomeA} />
