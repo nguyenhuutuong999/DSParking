@@ -19,25 +19,21 @@ function Payment() {
     setOrder({ ...order, value: e.target.value });
   };
   useEffect(() => {
+
     // get param from URL
     var url_string = window.location.href.toString();
     let url = new URL(url_string);
 
     //get status code from URL
-    let statusCode = url.searchParams.get("errorCode") ? url.searchParams.get("errorCode") : (url.searchParams.get("vnp_ResponseCode") ? url.searchParams.get("vnp_ResponseCode") : null)
-    // let statusCode = url.searchParams.get("errorCode");
-    // let vnp_ResponseCode = url.searchParams.get("vnp_ResponseCode");
+    let statusCode = url.searchParams.get("status") ? url.searchParams.get("status") :  null;
 
     //get value from URL
-    let amount = url.searchParams.get("amount") ? url.searchParams.get("amount") : (url.searchParams.get("vnp_Amount") ? url.searchParams.get("vnp_Amount") : null);
-    // let amount = url.searchParams.get("amount");
-    // let vnp_Amount = url.searchParams.get("vnp_Amount");
+    let value = url.searchParams.get("value") ? url.searchParams.get("value") :  null;
 
     if (statusCode) {
       setIsPopUp(true);
-      setAmount(amount);
-      if (statusCode == 0) {
-        
+      setAmount(value);
+      if (statusCode == '0') {
         setStatusMess(true);
       }
     }
@@ -46,7 +42,7 @@ function Payment() {
     axios
       .post(`http://localhost:3001/payment/${gateway}`, order)
       .then(function (response) {
-        window.location.replace(response.data);
+       window.location.replace(response.data);
       })
       .catch(function (error) {
         console.log(error);
