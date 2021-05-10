@@ -3,7 +3,6 @@ import "./styles.css";
 import backgroundP from "../../../img/payment.svg";
 import { Radio } from "antd";
 import axios from "axios";
-import { firebaseApp } from "../../../configs/firebase";
 
 function Payment() {
   const [order, setOrder] = useState({
@@ -38,15 +37,20 @@ function Payment() {
       }
     }
   }, []);
+
   const onSubmit = () => {
-    axios
-      .post(`http://localhost:3001/payment/${gateway}`, order)
-      .then(function (response) {
-       window.location.replace(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    axios({
+      method: 'POST',
+      url: `https://gateway-dtusmartparking.herokuapp.com/payment/${gateway}`,
+      data: order,
+      mode: 'cors'
+    })
+    .then(function (response) {
+      window.location.replace(response.data);
+     })
+     .catch(function (error) {
+       console.log(error);
+     });
   };
   return (
 
