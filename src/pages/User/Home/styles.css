@@ -90,10 +90,6 @@
   height: 270px;
   margin: 0 auto;
 }
-.home-his-table table tr th,
-td {
-  text-align: center;
-}
 
 .home-his-table table thead {
   background-color: #e0e6ed;

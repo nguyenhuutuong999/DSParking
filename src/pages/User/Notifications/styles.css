@@ -20,20 +20,6 @@
     color: darkslategray;
     font-weight: 550;
 }
-/*Tab*/
-.ant-tabs {
-  padding: 0px 20px !important;
-}
-.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #c44a8a !important;
-  font-weight: 600 !important;
-}
-
-.ant-tabs-ink-bar {
-  position: absolute;
-  background: #c44a8a !important;
-  pointer-events: none;
-}
 
 /*Table*/
 /* .table-notification .ant-table table{

@@ -87,9 +87,6 @@
   width: 95%;
   margin: 10px auto;
 }
-.statistic-row3 table tr th,td {
-  text-align: center;
-}
 
 .statistic-row3 table thead {
   background-color: #e0e6ed;
