@@ -103,21 +103,7 @@
   font-size: 18px;
 }
 
-.ant-input{
-  margin-bottom: 11.5px !important;
-}
-
 /*Form Edit*/
-.ant-form{
-  width: 100%;
-}
-/*Tab*/
-.ant-tabs{
-  width: 100%;
-}
-.ant-tabs-nav{
-  margin: 0px 0px 3px 0px !important;
-}
 .div-btn-edit button .ant-btn-primary {
   color: #fff;
   background: #b69217;
@@ -129,9 +115,6 @@
 
 .ant-tab-content {
   background-color: white !important;
-}
-.ant-form-item{
-  margin-bottom: 7px !important;
 }
 .tab-title{
   display: flex;

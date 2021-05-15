@@ -1,139 +1,161 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import './styles.css';
-import Table from "./../../../components/Table/index"
-import { firebaseApp } from './../../../configs/firebase';
+import React, { useState, useEffect } from "react";
+import { Row, Table, Input, Select, Space, Button, Tag } from 'antd';
+import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { firebaseApp } from "./../../../configs/firebase";
+
+import * as Style from './styles';
+
+const ROLES = ['GuardBOT', 'Guard', 'Teacher', 'Student', 'Admin', 'Place'];
+
 function Manage() {
-   
-    const [users, setUsers] = useState([])
-    const [inforUsers, setInforUsers] = useState([])
-    const [selectPlace, setSelectPlace] = useState(-1);
-    const [keyword, setKeyword] = useState("");
-    useEffect(() => {
-        
-        getUser()
+  const [users, setUsers] = useState([]);
+  const [userInfos, setUserInfos] = useState([]);
+  const [selectPlace, setSelectPlace] = useState(undefined);
+  const [keyword, setKeyword] = useState("");
+  useEffect(() => {
+    getUser();
+  }, []);
 
-    }, [])
+  async function getUser() {
+    let arr = [];
+    const snap = await firebaseApp.database().ref("User/account").once("value");
+    const snapshotValue = snap.val();
 
-    async function getUser() {
-        let arr = [];
-        const snap = await firebaseApp.database().ref("User/account").once('value')
-        const snapshotValue = snap.val();
-
-        for (let obj in snapshotValue) {
-            Array.prototype.push.apply(arr, [snapshotValue[obj]]);
-        }
-        setUsers(arr)
-
-        let arrInfor = [];
-        const snapInfor = await firebaseApp.database().ref("User/information").once('value')
-        const snapshotValueInfor = snapInfor.val();
-
-        for (let obj in snapshotValueInfor) {
-            Array.prototype.push.apply(arrInfor, [snapshotValueInfor[obj]]);
-            
-        }
-        setInforUsers(arrInfor)
-        
+    for (let obj in snapshotValue) {
+      Array.prototype.push.apply(arr, [snapshotValue[obj]]);
     }
-    
-    function onSelector(event) {
-        setSelectPlace(event.target.value);
+    setUsers(arr);
+
+    let arrInfor = [];
+    const snapInfor = await firebaseApp
+      .database()
+      .ref("User/information")
+      .once("value");
+    const snapshotValueInfor = snapInfor.val();
+
+    for (let obj in snapshotValueInfor) {
+      Array.prototype.push.apply(arrInfor, [snapshotValueInfor[obj]]);
     }
-    function onChangeKeyWord(event){
-        setKeyword(event.target.value)
+    setUserInfos(arrInfor);
+  }
+
+  let tableData = [];
+
+  users.forEach((user) => {
+    userInfos.forEach((item) => {
+      for (let obj in item) {
+        if (user.id === obj) {
+          tableData = [
+            ...tableData,
+            {
+              key: user.id,
+              id: user.id,
+              name: item[obj].name,
+              position: user.position,
+              address: item[obj].adress ? item[obj].adress : '-',
+              avatar: item[obj].avatar,
+              money: item[obj].money
+                ? parseInt(item[obj].money).toLocaleString("it-IT", { style: "currency", currency: "VND" })
+                : '-',
+              class: item[obj].classS ? item[obj].classS : '-',
+              gender: item[obj].sex
+                ? item[obj].sex.toString() === 1 ? 'Male' : 'Female'
+                : '-',
+              birthday: item[obj].birthday ? item[obj].birthday : '-',
+            }
+          ];
+        }
       }
+    });
+  });
 
-    let filters = users.filter((item) => {
-        if(selectPlace == -1){
-        return users;
-        }else
-        return item.position+"" === selectPlace
-    })
-        
-    const mapUser = () =>{
-        let index = 0;
-        return filters.map((user) => {
-            return inforUsers.map((item) =>{
-                for (let obj in item) { 
-                   if(user.id === obj){
-                      
-                       if(item[obj].name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1)
-                    return <Table user={user} key={user.id} index={index++} infor = {item[obj]}/>
-                   }
-                } 
-            })
-           
-        })
+  const tableFilterData = tableData.filter((item) => {
+    if (selectPlace) {
+      return item.position === selectPlace && item.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
+    } else {
+      return item.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
     }
-   
-    
-     
-    return (
-        <div className="manage">
+  });
 
-            <div class="row">
-                <div class="col-xs-12">
-                    <div className="header-manage">
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Gender',
+      dataIndex: 'gender',
+    },
+    {
+      title: 'Role',
+      dataIndex: 'position',
+      render: (_, record) => ROLES[parseInt(record.position)],
+    },
+    {
+      title: 'Class',
+      dataIndex: 'class',
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+    },
+    {
+      title: 'Birthday',
+      dataIndex: 'birthday',
+    },
+    {
+      title: 'Money',
+      dataIndex: 'money',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      render: () => <Tag color="#87d068">Active</Tag>,
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      render: (_, record) => (
+        <Space>
+          <Button type="primary" ghost><EditOutlined /></Button>
+          <Button danger><DeleteOutlined /></Button>
+        </Space>
+      ),
+    }
+  ]
 
-                        <form class=" right form-inline d-flex justify-content-center md-form form-sm">
-                            <input value ={keyword}
-                                onChange = {onChangeKeyWord} 
-                                class="form-control form-control-sm mr-3 w-75" 
-                                type="text" 
-                                placeholder="Search"
-                                aria-label="Search" />
-                            <i class="fas fa-search" aria-hidden="true"></i>
-                        </form>
-
-                        <div class="selector-actor">
-                            <select onChange={onSelector} value={selectPlace} name="place" id="input-state" style={{ fontSize: "13px" }} className="form-control-statistic">
-                                <option value={-1}>Filter</option>
-                                <option value={0}>GuardBOT</option>
-                                <option value={3}>Motorbike Owner</option>
-                                <option value={1}>Guard</option>
-                                <option value={2}>Teacher</option>
-                                <option value={4}>Admin</option>
-                                <option value={5}>Place</option>
-
-                            </select>
-                        </div>
-                        <button className="btn btn-mybutton">Add Account</button>
-                    </div>
-
-                </div>
-
-                <div class="col-xs-12 ">
-
-                    <table className="table">
-                        <thead className="thead">
-                            <tr>
-
-                                <th scope="col">#</th>
-                                <th scope="col">ID</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">Full Name</th>
-                                <th scope="col">Class</th>
-                                <th scope="col">Birthday</th>
-                                <th scope="col">Role</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
-                            </tr>
-
-                        </thead>
-                        <tbody>
-                            {mapUser()}
-
-                        </tbody>
-                    </table>
-
-
-                </div>
-            </div>
-
-
-
-        </div>
-    )
+  return (
+    <Style.ManageContainer>
+      <Row justify="space-between" style={{ marginBottom: 16 }}>
+        <Space size={16}>
+          <Input
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            suffix={<SearchOutlined />}
+            placeholder="Search name..."
+          />
+          <Select
+            allowClear
+            onChange={(value) => setSelectPlace(value)}
+            value={selectPlace}
+            placeholder="Filter role"
+            style={{ width: 140 }}
+          >
+            <Select.Option value="0">GuardBOT</Select.Option>
+            <Select.Option value="1">Guard</Select.Option>
+            <Select.Option value="2">Teacher</Select.Option>
+            <Select.Option value="3">Student</Select.Option>
+            <Select.Option value="4">Admin</Select.Option>
+            <Select.Option value="5">Place</Select.Option>
+          </Select>
+        </Space>
+        <Button type="primary">Add Account</Button>
+      </Row>
+      <Table
+        columns={columns}
+        dataSource={tableFilterData}
+      />
+    </Style.ManageContainer>
+  );
 }
 export default Manage;

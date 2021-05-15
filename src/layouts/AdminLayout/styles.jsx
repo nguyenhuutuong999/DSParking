@@ -1,20 +1,21 @@
-.app-background-admin {
+import styled from 'styled-components';
+import background from '../../img/background.png';
+
+export const AppBackground = styled.div`
+  padding: 20px;
   width: 100%;
   height: 100vh;
-  background-image: url("./../../img/background.png");
+  background-image: url(${background});
   background-color: #cccccc;
   background-size: cover;
-  z-index: 0;
   display: flex;
   align-items: center;
-}
+`;
 
-.app-container-admin {
+export const AppContainer = styled.div`
   display: flex;
-  margin: 21px;
   width: 100%;
-  height: calc(100vh - 21px);
-  
+  height: calc(100vh - 40px);
   box-shadow:
     0 12.1px 2.6px rgba(0, 0, 0, 0.018),
     0 24.9px 6.9px rgba(0, 0, 0, 0.026),
@@ -24,27 +25,29 @@
     0 249px 80px rgba(0, 0, 0, 0.06);
   background: rgba(252, 252, 252, 0.7);
   overflow: hidden;
-  z-index: 1;
-}
+`;
 
-.app-sidebar {
+export const AppLogo = styled.div`
+  padding: 12px 24px;
+`;
+
+export const AppSidebar = styled.div`
   width: 250px;
-  border-right: 2px solid rgb(247, 224, 224);
+  border-right: 2px solid #edcfdf;
   background: rgba(252, 252, 252, 0.85);
-}
+`;
 
-.branch-img {
+export const AppImage = styled.div`
   width: 100%;
   height: 100%;
-}
+`;
 
-.app-main {
-  padding: 0px 20px 20px 20px;
+export const AppMain = styled.div`
+  padding: 20px;
   width: calc(100% - 250px);
-}
+  overflow-y: auto;
+`;
 
-
-.app-content-admin {
-
-  height: calc(100% - 20px);
-}
+export const AppContent = styled.div`
+  height: calc(100% - 56px);
+`;
