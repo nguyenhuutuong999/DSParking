@@ -1,101 +1,203 @@
-import React, { useState, useEffect } from 'react';
-import './styles.css';
+import React, { useEffect, useState } from 'react';
+import { Row, Col, Avatar, Tabs, Form, Input, Select, DatePicker, Button, Space } from 'antd';
+import { UserOutlined, EditOutlined } from '@ant-design/icons';
+import { firebaseApp } from './../../../configs/firebase';
+import moment from 'moment';
 
-import {
-  Button,
-  Tabs,
-  Form
-} from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import { Text } from '../../../components/styles';
 
-import { FaUser, FaIdCardAlt, FaPortrait, FaBirthdayCake, FaMapMarkerAlt, FaMapMarkedAlt, FaBuilding, FaCity, FaGlobeAsia } from 'react-icons/fa';
+import * as Style from './styles';
 
-import {
-  firebaseApp,
-} from '../../../configs/firebase';
-
-import AvatarDefault from '../../../img/avatardefault.jpg'
-
-const { TabPane } = Tabs;
-function Profile() {
-  const [isEditProfile, setIsEditProfile] = useState(false);
-
-  const [userData, setUserData] = useState({});
-  const user = JSON.parse(localStorage.getItem('user'));
-
-  const [editProfileForm] = Form.useForm();
-  const [checkInHistory, setCheckInHistory] = useState([]);
+function ProfilePage() {
+  const [userInfo, setUserInfo] = useState({});
+  const [profileForm] = Form.useForm();
 
   useEffect(() => {
-    firebaseApp.database().ref(`/User/information/parkingMan/${user.id}`).on('value', (snapshot) => {
-      setUserData({ ...snapshot.val() });
+    const user = JSON.parse(localStorage.getItem("user"));
+    firebaseApp.database().ref(`User/information/parkingMan/${user.id}`)
+    .on('value', (snapshot) => {
+      setUserInfo(snapshot.val());
     })
-  }, [])
+  }, []);
 
-
-  const layout = {
-    labelCol: { span: 5 },
-    wrapperCol: { span: 19 },
-  };
+  useEffect(() => {
+    profileForm.resetFields();
+  }, [userInfo.idStudent]);
 
   return (
-    <div className="profile-page">
-      <div className="div-information">
-        <Tabs defaultActiveKey="1">
-          <TabPane tab="Thông tin cá nhân" key="1">
-            <div className="information-content">
-              <div className="user-img">
-                <div className="div-avatar">
-                  <div className="div-avatar-content">
-                    <div className="avatar-content-detail">
-                      <div className="avatar-edit">
-                        <div className="avatar-edit-btn"><Button><EditOutlined /></Button></div>
-                      </div>
-                      <img src={userData.avatar ? userData.avatar : AvatarDefault} alt="Avatar" />
-                    </div>
-                  </div>
-                  <p>{userData.name}</p>
-                </div>
-              </div>
-
-              <div className="user-information">
-                <div className="tab-title"></div>
-
-                <div className="information-content">
-                  <>
-                    <div className="info-user-title">
-                      <p><FaUser />Name:</p>
-                      <p><FaIdCardAlt />Student Code:</p>
-                      <p><FaPortrait />Identity Card:</p>
-                      <p><FaBirthdayCake />Birth day:</p>
-                      <p><FaIdCardAlt />Email: </p>
-                      <p><FaMapMarkerAlt />Address:</p>
-                      <p><FaMapMarkedAlt />Ward:</p>
-                      <p><FaBuilding />District:</p>
-                      <p><FaCity />City:</p>
-                      <p><FaGlobeAsia />Country: </p>
-                    </div>
-                    <div className="info-user-content">
-                      <p>{userData.name ? userData.name : '-'}</p>
-                      <p>{userData.idStudent ? userData.idStudent : '-'}</p>
-                      <p>{userData.identityCard ? userData.identityCard : '-'}</p>
-                      <p>{userData.birthday ? userData.birthday : '-'}</p>
-                      <p>{userData.email ? userData.email : '-'}</p>
-                      <p>{userData.adress ? userData.adress : '-'}</p>
-                      <p>{userData.ward ? userData.ward : '-'}</p>
-                      <p>{userData.district ? userData.district : '-'}</p>
-                      <p>{userData.city ? userData.city : '-'}</p>
-                      <p>{userData.country ? userData.country : '-'}</p>
-                    </div>
-                  </>
-                </div>
-              </div>
-            </div>
-          </TabPane>
-        </Tabs>
-      </div>
-    </div>
+    <Row gutter={[16, 16]}>
+      <Col span={6}>
+        <Style.ProfileCardContainer>
+          <Style.ProfileCardBackground />
+          <Style.ProfileAvatar>
+            {userInfo.avatar && userInfo.avatar !== 'none'
+              ? <img src={userInfo.avatar} width={150} height={150} alt="Avatar" />
+              : <Avatar size={150} icon={<UserOutlined />} />
+            }
+            <Style.ChangeAvatarContainer>
+              <EditOutlined style={{ fontSize: 28, color: 'white' }} />
+            </Style.ChangeAvatarContainer>
+          </Style.ProfileAvatar>
+          <Style.ProfileCardContent>
+            <Text xl headerText w6>{userInfo.name}</Text>
+            <Text headerText>{userInfo.idStudent}</Text>
+          </Style.ProfileCardContent>
+        </Style.ProfileCardContainer>
+      </Col>
+      <Col span={18}>
+        <Style.ProfileDetailContainer>
+          <Tabs defaultActiveKey="1">
+            <Tabs.TabPane tab="Detail" key="1">
+              <Style.ProfileDetailContent>
+                <Form
+                  name="profileForm"
+                  form={profileForm}
+                  initialValues={{
+                    name: userInfo.name,
+                    email: userInfo.email,
+                    idStudent: userInfo.idStudent,
+                    identityCard: userInfo.identityCard,
+                    sex: userInfo.sex,
+                    birthday: moment(userInfo.birthday, 'YYYY-MM-DD'),
+                    phone: userInfo.phone,
+                    address: userInfo.adress,
+                    ward: userInfo.ward,
+                    district: userInfo.district,
+                    city: userInfo.city,
+                    country: userInfo.country,
+                  }}
+                  layout="vertical"
+                >
+                  <Row gutter={24}>
+                    <Col span={12}>
+                      <Form.Item
+                        name="name"
+                        label="NAME"
+                        rules={[
+                          { required: true, message: 'Required!'},
+                        ]}
+                      >
+                        <Input placeholder="Name" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        name="email"
+                        label="EMAIL"
+                        rules={[
+                          { required: true, message: 'Required!'},
+                        ]}
+                      >
+                        <Input placeholder="Email" disabled />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        name="idStudent"
+                        label="STUDENT CODE"
+                      >
+                        <Input placeholder="Student code" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        name="identityCard"
+                        label="IDENTITY CARD"
+                      >
+                        <Input placeholder="Identity card" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                      <Form.Item
+                        name="sex"
+                        label="GENDER"
+                        rules={[
+                          { required: true, message: 'Required!'},
+                        ]}
+                      >
+                        <Select placeholder="Gender">
+                          <Select.Option value={1}>Male</Select.Option>
+                          <Select.Option value={0}>Female</Select.Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                      <Form.Item
+                        name="birthday"
+                        label="BIRTHDAY"
+                        rules={[
+                          { required: true, message: 'Required!'},
+                        ]}
+                      >
+                        <DatePicker placeholder="Birthday" style={{ width: '100%' }} />
+                      </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                      <Form.Item
+                        name="phone"
+                        label="PHONE"
+                        rules={[
+                          { required: true, message: 'Required!'},
+                        ]}
+                      >
+                        <Input placeholder="Phone" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={16}>
+                      <Form.Item
+                        name="address"
+                        label="ADDRESS"
+                      >
+                        <Input placeholder="Address" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                      <Form.Item
+                        name="ward"
+                        label="WARD"
+                      >
+                        <Input placeholder="Ward" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                      <Form.Item
+                        name="district"
+                        label="DISTRICT"
+                      >
+                        <Input placeholder="District" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                      <Form.Item
+                        name="city"
+                        label="CITY"
+                      >
+                        <Input placeholder="City" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                      <Form.Item
+                        name="country"
+                        label="COUNTRY"
+                      >
+                        <Input placeholder="Country" />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row justify="end">
+                    <Space>
+                      <Button type="primary" htmlType="submit">Save</Button>
+                      <Button htmlType="reset">Reset</Button>
+                    </Space>
+                  </Row>
+                </Form>
+              </Style.ProfileDetailContent>
+            </Tabs.TabPane>
+          </Tabs>
+        </Style.ProfileDetailContainer>
+      </Col>
+    </Row>
   );
 }
 
-export default Profile;
+export default ProfilePage;

@@ -10,15 +10,15 @@ function ConfirmModal({
   return (
     <>
       <Modal
-        title="Xóa"
+        title="Delete"
         visible={isShowModal} onHide={handleHideModal}
         // footer={false}
         onOk={handleDeleteNotifications}
         onCancel={handleHideModal}
-        okText="Đồng ý"
-        cancelText="Hủy"
+        okText="Delete"
+        cancelText="Cancel"
       >
-        <p>Are you sure want to log out? </p>
+        <p>Are you sure want to delete? </p>
       </Modal>
     </>
   )

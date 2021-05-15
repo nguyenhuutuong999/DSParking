@@ -8,20 +8,15 @@ import branchImg from '../../assets/images/logo.jpg';
 
 import * as Style from './styles';
 
-function AdminLayout({ component: Component, role, ...props }) {
-
+function LayoutUser({ component: Component, role, ...props }) {
   const authData = JSON.parse(localStorage.getItem('user'));
 
   if (!authData) {
-
     return <Redirect to="/login" />
-  } else if (authData.position !== role) {
-    if (authData.position === '3') {
-      return <Redirect to="/" />
-    } else {
-      return <Redirect to="/admin" />
-    }
-  } 
+  } else if (authData.position === "4"){
+    return <Redirect to="/admin" />
+  }
+  
   return (
     <Route
       {...props}
@@ -48,4 +43,4 @@ function AdminLayout({ component: Component, role, ...props }) {
 
 }
 
-export default AdminLayout;
+export default LayoutUser;

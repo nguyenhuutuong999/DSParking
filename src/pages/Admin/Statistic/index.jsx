@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Select, DatePicker, Statistic, Radio, Space, Progress } from 'antd';
 import { LineChart, Line, ResponsiveContainer, Cell, XAxis, Legend, YAxis, Tooltip, Pie, PieChart, Label } from 'recharts';
 import 'date-fns';
-import DateFnsUtils from "@date-io/date-fns";
 import moment from 'moment';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { firebaseApp } from './../../../configs/firebase';
 import { MONTH_FORMAT } from '../../../constants/common';
 
@@ -15,7 +13,6 @@ import * as Style from './styles';
 function StatisticPage() {
 
   const [chartData, setchartData] = useState(0);
-  console.log('🚀 ~ file: index.jsx ~ line 17 ~ StatisticPage ~ chartData', chartData);
   // const [weekDataTotal, setWeekDataTotal] = useState(0);
   const [revenue, setRevenue] = useState({})
 
@@ -410,7 +407,6 @@ function StatisticPage() {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Legend />
                 {selectPlace === 2 || selectPlace === -1 ? <Line type="monotone" dataKey="254 NVL" stroke="#5C2BD7" /> : <Line />}
                 {selectPlace === 3 || selectPlace === -1 ? <Line type="monotone" dataKey="334 NVL" stroke="#37B684" /> : <Line />}
                 {selectPlace === 1 || selectPlace === -1 ? <Line type="monotone" dataKey="Hoa Khanh" stroke="#FC591D" /> : <Line />}
@@ -432,7 +428,6 @@ function StatisticPage() {
                   }
                 </Pie>
                 <Tooltip />
-                <Legend />
               </PieChart>
             </ResponsiveContainer>
           </Style.CardContainer>

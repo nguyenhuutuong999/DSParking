@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Space, Dropdown, Menu, Button, Modal } from 'antd';
+import { Row, Space, Dropdown, Menu, Button, Modal } from 'antd';
 import {
-  RollbackOutlined,
   DollarOutlined,
-  DownloadOutlined
+  DownloadOutlined,
+  QrcodeOutlined,
+  BellOutlined,
+  UserOutlined,
+  LogoutOutlined,
 } from '@ant-design/icons';
 import QRCode from 'qrcode.react';
 import {
-  FaBell,
-  FaQrcode,
   FaBirthdayCake,
-  FaUser,
   FaExclamationCircle,
 } from 'react-icons/fa';
 
@@ -24,8 +24,6 @@ import { firebaseApp } from '../../configs/firebase';
 import AvatarDefault from '../../img/avatardefault.jpg';
 
 import * as Style from './styles';
-
-import './styles.css';
 
 function Header() {
   const [isShowQrModal, setIsShowQrModal] = useState(false);
@@ -67,17 +65,17 @@ function Header() {
 
   const renderDropdownAvatar = () => {
     return (
-      <Menu>
+      <Menu style={{ width: 140 }}>
         <Menu.Item onClick={() => history.push("/profile")}>
           <Space>
-            <FaUser />
-            <p>Profile</p>
+            <UserOutlined style={{ fontSize: 16 }} />
+            <Text>Profile</Text>
           </Space>
         </Menu.Item>
         <Menu.Item onClick={() => handleLogout()}>
           <Space>
-            <RollbackOutlined />
-            <p>Log out</p>
+            <LogoutOutlined style={{ fontSize: 16 }} />
+            <Text>Log out</Text>
           </Space>
         </Menu.Item>
       </Menu>
@@ -127,36 +125,28 @@ function Header() {
   return (
     <Style.AppHeader>
       <Text xl w6>Hi, {userData.name} !!!</Text>
-      <Space className="header-right" align="center" size="middle">
-        <div className="header-balance">
-          <Space>
-            <DollarOutlined />
-            <p>
-              {parseInt(userData.money)?.toLocaleString("it-IT", {
-                style: "currency",
-                currency: "VND",
-              })}
-            </p>
-          </Space>
-        </div>
-        <div className="div-svg-header">
-          <FaQrcode onClick={() => handleShowQrModal()} />
-        </div>
-
-        <div className="div-svg-header">
-          <Dropdown
-            overlay={renderDropdownNotification()}
-            placement="bottomRight"
-          >
-            {/* <Badge count={2}> */}
-            <FaBell />
-            {/* </Badge> */}
-          </Dropdown>
-        </div>
-
-        <Dropdown overlay={renderDropdownAvatar()} placement="bottomCenter">
+      <Space size="middle">
+        <Style.MoneyButton
+          type="primary"
+          shape="round"
+          icon={<DollarOutlined style={{ fontSize: 24 }} />}
+        >
+          {parseInt(userData.money)?.toLocaleString("it-IT", {
+            style: "currency",
+            currency: "VND",
+          })}
+        </Style.MoneyButton>
+        <Style.HeaderButton onClick={() => handleShowQrModal()}>
+          <QrcodeOutlined style={{ fontSize: 20, color: '#c44a8a' }} />
+        </Style.HeaderButton>
+        <Dropdown overlay={renderDropdownNotification()} arrow>
+          <Style.HeaderButton onClick={() => history.push('/notifications')}>
+            <BellOutlined style={{ fontSize: 20, color: '#c44a8a' }} />
+          </Style.HeaderButton>
+        </Dropdown>
+        <Dropdown overlay={renderDropdownAvatar()} placement="bottomLeft" arrow>
           <img
-            style={{ width: "35px", height: "35px", borderRadius: "50%" }}
+            style={{ width: "36px", height: "36px", borderRadius: "50%", cursor: 'pointer' }}
             src={userData.avatar ? userData.avatar : AvatarDefault}
             alt="Avatar"
           />
@@ -164,25 +154,26 @@ function Header() {
       </Space>
 
       <Modal
-        title="Your QRCode: "
+        title="Your QRCode"
         visible={isShowQrModal}
-        footer={false}
         onOk={handleHideQrModal}
         onCancel={handleHideQrModal}
+        width={300}
+        footer={
+          <Row justify="space-between">
+            <Button type="primary" ghost onClick={() => handleChangeQRCode()}>
+              Change QRCode
+            </Button>
+            <Button type="primary" ghost icon={<DownloadOutlined />}>
+              Export
+            </Button>
+          </Row>
+        }
       >
         <QRCode
           value={`${user.id}${userData.secretNum}`}
-          size={250}
-          style={{ margin: "0 110px" }}
+          size={252}
         />
-        <div onClick={() => handleChangeQRCode()} className="change-qrcode">
-          <Button type="primary" ghost>
-            Change QRCode
-          </Button>
-          <Button type="primary" ghost icon={<DownloadOutlined />}>
-            Export
-          </Button>
-        </div>
       </Modal>
     </Style.AppHeader>
   );

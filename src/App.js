@@ -26,7 +26,7 @@ import Support from './pages/User/Support';
 import Setting from './pages/User/Setting';
 
 import AdminLayout from "./layouts/AdminLayout";
-import LayoutUser from "./layouts/LayoutUser/LayoutUser";
+import UserLayout from "./layouts/UserLayout";
 
 export function App() {
   return (
@@ -36,14 +36,14 @@ export function App() {
         <Switch>
           <LayoutLogin exact path="/login" component={Login}/>
 
-          <LayoutUser exact  path="/" component={Home} />
-          <LayoutUser exact  path="/profile" component={Profile} />
-          <LayoutUser exact  path="/account" component={Account} />
-          <LayoutUser exact  path="/evaluation" component={Evaluation} />
-          <LayoutUser exact  path="/notifications" component={Notifications} />
-          <LayoutUser exact  path="/statistic" component={Statistic} />
-          <LayoutUser exact  path="/support" component={Support} />
-          <LayoutUser exact  path="/setting" component={Setting} />
+          <UserLayout exact  path="/" component={Home} />
+          <UserLayout exact  path="/profile" component={Profile} />
+          <UserLayout exact  path="/account" component={Account} />
+          <UserLayout exact  path="/evaluation" component={Evaluation} />
+          <UserLayout exact  path="/notifications" component={Notifications} />
+          <UserLayout exact  path="/statistic" component={Statistic} />
+          <UserLayout exact  path="/support" component={Support} />
+          <UserLayout exact  path="/setting" component={Setting} />
         
           <AdminLayout exact role="4" path="/admin" component={HomeA} />
           <AdminLayout exact role="4" path="/admin/account" component={AccountA} />

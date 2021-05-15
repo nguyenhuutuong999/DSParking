@@ -16,6 +16,7 @@ export const AppContainer = styled.div`
   display: flex;
   width: 100%;
   height: calc(100vh - 40px);
+  border-radius: 10px;
   box-shadow:
     0 12.1px 2.6px rgba(0, 0, 0, 0.018),
     0 24.9px 6.9px rgba(0, 0, 0, 0.026),
@@ -49,5 +50,5 @@ export const AppMain = styled.div`
 `;
 
 export const AppContent = styled.div`
-  height: calc(100% - 56px);
+  height: calc(100% - 60px);
 `;

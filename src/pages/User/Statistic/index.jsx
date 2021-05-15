@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import "./styles.css";
-
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Statistic } from 'antd';
+import { connect } from 'react-redux';
 import {
   BarChart,
   Bar,
@@ -15,22 +14,19 @@ import {
   ResponsiveContainer,
   LineChart,
   Line,
-} from "recharts";
+} from 'recharts';
 
-import moment from "moment";
-import { WEEKDAY_FORMAT } from "../../../constants/common";
+import moment from 'moment';
+import { WEEKDAY_FORMAT } from '../../../constants/common';
 
-import { firebaseApp } from "../../../configs/firebase";
+import { firebaseApp } from '../../../configs/firebase';
 
-function Statistic({ dataYear }) {
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 26 ~ Statistic ~ dataYear",
-    dataYear
-  );
+import * as Style from './styles';
+
+function StatisticPage({ dataYear }) {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [weekChartData, setWeekChartData] = useState([]);
-  console.log("🚀 ~ file: index.jsx ~ line 33 ~ Statistic ~ weekChartData", weekChartData)
   const [monthChartData, setMonthChartData] = useState([]);
   const [yearChartData, setYearChartData] = useState([
     {
@@ -170,108 +166,91 @@ function Statistic({ dataYear }) {
   }, []);
 
   return (
-    <div className="statistic">
-      <div className="statistic-row1">
-        <div className="statistic-week">
-          <div className="div-statistic-head">
-            <h3>Parking times / week</h3>
-          </div>
-          <div style={{ height: "83%", padding: "20px" }}>
-            <ResponsiveContainer>
-              <BarChart
-                width={600}
-                height={300}
-                data={weekChartData}
-                barSize={20}
-                margin={{
-                  right: 30,
-                }}
-              >
-                <XAxis
-                  dataKey="day"
-                  scale="point"
-                  padding={{ left: 10, right: 10 }}
-                />
-                <YAxis dataKey="count" />
-                <Tooltip />
-                <Legend />
-                <CartesianGrid strokeDasharray="3 3" />
-                <Bar
-                  dataKey="count"
-                  fill="#db92b9"
-                  background={{ fill: "#eee" }}
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        <div className="statistic-month">
-          <div className="div-statistic-head">
-            <h3>Parking times / month</h3>
-          </div>
-          <div style={{ height: "83%", padding: "20px" }}>
-            <ResponsiveContainer>
-              <AreaChart
-                data={monthChartData}
-                margin={{
-                  top: 10,
-                  right: 30,
-                  left: 0,
-                  bottom: 0,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="day" />
-                <YAxis dataKey="count" />
-                <Tooltip />
-                <Area
-                  type="monotone"
-                  dataKey="count"
-                  stroke="#c44a8a"
-                  fill="#db92b9"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </div>
-
-      <div className="statistic-row2">
-        <div className="statistic-year">
-          <div className="div-statistic-head">
-            <h3>Parking times / year</h3>
-          </div>
-          <div style={{ height: "83%", padding: "20px" }}>
-            <ResponsiveContainer>
-              <LineChart
-                width={800}
-                height={200}
-                data={yearChartData}
-                syncId="anyId"
-                margin={{
-                  top: 10,
-                  right: 30,
-                  left: 0,
-                  bottom: 0,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Line
-                  type="monotone"
-                  dataKey="CP"
-                  stroke="#c44a8a"
-                  fill="#c44a8a"
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Row gutter={[16, 16]}>
+      <Col span={12}>
+        <Style.CardContainer>
+          <Statistic
+            title="Parking this week"
+            value={`${startWeekDay.format('DD/MM/YYYY')} - ${endWeekDay.format('DD/MM/YYYY')}`}
+            valueStyle={{ fontSize: 20 }}
+          />
+          <ResponsiveContainer height={300}>
+            <BarChart
+              data={weekChartData}
+              barSize={24}
+              margin={{ left: -24, top: 32, right: 16, bottom: -8 }}
+            >
+              <XAxis
+                dataKey="day"
+                scale="point"
+                padding={{ left: 10, right: 10 }}
+              />
+              <YAxis dataKey="count" />
+              <Tooltip />
+              <CartesianGrid strokeDasharray="3 3" />
+              <Bar
+                dataKey="count"
+                fill="#db92b9"
+                background={{ fill: "#eee" }}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </Style.CardContainer>
+      </Col>
+      <Col span={12}>
+        <Style.CardContainer>
+          <Statistic
+            title="Parking this month"
+            value={`${startMonth.format('DD/MM/YYYY')} - ${endMonth.format('DD/MM/YYYY')}`}
+            valueStyle={{ fontSize: 20 }}
+          />
+          <ResponsiveContainer height={300}>
+            <AreaChart
+              data={monthChartData}
+              margin={{ left: -24, top: 32, right: 16, bottom: -8 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="day" />
+              <YAxis dataKey="count" />
+              <Tooltip />
+              <Area
+                type="monotone"
+                dataKey="count"
+                stroke="#c44a8a"
+                fill="#db92b9"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </Style.CardContainer>
+      </Col>
+      <Col span={24}>
+        <Style.CardContainer>
+          <Statistic
+            title="Parking this year"
+            value="01/01/2021 - 31/12/2021"
+            valueStyle={{ fontSize: 20 }}
+          />
+          <ResponsiveContainer height={350}>
+            <LineChart
+              data={yearChartData}
+              syncId="anyId"
+              margin={{ left: -12, top: 32, right: 16, bottom: -8 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Line
+                type="monotone"
+                dataKey="CP"
+                stroke="#c44a8a"
+                fill="#c44a8a"
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </Style.CardContainer>
+      </Col>
+    </Row>
   );
 }
 const mapStateToProps = (state) => {
@@ -281,4 +260,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Statistic);
+export default connect(mapStateToProps)(StatisticPage);

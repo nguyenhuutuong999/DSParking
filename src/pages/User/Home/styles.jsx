@@ -1,7 +1,15 @@
 import styled from 'styled-components';
 
+export const CardContainer = styled.div`
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 10px 10px 14px 0 rgba(158, 157, 157, 0.25), -8px -0px 10px 0 rgba(255, 255, 255, 0.3);
+  background-color: white;
+`;
+
 export const ProfileCardContainer = styled.div`
   position: relative;
+  margin-bottom: 16px;
   border-radius: 4px;
   box-shadow: 10px 10px 14px 0 rgba(158, 157, 157, 0.25), -8px -0px 10px 0 rgba(255, 255, 255, 0.3);
   background-color: white;
@@ -32,45 +40,4 @@ export const ProfileAvatar = styled.div`
   border: 5px solid white;
   transform: translateX(-50%);
   overflow: hidden;
-`;
-
-export const ChangeAvatarContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0);
-  transition: all 0.5s;
-  cursor: pointer;
-
-  & > span {
-    display: none;
-  }
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.25);
-
-    & > span {
-      display: block;
-    }
-  }
-`;
-
-export const ProfileDetailContainer = styled.div`
-  border-radius: 4px;
-  box-shadow: 10px 10px 14px 0 rgba(158, 157, 157, 0.25), -8px -0px 10px 0 rgba(255, 255, 255, 0.3);
-  background-color: white;
-  overflow: hidden;
-
-  & .ant-tabs-nav-list {
-    margin: 0 16px;
-  }
-`;
-
-export const ProfileDetailContent = styled.div`
-  padding: 0 16px 16px;
 `;
