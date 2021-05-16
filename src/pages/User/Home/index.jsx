@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import { Row, Col, Statistic, Avatar, Button, Table } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { SwapOutlined } from '@ant-design/icons';
 import {
   ResponsiveContainer,
   LineChart,
@@ -10,26 +12,21 @@ import {
 } from "recharts";
 import QRCode from "qrcode.react";
 import moment from "moment";
-import "./styles.css";
 
-import AvatarDefault from "../../../img/avatardefault.jpg";
 import history from "../../../util/history";
-
-import { Button, Tooltip as Tip, Table } from "antd";
-
-import { FaMotorcycle } from "react-icons/fa";
-
-import { getHistoryList } from "../../../redux/actions/index";
 
 import { firebaseApp } from "../../../configs/firebase";
 
 import {
   WEEKDAY_FORMAT,
-  CHECKIN_FORMAT,
   LOCATION,
 } from "../../../constants/common";
 
-function Home() {
+import { Text } from '../../../components/styles';
+
+import * as Style from './styles';
+
+function HomePage() {
   const [userData, setUserData] = useState({});
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -200,37 +197,21 @@ function Home() {
   }, []);
 
   return (
-    <div className="home">
-      <div className="home-left">
-        <div className="home-statistic">
-          <div className="home-statistic-items">
-            <div className="home-statistic-info">
-              <div className="icon-title-statistics">
-                <div
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
-                    backgroundColor:  "rgba(196,74,138,0.25)",
-                  }}
-                >
-                  <FaMotorcycle
-                    style={{
-                      fontSize: "25px",
-                      fill: "#b300b3",
-                      marginTop: "8px",
-                    }}
-                  />
-                </div>
-                <h5>Parking times / week</h5>
-              </div>
-              <h2>{totalWeekCount}</h2>
-            </div>
-            <div className="home-statistic-chart">
-              <ResponsiveContainer>
+    <Row gutter={[16, 16]}>
+      <Col span={18}>
+        <Row gutter={[16, 16]}>
+          <Col span={12}>
+            <Style.CardContainer>
+              <Statistic
+                title={`Parking week (${moment(oneWeekAgo).format('DD/MM/YYYY')} - ${moment(currentDay).format('DD/MM/YYYY')})`}
+                value={totalWeekCount}
+                prefix={<SwapOutlined style={{ color: '#c44a8a' }} />}
+                suffix="times/week"
+              />
+              <ResponsiveContainer height={200}>
                 <LineChart
                   data={weekChartData}
-                  margin={{ top: 10, right: 30, left: -30, bottom: -10 }}
+                  margin={{ left: -32, top: 32, right: 16, bottom: -8 }}
                 >
                   <XAxis dataKey="day" />
                   <YAxis
@@ -247,35 +228,19 @@ function Home() {
                   />
                 </LineChart>
               </ResponsiveContainer>
-            </div>
-          </div>
-          <div className="home-statistic-items">
-            <div className="home-statistic-info">
-              <div className="icon-title-statistics">
-                <div
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
-                    backgroundColor: " rgba(196,74,138,0.25)",
-                  }}
-                >
-                  <FaMotorcycle
-                    style={{
-                      fontSize: "25px",
-                      fill: "#c44a8a",
-                      marginTop: "8px",
-                    }}
-                  />
-                </div>
-                <h5>Parking times / month</h5>
-              </div>
-              <h2>{totalMonthCount}</h2>
-            </div>
-            <div className="home-statistic-chart">
-              <ResponsiveContainer>
+            </Style.CardContainer>
+          </Col>
+          <Col span={12}>
+            <Style.CardContainer>
+              <Statistic
+                title={`Parking month (${moment(oneMonthAgo).format('DD/MM/YYYY')} - ${moment(currentDay).format('DD/MM/YYYY')})`}
+                value={totalMonthCount}
+                prefix={<SwapOutlined style={{ color: '#c44a8a' }} />}
+                suffix="times/month"
+              />
+              <ResponsiveContainer height={200}>
                 <LineChart
-                  margin={{ top: 10, right: 30, left: -30, bottom: -10 }}
+                  margin={{ left: -32, top: 32, right: 16, bottom: -8 }}
                   data={monthChartData}
                 >
                   <Tooltip />
@@ -293,62 +258,50 @@ function Home() {
                   />
                 </LineChart>
               </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
-        <div className="home-history">
-          <div className="home-history-detail">
-            <div className="home-history-title">
-              <h4>Parking History</h4>
-            </div>
-            <div className="home-his-table">
-              <div className="div-history-table">
-                <Table
-                  dataSource={checkInHistory}
-                  columns={columnsHistory}
-                  pagination={false}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="home-right">
-        <div className="home-user">
-          <div className="home-user-detail">
-            <div className="user-img">
-              <img
-                src={userData.avatar ? userData.avatar : AvatarDefault}
-                alt="Avatar"
+            </Style.CardContainer>
+          </Col>
+          <Col span={24}>
+            <Style.CardContainer>
+              <Text headerText xl style={{ marginBottom: 8 }}>Parking History</Text>
+              <Table
+                dataSource={checkInHistory}
+                columns={columnsHistory}
+                pagination={false}
               />
-            </div>
-            <div className="home-user-info">
-              <div className="user-information">
-                <span className="name">{userData.name}</span>
-                <span>{userData.idStudent}</span>
-                <span>{userData.birthday ? userData.birthday : "-"}</span>
-                <span>
-                  <Button
-                    onClick={() => history.push("/profile")}
-                    style={{ marginTop: "30px" }}
-                  >
-                    Profile
-                  </Button>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="home-qrcode">
-          <p>Your QrCode:</p>
-          <div className="home-qrcode-img">
-            <QRCode value={`${user.id}${userData.secretNum}`} size={140} />
-          </div>
-        </div>
-      </div>
-    </div>
+            </Style.CardContainer>
+          </Col>
+        </Row>
+      </Col>
+      <Col span={6}>
+        <Style.ProfileCardContainer>
+          <Style.ProfileCardBackground />
+          <Style.ProfileAvatar>
+            {userData.avatar && userData.avatar !== 'none'
+              ? <img src={userData.avatar} width={150} height={150} alt="Avatar" />
+              : <Avatar size={150} icon={<UserOutlined />} />
+            }
+          </Style.ProfileAvatar>
+          <Style.ProfileCardContent>
+            <Text xl headerText w6>{userData.name}</Text>
+            <Text headerText>{userData.idStudent}</Text>
+            <Button
+              onClick={() => history.push('/profile')}
+              style={{ marginTop: 16 }}
+            >
+              Profile
+            </Button>
+          </Style.ProfileCardContent>
+        </Style.ProfileCardContainer>
+        <Style.CardContainer style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Text headerText xl style={{ marginBottom: 8 }}>Your QrCode</Text>
+          <QRCode value={`${user.id}${userData.secretNum}`} size={140} />
+          <Button style={{ marginTop: 16 }}>
+            Change QRCode
+          </Button>
+        </Style.CardContainer>
+      </Col>
+    </Row>
   );
 }
 
-export default Home;
+export default HomePage;

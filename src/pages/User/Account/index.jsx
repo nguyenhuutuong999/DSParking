@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './styles.css';
 import moment from 'moment';
 
-import { Form, Table, Tabs, List } from 'antd';
+import { Table, Tabs, List } from 'antd';
 
 import {
   firebaseApp,
@@ -10,7 +9,9 @@ import {
 
 import { LOCATION } from '../../../constants/common';
 
-function Account({
+import * as Style from './styles';
+
+function AccountPage({
   transactionsList,
 }) {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -81,6 +82,7 @@ function Account({
       title: 'Amount of money',
       dataIndex: 'money',
       key: 'money',
+      render: (_, record) => parseInt(record.money).toLocaleString("it-IT")
     },
     {
       title: 'Content',
@@ -91,6 +93,7 @@ function Account({
       title: 'Balance',
       dataIndex: 'balance',
       key: 'balance',
+      render: (_, record) => parseInt(record.balance).toLocaleString("it-IT")
     },
   ];
   const { TabPane } = Tabs;
@@ -117,22 +120,20 @@ function Account({
   }
 
   return (
-    <div className="dsp-account">
-      <div className="content-account">
-        <Tabs defaultActiveKey="1">
-          <TabPane tab="Transaction History" key="1">
-            <div className="div-table">
-              <Table columns={columns} dataSource={transactionHistory} pagination={{ pageSize: 7 }} />
-            </div>
-          </TabPane>
-          <TabPane tab="Parking History" key="2">
-            <div className="history-parking">
-              {renderHistoryList()}
-            </div>
-          </TabPane>
-        </Tabs>
-      </div>
-    </div>
+    <Style.AccountContainer>
+      <Tabs defaultActiveKey="1">
+        <TabPane tab="Transaction History" key="1">
+          <Style.AccountContent>
+            <Table columns={columns} dataSource={transactionHistory} pagination={{ pageSize: 7 }} />
+          </Style.AccountContent>
+        </TabPane>
+        <TabPane tab="Parking History" key="2">
+          <Style.AccountContent>
+            {renderHistoryList()}
+          </Style.AccountContent>
+        </TabPane>
+      </Tabs>
+    </Style.AccountContainer>
   );
 }
-export default Account;
+export default AccountPage;

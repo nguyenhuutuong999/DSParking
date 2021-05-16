@@ -3,7 +3,7 @@ import { Row, Col, Statistic, Space, Progress } from 'antd';
 import { LineChart, Line, ResponsiveContainer, XAxis, Legend, YAxis, Tooltip } from 'recharts';
 import moment from 'moment';
 import { WEEKDAY_FORMAT, MONTH_FORMAT } from '../../../constants/common';
-import {firebaseApp} from './../../../configs/firebase';
+import { firebaseApp } from './../../../configs/firebase';
 
 import { Text } from '../../../components/styles';
 
@@ -21,7 +21,6 @@ function Home() {
 
   // const data flow of the nearest Month
   const [monthChartData, setMonthChartData] = useState(0);
-  console.log('🚀 ~ file: index.jsx ~ line 26 ~ Home ~ monthChartData', monthChartData);
   const [monthDataTotal, setMonthDataTotal] = useState(0);
   // const data totp up of the nearest Month
   const [todayTopUp, setTodayTopUp] = useState(0);
@@ -409,7 +408,6 @@ const formatVND = (x) =>{
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Legend />
               <Line type="monotone" dataKey="254 NVL" stroke="#8684d8" />
               <Line type="monotone" dataKey="334 NVL" stroke="#82ca9d" />
               <Line type="monotone" dataKey="03 QT" stroke="#c7b3e6" />
