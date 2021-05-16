@@ -95,6 +95,12 @@ const ADMIN_SIDEBAR_MENU = [
     icon: <UsergroupAddOutlined style={{ fontSize: 16 }} />
   },
   {
+    name: "Management Slot",
+    to: "/admin/management-slot",
+    exact: true,
+    icon: <UsergroupAddOutlined style={{ fontSize: 16 }} />
+  },
+  {
     name: "Logout",
     to: "/login",
     exact: true,
