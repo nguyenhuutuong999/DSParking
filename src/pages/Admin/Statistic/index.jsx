@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { Row, Col, Select, DatePicker, Statistic, Radio, Space, Progress } from 'antd';
 import { LineChart, Line, ResponsiveContainer, Cell, XAxis, Legend, YAxis, Tooltip, Pie, PieChart, Label } from 'recharts';
-import './styles.css'
 import 'date-fns';
-import DateFnsUtils from "@date-io/date-fns";
 import moment from 'moment';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { firebaseApp } from './../../../configs/firebase';
 import { MONTH_FORMAT } from '../../../constants/common';
 
-function Statistic() {
+import { Text } from '../../../components/styles';
+
+import * as Style from './styles';
+
+function StatisticPage() {
 
   const [chartData, setchartData] = useState(0);
   // const [weekDataTotal, setWeekDataTotal] = useState(0);
@@ -31,13 +33,10 @@ function Statistic() {
 
 
   const handleFromDateChange = (date) => {
-    setSelectedFromDate(moment(date))
+    setSelectedFromDate(date)
   }
   const handleToDateChange = (date) => {
-    setSelectedToDate(moment(date));
-  }
-  function onSelector(event) {
-    setSelectPlace(event.target.value);
+    setSelectedToDate(date);
   }
 
   const getDayList = (startDay, endDay) => {
@@ -353,122 +352,73 @@ function Statistic() {
     return x.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })
   }
   return (
-
-    <div className="statistic">
-
-      <div className="col-xs-12">
-        <div className="from-to">
-          <div class="input-group input-group-sm mb-3">
-            <select onChange={onSelector} value={selectPlace} name="place" id="input-state" style={{ fontSize: "13px" }} className="form-control-statistic">
-              <option value={-1}>All</option>
-              <option value={0}>03 Quang Trung</option>
-              <option value={1}>Hòa Khánh</option>
-              <option value={2}>254 Nguyễn Văn Linh</option>
-              <option value={3}>334/4 Nguyễn Văn Linh</option>
-            </select>
-          </div>
-          <div class="input-group input-group-sm mb-3">
-            <div class="input-group-prepend" style={{ width: "70px" }}>
-              <span class="input-group-text" id="inputGroup-sizing-sm">From</span>
-            </div>
-            {/* <input type="text" class="form-control-statistic" aria-label="Small" aria-describedby="inputGroup-sizing-sm" /> */}
-            <div class="form-control-statistic" >
-
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <KeyboardDatePicker
-                  //disableToolbar
-                  variant="inline"
-                  format="dd/MM/yyyy"
-                  margin="normal"
-                  padding="0"
-                  id="date-picker"
-                  name="fromDate"
-                  value={selectedFromDate}
-                  onChange={handleFromDateChange}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date'
-                  }}
-                />
-              </MuiPickersUtilsProvider>
-            </div>
-
-          </div>
-          <div class="input-group input-group-sm mb-3">
-            <div class="input-group-prepend" style={{ width: "40px" }}>
-              <span class="input-group-text" id="inputGroup-sizing-sm">To</span>
-            </div>
-            <div class="form-control-statistic" >
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-
-                <KeyboardDatePicker
-                  //disableToolbar
-                  variant="inline"
-                  format="dd/MM/yyyy"
-                  margin="normal"
-                  padding="0"
-                  id="date-picker"
-                  name="toDate"
-                  value={selectedToDate}
-                  onChange={handleToDateChange}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date'
-                  }}
-                />
-
-              </MuiPickersUtilsProvider>
-            </div>
-
-          </div>
-
-
-        </div>
-        <div className="from-to">
-
-          <div class="input-group input-group-sm mb-3 filter-button">
-            <div class="input-group-prepend" style={{ width: "70px" }}>
-              <button class="input-group-text filter filter-month" onClick={() => setStateOnFilterMonth()} id="">Month</button>
-            </div>
-            {/* <input type="text" class="form-control-statistic" aria-label="Small" aria-describedby="inputGroup-sizing-sm" /> */}
-
-          </div>
-          <div class="input-group input-group-sm mb-3 filter-button">
-            <div class="input-group-prepend" style={{ width: "70px" }}>
-              <button class="input-group-text filter filter-year" onClick={() => setStateOnFilterYear()} id="">Year</button>
-            </div>
-
-          </div>
-
-
-        </div>
-
-        <div className="statistic-chart">
-          <ResponsiveContainer width="100%" height="100%" fill='white'>
-            <LineChart data={chartData}
-              margin={{ left: 0, top: 30, right: 40 }}
-              fill='white'
-            >
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-
-              {selectPlace == 2 || selectPlace == -1 ? <Line type="monotone" dataKey="254 NVL" stroke="#5C2BD7" /> : <Line />}
-              {selectPlace == 3 || selectPlace == -1 ? <Line type="monotone" dataKey="334 NVL" stroke="#37B684" /> : <Line />}
-              {selectPlace == 1 || selectPlace == -1 ? <Line type="monotone" dataKey="Hoa Khanh" stroke="#FC591D" /> : <Line />}
-              {selectPlace == 0 || selectPlace == -1 ? <Line type="monotone" dataKey="03 QT" stroke="#F21C58" /> : <Line />}
-             
-
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-
-      <div className="col-xs-12">
-        <div className="col-xs-3">
-          <div className="pie-chart">
-
-            <ResponsiveContainer width="100%" height="100%" fill='white'>
-              <PieChart  >
+    <>
+      <Style.StatisticFilterContainer>
+        <Space size={32}>
+          <Select
+            value={selectPlace}
+            onChange={(value) => setSelectPlace(value)}
+            style={{ width: 180 }}
+          >
+            <Select.Option value={-1}>All</Select.Option>
+            <Select.Option value={0}>03 Quang Trung</Select.Option>
+            <Select.Option value={1}>Hòa Khánh</Select.Option>
+            <Select.Option value={2}>254 Nguyễn Văn Linh</Select.Option>
+            <Select.Option value={3}>334/4 Nguyễn Văn Linh</Select.Option>
+          </Select>
+          <DatePicker
+            allowClear={false}
+            defaultValue={selectedFromDate}
+            format={(value) => `From: ${value.format('DD/MM/YYYY')}`}
+            onChange={handleFromDateChange}
+          />
+          <DatePicker
+            allowClear={false}
+            defaultValue={selectedToDate}
+            format={(value) => `To: ${value.format('DD/MM/YYYY')}`}
+            onChange={handleToDateChange}
+          />
+          <Radio.Group
+            onChange={(e) => {
+              if (e.target.value === 'month') {
+                setStateOnFilterMonth()
+              } else {
+                setStateOnFilterYear()
+              }
+            }}
+          >
+            <Radio.Button value="month">Month</Radio.Button>
+            <Radio.Button value="year">Year</Radio.Button>
+          </Radio.Group>
+        </Space>
+      </Style.StatisticFilterContainer>
+      <Row gutter={[16, 16]}>
+        <Col span={24}>
+          <Style.CardContainer>
+            <Statistic
+              title="Statistic"
+              value={`${selectedFromDate.format('DD/MM/YYYY')} - ${selectedToDate.format('DD/MM/YYYY')}`}
+              valueStyle={{ fontSize: 20 }}
+            />
+            <ResponsiveContainer width="100%" height={400}>
+              <LineChart data={chartData}
+                margin={{ left: -24, top: 32, right: 16, bottom: -8 }}
+              >
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                {selectPlace === 2 || selectPlace === -1 ? <Line type="monotone" dataKey="254 NVL" stroke="#5C2BD7" /> : <Line />}
+                {selectPlace === 3 || selectPlace === -1 ? <Line type="monotone" dataKey="334 NVL" stroke="#37B684" /> : <Line />}
+                {selectPlace === 1 || selectPlace === -1 ? <Line type="monotone" dataKey="Hoa Khanh" stroke="#FC591D" /> : <Line />}
+                {selectPlace === 0 || selectPlace === -1 ? <Line type="monotone" dataKey="03 QT" stroke="#F21C58" /> : <Line />}
+              </LineChart>
+            </ResponsiveContainer>
+          </Style.CardContainer>
+        </Col>
+        <Col span={6}>
+          <Style.CardContainer>
+            <ResponsiveContainer width="100%" height={312} fill='white'>
+              <PieChart>
                 <Label position="inside" />
                 <Pie data={data01} nameKey="name" label outerRadius={85} fill="#8884d8" label={(entry) => entry.label}>
                   {
@@ -476,147 +426,140 @@ function Statistic() {
                       <Cell key={index.name} fill={index.color} />
                     ))
                   }
-
                 </Pie>
                 <Tooltip />
-                <Legend />
               </PieChart>
-
             </ResponsiveContainer>
-          
-          </div>
-        </div>
-
-        <div className="col-xs-9 statistic-9">
-          <div className="col-xs-6">
-            <div className="home-revenue">
-              <div className="revenue-box revenue-254nvl">
-                <div className="time"> 254 NVL</div>
-                <div className="revenue-block">
-                  <div className="cicle-icon">
-                    <i style={{ color: "#5C2BD7" }} class="far fa-money-bill-alt"></i>
-                    {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
-                  </div>
-                  <div className="revenue">{formatVND(parseInt(`${revenue.nvl254}000`))}</div>
-                </div>
-
-              </div>
-
-              <div className="revenue-box revenue-03qtr">
-                <div className="time">03 Quang Trung</div>
-                <div className="revenue-block">
-                  <div className="cicle-icon">
-                    <i style={{ color: "#F21C58" }} class="far fa-money-bill-alt"></i>
-                    {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
-                  </div>
-                  <div className="revenue"> {formatVND(parseInt(`${revenue.qtr}000`))}</div>
-                </div>
-
-              </div>
-              <div className="revenue-box revenue-334nvl">
-                <div className="time">334 NVL</div>
-                <div className="revenue-block">
-                  <div className="cicle-icon">
-                    <i style={{ color: "#37B684" }} class="far fa-money-bill-alt"></i>
-                    {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
-                  </div>
-                  <div className="revenue"> {formatVND(parseInt(`${revenue.nvl334}000`))}</div>
-                </div>
-
-              </div>
-              <div className="revenue-box revenue-hk">
-                <div className="time">Hoa Khanh</div>
-                <div className="revenue-block">
-                  <div className="cicle-icon">
-                    <i style={{ color: "#FC591D" }} class="far fa-money-bill-alt"></i>
-                    {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
-                  </div>
-                  <div className="revenue">{formatVND(parseInt(`${revenue.hk}000`))}</div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div className="col-xs-6">
-            <div className="total-sum">
-              <div className="total-statistic">
-                <div className="revenue-box revenue-topup">
-                  <div className="time">Top Up</div>
-                  <div className="revenue-block">
-                    <div className="cicle-icon">
-                      <i style={{ color: "#FF8C80" }} class="far fa-money-bill-alt"></i>
-                      {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
-                    </div>
-                    <div className="revenue"> {formatVND(parseInt(`${topUp}`))}</div>
-                  </div>
-
-                </div>
-                <div className="revenue-box revenue-revenue">
-                  <div className="time">Revenue</div>
-                  <div className="revenue-block">
-                    <div className="cicle-icon">
-                      <i style={{ color: "#6972FF" }} class="far fa-money-bill-alt"></i>
-                      {/* <img className="img-coin" src="./../coin.png" alt="#coin" /> */}
-                    </div>
-                    <div className="revenue">{formatVND(parseInt(`${revenue.qtr + revenue.nvl254 + revenue.nvl334 + revenue.hk}000`) + parseInt(`${topUp}`))}</div>
-                  </div>
-
-                </div>
-
-              </div>
-              <div className="home-flow">
-            <div className="flow-section">
-              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 border-icon">
-                <div className="cicle-icon-small icon-today">
-                  <i style={{ color: "#3642eb" }} class="fas fa-users fa-2x"></i>
-                </div>
-              </div>
-              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                <div className="flow-block">
-                  <div className="title-flow">2.000/10.000 users/today</div>
-                  <div className="flow-perc">
-                    <div className="flow-bar">
-                      <div className="vehicle-flow user-today"></div>
-                      <div className="vehicle-flow-background"></div>
-                    </div>
-                    <div className="perc">20%</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flow-section">
-              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 border-icon">
-                <div className="cicle-icon-small icon-users">
-                  <i style={{ color: "#db4a3a" }} class="fas fa-users fa-2x"></i>
-                </div>
-              </div>
-
-              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                <div className="flow-block">
-                  <div className="title-flow">10.000/20.000 users/school</div>
-                  <div className="flow-perc">
-                    <div className="flow-bar">
-                      <div className="vehicle-flow users"></div>
-                      <div className="vehicle-flow-background"></div>
-                    </div>
-                    <div className="perc">50%</div>
-                  </div>
-                </div>
-
-
-              </div>
-            </div>
-
-          </div>
-       </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
+          </Style.CardContainer>
+        </Col>
+        <Col span={9}>
+          <Row gutter={[16, 16]}>
+            <Col span={12}>
+              <Style.FacilityRevenueContainer f254nvl>
+                <Statistic
+                  title={<Text white>Facility</Text>}
+                  value="254 Nguyễn Văn Linh"
+                  valueStyle={{ fontSize: 18, color: 'white' }}
+                  style={{ marginBottom: 24 }}
+                />
+                <Statistic
+                  title={<Text white>Revenue</Text>}
+                  value={formatVND(parseInt(`${revenue.nvl254}000`))}
+                  valueStyle={{ fontSize: 18, color: 'white' }}
+                />
+              </Style.FacilityRevenueContainer>
+            </Col>
+            <Col span={12}>
+              <Style.FacilityRevenueContainer f03qtr>
+                <Statistic
+                  title={<Text white>Facility</Text>}
+                  value="03 Quang Trung"
+                  valueStyle={{ fontSize: 18, color: 'white' }}
+                  style={{ marginBottom: 24 }}
+                />
+                <Statistic
+                  title={<Text white>Revenue</Text>}
+                  value={formatVND(parseInt(`${revenue.qtr}000`))}
+                  valueStyle={{ fontSize: 18, color: 'white' }}
+                />
+              </Style.FacilityRevenueContainer>
+            </Col>
+            <Col span={12}>
+              <Style.FacilityRevenueContainer f334nvl>
+                <Statistic
+                  title={<Text white>Facility</Text>}
+                  value="334 Nguyễn Văn Linh"
+                  valueStyle={{ fontSize: 18, color: 'white' }}
+                  style={{ marginBottom: 24 }}
+                />
+                <Statistic
+                  title={<Text white>Revenue</Text>}
+                  value={formatVND(parseInt(`${revenue.nvl334}000`))}
+                  valueStyle={{ fontSize: 18, color: 'white' }}
+                />
+              </Style.FacilityRevenueContainer>
+            </Col>
+            <Col span={12}>
+              <Style.FacilityRevenueContainer fhk>
+                <Statistic
+                  title={<Text white>Facility</Text>}
+                  value="Hòa Khánh"
+                  valueStyle={{ fontSize: 18, color: 'white' }}
+                  style={{ marginBottom: 24 }}
+                />
+                <Statistic
+                  title={<Text white>Revenue</Text>}
+                  value={formatVND(parseInt(`${revenue.hk}000`))}
+                  valueStyle={{ fontSize: 18, color: 'white' }}
+                />
+              </Style.FacilityRevenueContainer>
+            </Col>
+          </Row>
+        </Col>
+        <Col span={9}>
+          <Row gutter={[16, 16]}>
+            <Col span={12}>
+              <Style.TopUpContainer>
+                <Text white>Top Up</Text>
+                <Space style={{ margin: '8px 0' }}>
+                  <i style={{ color: 'white', fontSize: 20 }} class="far fa-money-bill-alt"></i>
+                  <Text white>{formatVND(parseInt(`${topUp}`))}</Text>
+                </Space>
+              </Style.TopUpContainer>
+            </Col>
+            <Col span={12}>
+              <Style.RevenueContainer>
+                <Text white>Revenue</Text>
+                <Space style={{ margin: '8px 0' }}>
+                  <i style={{ color: 'white', fontSize: 20 }} class="far fa-money-bill-alt"></i>
+                  <Text white>{formatVND(parseInt(`${revenue.qtr + revenue.nvl254 + revenue.nvl334 + revenue.hk}000`) + parseInt(`${topUp}`))}</Text>
+                </Space>
+              </Style.RevenueContainer>
+            </Col>
+            <Col span={24}>
+              <Style.CardContainer>
+                <Row gutter={16}>
+                  <Col flex="90px">
+                    <Style.UserTrafficIcon>
+                      <i style={{ color: "#6972FF" }} class="fas fa-users fa-2x"></i>
+                    </Style.UserTrafficIcon>
+                  </Col>
+                  <Col flex="auto">
+                    <Statistic
+                      title="Users/Today"
+                      value={2000}
+                      suffix={<Text headerText>/ 10.000</Text>}
+                      valueStyle={{ fontSize: 20 }}
+                    />
+                    <Progress percent={20} strokeColor="#6972FF" status="active" />
+                  </Col>
+                </Row>
+              </Style.CardContainer>
+            </Col>
+            <Col span={24}>
+              <Style.CardContainer>
+                <Row gutter={16}>
+                  <Col flex="90px">
+                    <Style.UserTrafficIcon>
+                      <i style={{ color: "#FF8C80" }} class="fas fa-users fa-2x"></i>
+                    </Style.UserTrafficIcon>
+                  </Col>
+                  <Col flex="auto">
+                    <Statistic
+                      title="Users/School"
+                      value={10000}
+                      suffix={<Text headerText>/ 20.000</Text>}
+                      valueStyle={{ fontSize: 20 }}
+                    />
+                    <Progress percent={50} strokeColor="#FF8C80" status="active" />
+                  </Col>
+                </Row>
+              </Style.CardContainer>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </>
   )
 }
-export default Statistic;
+export default StatisticPage;

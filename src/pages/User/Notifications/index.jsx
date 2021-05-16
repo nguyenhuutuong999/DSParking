@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { Button, Table, Tabs, Tag } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
-import './styles.css';
-
 
 import ConfirmModal from '../../../components/ConfirmModal/index'
-
-import { FaTrashAlt } from 'react-icons/fa';
-import { Button, Table, Tabs, Tag } from 'antd';
 
 import { firebaseApp } from '../../../configs/firebase';
 
 import { LEVEL_NOTIFICATIONS } from '../../../constants/common';
 
-function Notifications() {
-  const { TabPane } = Tabs;
+import * as Style from './styles';
+
+function NotificationsPage() {
   const [notificationList, setNotificationList] = useState([]);
-  console.log("notificationList", notificationList)
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [confirmModalData, setConfirmModalData] = useState({});
   const user = JSON.parse(localStorage.getItem('user'));
@@ -42,7 +39,6 @@ function Notifications() {
             ...newNotificationList,
           ];
         }
-        console.log('🚀 ~ file: index.jsx ~ line 35 ~ .on ~ newNotificationList', newNotificationList);
         setNotificationList([...newNotificationList]);
       });
   }, []);
@@ -67,7 +63,7 @@ function Notifications() {
           onClick={() => handleShowConfirmModal(record.id)}
           type="text"
         >
-          <FaTrashAlt />
+          <DeleteOutlined />
         </Button>
       ),
     },
@@ -83,12 +79,11 @@ function Notifications() {
     setConfirmModalData({});
   }
 
-
   return (
-    <div className="notification">
-      <div className="table-notification">
+    <>
+      <Style.NotificationContainer>
         <Tabs defaultActiveKey="1">
-          <TabPane tab="Notifications" key="1">
+          <Tabs.TabPane tab="Notifications" key="1">
             <Table
               columns={notificationTableColumns}
               expandable={{
@@ -98,16 +93,16 @@ function Notifications() {
               pagination={false}
               showHeader={false}
             />
-          </TabPane>
+          </Tabs.TabPane>
         </Tabs>
-      </div>
+      </Style.NotificationContainer>
       <ConfirmModal
         isShowModal={isShowConfirmModal}
         handleHideModal={handleHideConfirmModal}
         modalData={confirmModalData}
       />
-    </div>
+    </>
   );
 }
 
-export default Notifications;
+export default NotificationsPage;
