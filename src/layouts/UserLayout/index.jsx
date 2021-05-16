@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 import Header from '../Header';
 import Sidebar from '../Sidebar';
 
-import branchImg from '../../assets/images/logo.jpg';
+import branchImg from '../../img/logo.jpg';
 
 import * as Style from './styles';
 

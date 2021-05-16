@@ -4,6 +4,9 @@ import backgroundP from "../../../img/payment.svg";
 import { Radio } from "antd";
 import axios from "axios";
 
+import Momo from "./../../../img/momo.png"
+import VNPay from "./../../../img/vnpay.png"
+
 function Payment() {
   const [order, setOrder] = useState({
     id: 2321144726,
@@ -69,6 +72,7 @@ function Payment() {
               onwheel="this.blur()"
               value={order.value}
               onChange={(e) => setOrder({ ...order, value: e.target.value })}
+              style = {{height:'36px'}}
             ></input>
           </div>
         </div>
@@ -108,7 +112,7 @@ function Payment() {
         <div className="checkout-button" onChange = {(e) => setGateWay(e.target.value)}>
           <div
             className="wrapper-radio"
-            style={{ display: "flex", alignItems: "center" }}
+            style={{ display: "flex", alignItems: "center", marginBottom: '15px' }}
           >
             <input type="radio" checked = {gateway === 'momo'} value="momo" name="gateway"  />
             <div
@@ -121,9 +125,9 @@ function Payment() {
             >
               <span className="checkout-title">Payment by Momo Wallet</span>
               <img
-                src="https://developers.momo.vn/images/logo.png"
+                 src={Momo}
                 width="25"
-                style={{ marginLeft: "10px" }}
+                style={{ marginLeft: "10px", width:'12%'}}
               />
             </div>
           </div>
@@ -142,9 +146,9 @@ function Payment() {
             >
               <span className="checkout-title">Payment by VNPay</span>
               <img
-                src="https://developers.momo.vn/images/logo.png"
+                src={VNPay}
                 width="25"
-                style={{ marginLeft: "10px" }}
+                style={{ marginLeft: "10px", width:'15%' }}
               />
             </div>
           </div>

@@ -19,6 +19,7 @@ import Login from './pages/DTULogin';
 import Landing from './pages/User/Landing';
 import Home from './pages/User/Home';
 import Profile from './pages/User/Profile';
+import Payment from './pages/User/Payment';
 import Account from './pages/User/Account';
 import Evaluation from './pages/User/Evaluation';
 import Notifications from './pages/User/Notifications';
@@ -40,6 +41,7 @@ export function App() {
           <UserLayout exact  path="/" component={Home} />
           <UserLayout exact  path="/profile" component={Profile} />
           <UserLayout exact  path="/account" component={Account} />
+          <UserLayout exact  path="/payment" component={Payment} />
           <UserLayout exact  path="/evaluation" component={Evaluation} />
           <UserLayout exact  path="/notifications" component={Notifications} />
           <UserLayout exact  path="/statistic" component={Statistic} />

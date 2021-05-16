@@ -11,6 +11,8 @@ import {
   SettingOutlined,
   UsergroupAddOutlined,
   LogoutOutlined,
+  DollarOutlined,
+  PartitionOutlined
 } from '@ant-design/icons';
 
 import { Text } from '../../components/styles';
@@ -35,6 +37,12 @@ const USER_SIDEBAR_MENU = [
     to: "/statistic",
     exact: true,
     icon: <LineChartOutlined style={{ fontSize: 16 }} />
+  },
+  {
+    name: "Payment",
+    to: "/payment",
+    exact: true,
+    icon: <DollarOutlined style={{ fontSize: 16 }} />
   },
   {
     name: "Notifications",
@@ -98,7 +106,7 @@ const ADMIN_SIDEBAR_MENU = [
     name: "Management Slot",
     to: "/admin/management-slot",
     exact: true,
-    icon: <UsergroupAddOutlined style={{ fontSize: 16 }} />
+    icon: <PartitionOutlined style={{ fontSize: 16 }} />
   },
   {
     name: "Logout",
