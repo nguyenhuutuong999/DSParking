@@ -11,10 +11,10 @@
 
 .app-container-admin {
   display: flex;
-  margin: 21px;
+  margin: 31px;
   width: 100%;
-  height: calc(100vh - 21px);
-  
+  height: calc(100vh - 50px);
+  border-radius: 5px;
   box-shadow:
     0 12.1px 2.6px rgba(0, 0, 0, 0.018),
     0 24.9px 6.9px rgba(0, 0, 0, 0.026),

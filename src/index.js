@@ -18,6 +18,7 @@ import AccountA from './pages/Admin/Account';
 import ProfileA from './pages/Admin/Profile';
 import StatisticA from './pages/Admin/Statistic';
 import ManageA from './pages/Admin/Manage';
+import ManageSlotA from './pages/Admin/ManageSlot';
 
 import Login from './pages/DTULogin';
 
@@ -59,6 +60,7 @@ ReactDOM.render(
           <LayoutAdmin exact role="4" path="/admin/profile" component={ProfileA} />
           <LayoutAdmin exact role="4" path="/admin/statistic" component={StatisticA} />
           <LayoutAdmin exact role="4" path="/admin/management" component={ManageA} />
+          <LayoutAdmin exact role="4" path="/admin/management-slot" component={ManageSlotA} />
           {/* <LayoutAdmin exact role="2" path="/admin/payment" component={Payment} /> */}
 
           <Route exact role="3" path="/landing" component={Landing} />

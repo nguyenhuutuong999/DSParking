@@ -26,7 +26,6 @@ function Sidebar(props) {
   // };
 
   const  role  = authData.position;
-  console.log(role)
   const user_menus = [
     {
       name: "Home",
@@ -107,6 +106,12 @@ function Sidebar(props) {
     {
       name: "Management",
       to: "/admin/management",
+      exact: true,
+      icon: () => <FaUsers className="icons" />,
+    },
+    {
+      name: "Management Slot",
+      to: "/admin/management-slot",
       exact: true,
       icon: () => <FaUsers className="icons" />,
     },

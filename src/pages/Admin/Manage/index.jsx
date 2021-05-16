@@ -11,7 +11,7 @@ function Manage() {
     const [keyword, setKeyword] = useState("");
     useEffect(() => {
         
-        getUser()
+        getUser();
 
     }, [])
 
