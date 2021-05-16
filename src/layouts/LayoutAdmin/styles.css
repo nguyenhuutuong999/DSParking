@@ -1,0 +1,50 @@
+.app-background-admin {
+  width: 100%;
+  height: 100vh;
+  background-image: url("./../../img/background.png");
+  background-color: #cccccc;
+  background-size: cover;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+}
+
+.app-container-admin {
+  display: flex;
+  margin: 31px;
+  width: 100%;
+  height: calc(100vh - 50px);
+  border-radius: 5px;
+  box-shadow:
+    0 12.1px 2.6px rgba(0, 0, 0, 0.018),
+    0 24.9px 6.9px rgba(0, 0, 0, 0.026),
+    0 40.2px 13.8px rgba(0, 0, 0, 0.032),
+    0 61.7px 25.1px rgba(0, 0, 0, 0.039),
+    0 100.2px 44.6px rgba(0, 0, 0, 0.047),
+    0 249px 80px rgba(0, 0, 0, 0.06);
+  background: rgba(252, 252, 252, 0.7);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.app-sidebar {
+  width: 250px;
+  border-right: 2px solid rgb(247, 224, 224);
+  background: rgba(252, 252, 252, 0.85);
+}
+
+.branch-img {
+  width: 100%;
+  height: 100%;
+}
+
+.app-main {
+  padding: 0px 20px 20px 20px;
+  width: calc(100% - 250px);
+}
+
+
+.app-content-admin {
+
+  height: calc(100% - 20px);
+}
