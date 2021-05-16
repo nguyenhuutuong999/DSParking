@@ -27,12 +27,7 @@ export const loginRequest = (account) => {
         if (snapshot.val() !== null) {
           if (snapshot.val().pwd+"" == account.pass) {
             localStorage.setItem("user", JSON.stringify(snapshot.val()));
-
-            // firebaseApp.database().ref("User/information/parkingMan/"+account.user)
-            // .on('value', (snapshot) => {
-            //   localStorage.setItem("userInfor", JSON.stringify(snapshot.val()));
-            // })
-             dispatch(loginSuccess());
+            dispatch(loginSuccess());
           } else {
             //dispath action login fail
             dispatch(loginFail());
