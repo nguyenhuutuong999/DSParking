@@ -1,66 +1,69 @@
 import React, { useEffect, useState } from 'react';
 import { firebaseApp } from './../../../configs/firebase';
-import { Section, Container, Header, Body, ImagePark, Park, Parked, Empty, DotLine } from './styles';
-
+import { Parked, Empty, DotLine } from './styles';
+import { Row, Col, Card, Select } from 'antd';
 function ManageSlot() {
-    const [allSlot, setAllSlot] = useState({});
-    const [allSlotCurrentPlace, setAllSlotCurrentPlace] = useState({});
     const [selectPlace, setSelectPlace] = useState(0)
     const [renderPark, setRenderPark] = useState();
     useEffect(() => {
         getAllSlot();
-       
-       
-       
+
     }, [selectPlace])
 
     const getAllSlot = async () => {
-        const snap = await firebaseApp.database().ref('SlotParking').on('value', function(snapshot){
-            setAllSlot(snapshot.val())
-            console.log("hghjghj")
-        });
-        
-    }
-    const onSelectPlace = (event) => {
-        setSelectPlace(event.target.value)
-        setAllSlotCurrentPlace(allSlot[event.target.value])
+        await firebaseApp.database().ref('SlotParking').on('value', function (snapshot) {
+            let snap = snapshot.val()
+           
+            //map All Slot Line in the Specific Place
+            let getAllSlotLine = Object.keys(snap[selectPlace]).map((item, index) => {
+                let slot = snap[selectPlace][item]
 
-        //map All Slot Line in the Specific Place
-        let a = Object.keys(allSlot[event.target.value]).map((item, index) => {
-            let slot = allSlot[event.target.value][item]['AreaPark']
+                //map Specific Slot Line in the Specific Place
+                let getSpecificSlotLine = Object.keys(slot['AreaPark']).map((item1, index1) => {
+                    let numParked = slot['AreaPark'][item1];
+                    let numDot = [];
+                    numDot.push(<h5 style={{ marginRight: "5px" }} key={index1}>{numParked["Name"]}</h5>)
 
-            //map Specific Slot Line in the Specific Place
-            let b = Object.keys(slot).map((item1, index1) => {
-                let numParked = slot[item1]['NumParked'];
-                let numDot = [];
+                    //mark for parked slot
+                    for (let a = 0; a < numParked['NumParked']; a++)
+                        numDot.push(<Parked key={index1 + a}></Parked>)
+                    //mark for parked empty
+                    for (let b = numParked['NumParked']; b < 15; b++)
+                        numDot.push(<Empty key={index1 + b}></Empty>)
 
-                //mark for parked slot
-                for (let a = 0; a < numParked; a++)
-                    numDot.push(<Parked key = {index1+a}></Parked>)
-                //mark for parked empty
-                for (let b = numParked; b < 15; b++)
-                    numDot.push(<Empty key = {index1+b}></Empty>)
+                    return <DotLine key={index1}>{numDot}</DotLine>;
+                })
+                return (
+                    <Col key={index} span={12}>
+                        <Card title={slot['Name'] + " Facility"} bordered={false}>
+                            {getSpecificSlotLine}
+                        </Card>
+                    </Col>)
 
-                return <DotLine key = {index1}>{numDot}</DotLine>;
             })
-            return (<Section key = {index}>
-                <Header></Header>
-                <Body>
-                    <ImagePark></ImagePark>
-                    <Park>
-                        {b}
-                    </Park>
-                </Body>
-            </Section>)
+            setRenderPark(getAllSlotLine)
+        });
 
-        })
-        setRenderPark(a)
+    }
+    const onSelectPlace = (value) => {
+        setSelectPlace(value)
     }
     return (
         <div className="manage-slot">
             <div className="row">
                 <div className="col-xs-12">
-                    <div className="manage-slot-header">
+                    <Select
+                        onChange={(value) => onSelectPlace(value)}
+                        value={selectPlace}
+                        placeholder="Filter Facility"
+                        style={{ width: 140 }}
+                    >
+                        <Select.Option value={0}>Quang Trung</Select.Option>
+                        <Select.Option value={1}>Hoa Khanh</Select.Option>
+                        <Select.Option value={2}>254 Nguyen Van Linh</Select.Option>
+                        <Select.Option value={3}>334 Nguyen Van Linh</Select.Option>
+                    </Select>
+                    {/* <div className="manage-slot-header">
                         <div className="selector-place">
                             <select onChange={onSelectPlace} value={selectPlace} name="place" id="input-state" style={{ fontSize: "13px" }} className="form-control-statistic">
                                 <option value={0}>Quang Trung</option>
@@ -69,12 +72,12 @@ function ManageSlot() {
                                 <option value={3}>334 Nguyen Van Linh</option>
                             </select>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
-                <Container >
+                <Row gutter={[16, 16]}>
                     {renderPark}
-                </Container>
+                </Row>
             </div>
         </div>
     )
