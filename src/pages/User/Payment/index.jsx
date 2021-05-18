@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./styles.css";
 import backgroundP from "../../../img/payment.svg";
 import axios from "axios";
-import { Row, Col, Radio, Button, Result } from "antd";
-import Momo from "./../../../img/momo.png"
-import VNPay from "./../../../img/vnpay.png"
+import { Row, Col, Radio, Button, Result, Spin } from "antd";
+import { LoadingOutlined } from '@ant-design/icons';
+import Momo from "./../../../img/momo.png";
+import VNPay from "./../../../img/vnpay.png";
 
 function Payment() {
   const [order, setOrder] = useState({
@@ -16,6 +17,7 @@ function Payment() {
   const [amount, setAmount] = useState(0);
   const [gateway, setGateWay] = useState('momo');
   const [statusMess, setStatusMess] = useState(false);
+  const [isPostingOrder, setIsPostingOrder] = useState(false)
   const onChangeValue = (e) => {
     setOrder({ ...order, value: e.target.value });
   };
@@ -40,6 +42,8 @@ function Payment() {
   }, []);
 
   const onSubmit = () => {
+
+    setIsPostingOrder(true)
     axios({
       method: 'POST',
       url: `https://gateway-dtusmartparking.herokuapp.com/payment/${gateway}`,
@@ -51,7 +55,10 @@ function Payment() {
       })
       .catch(function (error) {
         console.log(error);
-      });
+      }).finally(() => {
+        setIsPostingOrder(false)
+      })
+
   };
   return (
     <div className="container-payment">
@@ -159,8 +166,10 @@ function Payment() {
             </div>
           </div>
 
-          <Button type="primary" onClick={onSubmit} style={{ borderRadius: 5, marginTop: 10 }}>
+          <Button type="primary" onClick={onSubmit} style={{ borderRadius: 5, marginTop: 10 }} >
             Payment
+          {isPostingOrder && <LoadingOutlined />}
+
           </Button>
 
         </Col>
@@ -173,8 +182,8 @@ function Payment() {
             {statusMess ?
               <Result
                 status="success"
-                title="Successfully Purchased"
-                subTitle="Order number: 2017182818828182881"
+                title="Successfully Payment"
+                subTitle={"Your balance is added: " + amount}
                 extra={[
                   <Button type="primary" key="console" onClick={() => setIsPopUp(false)}>
                     Go Back
