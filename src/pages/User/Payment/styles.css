@@ -3,6 +3,7 @@
   height: 100%;
   position: relative;
   display: flex;
+ 
 }
 .contents {
   width: 50%;
@@ -24,7 +25,7 @@
 }
 .title-payment {
   text-align: center;
-  color: #5f57fd;
+  color: #C44A8A;
   font-size: 20px;
   font-weight: bold;
 }
@@ -39,10 +40,16 @@
   border: 1px solid #eb93a6;
   background: #ffe9ef;
 }
+.group-radio{
+  padding: 5px !important;
+  margin: 5px 0;
+  border: 1px solid #bbb7ff;
+  border-radius: 5px;
+}
 .button-radio {
-  width: 110px;
-  margin: 5px;
-  border-radius: 15px !important;
+  width: 100px;
+  margin: 3px !important;
+  border-radius: 5px !important;
   text-align: center;
 }
 .input-payment {
@@ -60,11 +67,12 @@
   font-weight: 500;
 }
 .input {
-  width: 95%;
+  width: 100%;
   color: #12324d;
   border: 1px solid #e9e8ff;
   padding-left: 10px;
   border-radius: 5px;
+  margin: 5px 0;
 }
 .ant-radio-button-wrapper:not(:first-child)::before {
   position: absolute;
@@ -92,7 +100,8 @@
   height: 30px;
 }
 .checkout-button {
- margin: 0 20px;
+  width: 100%;
+  margin: 5px 0;
   padding: 10px 20px;
   border: 1px solid #5796c9;
   border-radius: 5px;
@@ -133,6 +142,7 @@
   justify-content: center;
   align-items: center;
   opacity: 0.95;
+  z-index: 1;
 }
 .mess-wrapper{
   width: 30%;

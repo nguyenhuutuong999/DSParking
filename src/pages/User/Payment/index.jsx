@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import backgroundP from "../../../img/payment.svg";
-import { Radio } from "antd";
 import axios from "axios";
-
+import { Row, Col, Radio, Button, Result } from "antd";
 import Momo from "./../../../img/momo.png"
 import VNPay from "./../../../img/vnpay.png"
 
@@ -21,16 +20,15 @@ function Payment() {
     setOrder({ ...order, value: e.target.value });
   };
   useEffect(() => {
-
     // get param from URL
     var url_string = window.location.href.toString();
     let url = new URL(url_string);
 
     //get status code from URL
-    let statusCode = url.searchParams.get("status") ? url.searchParams.get("status") :  null;
+    let statusCode = url.searchParams.get("status") ? url.searchParams.get("status") : null;
 
     //get value from URL
-    let value = url.searchParams.get("value") ? url.searchParams.get("value") :  null;
+    let value = url.searchParams.get("value") ? url.searchParams.get("value") : null;
 
     if (statusCode) {
       setIsPopUp(true);
@@ -48,23 +46,29 @@ function Payment() {
       data: order,
       mode: 'cors'
     })
-    .then(function (response) {
-      window.location.replace(response.data);
-     })
-     .catch(function (error) {
-       console.log(error);
-     });
+      .then(function (response) {
+        window.location.replace(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   return (
-
     <div className="container-payment">
-      <div className="contents">
-        <p className="title-payment">TOP-UP</p>
-        <div className="input-payment">
-          <div className="wrapper-input">
-            <label className="title-input">Your ID: 2321144726</label>
-          </div>
-          <div className="wrapper-input">
+      <Row justify="center" align="middle">
+        <Col justify="center" align="middle" span={12} style={{ background: 'white', padding: 30 }}>
+          <p className="title-payment">TOP-UP</p>
+          <div className="input-payment">
+            <input
+              placeholder="ID"
+              className="input"
+              type="number"
+              onwheel="this.blur()"
+              value="2321144726"
+              //onChange={(e) => setOrder({ ...order, value: e.target.value })}
+              style={{ height: '35px' }}
+            />
+
             <input
               placeholder="Enter value"
               className="input"
@@ -72,17 +76,18 @@ function Payment() {
               onwheel="this.blur()"
               value={order.value}
               onChange={(e) => setOrder({ ...order, value: e.target.value })}
-              style = {{height:'36px'}}
-            ></input>
+              style={{ height: '35px' }}
+            />
+
           </div>
-        </div>
-        <div className="selector">
+
           <Radio.Group
             className="group-radio"
             onChange={onChangeValue}
             value={order.value}
             optionType="button"
           >
+
             <Radio.Button className="button-radio" value={10000}>
               10.000đ
             </Radio.Button>
@@ -108,85 +113,88 @@ function Payment() {
               500.000đ
             </Radio.Button>
           </Radio.Group>
-        </div>
-        <div className="checkout-button" onChange = {(e) => setGateWay(e.target.value)}>
-          <div
-            className="wrapper-radio"
-            style={{ display: "flex", alignItems: "center", marginBottom: '15px' }}
-          >
-            <input type="radio" checked = {gateway === 'momo'} value="momo" name="gateway"  />
-            <div
-              className="content"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginLeft: "10px",
-              }}
-            >
-              <span className="checkout-title">Payment by Momo Wallet</span>
-              <img
-                 src={Momo}
-                width="25"
-                style={{ marginLeft: "10px", width:'12%'}}
-              />
-            </div>
-          </div>
-          <div
-            className="wrapper-radio"
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <input type="radio" checked = {gateway == 'vnpay'} value="vnpay" name="gateway" />
-            <div
-              className="content"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginLeft: "10px",
-              }}
-            >
-              <span className="checkout-title">Payment by VNPay</span>
-              <img
-                src={VNPay}
-                width="25"
-                style={{ marginLeft: "10px", width:'15%' }}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="wrapper-btn-payment">
-          <button className="btn-payment" onClick={onSubmit}>
-            Payment
-          </button>
-        </div>
-      </div>
 
-      <div className="background-payment">
-        <img className="img-bg" src={backgroundP} />
-      </div>
-      {isPopUp && (
-        <div className="mess-container">
-          <div className="mess-wrapper">
+          <div className="checkout-button" onChange={(e) => setGateWay(e.target.value)}>
             <div
-              className="mess-title"
-              style={{ color: statusMess ? "#8BC34A" : "#F15E5E" }}
+              className="wrapper-radio"
+              style={{ display: "flex", alignItems: "center", marginBottom: '15px' }}
             >
-              {statusMess ? `Payment Successful !!!` : `Payment Failed !!!`}
+              <input type="radio" checked={gateway === 'momo'} value="momo" name="gateway" />
+              <div
+                className="content"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginLeft: "10px",
+                }}
+              >
+                <span className="checkout-title">Payment by Momo Wallet</span>
+                <img
+                  src={Momo}
+                  width="25"
+                  style={{ marginLeft: "10px", width: '12%' }}
+                />
+              </div>
             </div>
-            <div className="mess-content">
-              {statusMess
-                ? `Your account has been added ${amount}đ`
-                : `Please try again...`}
-            </div>
-            <button
-              className="btn-successful"
-              style={{ background: statusMess ? "#8BC34A" : "#F15E5E" }}
-              onClick={() => setIsPopUp(false)}
+            <div
+              className="wrapper-radio"
+              style={{ display: "flex", alignItems: "center" }}
             >
-              OK
-            </button>
+              <input type="radio" checked={gateway == 'vnpay'} value="vnpay" name="gateway" />
+              <div
+                className="content"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginLeft: "10px",
+                }}
+              >
+                <span className="checkout-title">Payment by VNPay</span>
+                <img
+                  src={VNPay}
+                  width="25"
+                  style={{ marginLeft: "10px", width: '15%' }}
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      )}
+
+          <Button type="primary" onClick={onSubmit} style={{ borderRadius: 5, marginTop: 10 }}>
+            Payment
+          </Button>
+
+        </Col>
+        <Col span={12} style={{ padding: '2%' }}>
+          <img className="img-bg" src={backgroundP} />
+        </Col>
+        {isPopUp && (
+          <div className="mess-container">
+
+            {statusMess ?
+              <Result
+                status="success"
+                title="Successfully Purchased"
+                subTitle="Order number: 2017182818828182881"
+                extra={[
+                  <Button type="primary" key="console" onClick={() => setIsPopUp(false)}>
+                    Go Back
+               </Button>
+                ]}
+              /> :
+              <Result
+                status="500"
+
+                subTitle="Sorry, something went wrong. Please try again !!!"
+                extra={[
+                  <Button type="primary" key="console" onClick={() => setIsPopUp(false)}>
+                    Go Back
+                  </Button>
+                ]}
+              />
+            }
+          </div>
+        )}
+      </Row>
     </div>
   );
 }
