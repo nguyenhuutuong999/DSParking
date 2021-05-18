@@ -13,7 +13,7 @@ function ManageSlot() {
     const getAllSlot = async () => {
         await firebaseApp.database().ref('SlotParking').on('value', function (snapshot) {
             let snap = snapshot.val()
-           
+
             //map All Slot Line in the Specific Place
             let getAllSlotLine = Object.keys(snap[selectPlace]).map((item, index) => {
                 let slot = snap[selectPlace][item]
@@ -50,35 +50,24 @@ function ManageSlot() {
     }
     return (
         <div className="manage-slot">
-            <div className="row">
-                <div className="col-xs-12">
-                    <Select
-                        onChange={(value) => onSelectPlace(value)}
-                        value={selectPlace}
-                        placeholder="Filter Facility"
-                        style={{ width: 140 }}
-                    >
-                        <Select.Option value={0}>Quang Trung</Select.Option>
-                        <Select.Option value={1}>Hoa Khanh</Select.Option>
-                        <Select.Option value={2}>254 Nguyen Van Linh</Select.Option>
-                        <Select.Option value={3}>334 Nguyen Van Linh</Select.Option>
-                    </Select>
-                    {/* <div className="manage-slot-header">
-                        <div className="selector-place">
-                            <select onChange={onSelectPlace} value={selectPlace} name="place" id="input-state" style={{ fontSize: "13px" }} className="form-control-statistic">
-                                <option value={0}>Quang Trung</option>
-                                <option value={1}>Hoa Khanh</option>
-                                <option value={2}>254 Nguyen Van Linh</option>
-                                <option value={3}>334 Nguyen Van Linh</option>
-                            </select>
-                        </div>
-                    </div> */}
-                </div>
 
-                <Row gutter={[16, 16]}>
-                    {renderPark}
-                </Row>
-            </div>
+            <Row>
+                <Select
+                    onChange={(value) => onSelectPlace(value)}
+                    value={selectPlace}
+                    placeholder="Filter Facility"
+                    style={{ width: 140 }}
+                >
+                    <Select.Option value={0}>Quang Trung</Select.Option>
+                    <Select.Option value={1}>Hoa Khanh</Select.Option>
+                    <Select.Option value={2}>254 Nguyen Van Linh</Select.Option>
+                    <Select.Option value={3}>334 Nguyen Van Linh</Select.Option>
+                </Select>
+            </Row>
+
+            <Row gutter={[16, 16]}>
+                {renderPark}
+            </Row>
         </div>
     )
 }

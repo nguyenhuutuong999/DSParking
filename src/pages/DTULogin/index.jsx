@@ -10,7 +10,12 @@ function DTULoginPage(props) {
     pass: "matkhau123",
     mess: true,
   });
-
+  window.addEventListener('keydown', (event) => {
+    if(event.keyCode === 13){
+      props.loginRequest(account);
+    }
+    
+  });
   function handleChange(event) {
     var target = event.target;
     var name = target.name;
@@ -19,7 +24,6 @@ function DTULoginPage(props) {
   }
   function onSubmit(event) {
     event.preventDefault();
-    props.loginRequest(account);
   }
   return (
     <div id="main-panel">

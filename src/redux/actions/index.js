@@ -18,7 +18,6 @@ export const loginSuccess = () => {
   };
 };
 export const loginRequest = (account) => {
-  console.log(account)
   return (dispatch) => {
     var getUser = firebaseApp.database().ref("User/account/" + account.user);
     return getUser.on(
