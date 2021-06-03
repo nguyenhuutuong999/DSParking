@@ -38,8 +38,7 @@
     "styled-components": "^5.3.0"
   },
   "scripts": {
-    "start": "node server.js",
-    "start web": "craco start",
+    "start": "craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
