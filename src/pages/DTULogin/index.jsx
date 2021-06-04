@@ -24,6 +24,7 @@ function DTULoginPage(props) {
   }
   function onSubmit(event) {
     event.preventDefault();
+    props.loginRequest(account);
   }
   return (
     <div id="main-panel">
