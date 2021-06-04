@@ -10,6 +10,7 @@ import * as Style from './styles';
 
 function ProfilePage() {
   const [userInfo, setUserInfo] = useState({});
+  console.log('🚀 ~ file: index.jsx ~ line 13 ~ ProfilePage ~ userInfo', userInfo);
   const [profileForm] = Form.useForm();
 
   useEffect(() => {
@@ -57,7 +58,7 @@ function ProfilePage() {
                     email: userInfo.email,
                     idStudent: userInfo.idStudent,
                     identityCard: userInfo.identityCard,
-                    sex: userInfo.sex,
+                    sex: parseInt(userInfo.sex),
                     birthday: moment(userInfo.birthday, 'YYYY-MM-DD'),
                     phone: userInfo.phone,
                     address: userInfo.adress,

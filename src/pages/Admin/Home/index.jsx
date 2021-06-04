@@ -394,7 +394,7 @@ const formatVND = (x) =>{
           </ResponsiveContainer>
         </Style.CardContainer>
       </Col>
-      <Col md={16} xs={24}>
+      <Col xxl={16} xl={14} lg={12} xs={24}>
         <Style.CardContainer>
           <Statistic
             title="General chart"
@@ -416,7 +416,7 @@ const formatVND = (x) =>{
           </ResponsiveContainer>
         </Style.CardContainer>
       </Col>
-      <Col md={8} xs={24}>
+      <Col xxl={8} xl={10} lg={12} xs={24}>
         <Row gutter={[16, 16]}>
           <Col span={12}>
             <Style.TodayRevenue>
@@ -425,10 +425,12 @@ const formatVND = (x) =>{
                 <i style={{ color: 'white', fontSize: 20 }} class="far fa-money-bill-alt"></i>
                 <Text white>{formatVND(parseInt(`${weekDataTotal}000`))}</Text>
               </Space>
-              <Space>
-                <i style={{ color: 'white', fontSize: 16 }} class="far fa-calendar-alt"></i>
-                <Text xxs white>{myDateVariable}</Text>
-              </Space>
+              <div>
+                <Space>
+                  <i style={{ color: 'white', fontSize: 16 }} class="far fa-calendar-alt"></i>
+                  <Text xxs white>{myDateVariable}</Text>
+                </Space>
+              </div>
             </Style.TodayRevenue>
           </Col>
           <Col span={12}>
@@ -438,10 +440,12 @@ const formatVND = (x) =>{
                 <i style={{ color: 'white', fontSize: 20 }} class="far fa-money-bill-alt"></i>
                 <Text white>{formatVND(todayTopUp)}</Text>
               </Space>
-              <Space>
-                <i style={{ color: 'white', fontSize: 16 }} class="far fa-calendar-alt"></i>
-                <Text xxs white>{myDateVariable}</Text>
-              </Space>
+              <div>
+                <Space>
+                  <i style={{ color: 'white', fontSize: 16 }} class="far fa-calendar-alt"></i>
+                  <Text xxs white>{myDateVariable}</Text>
+                </Space>
+              </div>
             </Style.TodayRevenue>
           </Col>
           <Col span={12}>
@@ -451,10 +455,12 @@ const formatVND = (x) =>{
                 <i style={{ color: 'white', fontSize: 20 }} class="far fa-money-bill-alt"></i>
                 <Text white>{formatVND(parseInt(`${weekDataTotal}000`) + todayTopUp)}</Text>
               </Space>
-              <Space>
-                <i style={{ color: 'white', fontSize: 16 }} class="far fa-calendar-alt"></i>
-                <Text xxs white>{myDateVariable}</Text>
-              </Space>
+              <div>
+                <Space>
+                  <i style={{ color: 'white', fontSize: 16 }} class="far fa-calendar-alt"></i>
+                  <Text xxs white>{myDateVariable}</Text>
+                </Space>
+              </div>
             </Style.MonthlyRevenue>
           </Col>
           <Col span={12}>
@@ -464,10 +470,12 @@ const formatVND = (x) =>{
                 <i style={{ color: 'white', fontSize: 20 }} class="far fa-money-bill-alt"></i>
                 <Text white>{formatVND((parseInt(`${monthDataTotal}000`) + monthTopUp))}</Text>
               </Space>
-              <Space>
-                <i style={{ color: 'white', fontSize: 16 }} class="far fa-calendar-alt"></i>
-                <Text xxs white>{month}, {year}</Text>
-              </Space>
+              <div>
+                <Space>
+                  <i style={{ color: 'white', fontSize: 16 }} class="far fa-calendar-alt"></i>
+                  <Text xxs white>{month}, {year}</Text>
+                </Space>
+              </div>
             </Style.MonthlyRevenue>
           </Col>
           <Col span={24}>

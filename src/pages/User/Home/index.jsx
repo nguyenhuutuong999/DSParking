@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Statistic, Avatar, Button, Table } from 'antd';
+import { Row, Col, Statistic, Avatar, Button, Table, Popconfirm } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { SwapOutlined } from '@ant-design/icons';
 import {
@@ -196,6 +196,15 @@ function HomePage() {
       });
   }, []);
 
+  const handleChangeQRCode = () => {
+    firebaseApp
+      .database()
+      .ref(`/User/information/parkingMan/${user.id}`)
+      .update({
+        secretNum: Math.random().toString().substr(2, 4),
+      });
+  };
+
   return (
     <Row gutter={[16, 16]}>
       <Col span={18}>
@@ -266,7 +275,6 @@ function HomePage() {
               <Table
                 dataSource={checkInHistory}
                 columns={columnsHistory}
-                pagination={false}
               />
             </Style.CardContainer>
           </Col>
@@ -295,9 +303,17 @@ function HomePage() {
         <Style.CardContainer style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Text headerText xl style={{ marginBottom: 8 }}>Your QrCode</Text>
           <QRCode value={`${user.id}${userData.secretNum}`} size={140} />
-          <Button style={{ marginTop: 16 }}>
-            Change QRCode
-          </Button>
+          <Popconfirm
+            placement="topRight"
+            title="Confirm the change QRCode?"
+            onConfirm={() => handleChangeQRCode()}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button style={{ marginTop: 16 }}>
+              Change QRCode
+            </Button>
+          </Popconfirm>
         </Style.CardContainer>
       </Col>
     </Row>

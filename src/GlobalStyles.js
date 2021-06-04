@@ -118,6 +118,27 @@ const GlobalStyle = createGlobalStyle`
   table {
     width: 100%;
   }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #C44A8A;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #666666;
+  }
 `;
 
 export default GlobalStyle;

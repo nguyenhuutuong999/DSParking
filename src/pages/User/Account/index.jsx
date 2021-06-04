@@ -124,7 +124,7 @@ function AccountPage({
       <Tabs defaultActiveKey="1">
         <TabPane tab="Transaction History" key="1">
           <Style.AccountContent>
-            <Table columns={columns} dataSource={transactionHistory} pagination={{ pageSize: 7 }} />
+            <Table columns={columns} dataSource={transactionHistory} />
           </Style.AccountContent>
         </TabPane>
         <TabPane tab="Parking History" key="2">

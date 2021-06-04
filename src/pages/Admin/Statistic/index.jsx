@@ -415,7 +415,7 @@ function StatisticPage() {
             </ResponsiveContainer>
           </Style.CardContainer>
         </Col>
-        <Col span={6}>
+        <Col xxl={6} lg={8} md={24}>
           <Style.CardContainer>
             <ResponsiveContainer width="100%" height={312} fill='white'>
               <PieChart>
@@ -432,7 +432,7 @@ function StatisticPage() {
             </ResponsiveContainer>
           </Style.CardContainer>
         </Col>
-        <Col span={9}>
+        <Col xxl={9} lg={16}>
           <Row gutter={[16, 16]}>
             <Col span={12}>
               <Style.FacilityRevenueContainer f254nvl>
@@ -496,9 +496,9 @@ function StatisticPage() {
             </Col>
           </Row>
         </Col>
-        <Col span={9}>
+        <Col xxl={9} md={24}>
           <Row gutter={[16, 16]}>
-            <Col span={12}>
+            <Col xxl={12} md={12}>
               <Style.TopUpContainer>
                 <Text white>Top Up</Text>
                 <Space style={{ margin: '8px 0' }}>
@@ -507,7 +507,7 @@ function StatisticPage() {
                 </Space>
               </Style.TopUpContainer>
             </Col>
-            <Col span={12}>
+            <Col xxl={12} md={12}>
               <Style.RevenueContainer>
                 <Text white>Revenue</Text>
                 <Space style={{ margin: '8px 0' }}>
@@ -516,7 +516,7 @@ function StatisticPage() {
                 </Space>
               </Style.RevenueContainer>
             </Col>
-            <Col span={24}>
+            <Col xxl={24} lg={12} md={24}>
               <Style.CardContainer>
                 <Row gutter={16}>
                   <Col flex="90px">
@@ -536,7 +536,7 @@ function StatisticPage() {
                 </Row>
               </Style.CardContainer>
             </Col>
-            <Col span={24}>
+            <Col xxl={24} lg={12} md={24}>
               <Style.CardContainer>
                 <Row gutter={16}>
                   <Col flex="90px">
