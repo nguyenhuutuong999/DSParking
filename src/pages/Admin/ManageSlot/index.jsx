@@ -31,7 +31,7 @@ function ManageSlot() {
                 let numDot = [];
                 numDot.push(
                   <Text xxxl w6 style={{ marginRight: 4, minWidth: 32 }} key={index1}>
-                    {numParked["Name"]}
+                    {numParked["Name"] + numParked["Line"]}
                   </Text>
                 );
 
@@ -70,8 +70,8 @@ function ManageSlot() {
       >
         <Select.Option value={0}>Quang Trung</Select.Option>
         <Select.Option value={1}>Hoa Khanh</Select.Option>
-        <Select.Option value={2}>254 Nguyen Van Linh</Select.Option>
-        <Select.Option value={3}>334 Nguyen Van Linh</Select.Option>
+        <Select.Option value={2}>254 NVL</Select.Option>
+        <Select.Option value={3}>334 NVL</Select.Option>
       </Select>
 
       <Row gutter={[16, 16]}>{renderPark}</Row>

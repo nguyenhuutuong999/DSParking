@@ -23,9 +23,11 @@ function Manage() {
   const [isShowAddModal, setIsShowAddModal] = useState(false);
   const [isShowEditModal, setIsShowEditModal] = useState(false);
   const [modifyAccountData, setModifyAccountData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getUser();
+    
   }, []);
 
   async function getUser() {
@@ -49,8 +51,8 @@ function Manage() {
       Array.prototype.push.apply(arrInfor, [snapshotValueInfor[obj]]);
     }
     setUserInfos(arrInfor);
+    setTimeout(() => {  setIsLoading(false) }, 1000);
   }
-
   let tableData = [];
 
   users.forEach((user) => {
@@ -208,6 +210,7 @@ function Manage() {
           <Button type="primary" onClick={() => setIsShowAddModal(true)}>Add Account</Button>
         </Row>
         <Table
+        loading = {isLoading}
           columns={columns}
           dataSource={tableFilterData}
           scroll={{ x: 1100 }}

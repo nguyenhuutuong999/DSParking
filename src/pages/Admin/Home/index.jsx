@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Statistic, Space, Progress } from 'antd';
-import { LineChart, Line, ResponsiveContainer, XAxis, Legend, YAxis, Tooltip } from 'recharts';
+import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
 import moment from 'moment';
 import { WEEKDAY_FORMAT, MONTH_FORMAT } from '../../../constants/common';
 import { firebaseApp } from './../../../configs/firebase';
-
 import { Text } from '../../../components/styles';
-
 import * as Style from './styles';
 
 function Home() {
@@ -123,10 +121,6 @@ function Home() {
 
       arr.map((ob) => {
         let convertDay = ob.dateGet.split(/-| /, 3);
-        // console.log(convertDay[0])
-        // console.log(convertDay[1])
-
-
         if (item.month == convertDay[1] && item.year == convertDay[0]) {
 
           if (ob.place == 2) {
@@ -179,9 +173,6 @@ function Home() {
 
       arr.map((ob) => {
         let convertDay = ob.dateGet.split(/-| /, 3);
-        // console.log(convertDay[0])
-        // console.log(convertDay[1])
-
 
         if (item.day == convertDay[2] && item.month == convertDay[1] && item.year == convertDay[0]) {
 
@@ -276,7 +267,7 @@ const formatVND = (x) =>{
             <Col span={16}>
               <Statistic
                 title="Facility"
-                value="254 Nguyễn Văn Linh"
+                value="254 NVL"
                 valueStyle={{ fontSize: 20 }}
               />
             </Col>
@@ -338,7 +329,7 @@ const formatVND = (x) =>{
             <Col span={16}>
               <Statistic
                 title="Facility"
-                value="334 Nguyễn Văn Linh"
+                value="334 NVL"
                 valueStyle={{ fontSize: 20 }}
               />
             </Col>
