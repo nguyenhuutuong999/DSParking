@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Row, Table, Input, Select, Space, Button, Tag } from 'antd';
-import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Row, Table, Input, Select, Space, Button, Tag, Modal } from 'antd';
+import {
+  SearchOutlined,
+  EditOutlined,
+  StopOutlined,
+  ExclamationCircleOutlined 
+} from '@ant-design/icons';
 import { firebaseApp } from "./../../../configs/firebase";
+
+import AddAccountModal from './components/AddAccountModal';
+import EditAccountModal from './components/EditAccountModal';
 
 import * as Style from './styles';
 
@@ -12,8 +20,14 @@ function Manage() {
   const [userInfos, setUserInfos] = useState([]);
   const [selectPlace, setSelectPlace] = useState(undefined);
   const [keyword, setKeyword] = useState("");
+  const [isShowAddModal, setIsShowAddModal] = useState(false);
+  const [isShowEditModal, setIsShowEditModal] = useState(false);
+  const [modifyAccountData, setModifyAccountData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     getUser();
+    
   }, []);
 
   async function getUser() {
@@ -37,8 +51,8 @@ function Manage() {
       Array.prototype.push.apply(arrInfor, [snapshotValueInfor[obj]]);
     }
     setUserInfos(arrInfor);
+    setTimeout(() => {  setIsLoading(false) }, 1000);
   }
-
   let tableData = [];
 
   users.forEach((user) => {
@@ -68,6 +82,28 @@ function Manage() {
       }
     });
   });
+
+  function handleEditAccount(record) {
+    setIsShowEditModal(true);
+    setModifyAccountData(record);
+  }
+
+  function handleBlockAccount(record) {
+    Modal.confirm({
+      title: `Are you sure block ${record.name}?`,
+      icon: <ExclamationCircleOutlined />,
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        console.log('OK');
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  
+  }
 
   const tableFilterData = tableData.filter((item) => {
     if (selectPlace) {
@@ -117,45 +153,79 @@ function Manage() {
       dataIndex: 'action',
       render: (_, record) => (
         <Space>
-          <Button type="primary" ghost><EditOutlined /></Button>
-          <Button danger><DeleteOutlined /></Button>
+          <Button
+            type="primary"
+            ghost
+            onClick={() => handleEditAccount(record)}
+          >
+            <EditOutlined />
+            Edit
+          </Button>
+          <Button
+            danger
+            onClick={() => handleBlockAccount(record)}
+          >
+            <StopOutlined />
+            Block
+          </Button>
         </Space>
       ),
     }
   ]
 
   return (
-    <Style.ManageContainer>
-      <Row justify="space-between" style={{ marginBottom: 16 }}>
-        <Space size={16}>
-          <Input
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            suffix={<SearchOutlined />}
-            placeholder="Search name..."
-          />
-          <Select
-            allowClear
-            onChange={(value) => setSelectPlace(value)}
-            value={selectPlace}
-            placeholder="Filter role"
-            style={{ width: 140 }}
-          >
-            <Select.Option value="0">GuardBOT</Select.Option>
-            <Select.Option value="1">Guard</Select.Option>
-            <Select.Option value="2">Teacher</Select.Option>
-            <Select.Option value="3">Student</Select.Option>
-            <Select.Option value="4">Admin</Select.Option>
-            <Select.Option value="5">Place</Select.Option>
-          </Select>
-        </Space>
-        <Button type="primary">Add Account</Button>
-      </Row>
-      <Table
-        columns={columns}
-        dataSource={tableFilterData}
+    <>
+      <Style.ManageContainer>
+        <Row justify="space-between" style={{ marginBottom: 16 }}>
+          <Space size={16}>
+            <Input
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              suffix={<SearchOutlined />}
+              placeholder="Search name..."
+            />
+            <Select
+              allowClear
+              onChange={(value) => setSelectPlace(value)}
+              value={selectPlace}
+              placeholder="Filter role"
+              style={{ width: 140 }}
+            >
+              <Select.Option value="0">GuardBOT</Select.Option>
+              <Select.Option value="1">Guard</Select.Option>
+              <Select.Option value="2">Teacher</Select.Option>
+              <Select.Option value="3">Student</Select.Option>
+              <Select.Option value="4">Admin</Select.Option>
+              <Select.Option value="5">Place</Select.Option>
+            </Select>
+            <Select
+              allowClear
+              placeholder="Status account"
+              style={{ width: 140 }}
+            >
+              <Select.Option value="0">Active</Select.Option>
+              <Select.Option value="1">Block</Select.Option>
+            </Select>
+          </Space>
+          <Button type="primary" onClick={() => setIsShowAddModal(true)}>Add Account</Button>
+        </Row>
+        <Table
+        loading = {isLoading}
+          columns={columns}
+          dataSource={tableFilterData}
+          scroll={{ x: 1100 }}
+        />
+      </Style.ManageContainer>
+      <AddAccountModal
+        setIsShowAddModal={setIsShowAddModal}
+        isShowAddModal={isShowAddModal}
       />
-    </Style.ManageContainer>
+      <EditAccountModal
+        setIsShowEditModal={setIsShowEditModal}
+        isShowEditModal={isShowEditModal}
+        modifyAccountData={modifyAccountData}
+      />
+    </>
   );
 }
 export default Manage;

@@ -50,5 +50,4 @@ export const AppMain = styled.div`
 `;
 
 export const AppContent = styled.div`
-  height: calc(100% - 60px);
 `;

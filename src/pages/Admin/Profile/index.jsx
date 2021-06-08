@@ -55,7 +55,7 @@ function ProfilePage() {
                   initialValues={{
                     name: userInfo.name,
                     email: userInfo.email,
-                    sex: userInfo.sex,
+                    sex: parseInt(userInfo.sex),
                     birthday: moment(userInfo.birthday, 'YYYY-MM-DD'),
                     phone: userInfo.phone,
                     address: userInfo.adress,
