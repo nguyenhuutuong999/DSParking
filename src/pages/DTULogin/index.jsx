@@ -6,8 +6,8 @@ import "./styles.css";
 
 function DTULoginPage(props) {
   const [account, setAccount] = useState({
-    user: "luongpthanhdat",
-    pass: "matkhau123",
+    user: "",
+    pass: "",
     mess: true,
   });
   window.addEventListener('keydown', (event) => {
