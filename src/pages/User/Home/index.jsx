@@ -302,7 +302,7 @@ function HomePage() {
         </Style.ProfileCardContainer>
         <Style.CardContainer style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Text headerText xl style={{ marginBottom: 8 }}>Your QrCode</Text>
-          <QRCode value={`${user.id}${userData.secretNum}`} size={140} />
+          <QRCode value={user.id + "|" + userData.idStudent + "|" + userData.name+ "|" + userData.secretNum} size={140} />
           <Popconfirm
             placement="topRight"
             title="Confirm the change QRCode?"
